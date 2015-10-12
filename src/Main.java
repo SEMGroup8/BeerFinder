@@ -10,13 +10,14 @@ import java.sql.*;
  */
 public class Main {
 
+	String searchString;
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<ArrayList> sqlData = new ArrayList<>();
 
-        sqlData = MysqlDriver.selectMany("Select * from pubs");
+        sqlData = MysqlDriver.selectMany("Select * from beers");
 
        for(int i = 0; i < sqlData.size(); i++)
         {
