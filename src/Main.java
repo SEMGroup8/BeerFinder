@@ -10,6 +10,7 @@ import java.sql.*;
  */
 public class Main {
 
+	String searchString;
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
