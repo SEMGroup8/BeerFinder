@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 public class MysqlDriver {
 
+    private int bajs;
+
     protected ArrayList<Object> select(String query) {
 
         ArrayList<Object> result = new ArrayList<>();
