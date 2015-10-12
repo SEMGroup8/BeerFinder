@@ -16,7 +16,7 @@ public class Main {
 
         ArrayList<ArrayList> sqlData = new ArrayList<>();
 
-        sqlData = MysqlDriver.connect("Select * from pubs");
+        sqlData = MysqlDriver.selectMany("Select * from pubs");
 
        for(int i = 0; i < sqlData.size(); i++)
         {
