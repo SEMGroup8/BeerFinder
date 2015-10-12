@@ -63,7 +63,7 @@ public class MysqlDriver {
         return result;
     }
 
-    protected ArrayList<ArrayList> selectMany(String query) {
+    public static ArrayList<ArrayList> selectMany(String query) {
 
         ArrayList<ArrayList> result = new ArrayList<>();
 
@@ -156,4 +156,5 @@ public class MysqlDriver {
             }
         }
     }
+    
 }
