@@ -17,7 +17,7 @@
                </HBox.margin>
             </Text>
             <Text layoutX="573.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" textAlignment="CENTER" wrappingWidth="82.68292617797852" />
-            <TextField prefHeight="0.0" prefWidth="163.0" text="Type here:" />
+            <TextField prefHeight="0.0" prefWidth="163.0" text="Type here:" onMouseClicked="#clearFieldLogin" fx:id="LoginText" />
             <Text layoutX="364.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" textAlignment="CENTER" wrappingWidth="82.68292617797852" />
             <PasswordField />
             <Button mnemonicParsing="false" text="Login" />
@@ -27,7 +27,7 @@
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField text="Search..." fx:id="SearchText"/>
+            <TextField text="Search..." fx:id="SearchText" onMouseClicked="#clearField"/>
             <Button mnemonicParsing="false" text="Search" fx:id="Search" onAction="#onButtonClick"  />
          </children>
       </HBox>

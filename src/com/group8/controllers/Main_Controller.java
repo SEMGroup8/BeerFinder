@@ -23,8 +23,22 @@ public class Main_Controller implements Initializable {
     //
     public Button Search;
     public TextField SearchText;
-    String data="";
+    public TextField LoginText;
 
+    String data="";
+    // Auto clear fields when selected
+    public void clearField()
+    {
+        SearchText.setText("");
+
+    }
+
+    public void clearFieldLogin()
+    {
+        LoginText.setText("");
+
+
+    }
 
     /*
         On clicking the Search button execute query through MySqlDriver
@@ -45,7 +59,7 @@ public class Main_Controller implements Initializable {
 
             for (int j = 0; j < row.size(); j++) {
 
-                data += row.get(j).toString();
+                data += row.get(j).toString() +" ";
 
             }
             data += "\n";
