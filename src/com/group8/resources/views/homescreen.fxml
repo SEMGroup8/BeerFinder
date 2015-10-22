@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.Main_Controller">
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
@@ -27,8 +27,8 @@
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField text="Search..." />
-            <Button mnemonicParsing="false" text="Search" />
+            <TextField text="Search..." fx:id="SearchText"/>
+            <Button mnemonicParsing="false" text="Search" fx:id="Search" onAction="#onButtonClick"  />
          </children>
       </HBox>
    </center>
