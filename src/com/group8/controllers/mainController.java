@@ -6,9 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +24,9 @@ public class mainController implements Initializable {
     public TextField SearchText;
     public TextField LoginText;
     public PasswordField PswrdField;
+    public Label Error;
+    public ProgressIndicator Load;
+
 
     String data="";
 
@@ -71,6 +72,8 @@ public class mainController implements Initializable {
         if (PswrdField.getText().isEmpty()){
             PswrdField.setText("password");
         }
+     //   Load.setVisible(true);
+
     }
 
     /*
@@ -78,6 +81,13 @@ public class mainController implements Initializable {
      */
     @FXML
     public void onButtonClick(javafx.event.ActionEvent event) throws IOException {
+
+
+        // Loadig wheel indetermined time
+        Load.setVisible(true);
+
+
+
         // Fetch the user input
         String searchInput;
 
@@ -99,14 +109,21 @@ public class mainController implements Initializable {
         }
         // Test output
         System.out.println(data);
-        // Store the data fetched from the server in the "queryResult" object
-        queryResult.getInstance().setResult(data);
-        // Load the result stage
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/result.fxml"));
-        Scene result_scene = new Scene(result);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+
+        if (!data.isEmpty()) {
+            // Store the data fetched from the server in the "queryResult" object
+            queryResult.getInstance().setResult(data);
+            // Load the result stage
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
+            Scene result_scene = new Scene(result);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }else
+        {
+           Load.setVisible(false);
+           Error.setText("Invalid Search String!");
+        }
     }
 
     /*

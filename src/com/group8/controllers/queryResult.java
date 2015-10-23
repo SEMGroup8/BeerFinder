@@ -10,7 +10,8 @@ public class queryResult {
     private String result;
 
 // returns this instance
-public static queryResult getInstance() {
+public static queryResult getInstance()
+    {
     return instance;
     }
     // Return the SQL query result
@@ -19,11 +20,13 @@ public static queryResult getInstance() {
      return result;
     }
     // Reset this
-    public void setResult() {
+    public void setResult()
+    {
       this.result="";
     }
     // Set the value of this to the query fetch data
-    public void setResult(String data) {
+    public void setResult(String data)
+    {
         this.result=data;
     }
 }
