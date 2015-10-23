@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -18,26 +19,58 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-22.
  */
-public class Main_Controller implements Initializable {
+public class mainController implements Initializable {
 
     //
     public Button Search;
     public TextField SearchText;
     public TextField LoginText;
+    public PasswordField PswrdField;
 
     String data="";
+
     // Auto clear fields when selected
-    public void clearField()
+    // Clear the Search field
+    public void clearFieldSearch()
     {
-        SearchText.setText("");
+        exitField();
 
+        if (SearchText.getText().equals("Search...")) {
+            SearchText.setText("");
+        }
     }
-
+    // Clear the Login field
     public void clearFieldLogin()
     {
-        LoginText.setText("");
+        exitField();
+        if (LoginText.getText().equals("Type here:")) {
+            LoginText.setText("");
+        }
+    }
+    // Clear the password field
+    public void clearFieldPassword()
+    {
+        exitField();
+        if(PswrdField.getText().equals("password"))
+        {
+            PswrdField.setText("");
+        }
+    }
 
+    // Resets guide text if no input was made
+    public void exitField()
+    {
+        if (LoginText.getText().isEmpty()){
+            LoginText.setText("Type here:");
+        }
 
+        if (SearchText.getText().isEmpty()){
+            SearchText.setText("Search...");
+        }
+
+        if (PswrdField.getText().isEmpty()){
+            PswrdField.setText("password");
+        }
     }
 
     /*
@@ -66,8 +99,8 @@ public class Main_Controller implements Initializable {
         }
         // Test output
         System.out.println(data);
-        // Store the data fetched from the server in the "develop_SQL_query" object
-        develop_SQL_query.getInstance().setResult(data);
+        // Store the data fetched from the server in the "queryResult" object
+        queryResult.getInstance().setResult(data);
         // Load the result stage
         Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/result.fxml"));
         Scene result_scene = new Scene(result);
@@ -81,8 +114,8 @@ public class Main_Controller implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Reset the "develop_SQL_query" object.result
-        develop_SQL_query.getInstance().setResult();
+        // Reset the "queryResult" object.result
+        queryResult.getInstance().setResult();
     }
 
 

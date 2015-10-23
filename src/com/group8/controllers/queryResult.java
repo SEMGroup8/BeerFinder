@@ -3,14 +3,14 @@ package com.group8.controllers;
 /**
  * Created by AnkanX on 15-10-22.
  */
-public class develop_SQL_query {
+public class queryResult {
 
-    private final static develop_SQL_query instance =new develop_SQL_query();
+    private final static queryResult instance =new queryResult();
 
     private String result;
 
 // returns this instance
-public static develop_SQL_query getInstance() {
+public static queryResult getInstance() {
     return instance;
     }
     // Return the SQL query result

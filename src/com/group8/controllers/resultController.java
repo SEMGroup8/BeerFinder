@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-22.
  */
-public class Result_Controller implements Initializable {
+public class resultController implements Initializable {
 
     public Button Back;
     public TextArea resultText;
@@ -42,10 +42,10 @@ public class Result_Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // test output
-        System.out.println("Vid Odins skägg det funkar! " + develop_SQL_query.getInstance().getResult().toString());
+        System.out.println("Vid Odins skägg det funkar! " + queryResult.getInstance().getResult().toString());
         // Set the Text square on the top element of the result scene
-        // to current "develop_SQL_query" Object.result
-        resultText.setText(develop_SQL_query.getInstance().getResult().toString());
+        // to current "queryResult" Object.result
+        resultText.setText(queryResult.getInstance().getResult().toString());
     }
 
 }
