@@ -8,18 +8,33 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#exitField" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.mainController">
    <top>
-      <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
+      <HBox alignment="TOP_RIGHT" prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Login" textAlignment="CENTER" wrappingWidth="36.682926177978516">
                <HBox.margin>
-                  <Insets />
+                  <Insets top="15.0" />
                </HBox.margin>
             </Text>
-            <Text layoutX="573.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" textAlignment="CENTER" wrappingWidth="82.68292617797852" />
-            <TextField fx:id="LoginText" onMouseClicked="#clearFieldLogin" prefHeight="0.0" prefWidth="163.0" text="Type here:" />
-            <Text layoutX="364.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" textAlignment="CENTER" wrappingWidth="82.68292617797852" />
-            <PasswordField fx:id="PswrdField" onMouseClicked="#clearFieldPassword" text="password" />
-            <Button mnemonicParsing="false" onMousePressed="#exitField" text="Login" />
+            <Text layoutX="573.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" textAlignment="CENTER" wrappingWidth="82.68292617797852">
+               <HBox.margin>
+                  <Insets top="15.0" />
+               </HBox.margin></Text>
+            <TextField fx:id="LoginText" onMouseClicked="#clearFieldLogin" prefHeight="0.0" prefWidth="163.0" text="Type here:">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></TextField>
+            <Text layoutX="364.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" textAlignment="CENTER" wrappingWidth="82.68292617797852">
+               <HBox.margin>
+                  <Insets top="15.0" />
+               </HBox.margin></Text>
+            <PasswordField fx:id="PswrdField" onMouseClicked="#clearFieldPassword" text="password">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></PasswordField>
+            <Button fx:id="Login" mnemonicParsing="false" onAction="#onLogin" onMousePressed="#exitField" text="Login">
+               <HBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </top>
@@ -31,7 +46,7 @@
                   <AnchorPane prefHeight="270.0" prefWidth="274.0">
                      <children>
                         <TextField fx:id="SearchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" text="Search..." />
-                        <Button fx:id="Search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onButtonClick" text="Search" />
+                        <Button fx:id="Search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
                         <Label fx:id="Error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
                         <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
                      </children>

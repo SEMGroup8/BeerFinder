@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class mainController implements Initializable {
 
     //
     public Button Search;
+    public Button Login;
     public TextField SearchText;
     public TextField LoginText;
     public PasswordField PswrdField;
@@ -80,7 +82,7 @@ public class mainController implements Initializable {
         On clicking the Search button execute query through MySqlDriver
      */
     @FXML
-    public void onButtonClick(javafx.event.ActionEvent event) throws IOException {
+    public void onSearch(javafx.event.ActionEvent event) throws IOException {
 
         // Load wheel until task is finished
         Load.setVisible(true);
@@ -115,7 +117,7 @@ public class mainController implements Initializable {
             queryResult.getInstance().setResult(data);
             // Load the result stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
-            Scene result_scene = new Scene(result);
+            Scene result_scene = new Scene(result,800,600);
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
             main_stage.show();
@@ -124,6 +126,16 @@ public class mainController implements Initializable {
            Load.setVisible(false);
            Error.setText("Invalid Search String!");
         }
+    }
+
+    @FXML
+    public void onLogin(javafx.event.ActionEvent event) throws IOException{
+        // Load the pub stage
+        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubScreen.fxml"));
+        Scene result_scene = new Scene(result,800,600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
     }
 
     /*
