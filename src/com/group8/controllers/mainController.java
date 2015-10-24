@@ -72,7 +72,7 @@ public class mainController implements Initializable {
         if (PswrdField.getText().isEmpty()){
             PswrdField.setText("password");
         }
-     //   Load.setVisible(true);
+
 
     }
 
@@ -82,8 +82,7 @@ public class mainController implements Initializable {
     @FXML
     public void onButtonClick(javafx.event.ActionEvent event) throws IOException {
 
-
-        // Loadig wheel indetermined time
+        // Load wheel until task is finished
         Load.setVisible(true);
 
 
@@ -102,7 +101,8 @@ public class mainController implements Initializable {
 
             for (int j = 0; j < row.size(); j++) {
 
-                data += row.get(j).toString() +" ";
+                    data += row.get(j).toString() + " ";
+
 
             }
             data += "\n";

@@ -1,9 +1,3 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import com.group8.database.*;
-
-import java.sql.*;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -24,7 +18,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
         Scene scene = new Scene(root, 800, 600);
         stage.setTitle("FXML Welcome");
         stage.setScene(scene);

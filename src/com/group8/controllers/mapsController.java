@@ -8,55 +8,51 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 /**
- * Created by AnkanX on 15-10-22.
+ * Created by AnkanX on 15-10-24.
  */
-public class resultController implements Initializable {
+public class mapsController implements Initializable {
 
     public Button Back;
-    public Button Maps;
-    public TextArea resultText;
+    public Button Home;
 
     /*
-        Back button pressed takes you back to "home screen"
-      */
+    Back button pressed takes you back to "result screen"
+     */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
+        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
+        Scene result_scene = new Scene(homescreen, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
+
+    }
+
+    @FXML
+    public void returnHome(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
-
     }
 
-    @FXML
-    public void getMaps(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-
-    }
 
     /*
-        initialize result controller
-     */
+    initialize maps controller
+    */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // test output
-        System.out.println("Vid Odins skägg det funkar! " + queryResult.getInstance().getResult().toString());
-        // Set the Text square on the top element of the result scene
-        // to current "queryResult" Object.result
-        resultText.setText(queryResult.getInstance().getResult().toString());
+        System.out.println("Maps accsessed and initializeing!");
     }
 
 }
