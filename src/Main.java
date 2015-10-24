@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application{
 
-	String searchString;
+
     public static void main(String[] args)
     {
 
@@ -20,7 +20,7 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
         Scene scene = new Scene(root, 800, 600);
-        stage.setTitle("FXML Welcome");
+        stage.setTitle("BeerFinder Alpha Test");
         stage.setScene(scene);
         stage.show();
     }

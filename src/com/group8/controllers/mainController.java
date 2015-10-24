@@ -23,6 +23,7 @@ public class mainController implements Initializable {
     //
     public Button Search;
     public Button Login;
+    public CheckBox runSqlBox;
     public TextField SearchText;
     public TextField LoginText;
     public PasswordField PswrdField;
@@ -92,7 +93,16 @@ public class mainController implements Initializable {
         // Fetch the user input
         String searchInput;
 
-        searchInput = SearchText.getText();
+
+
+
+        if (runSqlBox.isSelected()) {
+            searchInput = SearchText.getText();
+        }else {
+            // Advanced ( LOL SO EASYEEEEY )
+            searchInput = "select * from beers where name like '" + SearchText.getText() + "%'";
+        }
+
         // Execute user query
         ArrayList<ArrayList> sqlData = new ArrayList<>();
 

@@ -49,6 +49,7 @@
                         <Button fx:id="Search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
                         <Label fx:id="Error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
                         <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
+                        <CheckBox fx:id="runSqlBox" layoutY="84.0" mnemonicParsing="false" text="SQL" />
                      </children>
                   </AnchorPane>
                </children>
