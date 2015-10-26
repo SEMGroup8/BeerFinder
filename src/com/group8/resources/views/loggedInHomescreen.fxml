@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#exitField" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInHomeScreenController">
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="392.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Logged in as: " />
+                  <Label fx:id="userName" text="Label" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <Button fx:id="logout" mnemonicParsing="false" onAction="#onLogout" onMousePressed="#exitField" text="Logout" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <AnchorPane prefHeight="270.0" prefWidth="274.0">
+                     <children>
+                        <TextField fx:id="SearchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" text="Search..." />
+                        <Button fx:id="Search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
+                        <Label fx:id="Error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
+                        <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
+                        <CheckBox fx:id="runSqlBox" layoutY="84.0" mnemonicParsing="false" text="SQL" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
