@@ -67,14 +67,25 @@ public class MainController implements Initializable {
         }
     }
 
+    // Checkbox that when checked shows advanced checkboxes
     public void showAdvanced()
     {
+        if(runSqlBox.isSelected())
+        {
+            runSqlBox.setSelected(false);
+        }
+
+
         if(!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible())
         {
             advancedType.setVisible(true);
             advancedProducer.setVisible(true);
             advancedDescription.setVisible(true);
             all.setVisible(true);
+            advancedType.setSelected(false);
+            advancedProducer.setSelected(false);
+            advancedDescription.setSelected(false);
+            all.setSelected(false);
         }else
         {
             advancedType.setVisible(false);
@@ -83,7 +94,7 @@ public class MainController implements Initializable {
             all.setVisible(false);
         }
     }
-
+    // Checkbox to check all the advanced boxes
     public void checkAll()
     {
         if ( !advancedType.isSelected() || !advancedProducer.isSelected() || !advancedDescription.isSelected()) {
@@ -103,14 +114,22 @@ public class MainController implements Initializable {
     // Makes the advanced search viseble or inviseble depending on runSQL
     public void noSearch()
     {
+
+
         if(runSqlBox.isSelected()) {
             advancedDescription.setVisible(false);
             advancedProducer.setVisible(false);
             advancedType.setVisible(false);
-        }else {
+            all.setVisible(false);
+            advanced.setSelected(false);
+        }else if(!runSqlBox.isSelected() && advanced.isSelected()){
             advancedDescription.setVisible(true);
             advancedProducer.setVisible(true);
             advancedType.setVisible(true);
+            all.setVisible(true);
+            error.setText("");
+        }else
+        {
             error.setText("");
         }
     }
@@ -151,6 +170,7 @@ public class MainController implements Initializable {
 
         // SQL query
         if (runSqlBox.isSelected()) {
+
             searchInput = searchText.getText();
         }else {
             // name
