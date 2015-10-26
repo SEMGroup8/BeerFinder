@@ -63,7 +63,7 @@ public class ResultController implements Initializable {
         String result="";
         for(int i = 0; i < BeerData.beer.size();i++)
         {
-        result += BeerData.beer.get(i).getName() + "\n";
+        result += BeerData.beer.get(i).toString() + "\n";
         resultText.setText(result);
         }
     }

@@ -101,6 +101,15 @@ public class Beer extends MysqlDriver{
 
         super.insert(query);
     }
+    @Override
+    public String toString()
+    {
+        String result="";
+
+        result = this.getId() + " " +  this.name + " " + this.description + " " + this.type + " " + this.origin + " " + this.percentege + " " + this.producer + " " + this.volume + " " + this.isTap + " " + this.beerPackage;
+
+        return result;
+    }
 
 
 
