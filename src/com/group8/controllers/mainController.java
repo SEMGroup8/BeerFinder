@@ -22,9 +22,10 @@ import java.util.ResourceBundle;
  */
 public class mainController implements Initializable {
 
-    //
     public Button Search;
     public Button Login;
+    public Button register;
+
     public CheckBox runSqlBox;
     public TextField SearchText;
     public TextField LoginText;
@@ -172,6 +173,17 @@ public class mainController implements Initializable {
             main_stage.setScene(result_scene);
             main_stage.show();
         }
+    }
+
+    @FXML
+    public void onRegister(javafx.event.ActionEvent event) throws IOException
+    {
+        // Load the Register stage
+        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/registerUser.fxml"));
+        Scene result_scene = new Scene(result,800,600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
     }
 
     /*
