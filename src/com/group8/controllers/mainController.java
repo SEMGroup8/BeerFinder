@@ -1,5 +1,7 @@
 package com.group8.controllers;
 import com.group8.database.MysqlDriver;
+import com.group8.database.tables.Beer;
+import com.group8.database.tables.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -88,13 +90,8 @@ public class mainController implements Initializable {
         // Load wheel until task is finished
         Load.setVisible(true);
 
-
-
         // Fetch the user input
         String searchInput;
-
-
-
 
         if (runSqlBox.isSelected()) {
             searchInput = SearchText.getText();
@@ -140,12 +137,41 @@ public class mainController implements Initializable {
 
     @FXML
     public void onLogin(javafx.event.ActionEvent event) throws IOException{
-        // Load the pub stage
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubScreen.fxml"));
-        Scene result_scene = new Scene(result,800,600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+
+        String username = LoginText.getText();
+        String password = PswrdField.getText();
+
+        String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
+
+        User fetchedUser = new User(sqlQuery);
+
+        if(!fetchedUser.get_name().equals(username))
+        {
+            System.out.println(username);
+            System.out.println(fetchedUser.get_name());
+            return;
+        }
+
+        UserData.userInstance = fetchedUser;
+
+        if(fetchedUser.get_isPub())
+        {
+            // Load the pub stage
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubScreen.fxml"));
+            Scene result_scene = new Scene(result,800,600);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }
+        else
+        {
+            // Load the pub stage
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
+            Scene result_scene = new Scene(result,800,600);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }
     }
 
     /*
