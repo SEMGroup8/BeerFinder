@@ -15,8 +15,10 @@ public class Pub extends MysqlDriver{
     float entranceFee;
     Image pubImage;
 
-    public void Pub(String query)
+    public Pub(String query)
     {
+        super();
+
         ArrayList<Object> sqlReturn = super.select(query);
 
         this.name = sqlReturn.get(2).toString();

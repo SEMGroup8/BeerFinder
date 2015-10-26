@@ -16,19 +16,21 @@ public class Beer extends MysqlDriver{
     boolean isTap;
     Image beerImage;
     
-    public void Beer(String query)
+    public Beer(String query)
     {
-    	 ArrayList<Object> sqlReturn = super.select(query);
-    	 this.id = Integer.parseInt(sqlReturn.get(1).toString());
-         this.name = sqlReturn.get(2).toString();
-         this.description = sqlReturn.get(4).toString();
-         this.type = sqlReturn.get(5).toString();
-         this.origin = sqlReturn.get(6).toString();
-         this.percentege = Float.parseFloat(sqlReturn.get(7).toString());
-         this.producer = sqlReturn.get(8).toString();
-         this.volume = Float.parseFloat(sqlReturn.get(9).toString());
-         this.isTap = Boolean.parseBoolean(sqlReturn.get(10).toString());
-         this.beerPackage = sqlReturn.get(11).toString();
+        super();
+
+        ArrayList<Object> sqlReturn = super.select(query);
+        this.id = Integer.parseInt(sqlReturn.get(1).toString());
+        this.name = sqlReturn.get(2).toString();
+        this.description = sqlReturn.get(4).toString();
+        this.type = sqlReturn.get(5).toString();
+        this.origin = sqlReturn.get(6).toString();
+        this.percentege = Float.parseFloat(sqlReturn.get(7).toString());
+        this.producer = sqlReturn.get(8).toString();
+        this.volume = Float.parseFloat(sqlReturn.get(9).toString());
+        this.isTap = Boolean.parseBoolean(sqlReturn.get(10).toString());
+        this.beerPackage = sqlReturn.get(11).toString();
     }
 	
     public void insertBeer() {
