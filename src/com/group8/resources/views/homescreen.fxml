@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#exitField" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.mainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#exitField" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.MainController">
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
@@ -19,7 +19,7 @@
                <HBox.margin>
                   <Insets top="15.0" />
                </HBox.margin></Text>
-            <TextField fx:id="LoginText" onMouseClicked="#clearFieldLogin" prefHeight="0.0" prefWidth="163.0" text="Type here:">
+            <TextField fx:id="loginText" onMouseClicked="#clearFieldLogin" prefHeight="0.0" prefWidth="163.0" text="Type here:">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin></TextField>
@@ -27,11 +27,11 @@
                <HBox.margin>
                   <Insets top="15.0" />
                </HBox.margin></Text>
-            <PasswordField fx:id="PswrdField" onMouseClicked="#clearFieldPassword" text="password">
+            <PasswordField fx:id="pswrdField" onMouseClicked="#clearFieldPassword" text="password">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin></PasswordField>
-            <Button fx:id="Login" mnemonicParsing="false" onAction="#onLogin" onMousePressed="#exitField" text="Login">
+            <Button fx:id="login" mnemonicParsing="false" onAction="#onLogin" onMousePressed="#exitField" text="Login">
                <HBox.margin>
                   <Insets right="10.0" top="10.0" />
                </HBox.margin></Button>
@@ -45,11 +45,16 @@
                <children>
                   <AnchorPane prefHeight="270.0" prefWidth="274.0">
                      <children>
-                        <TextField fx:id="SearchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" text="Search..." />
-                        <Button fx:id="Search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
-                        <Label fx:id="Error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
+                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" text="Search..." />
+                        <Button fx:id="search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
+                        <Label fx:id="error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
                         <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
-                        <CheckBox fx:id="runSqlBox" layoutY="84.0" mnemonicParsing="false" text="SQL" />
+                        <CheckBox fx:id="runSqlBox" layoutY="84.0" mnemonicParsing="false" onAction="#noSearch" text="SQL" />
+                        <CheckBox fx:id="advancedType" visible="false" layoutY="148.0" mnemonicParsing="false" text="beerType" />
+                        <CheckBox fx:id="advancedProducer" visible="false" layoutX="100.0" layoutY="146.0" mnemonicParsing="false" text="Producer" />
+                        <CheckBox fx:id="advancedDescription" visible="false" layoutY="174.0" mnemonicParsing="false" text="Description" />
+                        <CheckBox fx:id="advanced" onAction="#showAdvanced" layoutX="57.0" layoutY="84.0" mnemonicParsing="false" text="Advanced" />
+                        <CheckBox fx:id="all" visible="false" onAction="#checkAll" layoutX="100.0" layoutY="174.0" mnemonicParsing="false" text="All" />
                      </children>
                   </AnchorPane>
                </children>

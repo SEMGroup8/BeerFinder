@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-24.
  */
-public class mapsController implements Initializable {
+public class MapsController implements Initializable {
 
     public Button Back;
     public Button Home;

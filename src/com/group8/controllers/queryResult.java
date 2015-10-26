@@ -3,14 +3,14 @@ package com.group8.controllers;
 /**
  * Created by AnkanX on 15-10-22.
  */
-public class queryResult {
+public class QueryResult {
 
-    private final static queryResult instance =new queryResult();
+    private final static QueryResult instance = new QueryResult();
 
     private String result;
 
 // returns this instance
-public static queryResult getInstance()
+public static QueryResult getInstance()
     {
     return instance;
     }

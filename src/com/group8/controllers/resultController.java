@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-22.
  */
-public class resultController implements Initializable {
+public class ResultController implements Initializable {
 
     public Button Back;
     public Button Maps;
@@ -53,10 +53,10 @@ public class resultController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // test output
-        System.out.println("Vid Odins skägg det funkar! " + queryResult.getInstance().getResult().toString());
+        System.out.println("Vid Odins skägg det funkar! " + QueryResult.getInstance().getResult().toString());
         // Set the Text square on the top element of the result scene
-        // to current "queryResult" Object.result
-        resultText.setText(queryResult.getInstance().getResult().toString());
+        // to current "QueryResult" Object.result
+        resultText.setText(QueryResult.getInstance().getResult().toString());
     }
 
 }

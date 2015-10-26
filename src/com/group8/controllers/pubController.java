@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-24.
  */
-public class pubController implements Initializable {
+public class PubController implements Initializable {
 
     public Button Back;
 
