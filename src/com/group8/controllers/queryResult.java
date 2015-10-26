@@ -5,7 +5,7 @@ package com.group8.controllers;
  */
 public class queryResult {
 
-    private final static queryResult instance =new queryResult();
+    private final static queryResult instance = new queryResult();
 
     private String result;
 

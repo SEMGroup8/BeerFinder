@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
  */
 public class pubController implements Initializable {
 
+    private final static pubController instance = new pubController();
+
     public Button Back;
 
     /*
