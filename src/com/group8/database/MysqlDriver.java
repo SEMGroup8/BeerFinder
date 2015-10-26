@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 
 public class MysqlDriver {
 
-    private int bajs;
-
     protected ArrayList<Object> select(String query) {
 
         ArrayList<Object> result = new ArrayList<>();
@@ -28,7 +26,6 @@ public class MysqlDriver {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
             rs = st.executeQuery(query);
-
             ResultSetMetaData metaData = rs.getMetaData();
 
             rs.next();
@@ -39,6 +36,7 @@ public class MysqlDriver {
             {
                 result.add(rs.getObject(i));
             }
+
 
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
@@ -121,8 +119,7 @@ public class MysqlDriver {
         return result;
     }
 
-    public void insert(String query)
-    {
+    public void insert(String query) {
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;
@@ -158,5 +155,4 @@ public class MysqlDriver {
             }
         }
     }
-    
 }
