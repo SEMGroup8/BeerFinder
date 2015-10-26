@@ -12,7 +12,7 @@ public class Beer extends MysqlDriver{
     // 
     private String name, description, type, origin, producer, beerPackage;
     int id;
-    float percentege,volume;
+    float percentage,volume;
     boolean isTap;
     Image beerImage;
     
@@ -24,7 +24,7 @@ public class Beer extends MysqlDriver{
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();
-        this.percentege = Float.parseFloat(sqlReturn.get(6).toString());
+        this.percentage = Float.parseFloat(sqlReturn.get(6).toString());
         this.producer = sqlReturn.get(7).toString();
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
@@ -38,7 +38,7 @@ public class Beer extends MysqlDriver{
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();
-        this.percentege = Float.parseFloat(sqlReturn.get(6).toString());
+        this.percentage = Float.parseFloat(sqlReturn.get(6).toString());
         this.producer = sqlReturn.get(7).toString();
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
@@ -81,15 +81,15 @@ public class Beer extends MysqlDriver{
         return id;
     }
 
-    public float getPercentege() {
-        return percentege;
+    public float getPercentage() {
+        return percentage;
     }
 
     public float getVolume() {
         return volume;
     }
 
-    public boolean isTap() {
+    public boolean getisTap() {
         return isTap;
     }
 
@@ -106,7 +106,7 @@ public class Beer extends MysqlDriver{
     {
         String result="";
 
-        result = this.getId() + " " +  this.name + " " + this.description + " " + this.type + " " + this.origin + " " + this.percentege + " " + this.producer + " " + this.volume + " " + this.isTap + " " + this.beerPackage;
+        result = this.getId() + " " +  this.name + " " + this.description + " " + this.type + " " + this.origin + " " + this.percentage + " " + this.producer + " " + this.volume + " " + this.isTap + " " + this.beerPackage;
 
         return result;
     }

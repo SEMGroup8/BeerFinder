@@ -1,6 +1,9 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +12,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.swing.text.TabableView;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,9 +29,34 @@ import java.util.ResourceBundle;
  */
 public class ResultController implements Initializable {
 
+    @FXML
     public Button Back;
+    @FXML
     public Button Maps;
-    public TextArea resultText;
+    @FXML
+    public TableView<Beer> beerTable;
+    @FXML
+    public TableColumn<Beer, String> beerName;
+    @FXML
+    public TableColumn<Beer, String> beerType;
+    @FXML
+    public TableColumn<Beer, String> beerDescription;
+    @FXML
+    public TableColumn<Beer, String> beerOrigin;
+    @FXML
+    public TableColumn<Beer, String> beerProducer;
+    @FXML
+    public TableColumn<Beer, String> beerPackage;
+    @FXML
+    public TableColumn<Beer, String> beerPercentage;
+    @FXML
+    public TableColumn<Beer, String> beerTap;
+    @FXML
+    public TableColumn<Beer, String> image;
+
+
+    public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
+
 
     /*
         Back button pressed takes you back to "home screen"
@@ -60,12 +93,24 @@ public class ResultController implements Initializable {
         //resultText.setText(QueryResult.getInstance().getResult().toString());
 
         // Display derp results
-        String result="";
-        for(int i = 0; i < BeerData.beer.size();i++)
-        {
-        result += BeerData.beer.get(i).toString() + "\n";
-        resultText.setText(result);
-        }
-    }
+        //   String result="";
+        // for(int i = 0; i < BeerData.beer.size();i++)
+        // {
+        //result += BeerData.beer.get(i).toString() + "\n";
+        //resultText.add;
+        //}
 
+        // You have to have a get function that is named get +" type" for it to work sets values.
+        beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
+        beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("Type"));
+        beerDescription.setCellValueFactory(new PropertyValueFactory<Beer, String>("Description"));
+        beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("Origin"));
+        beerProducer.setCellValueFactory(new PropertyValueFactory<Beer, String>("Producer"));
+        beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
+        beerTap.setCellValueFactory(new PropertyValueFactory<Beer, String>("isTap"));
+        beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
+        //Populate
+        beerTable.setItems(masterData);
+
+    }
 }
