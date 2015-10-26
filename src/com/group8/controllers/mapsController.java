@@ -36,6 +36,9 @@ public class MapsController implements Initializable {
 
     }
 
+    /*
+      Home Button
+     */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));

@@ -86,19 +86,7 @@ public class ResultController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // test output
-        //System.out.println("Vid Odins skägg det funkar! " + QueryResult.getInstance().getResult().toString());
-        // Set the Text square on the top element of the result scene
-        // to current "QueryResult" Object.result
-        //resultText.setText(QueryResult.getInstance().getResult().toString());
 
-        // Display derp results
-        //   String result="";
-        // for(int i = 0; i < BeerData.beer.size();i++)
-        // {
-        //result += BeerData.beer.get(i).toString() + "\n";
-        //resultText.add;
-        //}
 
         // You have to have a get function that is named get +" type" for it to work sets values.
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));

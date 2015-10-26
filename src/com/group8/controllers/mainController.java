@@ -20,28 +20,38 @@ import java.util.ResourceBundle;
  */
 public class MainController implements Initializable {
 
-    //
+    // Declaration of FXML elements
+    @FXML
     public Button search;
+    @FXML
     public Button login;
+    @FXML
     public CheckBox runSqlBox;
+    @FXML
     public CheckBox advancedType;
+    @FXML
     public CheckBox advancedProducer;
+    @FXML
     public CheckBox advancedDescription;
+    @FXML
     public CheckBox advanced;
+    @FXML
     public CheckBox all;
+    @FXML
     public TextField searchText;
+    @FXML
     public TextField loginText;
+    @FXML
     public PasswordField pswrdField;
+    @FXML
     public Label error;
+
    // public ProgressIndicator load;
 
-
-    String data="";
-
-
-
-    // Auto clear fields when selected
-    // Clear the Search field
+    /*
+     Auto clear fields when selected
+     Clear the Search field
+    */
     public void clearFieldSearch()
     {
         exitField();
@@ -166,8 +176,6 @@ public class MainController implements Initializable {
         // Fetch the user input
         String searchInput;
 
-
-
         // SQL query
         if (runSqlBox.isSelected()) {
 
@@ -199,19 +207,16 @@ public class MainController implements Initializable {
         sqlData = MysqlDriver.selectMany(searchInput);
 
         for (int i = 0; i < sqlData.size(); i++) {
-
-
-        Beer beer = new Beer(sqlData.get(i));
-        System.out.print(beer.getName());
-        BeerData.beer.add(beer);
+            // Add a new Beer to the beer arraylist
+            Beer beer = new Beer(sqlData.get(i));
+            // Testoutput
+            System.out.print(beer.getName());
+            BeerData.beer.add(beer);
         }
 
-        // Test output
-        // System.out.println(data);
 
         if ((BeerData.beer.size()>0)) {
-            // Store the data fetched from the server in the "QueryResult" object
-            //QueryResult.getInstance().setResult(data);
+
             // Load the result stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
             Scene result_scene = new Scene(result,800,600);
@@ -225,6 +230,7 @@ public class MainController implements Initializable {
         }
     }
 
+    // Login Button event
     @FXML
     public void onLogin(javafx.event.ActionEvent event) throws IOException{
         // Load the pub stage
@@ -240,8 +246,7 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Reset the "QueryResult" object.result
-        // QueryResult.getInstance().setResult();
+        // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
     }
 
