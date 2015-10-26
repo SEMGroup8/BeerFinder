@@ -1,5 +1,6 @@
 package com.group8.controllers;
 
+import com.group8.database.tables.Beer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,10 +54,18 @@ public class ResultController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // test output
-        System.out.println("Vid Odins skägg det funkar! " + QueryResult.getInstance().getResult().toString());
+        //System.out.println("Vid Odins skägg det funkar! " + QueryResult.getInstance().getResult().toString());
         // Set the Text square on the top element of the result scene
         // to current "QueryResult" Object.result
-        resultText.setText(QueryResult.getInstance().getResult().toString());
+        //resultText.setText(QueryResult.getInstance().getResult().toString());
+
+        // Display derp results
+        String result="";
+        for(int i = 0; i < BeerData.beer.size();i++)
+        {
+        result += BeerData.beer.get(i).getName() + "\n";
+        resultText.setText(result);
+        }
     }
 
 }

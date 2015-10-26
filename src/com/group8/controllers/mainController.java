@@ -1,5 +1,6 @@
 package com.group8.controllers;
 import com.group8.database.MysqlDriver;
+import com.group8.database.tables.Beer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,7 +33,7 @@ public class MainController implements Initializable {
     public TextField loginText;
     public PasswordField pswrdField;
     public Label error;
-    public ProgressIndicator load;
+   // public ProgressIndicator load;
 
 
     String data="";
@@ -109,7 +110,6 @@ public class MainController implements Initializable {
 
 
     }
-
 
     // Makes the advanced search viseble or inviseble depending on runSQL
     public void noSearch()
@@ -194,27 +194,24 @@ public class MainController implements Initializable {
 
 
         // Execute user query
-        ArrayList<ArrayList> sqlData = new ArrayList<>();
+        ArrayList<ArrayList<Object>> sqlData;
 
         sqlData = MysqlDriver.selectMany(searchInput);
 
         for (int i = 0; i < sqlData.size(); i++) {
-            ArrayList<Object> row = sqlData.get(i);
-
-            for (int j = 0; j < row.size(); j++) {
-
-                    data += row.get(j).toString() + " ";
 
 
-            }
-            data += "\n";
+        Beer beer = new Beer(sqlData.get(i));
+        System.out.print(beer.getName());
+        BeerData.beer.add(beer);
         }
-        // Test output
-        System.out.println(data);
 
-        if (!data.isEmpty()) {
+        // Test output
+        // System.out.println(data);
+
+        if ((BeerData.beer.size()>0)) {
             // Store the data fetched from the server in the "QueryResult" object
-            QueryResult.getInstance().setResult(data);
+            //QueryResult.getInstance().setResult(data);
             // Load the result stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
             Scene result_scene = new Scene(result,800,600);
@@ -244,7 +241,8 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Reset the "QueryResult" object.result
-        QueryResult.getInstance().setResult();
+        // QueryResult.getInstance().setResult();
+        BeerData.beer = new ArrayList<Beer>();
     }
 
 

@@ -63,9 +63,9 @@ public class MysqlDriver {
         return result;
     }
 
-    public static ArrayList<ArrayList> selectMany(String query) {
+    public static ArrayList<ArrayList<Object>> selectMany(String query) {
 
-        ArrayList<ArrayList> result = new ArrayList<>();
+        ArrayList<ArrayList <Object>> result = new ArrayList<>();
 
         Connection con = null;
         Statement st = null;
