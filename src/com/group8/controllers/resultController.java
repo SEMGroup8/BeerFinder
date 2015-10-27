@@ -5,19 +5,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.security.auth.callback.Callback;
 import javax.swing.text.TabableView;
 import java.awt.*;
 import java.io.IOException;
@@ -26,6 +29,9 @@ import java.util.ResourceBundle;
 
 /**
  * Created by AnkanX on 15-10-22.
+ *
+ * TODO Visual upgrade + presentation of objects
+ *
  */
 public class ResultController implements Initializable {
 
@@ -50,9 +56,11 @@ public class ResultController implements Initializable {
     @FXML
     public TableColumn<Beer, String> beerPercentage;
     @FXML
-    public TableColumn<Beer, String> beerTap;
+    public TableColumn<Beer, String> beerIsTap;
     @FXML
     public TableColumn<Beer, String> image;
+
+
 
 
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
@@ -60,7 +68,8 @@ public class ResultController implements Initializable {
 
     /*
         Back button pressed takes you back to "home screen"
-      */
+        @param
+    */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
@@ -79,7 +88,21 @@ public class ResultController implements Initializable {
         main_stage.setScene(result_scene);
         main_stage.show();
 
+
     }
+
+    public void getRow() {
+        beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getClickCount() == 2) {
+                    System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
+                }
+            }
+        });
+    }
+
 
     /*
         initialize result controller
@@ -95,9 +118,9 @@ public class ResultController implements Initializable {
         beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("Origin"));
         beerProducer.setCellValueFactory(new PropertyValueFactory<Beer, String>("Producer"));
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
-        beerTap.setCellValueFactory(new PropertyValueFactory<Beer, String>("isTap"));
+        beerIsTap.setCellValueFactory(new PropertyValueFactory<Beer, String>("IsTap"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
-        //Populate
+        //Populate the Tableview
         beerTable.setItems(masterData);
 
     }

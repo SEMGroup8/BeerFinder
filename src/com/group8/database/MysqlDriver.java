@@ -10,6 +10,11 @@ import java.util.logging.Logger;
 
 public class MysqlDriver {
 
+
+
+    /*
+
+     */
     protected ArrayList<Object> select(String query) {
 
         ArrayList<Object> result = new ArrayList<>();
@@ -62,7 +67,9 @@ public class MysqlDriver {
 
         return result;
     }
-
+    /*
+     Select multiple rows and return an array of objects
+     */
     public static ArrayList<ArrayList<Object>> selectMany(String query) {
 
         ArrayList<ArrayList <Object>> result = new ArrayList<>();

@@ -17,6 +17,9 @@ import java.util.ResourceBundle;
 
 /**
  * Created by AnkanX on 15-10-24.
+ *
+ * TODO implement Googlefx API
+ *
  */
 public class MapsController implements Initializable {
 
@@ -50,7 +53,7 @@ public class MapsController implements Initializable {
 
 
     /*
-    initialize maps controller
+    Initialize maps controller
     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

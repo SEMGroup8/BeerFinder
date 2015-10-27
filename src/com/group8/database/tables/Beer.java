@@ -13,9 +13,10 @@ public class Beer extends MysqlDriver{
     private String name, description, type, origin, producer, beerPackage;
     int id;
     float percentage,volume;
-    boolean isTap;
+    Boolean isTap;
     Image beerImage;
-    
+
+
     public Beer(String query)
     {
     	 ArrayList<Object> sqlReturn = super.select(query);
@@ -45,6 +46,9 @@ public class Beer extends MysqlDriver{
         this.beerPackage = sqlReturn.get(10).toString();
     }
 
+    /*
+    Setters and Gettersß
+     */
     public Image getBeerImage() {
         return beerImage;
     }
@@ -89,18 +93,30 @@ public class Beer extends MysqlDriver{
         return volume;
     }
 
-    public boolean getisTap() {
+    public Boolean getIsTap() {
         return isTap;
     }
 
-    public void insertBeer() {
+
+    /*
+        TODO implement the actual insert method
+
+     */
+    public void insertBeer(Beer beer) {
 
         String query = "";
+
+        query += "INSERT INTO beers (name,description,beerType,originID,percentage,producerName,volume,package)" +
+                 " VALUES (" + beer.getName() + "," + beer.getDescription() + "," + beer.getOrigin() + "," + beer.getPercentage() + ","
+                 + beer.getProducer() + "," + beer.getVolume() + "," + beer.getBeerPackage() + ");";
 
 
 
         super.insert(query);
     }
+    /*
+    Overide on original toString to return entire object in String format.
+     */
     @Override
     public String toString()
     {

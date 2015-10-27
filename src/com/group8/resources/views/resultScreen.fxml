@@ -38,7 +38,7 @@
       </HBox>
    </top>
    <center>
-      <TableView fx:id="beerTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="beerTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" onMouseClicked="#getRow">
         <columns>
           <TableColumn fx:id="image" prefWidth="59.0" text="Image" />
           <TableColumn fx:id="beerName" prefWidth="129.0" text="Name" />
@@ -48,7 +48,7 @@
             <TableColumn fx:id="beerPercentage" prefWidth="96.0" text="Percentage" />
             <TableColumn fx:id="beerProducer" prefWidth="82.0" text="Producer" />
             <TableColumn fx:id="beerPackage" prefWidth="110.0" text="Package" />
-            <TableColumn fx:id="beerTap" prefWidth="58.0" text="isTap" />
+            <TableColumn fx:id="beerIsTap" prefWidth="58.0" text="isTap" />
         </columns>
       </TableView>
    </center>

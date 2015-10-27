@@ -17,6 +17,9 @@ import java.util.ResourceBundle;
 
 /**
  * Created by AnkanX on 15-10-22.
+ *
+ * TODO Visual Upgrade
+ *
  */
 public class MainController implements Initializable {
 
@@ -86,7 +89,7 @@ public class MainController implements Initializable {
             runSqlBox.setSelected(false);
         }
 
-
+        // Handle diffrent casesof visability and selection
         if(!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible())
         {
             advancedType.setVisible(true);
@@ -181,7 +184,7 @@ public class MainController implements Initializable {
 
             searchInput = searchText.getText();
         }else {
-            // name
+            // name search is defualt
             searchInput = "select * from beers where name like '%" + searchText.getText() + "%'";
             // Advanced
             if(advanced.isSelected())

@@ -27,6 +27,10 @@ public class Pub extends MysqlDriver{
         this.entranceFee = Float.parseFloat(sqlReturn.get(8).toString());
     }
 
+    /*
+    TODO implement the actual insert method
+
+    */
     public void insertPub() {
 
         String query = "";
