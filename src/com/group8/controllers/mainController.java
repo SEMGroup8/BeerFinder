@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-22.
  *
- * TODO Visual Upgrade
+ * TODO Visual Upgrade & optimizeation
  *
  */
 public class MainController implements Initializable {

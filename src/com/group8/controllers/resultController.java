@@ -63,12 +63,14 @@ public class ResultController implements Initializable {
 
 
 
+
+
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
 
 
     /*
         Back button pressed takes you back to "home screen"
-        @param
+
     */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
@@ -90,18 +92,39 @@ public class ResultController implements Initializable {
 
 
     }
-
-    public void getRow() {
+    /*
+    Select a beer row and proceed to the beerDetail scene
+     */
+    public void getRow(){
         beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
+            // Select item will only be displayed when dubbleclicked
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
+                    // Show that we can select items and print it
                     System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
+                    // Set the selectedBeer instance of beer we have to selected item
+                    Beer.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
+                    // Load the details scene
+                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+                    try {
+                        // TODO have to fix nameing
+                        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
+                        Scene result_scene = new Scene(homescreen,800,600);
+                        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        main_stage.setScene(result_scene);
+                        main_stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
+
         });
-    }
+
+
+}
 
 
     /*

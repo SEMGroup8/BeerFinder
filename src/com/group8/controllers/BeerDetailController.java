@@ -1,5 +1,6 @@
 package com.group8.controllers;
 
+import com.group8.database.tables.Beer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,27 +9,30 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
 /**
- * Created by AnkanX on 15-10-24.
- *
- * TODO implement Googlefx API
- *
+ * Created by AnkanX on 15-10-27.
+ * TODO fix nice detail layout and images
  */
-public class MapsController implements Initializable {
+public class BeerDetailController implements Initializable{
 
-    public Button Back;
-    public Button Home;
+    @FXML
+    public Button back;
+    @FXML
+    public Button home;
+    @FXML
+    public Label test;
+
 
     /*
     Back button pressed takes you back to "result screen"
-     */
+    */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
@@ -40,8 +44,8 @@ public class MapsController implements Initializable {
     }
 
     /*
-      Home Button
-     */
+     Home Button
+    */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
@@ -51,15 +55,21 @@ public class MapsController implements Initializable {
         main_stage.show();
     }
 
-
     /*
-    Initialize maps controller
+    Initialize beerDetail controller
 
     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // test output
-        System.out.println("Maps accsessed and initializeing!");
+        System.out.println("beerDetails accsessed and initializeing!");
+        // Test display of beer
+        test.setText(Beer.selectedBeer.toString());
+        // Test the data in our beer instance
+        System.out.println(Beer.selectedBeer.toString());
+
     }
+
+
 
 }

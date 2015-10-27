@@ -6,17 +6,19 @@ import java.util.ArrayList;
 import com.group8.database.MysqlDriver;
 
 public class Beer extends MysqlDriver{
-	
-	// 
+
     String from = "beers";
-    // 
     private String name, description, type, origin, producer, beerPackage;
     int id;
     float percentage,volume;
     Boolean isTap;
     Image beerImage;
 
+    // A open beer allows us to look at detailed info in
+    // result screen/beerDetailsScreen
+    public static Beer selectedBeer;
 
+    // Constructor
     public Beer(String query)
     {
     	 ArrayList<Object> sqlReturn = super.select(query);
@@ -45,6 +47,8 @@ public class Beer extends MysqlDriver{
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
     }
+
+
 
     /*
     Setters and Gettersß
