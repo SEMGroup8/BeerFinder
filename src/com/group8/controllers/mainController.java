@@ -182,20 +182,20 @@ public class MainController implements Initializable {
             searchInput = searchText.getText();
         }else {
             // name
-            searchInput = "select * from beers where name like '" + searchText.getText() + "%'";
+            searchInput = "select * from beers where name like '%" + searchText.getText() + "%'";
             // Advanced
             if(advanced.isSelected())
             {
                 if (advancedType.isSelected()) {
-                    searchInput += " or beerType like '" + searchText.getText() + "%'";
+                    searchInput += " or beerType like '%" + searchText.getText() + "%'";
                 }
 
                 if (advancedProducer.isSelected()) {
-                    searchInput += "or producerName like '" + searchText.getText() + "%'";
+                    searchInput += "or producerName like '%" + searchText.getText() + "%'";
                 }
 
                 if (advancedDescription.isSelected()) {
-                    searchInput += "or description like '" + searchText.getText() + "%'";
+                    searchInput += "or description like '%" + searchText.getText() + "%'";
                 }
             }
         }
