@@ -46,7 +46,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="40.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/index.jpg" />
+                  <Image url="@../Images/beerHasNoImage.jpg" />
                </image>
             </ImageView>
          </children>
