@@ -40,7 +40,9 @@ public class Beer extends MysqlDriver{
     // Constructor
     public Beer(String query)
     {
-    	 ArrayList<Object> sqlReturn = super.select(query);
+        super();
+
+        ArrayList<Object> sqlReturn = super.select(query);
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
       //  this.beerImage = ;

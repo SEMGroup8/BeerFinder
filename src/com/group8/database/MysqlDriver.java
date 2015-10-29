@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class MysqlDriver {
 
-
+    public void MysqlDriver() {}
 
     /*
 
