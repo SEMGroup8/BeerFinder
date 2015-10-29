@@ -16,7 +16,6 @@ public class User extends MysqlDriver
 
     public User(String query)
     {
-
         super();
 
         ArrayList<Object> sqlReturn = super.select(query);
