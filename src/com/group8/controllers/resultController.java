@@ -58,7 +58,7 @@ public class ResultController implements Initializable {
     @FXML
     public TableColumn<Beer, String> beerIsTap;
     @FXML
-    public TableColumn<Beer, String> image;
+    public TableColumn<Beer,Image> beerImage;
 
 
 
@@ -135,6 +135,7 @@ public class ResultController implements Initializable {
 
 
         // You have to have a get function that is named get +" type" for it to work sets values.
+       // beerImage.setCellValueFactory(new PropertyValueFactory<Beer, Image>("Image"));
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
         beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("Type"));
         beerDescription.setCellValueFactory(new PropertyValueFactory<Beer, String>("Description"));

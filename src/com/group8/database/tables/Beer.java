@@ -1,9 +1,27 @@
 package com.group8.database.tables;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.*;
+
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.group8.database.MysqlDriver;
+
+import javax.imageio.ImageIO;
 
 public class Beer extends MysqlDriver{
 
@@ -12,7 +30,8 @@ public class Beer extends MysqlDriver{
     int id;
     float percentage,volume;
     Boolean isTap;
-    Image beerImage;
+    //Blob beerImage;
+    InputStream input;
 
     // A open beer allows us to look at detailed info in
     // result screen/beerDetailsScreen
@@ -24,6 +43,8 @@ public class Beer extends MysqlDriver{
     	 ArrayList<Object> sqlReturn = super.select(query);
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
+      //  this.beerImage = ;
+        //this.input = sqlReturn.get(2).;
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();
@@ -53,9 +74,9 @@ public class Beer extends MysqlDriver{
     /*
     Setters and Gettersß
      */
-    public Image getBeerImage() {
-        return beerImage;
-    }
+   // public Image getBeerImage() {
+   //     return beerImage;
+    //}
 
     public String getFrom() {
         return from;
@@ -101,6 +122,9 @@ public class Beer extends MysqlDriver{
         return isTap;
     }
 
+   // public Image getImage(){
+  //      return this.beerImage;
+    //}
 
     /*
         TODO implement the actual insert method

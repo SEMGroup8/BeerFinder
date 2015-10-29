@@ -57,7 +57,6 @@ public class BeerDetailController implements Initializable{
 
     /*
     Initialize beerDetail controller
-
     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
