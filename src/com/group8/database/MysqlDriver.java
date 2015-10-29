@@ -15,7 +15,7 @@ public class MysqlDriver {
     /*
 
      */
-    protected ArrayList<Object> select(String query) {
+    public static ArrayList<Object> select(String query) {
 
         ArrayList<Object> result = new ArrayList<>();
 
@@ -126,7 +126,7 @@ public class MysqlDriver {
         return result;
     }
 
-    public void insert(String query) {
+    public static void insert(String query) {
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;

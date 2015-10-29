@@ -19,7 +19,7 @@ public class Pub extends MysqlDriver{
     {
         super();
 
-        ArrayList<Object> sqlReturn = super.select(query);
+        ArrayList<Object> sqlReturn = select(query);
 
         this.name = sqlReturn.get(2).toString();
         this.description = sqlReturn.get(6).toString();
@@ -39,6 +39,6 @@ public class Pub extends MysqlDriver{
 
 
 
-        super.insert(query);
+        insert(query);
     }
 }

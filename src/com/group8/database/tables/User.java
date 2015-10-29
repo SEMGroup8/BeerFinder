@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class User extends MysqlDriver
 {
     private int _id;
-    private String _name;
+    private String _name, _password, _email;
 
     private boolean _isPub;
     private int _pubId;
@@ -18,7 +18,7 @@ public class User extends MysqlDriver
     {
         super();
 
-        ArrayList<Object> sqlReturn = super.select(query);
+        ArrayList<Object> sqlReturn = select(query);
 
         this._id = Integer.parseInt(sqlReturn.get(0).toString());
         this._name = sqlReturn.get(1).toString();
@@ -31,6 +31,23 @@ public class User extends MysqlDriver
         {
             this._pub = new Pub("Select * from pubs where pubID = '" + this._pubId + "';");
         }
+    }
+
+    public User(String name, String password, String email, boolean isPub)
+    {
+        this._name = name;
+        this._password = password;
+        this._email = email;
+
+        this._isPub = isPub;
+    }
+
+    public void insert()
+    {
+        String selectQuery = "Insert into users(username, password, email, isPub) values ("
+                + _name + ", " + _password + ", " + _email + ", " + _isPub + ");";
+
+        System.out.println("Inserted");
     }
 
     public int get_id() {

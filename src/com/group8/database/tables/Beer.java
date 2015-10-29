@@ -42,7 +42,7 @@ public class Beer extends MysqlDriver{
     {
         super();
 
-        ArrayList<Object> sqlReturn = super.select(query);
+        ArrayList<Object> sqlReturn = select(query);
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
       //  this.beerImage = ;
@@ -142,7 +142,7 @@ public class Beer extends MysqlDriver{
 
 
 
-        super.insert(query);
+        insert(query);
     }
     /*
     Overide on original toString to return entire object in String format.
