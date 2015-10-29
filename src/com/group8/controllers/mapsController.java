@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-24.
  *
- * TODO implement Googlefx API
+ * TODO learn the goglefx API and implement it
  *
  */
 public class MapsController implements Initializable {

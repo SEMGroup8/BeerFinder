@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-22.
  *
- * TODO Visual upgrade + presentation of objects
+ * TODO Visual upgrade + presentation of objects + additional options
  *
  */
 public class ResultController implements Initializable {

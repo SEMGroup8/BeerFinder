@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 public class LoggedInHomeScreenController extends MainController
 {
-    //
+    // Declaration of elements
     public Button Search;
     public Button logout;
     public CheckBox runSqlBox;

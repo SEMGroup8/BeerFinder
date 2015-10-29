@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
  *
  * TODO Visual Upgrade & optimizeation
  *
+ *
+ *
  */
 public class MainController implements Initializable {
 
@@ -50,6 +52,7 @@ public class MainController implements Initializable {
     @FXML
     public Label error;
 
+    // TODO implement threads
    // public ProgressIndicator load;
 
     /*
