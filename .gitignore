@@ -21,3 +21,4 @@ tasks.xml
 log/
 target/
 /bin/
+out/
