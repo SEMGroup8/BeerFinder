@@ -1,27 +1,11 @@
 package com.group8.database.tables;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.*;
-
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import com.group8.database.MysqlDriver;
 
-import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 public class Beer extends MysqlDriver{
 
@@ -30,23 +14,32 @@ public class Beer extends MysqlDriver{
     int id;
     float percentage,volume;
     Boolean isTap;
-    //Blob beerImage;
-    InputStream input;
+    BufferedImage image = null;  //Buffered image coming from database
+    InputStream image1 = null; //Inputstream
+
+
+
+
 
     // A open beer allows us to look at detailed info in
     // result screen/beerDetailsScreen
     public static Beer selectedBeer;
 
+
     // Constructor
-    public Beer(String query)
-    {
+    public Beer(String query)  {
         super();
 
         ArrayList<Object> sqlReturn = super.select(query);
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
-      //  this.beerImage = ;
-        //this.input = sqlReturn.get(2).;
+        // Image handleing
+        try {
+            this.image1 = (InputStream) sqlReturn.get(2);
+            this.image = javax.imageio.ImageIO.read(image1);
+        }catch (IOException ex){
+            this.image = null;
+        }
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();
@@ -57,10 +50,16 @@ public class Beer extends MysqlDriver{
         this.beerPackage = sqlReturn.get(10).toString();
     }
 
-    public Beer(ArrayList<Object> sqlReturn)
-    {
+    public Beer(ArrayList<Object> sqlReturn)  {
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
+        // Image handeling
+        try {
+            this.image1 = (InputStream) sqlReturn.get(2);
+            this.image = javax.imageio.ImageIO.read(image1);
+        }catch (IOException ex){
+            this.image = null;
+        }
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();
@@ -76,9 +75,6 @@ public class Beer extends MysqlDriver{
     /*
     Setters and Gettersß
      */
-   // public Image getBeerImage() {
-   //     return beerImage;
-    //}
 
     public String getFrom() {
         return from;
@@ -124,9 +120,14 @@ public class Beer extends MysqlDriver{
         return isTap;
     }
 
-   // public Image getImage(){
-  //      return this.beerImage;
-    //}
+    public BufferedImage getImage() {
+        return image;
+    }
+
+
+
+
+
 
     /*
         TODO implement the actual insert method

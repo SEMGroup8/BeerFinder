@@ -53,7 +53,7 @@ public class ResultController implements Initializable {
     @FXML
     public TableColumn<Beer, String> beerIsTap;
     @FXML
-    public TableColumn<Beer,Image> beerImage;
+    public TableColumn<Beer,String> beerImage;
 
 
 
@@ -139,6 +139,8 @@ public class ResultController implements Initializable {
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
         beerIsTap.setCellValueFactory(new PropertyValueFactory<Beer, String>("IsTap"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
+//        beerImage.setCellValueFactory(new PropertyValueFactory<Beer, Image>("Image"));
+       // beerImage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Image"));
         //Populate the Tableview
         beerTable.setItems(masterData);
 
