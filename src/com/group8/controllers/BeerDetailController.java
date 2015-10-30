@@ -14,11 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.*;
-
 import java.io.IOException;
 import java.net.URL;
-import javax.swing.*;
 import java.util.ResourceBundle;
 
 /**

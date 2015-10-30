@@ -15,7 +15,7 @@ public class Beer extends MysqlDriver{
     float percentage,volume;
     Boolean isTap;
     BufferedImage image = null;  //Buffered image coming from database
-    InputStream image1 = null; //Inputstream
+    InputStream tmpImg = null; //Inputstream
 
 
 
@@ -35,8 +35,8 @@ public class Beer extends MysqlDriver{
         this.name = sqlReturn.get(1).toString();
         // Image handleing
         try {
-            this.image1 = (InputStream) sqlReturn.get(2);
-            this.image = javax.imageio.ImageIO.read(image1);
+            this.tmpImg = (InputStream) sqlReturn.get(2);
+            this.image = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
             this.image = null;
         }
@@ -55,8 +55,8 @@ public class Beer extends MysqlDriver{
         this.name = sqlReturn.get(1).toString();
         // Image handeling
         try {
-            this.image1 = (InputStream) sqlReturn.get(2);
-            this.image = javax.imageio.ImageIO.read(image1);
+            this.tmpImg = (InputStream) sqlReturn.get(2);
+            this.image = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
             this.image = null;
         }
