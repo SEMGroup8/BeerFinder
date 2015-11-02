@@ -3,6 +3,7 @@ package com.group8.controllers;
 import com.group8.database.tables.Beer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import sun.rmi.rmic.Main;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -186,7 +188,7 @@ public class ResultController implements Initializable {
                      */
                     @Override
                     public void updateItem(Image item, boolean empty) {
-                        if(item != null) {
+                        if (item != null) {
                             VBox vb = new VBox();
                             vb.setAlignment(Pos.CENTER);
                             ImageView imgVw = new ImageView();
@@ -196,21 +198,19 @@ public class ResultController implements Initializable {
                             vb.getChildren().addAll(imgVw);
                             setGraphic(vb);
 
-                        }else{
+                        } else {
                             VBox vb = new VBox();
                             vb.setAlignment(Pos.CENTER);
                             ImageView imgVw = new ImageView();
+                            imgVw.setImage(new Image (new File("src/com/group8/resources/Images/beerHasNoImage.jpg").toURI().toString()));
 
-                            imgVw.setImage(new Image (new File("/beerHasNoImage.jpg").toURI().toString()));
+
+
                             imgVw.setFitWidth(20);
                             imgVw.setFitHeight(40);
                             System.out.println(imgVw.getImage().toString());
                             vb.getChildren().addAll(imgVw);
                             setGraphic(vb);
-                            System.out.println("bajs");
-
-
-
 
                         }
                     }
