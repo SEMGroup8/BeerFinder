@@ -104,7 +104,7 @@ public class BeerDetailController implements Initializable{
         if (Beer.selectedBeer.getImage() == null) {
             System.out.println("No image! Will use Placeholder Image!");
         } else{
-            showImage.setImage(SwingFXUtils.toFXImage(Beer.selectedBeer.getImage(), null));
+            showImage.setImage(Beer.selectedBeer.getImage());
         }
         // Display beer volume
         showVolume.setText("" + Beer.selectedBeer.getVolume() + " ml");

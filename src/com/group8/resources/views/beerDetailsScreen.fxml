@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -25,7 +26,7 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="showImage" fitHeight="402.0" fitWidth="197.0" layoutX="4.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="showImage" fitHeight="404.0" fitWidth="202.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/beerHasNoImage.jpg" />
                </image>

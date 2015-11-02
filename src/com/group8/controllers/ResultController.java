@@ -1,25 +1,36 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -53,7 +64,10 @@ public class ResultController implements Initializable {
     @FXML
     public TableColumn<Beer, String> beerIsTap;
     @FXML
-    public TableColumn<Beer,String> beerImage;
+    public TableColumn<Beer,ImageView> beerImage;
+    @FXML
+    public PieChart showPie;
+
 
 
 
@@ -122,11 +136,14 @@ public class ResultController implements Initializable {
 }
 
 
+
+
     /*
         initialize result controller
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 
 
         // You have to have a get function that is named get +" type" for it to work sets values.
@@ -140,7 +157,15 @@ public class ResultController implements Initializable {
         beerIsTap.setCellValueFactory(new PropertyValueFactory<Beer, String>("IsTap"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
 //        beerImage.setCellValueFactory(new PropertyValueFactory<Beer, Image>("Image"));
-       // beerImage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Image"));
+        // Try loacing the image, if there is none will use placeholder
+
+        beerImage.setCellValueFactory(new PropertyValueFactory<Beer, ImageView>("Image"));
+
+
+        //    beerImage.setCellValueFactory(c -> new SimpleObjectProperty<ImageView>(new ImageView("Image")));
+
+
+
         //Populate the Tableview
         beerTable.setItems(masterData);
 

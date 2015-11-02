@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -40,7 +41,7 @@
    <center>
       <TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="image" prefWidth="59.0" text="Image" />
+          <TableColumn fx:id="beerImage" prefWidth="59.0" text="Image" />
           <TableColumn fx:id="beerName" prefWidth="129.0" text="Name" />
             <TableColumn fx:id="beerType" prefWidth="97.0" text="Type" />
             <TableColumn fx:id="beerDescription" prefWidth="109.0" text="Description" />

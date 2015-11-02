@@ -1,6 +1,9 @@
 package com.group8.database.tables;
 
 import com.group8.database.MysqlDriver;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -11,6 +14,7 @@ public class Beer extends MysqlDriver{
 
     String from = "beers";
     private String name, description, type, origin, producer, beerPackage;
+    private ImageView imV;
     int id;
     float percentage,volume;
     Boolean isTap;
@@ -120,8 +124,23 @@ public class Beer extends MysqlDriver{
         return isTap;
     }
 
-    public BufferedImage getImage() {
-        return image;
+
+    public Image getImage() {
+        Image image2;
+        if(this.image == null){
+            image2 = null;
+        }else{
+            image2 = SwingFXUtils.toFXImage(this.image, null);
+        }
+        return image2;
+    }
+
+    public ImageView getImageView(){
+
+        this.imV.setImage(SwingFXUtils.toFXImage(this.image, null));
+
+
+        return this.imV;
     }
 
 
