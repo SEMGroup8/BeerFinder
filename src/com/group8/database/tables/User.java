@@ -14,6 +14,11 @@ public class User extends MysqlDriver
     private int _pubId;
     private Pub _pub;
 
+    public User()
+    {
+
+    }
+
     public User(String query)
     {
         super();
@@ -47,10 +52,25 @@ public class User extends MysqlDriver
 
     public User(ArrayList<Object> sqlData)
     {
-        this(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), Boolean.parseBoolean(sqlData.get(4).toString()), Integer.parseInt(sqlData.get(5).toString()));
+        if(Boolean.parseBoolean(sqlData.get(4).toString()))
+        {
+            setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), Boolean.parseBoolean(sqlData.get(4).toString()), Integer.parseInt(sqlData.get(5).toString()));
+        }
+        else
+        {
+            setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), Boolean.parseBoolean(sqlData.get(4).toString()));
+
+        }
     }
 
-    public User(String name, String password, String email, boolean isPub, int pubId)
+    public void setUser(String name, String password, String email, boolean isPub)
+    {
+        this._name = name;
+        this._password = password;
+        this._email = email;
+    }
+
+    public void setUser(String name, String password, String email, boolean isPub, int pubId)
     {
         this._name = name;
         this._password = password;

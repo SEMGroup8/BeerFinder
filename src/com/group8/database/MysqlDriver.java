@@ -12,13 +12,16 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Class that contains all functionality for connecting to the database.
+ *
+ * Contains methods for selecting and inserting into the database.
+ */
+
 public class MysqlDriver {
 
     public void MysqlDriver() {}
 
-    /*
-
-     */
     public static ArrayList<Object> select(String query) {
 
         ArrayList<Object> result = new ArrayList<>();

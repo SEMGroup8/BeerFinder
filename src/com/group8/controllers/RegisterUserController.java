@@ -21,6 +21,10 @@ import java.util.ArrayList;
 
 /**
  * Created by Shiratori on 26/10/15.
+ *
+ * Controller for the register user scene.
+ *
+ * TODO: Layout and style.
  */
 public class RegisterUserController {
 
@@ -88,7 +92,9 @@ public class RegisterUserController {
             }
         }
 
-        User newUser = new User(username.getText(), password.getText(), email.getText(), isPub.isSelected(), pubId);
+        User newUser = new User();
+
+        newUser.setUser(username.getText(), password.getText(), email.getText(), isPub.isSelected(), pubId);
 
         newUser.insert();
 
