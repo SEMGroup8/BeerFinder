@@ -2,6 +2,10 @@ package com.group8.database;
 
 import com.mysql.jdbc.MysqlParameterMetadata;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -106,6 +110,7 @@ public class MysqlDriver {
             st = con.createStatement();
             rs = st.executeQuery(query);
 
+
             ResultSetMetaData metaData = rs.getMetaData();
 
             while(rs.next())
@@ -114,15 +119,23 @@ public class MysqlDriver {
 
                 for(int i = 1; i<=metaData.getColumnCount(); i++)
                 {
-                    row.add(rs.getObject(i));
+                    if(i == 3){
+                        InputStream image =rs.getBinaryStream(3);
+                        row.add(image);
+                    }else {
+                        row.add(rs.getObject(i));
+                    }
                 }
 
                 result.add(row);
             }
 
+
+
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
 
         } finally {
             try {

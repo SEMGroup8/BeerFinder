@@ -1,52 +1,52 @@
 package com.group8.database.tables;
 
-import java.awt.Image;
+import com.group8.database.MysqlDriver;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.awt.image.BufferedImage;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.*;
-
-
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.group8.database.MysqlDriver;
-
-import javax.imageio.ImageIO;
 
 public class Beer extends MysqlDriver{
 
     String from = "beers";
     private String name, description, type, origin, producer, beerPackage;
+    private ImageView imV;
     int id;
     float percentage,volume;
     Boolean isTap;
-    //Blob beerImage;
-    InputStream input;
+    BufferedImage image = null;  //Buffered image coming from database
+    InputStream tmpImg = null; //Inputstream
+
+
+
+
 
     // A open beer allows us to look at detailed info in
     // result screen/beerDetailsScreen
     public static Beer selectedBeer;
 
-    // Constructor
-    public Beer(String query)
-    {
+
+    /**
+     *
+     * @param query
+     */
+    public Beer(String query)  {
         super();
 
         ArrayList<Object> sqlReturn = select(query);
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
-      //  this.beerImage = ;
-        //this.input = sqlReturn.get(2).;
+
+        try {
+            this.tmpImg = (InputStream) sqlReturn.get(2);
+            this.image = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+            this.image = null;
+        }
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();
@@ -57,10 +57,20 @@ public class Beer extends MysqlDriver{
         this.beerPackage = sqlReturn.get(10).toString();
     }
 
-    public Beer(ArrayList<Object> sqlReturn)
-    {
+    /**
+     *
+     * @param sqlReturn
+     */
+    public Beer(ArrayList<Object> sqlReturn)  {
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
+        // Image handeling
+        try {
+            this.tmpImg = (InputStream) sqlReturn.get(2);
+            this.image = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+            this.image = null;
+        }
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();
@@ -76,9 +86,6 @@ public class Beer extends MysqlDriver{
     /*
     Setters and Gettersß
      */
-   // public Image getBeerImage() {
-   //     return beerImage;
-    //}
 
     public String getFrom() {
         return from;
@@ -124,13 +131,21 @@ public class Beer extends MysqlDriver{
         return isTap;
     }
 
-   // public Image getImage(){
-  //      return this.beerImage;
-    //}
 
-    /*
-        TODO implement the actual insert method
+    public Image getImage() {
+        Image image2;
+        if(this.image == null){
+            image2 = null;
+        }else{
+            image2 = SwingFXUtils.toFXImage(this.image, null);
+        }
+        return image2;
+    }
 
+
+    /**
+     * TODO implement the actual insert method
+     * @param beer
      */
     public void insertBeer(Beer beer) {
 
@@ -144,8 +159,10 @@ public class Beer extends MysqlDriver{
 
         insert(query);
     }
-    /*
-    Overide on original toString to return entire object in String format.
+
+    /**
+     * Overide on original toString to return entire object in String format.
+     * @return
      */
     @Override
     public String toString()

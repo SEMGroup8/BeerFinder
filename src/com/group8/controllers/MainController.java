@@ -44,6 +44,8 @@ public class MainController implements Initializable {
     @FXML
     public CheckBox all;
     @FXML
+    public CheckBox advancedName;
+    @FXML
     public TextField searchText;
     @FXML
     public TextField loginText;
@@ -100,9 +102,11 @@ public class MainController implements Initializable {
             advancedProducer.setVisible(true);
             advancedDescription.setVisible(true);
             all.setVisible(true);
+            advancedName.setVisible(true);
             advancedType.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
+            advancedName.setSelected(true);
             all.setSelected(false);
         }else
         {
@@ -110,6 +114,8 @@ public class MainController implements Initializable {
             advancedProducer.setVisible(false);
             advancedDescription.setVisible(false);
             all.setVisible(false);
+            advancedName.setVisible(false);
+            advancedName.setSelected(true);
         }
     }
     // Checkbox to check all the advanced boxes
@@ -119,10 +125,12 @@ public class MainController implements Initializable {
             advancedType.setSelected(true);
             advancedProducer.setSelected(true);
             advancedDescription.setSelected(true);
+            advancedName.setSelected(true);
         }else{
             advancedType.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
+            advancedName.setSelected(false);
         }
 
 
@@ -139,12 +147,17 @@ public class MainController implements Initializable {
             advancedType.setVisible(false);
             all.setVisible(false);
             advanced.setSelected(false);
+            advancedName.setSelected(false);
+            advancedName.setVisible(false);
+
         }else if(!runSqlBox.isSelected() && advanced.isSelected()){
             advancedDescription.setVisible(true);
             advancedProducer.setVisible(true);
             advancedType.setVisible(true);
             all.setVisible(true);
             error.setText("");
+            advancedName.setVisible(true);
+            advancedName.setSelected(true);
         }else
         {
             error.setText("");
@@ -180,24 +193,61 @@ public class MainController implements Initializable {
 
         // Fetch the user input
         String searchInput;
+        /**
+         *
+         *
+         */
 
         // SQL query
         if (runSqlBox.isSelected()) {
             searchInput = searchText.getText();
         }else {
             // name search is defualt
-            searchInput = "select * from beers where name like '%" + searchText.getText() + "%'";
+            searchInput = "select * from beers where ";
+
+            if(advancedName.isSelected()){
+                searchInput += "name like '%" + searchText.getText() + "%'";
+            }
+
+
             // Advanced
             if(advanced.isSelected())
             {
+                // For reasons
+                int selectedIteams=0;
+
                 if (advancedType.isSelected()) {
-                    searchInput += " or beerType like '%" + searchText.getText() + "%'";
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected()) {
+                        searchInput += " or beerType like '%" + searchText.getText() + "%'";
+                        selectedIteams++;
+                    } else{
+                        searchInput += "beerType like '%" + searchText.getText() + "%'";
+                    }
                 }
                 if (advancedProducer.isSelected()) {
-                    searchInput += "or producerName like '%" + searchText.getText() + "%'";
+                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
+                        searchInput += " or producerName like '%" + searchText.getText() + "%'";
+                        selectedIteams++;
+                    }else{
+                        searchInput += "producerName like '%" + searchText.getText() + "%'";
+                    }
                 }
                 if (advancedDescription.isSelected()) {
-                    searchInput += "or description like '%" + searchText.getText() + "%'";
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected()) {
+                        searchInput += " or description like '%" + searchText.getText() + "%'";
+                        selectedIteams++;
+                    }else{
+                        searchInput += "description like '%" + searchText.getText() + "%'";
+                    }
+                }
+
+                if (!advancedName.isSelected() && selectedIteams > 1){
+                    // Test Output
+                    System.out.println(searchInput.substring(26, 28));
+
+                    searchInput = searchInput.substring(0,26) + searchInput.substring(29);
+                    // Test Output
+                    System.out.println(searchInput);
                 }
             }
         }
@@ -212,7 +262,7 @@ public class MainController implements Initializable {
             // Add a new Beer to the beer arraylist
             Beer beer = new Beer(sqlData.get(i));
             // Testoutput
-            System.out.print(beer.getName());
+            System.out.print(beer.getName()+"\n");
             BeerData.beer.add(beer);
         }
 
@@ -232,7 +282,12 @@ public class MainController implements Initializable {
         }
     }
 
-    // Login Button event
+
+    /**
+     * Login Button event
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onLogin(javafx.event.ActionEvent event) throws IOException{
 
