@@ -7,12 +7,13 @@ import java.util.ArrayList;
 
 /**
  * Created by Shiratori on 12/10/15.
+ *
+ * Class to represent Pubs.
+ *
+ * Derives from MysqlDriver and thus inherits the relevant funcitons for inserting and selecting form the database.
+ *
  */
 public class Pub extends MysqlDriver{
-
-    String from = "pubs";
-
-
 
     private int _pubId;
     private String _name, _description, _adress, _phoneNumber, _offer;
