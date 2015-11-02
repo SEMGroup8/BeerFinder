@@ -182,8 +182,10 @@ public class MainController implements Initializable {
 
     }
 
-    /*
-        On clicking the Search button execute query through MySqlDriver
+    /**
+     * On clicking the Search button execute query through MySqlDriver
+     * @param event
+     * @throws IOException
      */
     @FXML
     public void onSearch(javafx.event.ActionEvent event) throws IOException {
@@ -193,12 +195,13 @@ public class MainController implements Initializable {
 
         // Fetch the user input
         String searchInput;
-        /**
-         *
-         *
-         */
 
-        // SQL query
+
+        /**
+         * SQL query
+         *
+         * Construct a query as a String dependent on user specifications
+         */
         if (runSqlBox.isSelected()) {
             searchInput = searchText.getText();
         }else {
@@ -338,6 +341,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * On Register
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onRegister(javafx.event.ActionEvent event) throws IOException
     {
@@ -349,8 +357,10 @@ public class MainController implements Initializable {
         main_stage.show();
     }
 
-    /*
-        Initialize Main controller
+    /**
+     *  Initialize Main controller
+     * @param location
+     * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -24,7 +24,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import sun.rmi.rmic.Main;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -70,6 +72,7 @@ public class ResultController implements Initializable {
 
 
 
+
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
 
 
@@ -85,6 +88,7 @@ public class ResultController implements Initializable {
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
+
 
     }
 
@@ -182,7 +186,7 @@ public class ResultController implements Initializable {
                      */
                     @Override
                     public void updateItem(Image item, boolean empty) {
-
+                        if(item != null) {
                             VBox vb = new VBox();
                             vb.setAlignment(Pos.CENTER);
                             ImageView imgVw = new ImageView();
@@ -191,6 +195,24 @@ public class ResultController implements Initializable {
                             imgVw.setFitHeight(40);
                             vb.getChildren().addAll(imgVw);
                             setGraphic(vb);
+
+                        }else{
+                            VBox vb = new VBox();
+                            vb.setAlignment(Pos.CENTER);
+                            ImageView imgVw = new ImageView();
+
+                            imgVw.setImage(new Image (new File("/beerHasNoImage.jpg").toURI().toString()));
+                            imgVw.setFitWidth(20);
+                            imgVw.setFitHeight(40);
+                            System.out.println(imgVw.getImage().toString());
+                            vb.getChildren().addAll(imgVw);
+                            setGraphic(vb);
+                            System.out.println("bajs");
+
+
+
+
+                        }
                     }
                 };
                 return cell;
