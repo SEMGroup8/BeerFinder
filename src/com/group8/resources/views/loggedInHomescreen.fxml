@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#exitField" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInHomeScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#exitField" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInHomeScreenController">
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
@@ -31,11 +31,17 @@
                <children>
                   <AnchorPane prefHeight="270.0" prefWidth="274.0">
                      <children>
-                        <TextField fx:id="SearchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" text="Search..." />
-                        <Button fx:id="Search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
-                        <Label fx:id="Error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
+                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" text="Search..." />
+                        <Button fx:id="search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
+                        <Label fx:id="error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
                         <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
-                        <CheckBox fx:id="runSqlBox" layoutY="84.0" mnemonicParsing="false" text="SQL" />
+                        <CheckBox fx:id="runSqlBox" layoutY="84.0" mnemonicParsing="false" onAction="#noSearch" text="SQL" />
+                        <CheckBox fx:id="advancedType" layoutX="-1.0" layoutY="174.0" mnemonicParsing="false" text="beerType" visible="false" />
+                        <CheckBox fx:id="advancedProducer" layoutX="100.0" layoutY="146.0" mnemonicParsing="false" text="Producer" visible="false" />
+                        <CheckBox fx:id="advancedDescription" layoutX="-1.0" layoutY="202.0" mnemonicParsing="false" text="Description" visible="false" />
+                        <CheckBox fx:id="advanced" layoutX="57.0" layoutY="84.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
+                        <CheckBox fx:id="all" layoutX="100.0" layoutY="174.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
+                        <CheckBox fx:id="advancedName" layoutX="-1.0" layoutY="146.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
                      </children>
                   </AnchorPane>
                </children>
