@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
+import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,7 +49,7 @@ public class RegisterUserController {
             return;
         }
 
-        String selectQuery = "Select * from users where username = '" + username.getText() + "';";
+        String selectQuery = "Select * from users where username = '" + username.getText().toLowerCase() + "';";
         if (!checkAvailability(selectQuery))
         {
             System.out.println("In username check");
@@ -68,7 +69,26 @@ public class RegisterUserController {
             return;
         }
 
-        User newUser = new User(username.getText(), password.getText(), email.getText(), isPub.isSelected());
+        int pubId = 0;
+
+        if(isPub.isSelected())
+        {
+            Pub newPub = new Pub();
+
+            newPub.set_name(pubName.getText());
+
+            if(newPub.insertPub())
+            {
+                pubId = newPub.get_pubId();
+            }
+            else
+            {
+                pubNameError.setText("Pub name is taken.");
+                return;
+            }
+        }
+
+        User newUser = new User(username.getText(), password.getText(), email.getText(), isPub.isSelected(), pubId);
 
         newUser.insert();
 
@@ -127,7 +147,7 @@ public class RegisterUserController {
 
         boolean canRegister = true;
 
-        if(returnedUser.size()==0)
+        if(returnedUser!=null)
         {
             canRegister =  false;
         }

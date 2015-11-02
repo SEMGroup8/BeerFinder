@@ -241,7 +241,16 @@ public class MainController implements Initializable {
 
         String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
 
-        User fetchedUser = new User(sqlQuery);
+        ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
+
+        if(userData == null)
+        {
+
+            System.out.println("Is empty");
+            return;
+        }
+
+        User fetchedUser = new User(userData);
 
         if(!fetchedUser.get_name().equals(username))
         {
@@ -251,6 +260,8 @@ public class MainController implements Initializable {
         }
 
         UserData.userInstance = fetchedUser;
+
+        //System.out.println(fetchedUser.get_isPub());
 
         if(fetchedUser.get_isPub())
         {

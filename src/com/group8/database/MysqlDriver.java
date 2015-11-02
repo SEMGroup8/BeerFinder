@@ -33,7 +33,26 @@ public class MysqlDriver {
             rs = st.executeQuery(query);
             ResultSetMetaData metaData = rs.getMetaData();
 
-            rs.next();
+            if(!rs.next())
+            {
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (st != null) {
+                        st.close();
+                    }
+                    if (con != null) {
+                        con.close();
+                    }
+
+                } catch (SQLException ex) {
+                    Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+                    lgr.log(Level.WARNING, ex.getMessage(), ex);
+                }
+
+                return null;
+            }
 
             result = new ArrayList<>();
 
@@ -129,7 +148,6 @@ public class MysqlDriver {
     public static void insert(String query) {
         Connection con = null;
         Statement st = null;
-        ResultSet rs = null;
 
         String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
         String user = "Gr8";
@@ -138,7 +156,7 @@ public class MysqlDriver {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
-            rs = st.executeQuery(query);
+            st.executeUpdate(query);
 
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
@@ -146,9 +164,6 @@ public class MysqlDriver {
 
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
-                }
                 if (st != null) {
                     st.close();
                 }
