@@ -30,14 +30,17 @@ public class Beer extends MysqlDriver{
     public static Beer selectedBeer;
 
 
-    // Constructor
+    /**
+     *
+     * @param query
+     */
     public Beer(String query)  {
         super();
 
         ArrayList<Object> sqlReturn = super.select(query);
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
-        // Image handleing
+
         try {
             this.tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
@@ -54,6 +57,10 @@ public class Beer extends MysqlDriver{
         this.beerPackage = sqlReturn.get(10).toString();
     }
 
+    /**
+     *
+     * @param sqlReturn
+     */
     public Beer(ArrayList<Object> sqlReturn)  {
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
@@ -135,22 +142,10 @@ public class Beer extends MysqlDriver{
         return image2;
     }
 
-    public ImageView getImageView(){
 
-        this.imV.setImage(SwingFXUtils.toFXImage(this.image, null));
-
-
-        return this.imV;
-    }
-
-
-
-
-
-
-    /*
-        TODO implement the actual insert method
-
+    /**
+     * TODO implement the actual insert method
+     * @param beer
      */
     public void insertBeer(Beer beer) {
 
@@ -164,8 +159,10 @@ public class Beer extends MysqlDriver{
 
         super.insert(query);
     }
-    /*
-    Overide on original toString to return entire object in String format.
+
+    /**
+     * Overide on original toString to return entire object in String format.
+     * @return
      */
     @Override
     public String toString()

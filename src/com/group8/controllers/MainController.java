@@ -193,6 +193,10 @@ public class MainController implements Initializable {
 
         // Fetch the user input
         String searchInput;
+        /**
+         *
+         *
+         */
 
         // SQL query
         if (runSqlBox.isSelected()) {
@@ -278,7 +282,12 @@ public class MainController implements Initializable {
         }
     }
 
-    // Login Button event
+
+    /**
+     * Login Button event
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onLogin(javafx.event.ActionEvent event) throws IOException{
 
