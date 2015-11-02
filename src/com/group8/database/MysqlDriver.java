@@ -2,6 +2,10 @@ package com.group8.database;
 
 import com.mysql.jdbc.MysqlParameterMetadata;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -15,7 +19,7 @@ public class MysqlDriver {
     /*
 
      */
-    protected ArrayList<Object> select(String query) {
+    public static ArrayList<Object> select(String query) {
 
         ArrayList<Object> result = new ArrayList<>();
 
@@ -33,7 +37,26 @@ public class MysqlDriver {
             rs = st.executeQuery(query);
             ResultSetMetaData metaData = rs.getMetaData();
 
-            rs.next();
+            if(!rs.next())
+            {
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (st != null) {
+                        st.close();
+                    }
+                    if (con != null) {
+                        con.close();
+                    }
+
+                } catch (SQLException ex) {
+                    Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+                    lgr.log(Level.WARNING, ex.getMessage(), ex);
+                }
+
+                return null;
+            }
 
             result = new ArrayList<>();
 
@@ -87,6 +110,7 @@ public class MysqlDriver {
             st = con.createStatement();
             rs = st.executeQuery(query);
 
+
             ResultSetMetaData metaData = rs.getMetaData();
 
             while(rs.next())
@@ -95,15 +119,23 @@ public class MysqlDriver {
 
                 for(int i = 1; i<=metaData.getColumnCount(); i++)
                 {
-                    row.add(rs.getObject(i));
+                    if(i == 3){
+                        InputStream image =rs.getBinaryStream(3);
+                        row.add(image);
+                    }else {
+                        row.add(rs.getObject(i));
+                    }
                 }
 
                 result.add(row);
             }
 
+
+
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
 
         } finally {
             try {
@@ -126,10 +158,9 @@ public class MysqlDriver {
         return result;
     }
 
-    public void insert(String query) {
+    public static void insert(String query) {
         Connection con = null;
         Statement st = null;
-        ResultSet rs = null;
 
         String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
         String user = "Gr8";
@@ -138,7 +169,7 @@ public class MysqlDriver {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
-            rs = st.executeQuery(query);
+            st.executeUpdate(query);
 
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
@@ -146,9 +177,6 @@ public class MysqlDriver {
 
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
-                }
                 if (st != null) {
                     st.close();
                 }

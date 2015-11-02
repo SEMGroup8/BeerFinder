@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
    <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane prefHeight="100.0" prefWidth="232.0">
                <children>
@@ -22,6 +23,53 @@
          </children>
       </HBox>
    </top>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="showImage" fitHeight="404.0" fitWidth="202.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/beerHasNoImage.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="showBeerName" layoutX="32.0" layoutY="14.0" text="BeerName">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" />
+                        <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" />
+                        <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" />
+                        <Label fx:id="showVolume" layoutX="33.0" layoutY="142.0" text="Volume" />
+                        <Label fx:id="showTap" layoutX="120.0" layoutY="163.0" text="isTap" />
+                        <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" />
+                        <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="showDescription" editable="false" layoutX="27.0" layoutY="35.0" prefHeight="165.0" prefWidth="477.0" wrapText="true" />
+                        <Label layoutX="251.0" layoutY="3.0" text="Description">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -32,24 +80,10 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="home" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="27.0" prefWidth="100.0" text="Home" />
+                  <Button fx:id="newSearch" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="27.0" prefWidth="100.0" text="New Search" />
                </children>
             </AnchorPane>
          </children>
       </HBox>
    </bottom>
-   <center>
-      <Label fx:id="test" text="Label" BorderPane.alignment="CENTER" />
-   </center>
-   <left>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="40.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/beerHasNoImage.jpg" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-   </left>
 </BorderPane>
