@@ -26,9 +26,11 @@ public class PubController implements Initializable {
 
     public Button Back;
 
-    /*
-    Back button pressed takes you back to "home screen"
-    */
+    /**
+     * Back button pressed takes you back to "home screen"
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));

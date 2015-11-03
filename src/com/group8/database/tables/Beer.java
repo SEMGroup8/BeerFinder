@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * Beer Table class
+ */
 public class Beer extends MysqlDriver{
 
     String from = "beers";
@@ -31,7 +34,7 @@ public class Beer extends MysqlDriver{
 
 
     /**
-     *
+     * Constructor takeing a String query
      * @param query
      */
     public Beer(String query)  {
@@ -58,7 +61,7 @@ public class Beer extends MysqlDriver{
     }
 
     /**
-     *
+     *  Constructor takeing a Arraylist of Objects
      * @param sqlReturn
      */
     public Beer(ArrayList<Object> sqlReturn)  {
@@ -82,9 +85,9 @@ public class Beer extends MysqlDriver{
     }
 
 
-
-    /*
-    Setters and Gettersß
+    /**
+     * Setters and Getter methods
+     * @return
      */
 
     public String getFrom() {

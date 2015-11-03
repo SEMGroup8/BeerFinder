@@ -26,8 +26,10 @@ public class MapsController implements Initializable {
     public Button Back;
     public Button Home;
 
-    /*
-    Back button pressed takes you back to "result screen"
+    /**
+     * Back button pressed takes you back to "result screen"
+     * @param event
+     * @throws IOException
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
@@ -39,8 +41,10 @@ public class MapsController implements Initializable {
 
     }
 
-    /*
-      Home Button
+    /**
+     * Home Button
+     * @param event
+     * @throws IOException
      */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
@@ -52,10 +56,11 @@ public class MapsController implements Initializable {
     }
 
 
-    /*
-    Initialize maps controller
-
-    */
+    /**
+     *  Initialize maps controller
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // test output

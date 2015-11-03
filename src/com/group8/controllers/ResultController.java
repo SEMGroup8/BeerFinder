@@ -3,6 +3,7 @@ package com.group8.controllers;
 import com.group8.database.tables.Beer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,7 +25,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import sun.rmi.rmic.Main;
 
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -70,6 +74,7 @@ public class ResultController implements Initializable {
 
 
 
+
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
 
 
@@ -85,6 +90,7 @@ public class ResultController implements Initializable {
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
+
 
     }
 
@@ -182,7 +188,7 @@ public class ResultController implements Initializable {
                      */
                     @Override
                     public void updateItem(Image item, boolean empty) {
-
+                        if (item != null) {
                             VBox vb = new VBox();
                             vb.setAlignment(Pos.CENTER);
                             ImageView imgVw = new ImageView();
@@ -191,6 +197,20 @@ public class ResultController implements Initializable {
                             imgVw.setFitHeight(40);
                             vb.getChildren().addAll(imgVw);
                             setGraphic(vb);
+
+                        } else {
+                            VBox vb = new VBox();
+                            vb.setAlignment(Pos.CENTER);
+                            ImageView imgVw = new ImageView();
+                            imgVw.setImage(new Image (new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+                            imgVw.setFitWidth(20);
+                            imgVw.setFitHeight(40);
+                            // Test Output
+                            //System.out.println(imgVw.getImage().toString());
+                            vb.getChildren().addAll(imgVw);
+                            setGraphic(vb);
+
+                        }
                     }
                 };
                 return cell;
