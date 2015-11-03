@@ -19,6 +19,12 @@ public class Beer extends MysqlDriver{
     private String name, description, type, origin, producer, beerPackage;
     private ImageView imV;
     int id;
+
+    public float getAvRank() {
+        return avRank;
+    }
+
+    float avRank;
     float percentage,volume;
     Boolean isTap;
     BufferedImage image = null;  //Buffered image coming from database
@@ -58,6 +64,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
+        this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
     }
 
     /**
@@ -82,6 +89,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
+        this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
     }
 
 

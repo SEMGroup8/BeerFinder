@@ -25,7 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import sun.rmi.rmic.Main;
+
 
 import javax.imageio.ImageIO;
 import java.io.File;

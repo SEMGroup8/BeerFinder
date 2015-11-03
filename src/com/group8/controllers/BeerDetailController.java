@@ -52,6 +52,8 @@ public class BeerDetailController implements Initializable{
     public ImageView showImage;
     @FXML
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
+    @FXML
+    public Label rankShow;
 
 
     /**
@@ -126,6 +128,8 @@ public class BeerDetailController implements Initializable{
         showBeerType.setText(Beer.selectedBeer.getType());
         // Display beer Description
         showDescription.setText(Beer.selectedBeer.getDescription());
+       // Display Rank of beer
+        rankShow.setText(""+Beer.selectedBeer.getAvRank());
         // Display if beer is tap
         if (Beer.selectedBeer.getIsTap().toString().equals("false")) {
 
