@@ -25,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -59,7 +60,7 @@ public class ResultController implements Initializable {
     @FXML
     public TableColumn<Beer, String> beerPercentage;
     @FXML
-    public TableColumn<Beer, String> beerIsTap;
+    public TableColumn<Beer, String> avrageRank;
     @FXML
     public TableColumn<Beer,Image> beerImage;
     @FXML
@@ -164,7 +165,7 @@ public class ResultController implements Initializable {
         beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("Origin"));
         beerProducer.setCellValueFactory(new PropertyValueFactory<Beer, String>("Producer"));
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
-        beerIsTap.setCellValueFactory(new PropertyValueFactory<Beer, String>("IsTap"));
+        avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("AvRank"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
 
 

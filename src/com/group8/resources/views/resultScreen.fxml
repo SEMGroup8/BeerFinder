@@ -49,7 +49,7 @@
             <TableColumn fx:id="beerPercentage" prefWidth="96.0" text="Percentage" />
             <TableColumn fx:id="beerProducer" prefWidth="82.0" text="Producer" />
             <TableColumn fx:id="beerPackage" prefWidth="110.0" text="Package" />
-            <TableColumn fx:id="beerIsTap" prefWidth="58.0" text="isTap" />
+            <TableColumn fx:id="avrageRank" prefWidth="58.0" text="avRank" />
         </columns>
       </TableView>
    </center>

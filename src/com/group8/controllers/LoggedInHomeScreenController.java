@@ -20,7 +20,9 @@ import java.util.ResourceBundle;
 public class LoggedInHomeScreenController extends MainController
 {
     // Declaration of elements
-    public Button logout;
+    @FXML
+    public Button logout, account;
+    @FXML
     public Label userName;
 
     // Declaration of FXML elements
@@ -264,6 +266,16 @@ public class LoggedInHomeScreenController extends MainController
         UserData.userInstance = null;
 
         Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
+        Scene result_scene = new Scene(result, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
+    }
+
+    @FXML
+    public void onAccount(javafx.event.ActionEvent event) throws IOException {
+
+        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
         Scene result_scene = new Scene(result, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);

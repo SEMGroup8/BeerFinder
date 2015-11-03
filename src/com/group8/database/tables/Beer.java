@@ -19,6 +19,9 @@ public class Beer extends MysqlDriver{
     private String name, description, type, origin, producer, beerPackage;
     private ImageView imV;
     int id;
+
+
+    float avRank;
     float percentage,volume;
     Boolean isTap;
     BufferedImage image = null;  //Buffered image coming from database
@@ -58,7 +61,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
-        
+        this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
     }
 
     /**
@@ -83,6 +86,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
+        this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
     }
 
 
@@ -146,23 +150,11 @@ public class Beer extends MysqlDriver{
         return image2;
     }
 
-
-    /**
-     * TODO implement the actual insert method
-     * @param beer
-     */
-    public void insertBeer(Beer beer) {
-
-        String query = "";
-
-        query += "INSERT INTO beers (name,description,beerType,originID,percentage,producerName,volume,package)" +
-                 " VALUES (" + beer.getName() + "," + beer.getDescription() + "," + beer.getOrigin() + "," + beer.getPercentage() + ","
-                 + beer.getProducer() + "," + beer.getVolume() + "," + beer.getBeerPackage() + ");";
-
-
-
-        insert(query);
+    public float getAvRank() {
+        return avRank;
     }
+
+
 
     /**
      * Overide on original toString to return entire object in String format.
