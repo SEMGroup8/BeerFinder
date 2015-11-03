@@ -1,6 +1,8 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.BeerRank;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +50,8 @@ public class BeerDetailController implements Initializable{
     public Label showProducer;
     @FXML
     public ImageView showImage;
+    @FXML
+    public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
 
 
     /**
@@ -62,9 +66,33 @@ public class BeerDetailController implements Initializable{
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
-
     }
-
+    public void rankStar(int number){
+    	BeerRank beer = new BeerRank(UserData.userInstance.get_id(), Beer.selectedBeer.getId(), number);
+    	
+    	beer.insertRank();
+    }
+    @FXML
+    public void onRankOneStar(ActionEvent event) throws IOException {
+        rankStar(1);
+    }
+    @FXML
+    public void onRankTwoStar(ActionEvent event) throws IOException {
+        rankStar(2);
+    }
+    @FXML
+    public void onRankThreeStar(ActionEvent event) throws IOException {
+        rankStar(3);
+    }
+    @FXML
+    public void onRankFourStar(ActionEvent event) throws IOException {
+        rankStar(4);
+    }
+    @FXML
+    public void onRankFiveStar(ActionEvent event) throws IOException {
+        rankStar(5);
+    }
+    
     /**
      * Home Button
      * @param event

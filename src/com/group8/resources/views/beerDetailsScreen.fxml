@@ -53,6 +53,15 @@
                         <Label fx:id="showTap" layoutX="120.0" layoutY="163.0" text="isTap" />
                         <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" />
                         <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" />
+                        <HBox alignment="CENTER" layoutX="257.0" layoutY="23.0" prefHeight="36.0" prefWidth="238.0">
+                           <children>
+                              <Button fx:id="oneStar" mnemonicParsing="false" onAction="#onRankOneStar" />
+                              <Button fx:id="twoStar" mnemonicParsing="false" onAction="#onRankTwoStar" />
+                              <Button fx:id="threeStar" mnemonicParsing="false" onAction="#onRankThreeStar" />
+                              <Button fx:id="fourStar" mnemonicParsing="false" onAction="#onRankFourStar" />
+                              <Button fx:id="fiveStar" mnemonicParsing="false" onAction="#onRankFiveStar" prefHeight="25.0" prefWidth="23.0" />
+                           </children>
+                        </HBox>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
