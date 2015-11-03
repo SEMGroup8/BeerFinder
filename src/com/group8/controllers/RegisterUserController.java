@@ -33,7 +33,7 @@ public class RegisterUserController {
     @FXML
     public Button register;
     @FXML
-    public TextField username;
+    public TextField username, fullName;
     @FXML
     public TextField email, pubName;
     @FXML
@@ -42,7 +42,7 @@ public class RegisterUserController {
     public PasswordField password;
 
     @FXML
-    public Label usernameError, emailError, pubNameError, passwordError, isPubError;
+    public Label usernameError, emailError, pubNameError, passwordError, isPubError, fullNameError;
 
     @FXML
     public void onRegister(ActionEvent event) throws IOException
@@ -94,7 +94,7 @@ public class RegisterUserController {
 
         User newUser = new User();
 
-        newUser.setUser(username.getText(), password.getText(), email.getText(), isPub.isSelected(), pubId);
+        newUser.setUser(username.getText(), fullName.getText(), password.getText(), email.getText(), isPub.isSelected(), pubId);
 
         newUser.insert();
 
@@ -108,6 +108,12 @@ public class RegisterUserController {
         if(username.getText().length()==0)
         {
             usernameError.setText("Username has to be filled in.");
+            canRegister = false;
+        }
+
+        if(fullName.getText().length()==0)
+        {
+            fullNameError.setText("Name has to be filled in.");
             canRegister = false;
         }
 

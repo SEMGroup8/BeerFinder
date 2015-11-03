@@ -19,34 +19,36 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Username:" />
-            <Label text="Email:" GridPane.rowIndex="2" />
-            <Label text="Password:" GridPane.rowIndex="1" />
+            <Label text="Email:" GridPane.rowIndex="3" />
+            <Label text="Password:" GridPane.rowIndex="2" />
             <TextField fx:id="username" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <Label text="Pub owner:" GridPane.rowIndex="3" />
-            <CheckBox fx:id="isPub" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label text="Pub owner:" GridPane.rowIndex="4" />
+            <CheckBox fx:id="isPub" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </CheckBox>
-            <Label text="Pub name:" GridPane.rowIndex="4" />
-            <TextField fx:id="pubName" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label text="Pub name:" GridPane.rowIndex="5" />
+            <TextField fx:id="pubName" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -56,7 +58,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="passwordError" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="passwordError" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -72,6 +74,17 @@
                </GridPane.margin>
             </Label>
             <Label fx:id="pubNameError" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Full Name:" GridPane.rowIndex="1" />
+            <TextField fx:id="fullName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label fx:id="fullNameError" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>

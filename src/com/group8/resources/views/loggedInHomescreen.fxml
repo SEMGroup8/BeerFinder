@@ -17,10 +17,15 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Button fx:id="logout" mnemonicParsing="false" onAction="#onLogout" onMousePressed="#exitField" text="Logout" textAlignment="CENTER">
+            <Button fx:id="account" mnemonicParsing="false" onAction="#onAccount" onMousePressed="#exitField" text="Account" textAlignment="CENTER">
                <HBox.margin>
-                  <Insets right="10.0" top="10.0" />
+                  <Insets right="10.0" />
                </HBox.margin></Button>
+            <Button fx:id="logout" layoutX="540.0" layoutY="20.0" mnemonicParsing="false" onAction="#onLogout" onMousePressed="#exitField" text="Logout" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </top>
