@@ -193,4 +193,37 @@ public class MysqlDriver {
             }
         }
     }
+
+    public static void update(String query) {
+        Connection con = null;
+        Statement st = null;
+
+        String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+        String user = "Gr8";
+        String password = "group8";
+
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
+            st.executeUpdate(query);
+
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+        } finally {
+            try {
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+    }
 }
