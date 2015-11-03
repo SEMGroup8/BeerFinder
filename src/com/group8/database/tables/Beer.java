@@ -58,6 +58,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
+        
     }
 
     /**
@@ -170,7 +171,7 @@ public class Beer extends MysqlDriver{
     @Override
     public String toString()
     {
-        String result="";
+        String result;
 
         result = this.getId() + " " +  this.name + " " + this.description + " " + this.type + " " + this.origin + " " + this.percentage + " " + this.producer + " " + this.volume + " " + this.isTap + " " + this.beerPackage;
 
