@@ -27,7 +27,6 @@ public class LoggedInHomeScreenController extends MainController
     @FXML
     public Button search;
     @FXML
-
     public CheckBox runSqlBox;
     @FXML
     public CheckBox advancedType;
@@ -49,10 +48,10 @@ public class LoggedInHomeScreenController extends MainController
     // TODO implement threads
     // public ProgressIndicator load;
 
-    /*
-     Auto clear fields when selected
-     Clear the Search field
-    */
+    /**
+     *   Auto clear fields when selected
+     *   Clear the Search field
+     */
     public void clearFieldSearch()
     {
         exitField();
@@ -111,7 +110,9 @@ public class LoggedInHomeScreenController extends MainController
 
     }
 
-    // Makes the advanced search viseble or inviseble depending on runSQL
+    /**
+     * Makes the advanced search viseble or inviseble depending on runSQL
+     */
     public void noSearch()
     {
 
@@ -147,8 +148,10 @@ public class LoggedInHomeScreenController extends MainController
         }
     }
 
-    /*
-        On clicking the Search button execute query through MySqlDriver
+    /**
+     *  On clicking the Search button execute query through MySqlDriver
+     * @param event
+     * @throws IOException
      */
     @FXML
     public void onSearch(javafx.event.ActionEvent event) throws IOException {
@@ -158,10 +161,7 @@ public class LoggedInHomeScreenController extends MainController
 
         // Fetch the user input
         String searchInput;
-        /**
-         *
-         *
-         */
+
 
         // SQL query
         if (runSqlBox.isSelected()) {
@@ -246,8 +246,10 @@ public class LoggedInHomeScreenController extends MainController
         }
     }
 
-    /*
-        Initialize Main controller
+    /**
+     *  Initialize Main controller
+     * @param location
+     * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

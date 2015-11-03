@@ -202,13 +202,11 @@ public class ResultController implements Initializable {
                             VBox vb = new VBox();
                             vb.setAlignment(Pos.CENTER);
                             ImageView imgVw = new ImageView();
-                            imgVw.setImage(new Image (new File("src/com/group8/resources/Images/beerHasNoImage.jpg").toURI().toString()));
-
-
-
+                            imgVw.setImage(new Image (new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
                             imgVw.setFitWidth(20);
                             imgVw.setFitHeight(40);
-                            System.out.println(imgVw.getImage().toString());
+                            // Test Output
+                            //System.out.println(imgVw.getImage().toString());
                             vb.getChildren().addAll(imgVw);
                             setGraphic(vb);
 

@@ -21,8 +21,6 @@ import java.util.ResourceBundle;
  *
  * TODO Visual Upgrade & optimizeation
  *
- *
- *
  */
 
 public class MainController implements Initializable {
@@ -47,6 +45,8 @@ public class MainController implements Initializable {
     @FXML
     public CheckBox advancedName;
     @FXML
+    public CheckBox advancedOrigin;
+    @FXML
     public TextField searchText;
     @FXML
     public TextField loginText;
@@ -58,10 +58,10 @@ public class MainController implements Initializable {
     // TODO implement threads
    // public ProgressIndicator load;
 
-    /*
-     Auto clear fields when selected
-     Clear the Search field
-    */
+    /**
+     * Auto clear fields when selected
+     * Clear the Search field
+     */
     public void clearFieldSearch()
     {
         exitField();
@@ -104,10 +104,12 @@ public class MainController implements Initializable {
             advancedDescription.setVisible(true);
             all.setVisible(true);
             advancedName.setVisible(true);
+            advancedOrigin.setVisible(true);
             advancedType.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
             advancedName.setSelected(true);
+            advancedOrigin.setSelected(false);
             all.setSelected(false);
         }else
         {
@@ -116,6 +118,7 @@ public class MainController implements Initializable {
             advancedDescription.setVisible(false);
             all.setVisible(false);
             advancedName.setVisible(false);
+            advancedOrigin.setVisible(false);
             advancedName.setSelected(true);
         }
     }
@@ -127,11 +130,13 @@ public class MainController implements Initializable {
             advancedProducer.setSelected(true);
             advancedDescription.setSelected(true);
             advancedName.setSelected(true);
+            advancedOrigin.setSelected(true);
         }else{
             advancedType.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
             advancedName.setSelected(false);
+            advancedOrigin.setSelected(false);
         }
 
 
@@ -150,6 +155,7 @@ public class MainController implements Initializable {
             advanced.setSelected(false);
             advancedName.setSelected(false);
             advancedName.setVisible(false);
+            advancedOrigin.setVisible(false);
 
         }else if(!runSqlBox.isSelected() && advanced.isSelected()){
             advancedDescription.setVisible(true);
@@ -159,6 +165,7 @@ public class MainController implements Initializable {
             error.setText("");
             advancedName.setVisible(true);
             advancedName.setSelected(true);
+            advancedOrigin.setSelected(true);
         }else
         {
             error.setText("");
@@ -220,8 +227,17 @@ public class MainController implements Initializable {
                 // For reasons
                 int selectedIteams=0;
 
+                if (advancedOrigin.isSelected()) {
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
+                        searchInput += " or originID like '%" + searchText.getText() + "%'";
+                        selectedIteams++;
+                    }else{
+                        searchInput += "originID like '%" + searchText.getText() + "%'";
+                    }
+                }
+
                 if (advancedType.isSelected()) {
-                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected()) {
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedOrigin.isSelected()) {
                         searchInput += " or beerType like '%" + searchText.getText() + "%'";
                         selectedIteams++;
                     } else{
@@ -229,7 +245,7 @@ public class MainController implements Initializable {
                     }
                 }
                 if (advancedProducer.isSelected()) {
-                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
+                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() ||advancedOrigin.isSelected()) {
                         searchInput += " or producerName like '%" + searchText.getText() + "%'";
                         selectedIteams++;
                     }else{
@@ -237,7 +253,7 @@ public class MainController implements Initializable {
                     }
                 }
                 if (advancedDescription.isSelected()) {
-                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected()) {
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedOrigin.isSelected()) {
                         searchInput += " or description like '%" + searchText.getText() + "%'";
                         selectedIteams++;
                     }else{

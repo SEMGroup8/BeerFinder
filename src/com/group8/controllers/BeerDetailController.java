@@ -1,7 +1,6 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,9 +50,11 @@ public class BeerDetailController implements Initializable{
     public ImageView showImage;
 
 
-    /*
-    Back button pressed takes you back to "result screen"
-    */
+    /**
+     * Back button pressed takes you back to "result screen"
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
@@ -63,9 +65,11 @@ public class BeerDetailController implements Initializable{
 
     }
 
-    /*
-     Home Button
-    */
+    /**
+     * Home Button
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
@@ -75,9 +79,11 @@ public class BeerDetailController implements Initializable{
         main_stage.show();
     }
 
-    /*
-    Initialize beerDetail controller
-    */
+    /**
+     * Initialize beerDetail controller
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -100,7 +106,7 @@ public class BeerDetailController implements Initializable{
 
             showTap.setText("This beer is on Tap");
         }
-        // Try loacing the image, if there is none will use placeholder
+        // Try loading the image, if there is none will use placeholder
         if (Beer.selectedBeer.getImage() == null) {
             System.out.println("No image! Will use Placeholder Image!");
         } else{
