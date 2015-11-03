@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,14 +27,34 @@ public class BeerDetailController implements Initializable{
     @FXML
     public Button back;
     @FXML
-    public Button home;
+    public Button newSearch;
     @FXML
-    public Label test;
+    public Label showBeerName;
+    @FXML
+    public Label showOrigin;
+    @FXML
+    public Label showBeerType;
+    @FXML
+    public Label showPercentage;
+    @FXML
+    public TextArea showDescription;
+    @FXML
+    public Label showVolume;
+    @FXML
+    public Label showTap;
+    @FXML
+    public Label showPackage;
+    @FXML
+    public Label showProducer;
+    @FXML
+    public ImageView showImage;
 
 
-    /*
-    Back button pressed takes you back to "result screen"
-    */
+    /**
+     * Back button pressed takes you back to "result screen"
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
@@ -43,9 +65,11 @@ public class BeerDetailController implements Initializable{
 
     }
 
-    /*
-     Home Button
-    */
+    /**
+     * Home Button
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
         Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
@@ -55,17 +79,53 @@ public class BeerDetailController implements Initializable{
         main_stage.show();
     }
 
-    /*
-    Initialize beerDetail controller
-    */
+    /**
+     * Initialize beerDetail controller
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         // test output
         System.out.println("beerDetails accsessed and initializeing!");
-        // Test display of beer
-        test.setText(Beer.selectedBeer.toString());
+        // Display Name of beer
+        showBeerName.setText(Beer.selectedBeer.getName());
+        // Display Origin
+        showOrigin.setText(Beer.selectedBeer.getOrigin());
+        // Display beer Type
+        showBeerType.setText(Beer.selectedBeer.getType());
+        // Display beer Description
+        showDescription.setText(Beer.selectedBeer.getDescription());
+        // Display if beer is tap
+        if (Beer.selectedBeer.getIsTap().toString().equals("false")) {
+
+            showTap.setText("This beer is not on Tap");
+        } else {
+
+            showTap.setText("This beer is on Tap");
+        }
+        // Try loading the image, if there is none will use placeholder
+        if (Beer.selectedBeer.getImage() == null) {
+            System.out.println("No image! Will use Placeholder Image!");
+        } else{
+            showImage.setImage(Beer.selectedBeer.getImage());
+        }
+        // Display beer volume
+        showVolume.setText("" + Beer.selectedBeer.getVolume() + " ml");
+        // Display beer percentage
+        showPercentage.setText(""+Beer.selectedBeer.getPercentage()+"%");
+        // Display beer package
+        showPackage.setText(Beer.selectedBeer.getBeerPackage());
+        // Display the beer producer
+        showProducer.setText(Beer.selectedBeer.getProducer());
+
+
         // Test the data in our beer instance
         System.out.println(Beer.selectedBeer.toString());
+
+
 
     }
 
