@@ -51,7 +51,7 @@
                         <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" />
                         <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" />
                         <Label fx:id="showVolume" layoutX="33.0" layoutY="142.0" text="Volume" />
-                        <Label fx:id="showTap" layoutX="120.0" layoutY="163.0" text="isTap" />
+                        <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" />
                         <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" />
                         <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" />
                         <HBox alignment="CENTER" layoutX="257.0" layoutY="23.0" prefHeight="36.0" prefWidth="238.0">
@@ -74,9 +74,19 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <TextArea fx:id="showDescription" editable="false" layoutX="27.0" layoutY="35.0" prefHeight="165.0" prefWidth="477.0" wrapText="true" />
-                        <Label layoutX="251.0" layoutY="3.0" text="Description">
+                        <Label layoutX="27.0" layoutY="3.0" text="Description">
                            <font>
                               <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="380.0" layoutY="3.0" text="Price:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="showPrice" layoutX="436.0" layoutY="3.0" text="price">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                      </children>

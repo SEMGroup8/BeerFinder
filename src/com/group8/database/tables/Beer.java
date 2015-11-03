@@ -22,7 +22,7 @@ public class Beer extends MysqlDriver{
 
 
     float avRank;
-    float percentage,volume;
+    float percentage,volume,price;
     Boolean isTap;
     BufferedImage image = null;  //Buffered image coming from database
     InputStream tmpImg = null; //Inputstream
@@ -61,6 +61,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
+        this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
     }
 
@@ -86,6 +87,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
+        this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
     }
 
@@ -154,6 +156,9 @@ public class Beer extends MysqlDriver{
         return avRank;
     }
 
+    public float getPrice(){
+        return this.price;
+    }
 
 
     /**

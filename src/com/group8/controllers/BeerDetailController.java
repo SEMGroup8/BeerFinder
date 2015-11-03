@@ -49,6 +49,8 @@ public class BeerDetailController implements Initializable{
     @FXML
     public Label showProducer;
     @FXML
+    public Label showPrice;
+    @FXML
     public ImageView showImage;
     @FXML
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
@@ -152,6 +154,9 @@ public class BeerDetailController implements Initializable{
         showPackage.setText(Beer.selectedBeer.getBeerPackage());
         // Display the beer producer
         showProducer.setText(Beer.selectedBeer.getProducer());
+        // Display beer price
+        showPrice.setText(Beer.selectedBeer.getPrice()+":-");
+
 
 
         // Test the data in our beer instance

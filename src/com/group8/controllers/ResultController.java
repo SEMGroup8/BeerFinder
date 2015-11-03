@@ -64,6 +64,8 @@ public class ResultController implements Initializable {
     @FXML
     public TableColumn<Beer,Image> beerImage;
     @FXML
+    public TableColumn<Beer,String> beerPrice;
+    @FXML
     public PieChart showPie;
 
 
@@ -167,6 +169,8 @@ public class ResultController implements Initializable {
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
         avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("AvRank"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
+        beerPrice.setCellValueFactory(new PropertyValueFactory<Beer, String>("Price"));
+
 
 
         // Try loading the image, if there is none will use placeholder
