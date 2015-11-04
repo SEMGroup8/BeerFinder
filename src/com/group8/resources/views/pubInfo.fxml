@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.PubInfo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.PubInfo">
    <children>
       <Pane layoutY="80.0" prefHeight="363.0" prefWidth="577.0">
          <children>
@@ -38,7 +38,7 @@
             <Button fx:id="addBeer" layoutX="416.0" layoutY="307.0" mnemonicParsing="false" onAction="#onAddBeer" prefHeight="26.0" prefWidth="82.0" text="Add Beer" />
          </children>
       </Pane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#acb1b5" height="90.0" layoutX="-1.0" stroke="BLACK" strokeType="INSIDE" width="583.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#acb1b5" height="90.0" layoutX="-1.0" stroke="BLACK" strokeType="INSIDE" width="606.0" AnchorPane.bottomAnchor="410.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Text fill="#6f381e" layoutX="115.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDIT BASIC PUB INFORMATION OR ADD A BEER" wrappingWidth="374.7134094238281">
          <font>
             <Font name="Arial Narrow" size="19.0" />
