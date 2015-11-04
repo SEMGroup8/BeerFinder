@@ -45,7 +45,7 @@ public class MainController implements Initializable {
     @FXML
     public CheckBox advancedName;
     @FXML
-    public CheckBox advancedOrigin;
+    public CheckBox advancedCountry;
     @FXML
     public TextField searchText;
     @FXML
@@ -104,12 +104,12 @@ public class MainController implements Initializable {
             advancedDescription.setVisible(true);
             all.setVisible(true);
             advancedName.setVisible(true);
-            advancedOrigin.setVisible(true);
+            advancedCountry.setVisible(true);
             advancedType.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
             advancedName.setSelected(true);
-            advancedOrigin.setSelected(false);
+            advancedCountry.setSelected(false);
             all.setSelected(false);
         }else
         {
@@ -118,7 +118,7 @@ public class MainController implements Initializable {
             advancedDescription.setVisible(false);
             all.setVisible(false);
             advancedName.setVisible(false);
-            advancedOrigin.setVisible(false);
+            advancedCountry.setVisible(false);
             advancedName.setSelected(true);
         }
     }
@@ -130,13 +130,13 @@ public class MainController implements Initializable {
             advancedProducer.setSelected(true);
             advancedDescription.setSelected(true);
             advancedName.setSelected(true);
-            advancedOrigin.setSelected(true);
+            advancedCountry.setSelected(true);
         }else{
             advancedType.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
             advancedName.setSelected(false);
-            advancedOrigin.setSelected(false);
+            advancedCountry.setSelected(false);
         }
 
 
@@ -155,7 +155,7 @@ public class MainController implements Initializable {
             advanced.setSelected(false);
             advancedName.setSelected(true);
             advancedName.setVisible(false);
-            advancedOrigin.setVisible(false);
+            advancedCountry.setVisible(false);
 
         }else if(!runSqlBox.isSelected() && advanced.isSelected()){
             advancedDescription.setVisible(true);
@@ -165,7 +165,7 @@ public class MainController implements Initializable {
             error.setText("");
             advancedName.setVisible(true);
             advancedName.setSelected(true);
-            advancedOrigin.setSelected(true);
+            advancedCountry.setSelected(true);
         }else
         {
             error.setText("");
@@ -214,7 +214,11 @@ public class MainController implements Initializable {
             BeerData.searchInput = searchText.getText();
         }else {
             // name search is defualt
-            BeerData.searchInput = "select * from beers where ";
+            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, package, price, avStars" +
+                                        " from beers, beerType, origin where " +
+                                            "beers.beerTypeID = beerType.beerTypeID " +
+                                                "and beers.originID = origin.originID " +
+                                        "and (";
 
             if(advancedName.isSelected()){
                 BeerData.searchInput += "name like '%" + searchText.getText() + "%'";
@@ -227,25 +231,25 @@ public class MainController implements Initializable {
                 // For reasons
                 int selectedIteams=0;
 
-                if (advancedOrigin.isSelected()) {
+                if (advancedCountry.isSelected()) {
                     if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
-                        BeerData.searchInput += " or originID like '%" + searchText.getText() + "%'";
+                        BeerData.searchInput += " or countryName like '%" + searchText.getText() + "%'";
                         selectedIteams++;
                     }else{
-                        BeerData.searchInput += "originID like '%" + searchText.getText() + "%'";
+                        BeerData.searchInput += "countryName like '%" + searchText.getText() + "%'";
                     }
                 }
 
                 if (advancedType.isSelected()) {
-                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedOrigin.isSelected()) {
-                        BeerData.searchInput += " or beerType like '%" + searchText.getText() + "%'";
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
+                        BeerData.searchInput += " or beerTypeEN like '%" + searchText.getText() + "%'";
                         selectedIteams++;
                     } else{
-                        BeerData.searchInput += "beerType like '%" + searchText.getText() + "%'";
+                        BeerData.searchInput += "beerTypeEN like '%" + searchText.getText() + "%'";
                     }
                 }
                 if (advancedProducer.isSelected()) {
-                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() ||advancedOrigin.isSelected()) {
+                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() ||advancedCountry.isSelected()) {
                         BeerData.searchInput += " or producerName like '%" + searchText.getText() + "%'";
                         selectedIteams++;
                     }else{
@@ -253,7 +257,7 @@ public class MainController implements Initializable {
                     }
                 }
                 if (advancedDescription.isSelected()) {
-                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedOrigin.isSelected()) {
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedCountry.isSelected()) {
                         BeerData.searchInput += " or description like '%" + searchText.getText() + "%'";
                         selectedIteams++;
                     }else{
@@ -263,20 +267,23 @@ public class MainController implements Initializable {
 
                 if (!advancedName.isSelected() && selectedIteams > 1){
                     // Test Output
-                    System.out.println(BeerData.searchInput.substring(26, 28));
+                    System.out.println(BeerData.searchInput.substring(260, 262));
 
-                    BeerData.searchInput = BeerData.searchInput.substring(0,26) + BeerData.searchInput.substring(29);
+                    BeerData.searchInput = BeerData.searchInput.substring(0,260) + BeerData.searchInput.substring(262);
                     // Test Output
                     System.out.println(BeerData.searchInput);
                 }
             }
         }
-
+        BeerData.searchInput +=")";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;
 
+        System.out.println(BeerData.searchInput);
         sqlData = MysqlDriver.selectMany(BeerData.searchInput);
+
+        System.out.println(sqlData.size());
 
         for (int i = 0; i < sqlData.size(); i++) {
             // Add a new Beer to the beer arraylist
@@ -384,7 +391,6 @@ public class MainController implements Initializable {
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
         Navigation.homescreenFXML = "/com/group8/resources/views/homescreen.fxml";
-
     }
 
 

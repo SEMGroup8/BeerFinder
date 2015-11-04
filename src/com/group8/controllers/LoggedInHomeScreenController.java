@@ -32,7 +32,7 @@ public class LoggedInHomeScreenController extends MainController {
     @FXML
     public CheckBox advancedType;
     @FXML
-    public CheckBox advancedProducer, advanceOrigin;
+    public CheckBox advancedProducer, advancedOrigin;
     @FXML
     public CheckBox advancedDescription;
     @FXML
@@ -102,8 +102,6 @@ public class LoggedInHomeScreenController extends MainController {
             advancedDescription.setSelected(false);
             advancedName.setSelected(false);
         }
-
-
     }
 
     /**
