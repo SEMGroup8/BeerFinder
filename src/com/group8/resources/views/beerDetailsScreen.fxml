@@ -69,6 +69,7 @@
                               <Button fx:id="fiveStar" mnemonicParsing="false" onAction="#onRankFiveStar" prefHeight="25.0" prefWidth="23.0" />
                            </children>
                         </HBox>
+                        <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">

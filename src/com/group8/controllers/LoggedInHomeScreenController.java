@@ -17,11 +17,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class LoggedInHomeScreenController extends MainController
-{
+public class LoggedInHomeScreenController extends MainController {
     // Declaration of elements
     @FXML
-    public Button logout, account;
+    public Button logout, account, favourites;
     @FXML
     public Label userName;
 
@@ -51,11 +50,10 @@ public class LoggedInHomeScreenController extends MainController
     // public ProgressIndicator load;
 
     /**
-     *   Auto clear fields when selected
-     *   Clear the Search field
+     * Auto clear fields when selected
+     * Clear the Search field
      */
-    public void clearFieldSearch()
-    {
+    public void clearFieldSearch() {
         exitField();
 
         if (searchText.getText().equals("Search...")) {
@@ -64,16 +62,13 @@ public class LoggedInHomeScreenController extends MainController
     }
 
     // Checkbox that when checked shows advanced checkboxes
-    public void showAdvanced()
-    {
-        if(runSqlBox.isSelected())
-        {
+    public void showAdvanced() {
+        if (runSqlBox.isSelected()) {
             runSqlBox.setSelected(false);
         }
 
         // Handle diffrent casesof visability and selection
-        if(!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible())
-        {
+        if (!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible()) {
             advancedType.setVisible(true);
             advancedProducer.setVisible(true);
             advancedDescription.setVisible(true);
@@ -84,8 +79,7 @@ public class LoggedInHomeScreenController extends MainController
             advancedDescription.setSelected(false);
             advancedName.setSelected(true);
             all.setSelected(false);
-        }else
-        {
+        } else {
             advancedType.setVisible(false);
             advancedProducer.setVisible(false);
             advancedDescription.setVisible(false);
@@ -94,15 +88,15 @@ public class LoggedInHomeScreenController extends MainController
             advancedName.setSelected(true);
         }
     }
+
     // Checkbox to check all the advanced boxes
-    public void checkAll()
-    {
-        if ( !advancedType.isSelected() || !advancedProducer.isSelected() || !advancedDescription.isSelected()) {
+    public void checkAll() {
+        if (!advancedType.isSelected() || !advancedProducer.isSelected() || !advancedDescription.isSelected()) {
             advancedType.setSelected(true);
             advancedProducer.setSelected(true);
             advancedDescription.setSelected(true);
             advancedName.setSelected(true);
-        }else{
+        } else {
             advancedType.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
@@ -115,11 +109,10 @@ public class LoggedInHomeScreenController extends MainController
     /**
      * Makes the advanced search viseble or inviseble depending on runSQL
      */
-    public void noSearch()
-    {
+    public void noSearch() {
 
 
-        if(runSqlBox.isSelected()) {
+        if (runSqlBox.isSelected()) {
             advancedDescription.setVisible(false);
             advancedProducer.setVisible(false);
             advancedType.setVisible(false);
@@ -128,7 +121,7 @@ public class LoggedInHomeScreenController extends MainController
             advancedName.setSelected(false);
             advancedName.setVisible(false);
 
-        }else if(!runSqlBox.isSelected() && advanced.isSelected()){
+        } else if (!runSqlBox.isSelected() && advanced.isSelected()) {
             advancedDescription.setVisible(true);
             advancedProducer.setVisible(true);
             advancedType.setVisible(true);
@@ -136,22 +129,21 @@ public class LoggedInHomeScreenController extends MainController
             error.setText("");
             advancedName.setVisible(true);
             advancedName.setSelected(true);
-        }else
-        {
+        } else {
             error.setText("");
         }
     }
 
     // Resets guide text if no input was made
-    public void exitField()
-    {
-        if (searchText.getText().isEmpty()){
+    public void exitField() {
+        if (searchText.getText().isEmpty()) {
             searchText.setText("Search...");
         }
     }
 
     /**
-     *  On clicking the Search button execute query through MySqlDriver
+     * On clicking the Search button execute query through MySqlDriver
+     *
      * @param event
      * @throws IOException
      */
@@ -168,51 +160,50 @@ public class LoggedInHomeScreenController extends MainController
         // SQL query
         if (runSqlBox.isSelected()) {
             searchInput = searchText.getText();
-        }else {
+        } else {
             // name search is defualt
             searchInput = "select * from beers where ";
 
-            if(advancedName.isSelected()){
+            if (advancedName.isSelected()) {
                 searchInput += "name like '%" + searchText.getText() + "%'";
             }
 
 
             // Advanced
-            if(advanced.isSelected())
-            {
+            if (advanced.isSelected()) {
                 // For reasons
-                int selectedIteams=0;
+                int selectedIteams = 0;
 
                 if (advancedType.isSelected()) {
-                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected()) {
+                    if (advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected()) {
                         searchInput += " or beerType like '%" + searchText.getText() + "%'";
                         selectedIteams++;
-                    } else{
+                    } else {
                         searchInput += "beerType like '%" + searchText.getText() + "%'";
                     }
                 }
                 if (advancedProducer.isSelected()) {
-                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
+                    if (advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
                         searchInput += " or producerName like '%" + searchText.getText() + "%'";
                         selectedIteams++;
-                    }else{
+                    } else {
                         searchInput += "producerName like '%" + searchText.getText() + "%'";
                     }
                 }
                 if (advancedDescription.isSelected()) {
-                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected()) {
+                    if (advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected()) {
                         searchInput += " or description like '%" + searchText.getText() + "%'";
                         selectedIteams++;
-                    }else{
+                    } else {
                         searchInput += "description like '%" + searchText.getText() + "%'";
                     }
                 }
 
-                if (!advancedName.isSelected() && selectedIteams > 1){
+                if (!advancedName.isSelected() && selectedIteams > 1) {
                     // Test Output
                     System.out.println(searchInput.substring(26, 28));
 
-                    searchInput = searchInput.substring(0,26) + searchInput.substring(29);
+                    searchInput = searchInput.substring(0, 26) + searchInput.substring(29);
                     // Test Output
                     System.out.println(searchInput);
                 }
@@ -228,41 +219,46 @@ public class LoggedInHomeScreenController extends MainController
             // Add a new Beer to the beer arraylist
             Beer beer = new Beer(sqlData.get(i));
             // Testoutput
-            System.out.print(beer.getName()+"\n");
+            System.out.print(beer.getName() + "\n");
             BeerData.beer.add(beer);
         }
 
 
-        if ((BeerData.beer.size()>0)) {
+        if ((BeerData.beer.size() > 0)) {
 
             // Load the result stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
-            Scene result_scene = new Scene(result,800,600);
+            Scene result_scene = new Scene(result, 800, 600);
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
             main_stage.show();
-        }else
-        {
+        } else {
             //load.setVisible(false);
             error.setText("Invalid Search String!");
         }
     }
 
     /**
-     *  Initialize Main controller
+     * Initialize Main controller
+     *
      * @param location
      * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
         userName.setText(UserData.userInstance.get_name());
 
+        Navigation.homescreenFXML = "/com/group8/resources/views/loggedInHomescreen.fxml";
+        Navigation.resultviewFXML = "/com/group8/resources/views/resultScreen.fxml";
+        Navigation.backFXML = "/com/group8/resources/views/loggedInHomescreen.fxml";
     }
 
     @FXML
-    public void onLogout(javafx.event.ActionEvent event) throws IOException {
+    public void onLogout(javafx.event.ActionEvent event) throws IOException
+    {
         UserData.userInstance = null;
 
         Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
@@ -273,9 +269,21 @@ public class LoggedInHomeScreenController extends MainController
     }
 
     @FXML
-    public void onAccount(javafx.event.ActionEvent event) throws IOException {
+    public void onAccount(javafx.event.ActionEvent event) throws IOException
+    {
 
         Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
+        Scene result_scene = new Scene(result, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
+    }
+
+    @FXML
+    public void onFavourites(javafx.event.ActionEvent event) throws IOException
+    {
+
+        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
         Scene result_scene = new Scene(result, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);

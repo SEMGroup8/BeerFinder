@@ -1,5 +1,6 @@
 package com.group8.controllers;
 
+import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.BeerRank;
 
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
 public class BeerDetailController implements Initializable{
 
     @FXML
-    public Button back;
+    public Button back, favourite;
     @FXML
     public Button newSearch;
     @FXML
@@ -63,7 +64,7 @@ public class BeerDetailController implements Initializable{
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.resultviewFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
@@ -94,7 +95,22 @@ public class BeerDetailController implements Initializable{
     public void onRankFiveStar(ActionEvent event) throws IOException {
         rankStar(5);
     }
-    
+
+    @FXML
+    public void addToFavourite(ActionEvent event) throws IOException
+    {
+        if(UserData.userInstance!=null)
+        {
+            String sqlQuery = "insert into favourites values(" + Beer.selectedBeer.getId() + ", " + UserData.userInstance.get_id() + ");";
+
+            System.out.println(sqlQuery);
+
+            MysqlDriver.insert(sqlQuery);
+
+            UserData.userInstance.getFavourites();
+        }
+    }
+
     /**
      * Home Button
      * @param event
@@ -102,7 +118,7 @@ public class BeerDetailController implements Initializable{
      */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);

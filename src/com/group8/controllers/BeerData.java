@@ -12,5 +12,4 @@ public class BeerData {
      Create a Arraylist of Beer(s)
     */
     public static ArrayList<Beer> beer;
-
 }
