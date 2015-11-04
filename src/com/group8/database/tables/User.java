@@ -49,6 +49,8 @@ public class User extends MysqlDriver
         }
         this._isPub = Boolean.parseBoolean(sqlReturn.get(5).toString());
 
+        System.out.println(_isPub);
+        
         this._pubId = Integer.parseInt(sqlReturn.get(6).toString());
 
         if(this._isPub)
@@ -63,7 +65,7 @@ public class User extends MysqlDriver
     {
         _id = Integer.parseInt(sqlData.get(0).toString());
 
-        if(Boolean.parseBoolean(sqlData.get(4).toString()))
+        if(Boolean.parseBoolean(sqlData.get(5).toString()))
         {
             setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), sqlData.get(4).toString(), Boolean.parseBoolean(sqlData.get(5).toString()), Integer.parseInt(sqlData.get(6).toString()));
         }
@@ -73,6 +75,7 @@ public class User extends MysqlDriver
 
         }
 
+        System.out.println(this._isPub);
         getFavourites();
     }
 
@@ -82,6 +85,7 @@ public class User extends MysqlDriver
         this._fullName = fullName;
         this._password = password;
         this._email = email;
+        this._isPub = isPub;
     }
 
     public void setUser(String name, String fullName, String password, String email, boolean isPub, int pubId)
