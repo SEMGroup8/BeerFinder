@@ -1,15 +1,25 @@
 package com.group8.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import com.group8.database.*;
 
@@ -25,14 +35,20 @@ public class AddBeerController  {
 	public ChoiceBox<String> beerType;
 	public TextField beerProducer;
 	public TextField beerOrigin;
-	
-
+	public TextField beerVolume;
+	public CheckBox beerIsTap;
+	 @FXML
+	    public Button logout, account, favourites;
+	 public Label userName;
 
 	public Button addBeerButton;
 	
 	
 	
     public void initialize(){
+    	
+    	userName.setText(UserData.userInstance.get_name());
+    	
     	beerTypeList.clear();
     	String beerTypeInfo;
     	beerTypeInfo ="select distinct beerTypeEN from beerType";
@@ -59,18 +75,50 @@ public class AddBeerController  {
 		
 		
 	    String beerInfo ;
-		beerInfo = "INSERT INTO `beers`(`name`, `description`, `originID`, `percentage`, `producerName`, `package`, `image`, `beerTypeID`) VALUES ('"
-	    + beerName.getText() + "','" + beerDescription.getText() + "','" + beerOrigin.getText().toLowerCase() + "','" + beerPercentage.getText() + "','" 
-		+ beerProducer.getText() + "','"+ beerPackageType.getText() +"', '" + defaultImage + "','" + typeID +"')";
+		beerInfo = "INSERT INTO `beers`(`name`, `description`, `originID`, `percentage`, `producerName`, `package`, `image`, `beerTypeID`, `volume`, `isTap`) VALUES ('"
+	    + beerName.getText() + "','" + beerDescription.getText() + "','" + beerOrigin.getText().toUpperCase() + "','" + beerPercentage.getText() + "','" 
+		+ beerProducer.getText() + "','"+ beerPackageType.getText() +"','" + defaultImage + "','" + typeID +"','" + beerVolume.getText()+"','" + (beerIsTap.isSelected() ? 1 : 0) +"')";
 		
-		System.out.println(beerInfo);
+	//	System.out.println(beerInfo);
 		
 		MysqlDriver.insert(beerInfo);
 		
 	}            
 	                                                                                                                             
 
-	
+	 @FXML
+	    public void onLogout(javafx.event.ActionEvent event) throws IOException
+	    {
+	        UserData.userInstance = null;
+
+	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
+	        Scene result_scene = new Scene(result, 800, 600);
+	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        main_stage.setScene(result_scene);
+	        main_stage.show();
+	    }
+
+	    @FXML
+	    public void onAccount(javafx.event.ActionEvent event) throws IOException
+	    {
+
+	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
+	        Scene result_scene = new Scene(result, 800, 600);
+	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        main_stage.setScene(result_scene);
+	        main_stage.show();
+	    }
+
+	    @FXML
+	    public void onFavourites(javafx.event.ActionEvent event) throws IOException
+	    {
+
+	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
+	        Scene result_scene = new Scene(result, 800, 600);
+	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        main_stage.setScene(result_scene);
+	        main_stage.show();
+	    }
 
 	
 
