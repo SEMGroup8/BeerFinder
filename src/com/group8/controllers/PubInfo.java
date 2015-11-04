@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -74,12 +75,14 @@ import javafx.stage.Stage;
 		MysqlDriver.insert(pubInfo);
 	}
 	
-	public void onAddBeer(ActionEvent event){
-		 Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/addBeer.fxml"));
+	public void onAddBeer(ActionEvent event) throws IOException{
+		
+		Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/addBeer.fxml"));
          Scene result_scene = new Scene(result,800,600);
          Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
          main_stage.setScene(result_scene);
          main_stage.show();
+         
 	}
 }
 
