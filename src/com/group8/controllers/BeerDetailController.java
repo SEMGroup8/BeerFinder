@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -50,6 +51,8 @@ public class BeerDetailController implements Initializable{
     @FXML
     public Label showProducer;
     @FXML
+    public Label showPrice;
+    @FXML
     public ImageView showImage;
     @FXML
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
@@ -64,6 +67,19 @@ public class BeerDetailController implements Initializable{
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
+        // Update the beer list for changes
+        BeerData.beer = new ArrayList<Beer>();
+        ArrayList<ArrayList<Object>> sqlData;
+        System.out.println(BeerData.searchInput);
+        sqlData = MysqlDriver.selectMany(BeerData.searchInput);
+
+        for (int i = 0; i < sqlData.size(); i++) {
+            // Add a new Beer to the beer arraylist
+            Beer beer = new Beer(sqlData.get(i));
+            // Testoutput
+            //System.out.print(beer.getName()+"\n");
+            BeerData.beer.add(beer);
+        }
         Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.resultviewFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -71,9 +87,10 @@ public class BeerDetailController implements Initializable{
         main_stage.show();
     }
     public void rankStar(int number){
-    	BeerRank beer = new BeerRank(UserData.userInstance.get_id(), Beer.selectedBeer.getId(), number);
+    	BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
     	
     	beer.insertRank();
+
     }
     @FXML
     public void onRankOneStar(ActionEvent event) throws IOException {
@@ -101,7 +118,7 @@ public class BeerDetailController implements Initializable{
     {
         if(UserData.userInstance!=null)
         {
-            String sqlQuery = "insert into favourites values(" + Beer.selectedBeer.getId() + ", " + UserData.userInstance.get_id() + ");";
+            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.get_id() + ");";
 
             System.out.println(sqlQuery);
 
@@ -137,17 +154,17 @@ public class BeerDetailController implements Initializable{
         // test output
         System.out.println("beerDetails accsessed and initializeing!");
         // Display Name of beer
-        showBeerName.setText(Beer.selectedBeer.getName());
+        showBeerName.setText(BeerData.selectedBeer.getName());
         // Display Origin
-        showOrigin.setText(Beer.selectedBeer.getOrigin());
+        showOrigin.setText(BeerData.selectedBeer.getOrigin());
         // Display beer Type
-        showBeerType.setText(Beer.selectedBeer.getType());
+        showBeerType.setText(BeerData.selectedBeer.getType());
         // Display beer Description
-        showDescription.setText(Beer.selectedBeer.getDescription());
+        showDescription.setText(BeerData.selectedBeer.getDescription());
        // Display Rank of beer
-        rankShow.setText(""+Beer.selectedBeer.getAvRank());
+        rankShow.setText(""+BeerData.selectedBeer.getAvRank());
         // Display if beer is tap
-        if (Beer.selectedBeer.getIsTap().toString().equals("false")) {
+        if (BeerData.selectedBeer.getIsTap().toString().equals("false")) {
 
             showTap.setText("This beer is not on Tap");
         } else {
@@ -155,23 +172,26 @@ public class BeerDetailController implements Initializable{
             showTap.setText("This beer is on Tap");
         }
         // Try loading the image, if there is none will use placeholder
-        if (Beer.selectedBeer.getImage() == null) {
+        if (BeerData.selectedBeer.getImage() == null) {
             System.out.println("No image! Will use Placeholder Image!");
         } else{
-            showImage.setImage(Beer.selectedBeer.getImage());
+            showImage.setImage(BeerData.selectedBeer.getImage());
         }
         // Display beer volume
-        showVolume.setText("" + Beer.selectedBeer.getVolume() + " ml");
+        showVolume.setText("" + BeerData.selectedBeer.getVolume() + " ml");
         // Display beer percentage
-        showPercentage.setText(""+Beer.selectedBeer.getPercentage()+"%");
+        showPercentage.setText(""+BeerData.selectedBeer.getPercentage()+"%");
         // Display beer package
-        showPackage.setText(Beer.selectedBeer.getBeerPackage());
+        showPackage.setText(BeerData.selectedBeer.getBeerPackage());
         // Display the beer producer
-        showProducer.setText(Beer.selectedBeer.getProducer());
+        showProducer.setText(BeerData.selectedBeer.getProducer());
+        // Display beer price
+        showPrice.setText(BeerData.selectedBeer.getPrice()+":-");
+
 
 
         // Test the data in our beer instance
-        System.out.println(Beer.selectedBeer.toString());
+        System.out.println(BeerData.selectedBeer.toString());
 
 
 
