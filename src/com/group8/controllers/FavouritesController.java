@@ -13,10 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,8 +21,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.omg.CORBA.NVList;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -33,17 +28,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-10-22.
- *
- * TODO Visual upgrade + presentation of objects + additional options
- *
+ * Created by Shiratori on 04/11/15.
  */
-public class ResultController implements Initializable {
-
+public class FavouritesController implements Initializable
+{
+    @FXML
+    public Button logout, account;
     @FXML
     public Button Back;
-    @FXML
-    public Button Maps;
     @FXML
     public TableView<Beer> beerTable;
     @FXML
@@ -63,18 +55,11 @@ public class ResultController implements Initializable {
     @FXML
     public TableColumn<Beer,Image> beerImage;
     @FXML
-    public TableColumn<Beer,String> beerPrice;
-    @FXML
     public PieChart showPie;
+    @FXML
+    public Label userName;
 
-
-
-
-
-
-
-
-    public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
+    public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
 
 
     /**
@@ -89,24 +74,29 @@ public class ResultController implements Initializable {
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
-
-
     }
 
-    /**
-     * Get the map scene
-     * @param event
-     * @throws IOException
-     */
     @FXML
-    public void getMaps(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
+    public void onLogout(javafx.event.ActionEvent event) throws IOException
+    {
+        UserData.userInstance = null;
+
+        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
+        Scene result_scene = new Scene(result, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
+    }
 
+    @FXML
+    public void onAccount(javafx.event.ActionEvent event) throws IOException
+    {
 
+        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
+        Scene result_scene = new Scene(result, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
     }
 
     /**
@@ -144,10 +134,7 @@ public class ResultController implements Initializable {
             }
 
         });
-
-
-}
-
+    }
 
     /**
      * initialize result controller
@@ -156,9 +143,11 @@ public class ResultController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Set username
+        userName.setText(UserData.userInstance.get_name());
 
-        Navigation.resultviewFXML = "/com/group8/resources/views/resultScreen.fxml";
-        Navigation.backFXML = "/com/group8/resources/views/resultScreen.fxml";
+        Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
+        Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
@@ -168,8 +157,6 @@ public class ResultController implements Initializable {
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
         avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("AvRank"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
-        beerPrice.setCellValueFactory(new PropertyValueFactory<Beer, String>("Price"));
-
 
 
         // Try loading the image, if there is none will use placeholder
@@ -225,4 +212,4 @@ public class ResultController implements Initializable {
         beerTable.setItems(masterData);
 
     }
-    }
+}

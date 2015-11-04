@@ -20,23 +20,14 @@ public class Beer extends MysqlDriver{
     private ImageView imV;
     int id;
 
-    public float getAvRank() {
-        return avRank;
-    }
 
     float avRank;
-    float percentage,volume;
+    float percentage,volume,price;
     Boolean isTap;
     BufferedImage image = null;  //Buffered image coming from database
     InputStream tmpImg = null; //Inputstream
 
 
-
-
-
-    // A open beer allows us to look at detailed info in
-    // result screen/beerDetailsScreen
-    public static Beer selectedBeer;
 
 
     /**
@@ -64,6 +55,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
+        this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
     }
 
@@ -89,6 +81,7 @@ public class Beer extends MysqlDriver{
         this.volume = Float.parseFloat(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
+        this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
     }
 
@@ -153,23 +146,14 @@ public class Beer extends MysqlDriver{
         return image2;
     }
 
-
-    /**
-     * TODO implement the actual insert method
-     * @param beer
-     */
-    public void insertBeer(Beer beer) {
-
-        String query = "";
-
-        query += "INSERT INTO beers (name,description,beerType,originID,percentage,producerName,volume,package)" +
-                 " VALUES (" + beer.getName() + "," + beer.getDescription() + "," + beer.getOrigin() + "," + beer.getPercentage() + ","
-                 + beer.getProducer() + "," + beer.getVolume() + "," + beer.getBeerPackage() + ");";
-
-
-
-        insert(query);
+    public float getAvRank() {
+        return avRank;
     }
+
+    public float getPrice(){
+        return this.price;
+    }
+
 
     /**
      * Overide on original toString to return entire object in String format.
@@ -178,7 +162,7 @@ public class Beer extends MysqlDriver{
     @Override
     public String toString()
     {
-        String result="";
+        String result;
 
         result = this.getId() + " " +  this.name + " " + this.description + " " + this.type + " " + this.origin + " " + this.percentage + " " + this.producer + " " + this.volume + " " + this.isTap + " " + this.beerPackage;
 

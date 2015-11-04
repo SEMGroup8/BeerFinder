@@ -13,4 +13,10 @@ public class BeerData {
     */
     public static ArrayList<Beer> beer;
 
+    // A open beer allows us to look at detailed info in
+    // result screen/beerDetailsScreen
+    public static Beer selectedBeer;
+
+    public static String searchInput;
+
 }
