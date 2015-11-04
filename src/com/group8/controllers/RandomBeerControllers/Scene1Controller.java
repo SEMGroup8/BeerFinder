@@ -19,13 +19,10 @@ public class Scene1Controller {
 
     @FXML
     private Button continueButton1;
-
     @FXML
     private Slider priceSlider;
-
     @FXML
     private CheckBox yesCheckbox;
-
     @FXML
     private CheckBox noCheckbox;
 

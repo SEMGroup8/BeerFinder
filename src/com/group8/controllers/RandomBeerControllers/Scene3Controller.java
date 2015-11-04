@@ -59,7 +59,7 @@ public class Scene3Controller {
         Stage stage;
         Parent root;
         stage = (Stage) continueButton3.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/result.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene4.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

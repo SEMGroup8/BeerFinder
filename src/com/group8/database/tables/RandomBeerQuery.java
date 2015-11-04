@@ -5,23 +5,17 @@ import com.group8.controllers.RandomBeerControllers.Scene2Controller;
 import com.group8.controllers.RandomBeerControllers.Scene3Controller;
 import com.group8.database.MysqlDriver;
 
-import java.util.ArrayList;
-
-/**
- * Created by Mantas on 2015.11.04.
- */
-public class RandomBeerResult extends MysqlDriver {
+public class RandomBeerQuery extends MysqlDriver {
 
     String query;
-    ArrayList<ArrayList<Object>> searchResult;
+    String query2;
 
     Scene1Controller scene1 = new Scene1Controller();
     Scene2Controller scene2 = new Scene2Controller();
     Scene3Controller scene3 = new Scene3Controller();
 
 
-
-// Search string
+// Search string for the user choice
     public String resultQuery(){
 
         query = "SELECT * FROM beers WHERE (price < " + scene1.getPricePicked() + " AND percentage < "
@@ -32,7 +26,16 @@ public class RandomBeerResult extends MysqlDriver {
 
        return query;
     }
+
+    // Searc string for the random beer
+    public String randomQuery(int integer){
+
+        query2 = "SELECT * FROM beers WHERE beerID = "+ integer;
+
+        //Test print
+        System.out.println(query2);
+
+        return query2;
+    }
+
 }
-
-
-    //    SELECT beerID FROM beers WHERE (price < 20 AND percentage < 8.0 AND beerTypeID IN (7,9))
