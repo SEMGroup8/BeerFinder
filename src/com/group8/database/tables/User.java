@@ -1,5 +1,6 @@
 package com.group8.database.tables;
 
+import com.group8.controllers.BeerData;
 import com.group8.database.MysqlDriver;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
@@ -9,39 +10,14 @@ public class User extends MysqlDriver
 {
     private int _id;
     private String _username;
-
-    public String get_fullName() {
-        return _fullName;
-    }
-
-    public String get_password() {
-        return _password;
-    }
-
-    public String get_email() {
-        return _email;
-    }
-
-    public boolean is_isPub() {
-        return _isPub;
-    }
-
     private String _fullName;
     private String _password;
     private String _email;
-
-    public void set_id(int _id) {
-        this._id = _id;
-    }
-
     private boolean _isPub;
-
-    public int get_pubId() {
-        return _pubId;
-    }
-
     private int _pubId;
     private Pub _pub;
+
+    public ArrayList<Beer> favourites;
 
     public User()
     {
@@ -79,6 +55,8 @@ public class User extends MysqlDriver
         {
             this._pub = new Pub("Select * from pubs where pubID = '" + this._pubId + "';");
         }
+
+        getFavourites();
     }
 
     public User(ArrayList<Object> sqlData)
@@ -94,6 +72,8 @@ public class User extends MysqlDriver
             setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), sqlData.get(4).toString(), Boolean.parseBoolean(sqlData.get(5).toString()));
 
         }
+
+        getFavourites();
     }
 
     public void setUser(String name, String fullName, String password, String email, boolean isPub)
@@ -115,6 +95,27 @@ public class User extends MysqlDriver
         if(this._isPub)
         {
             this._pubId = pubId;
+        }
+    }
+
+    public void getFavourites()
+    {
+        String sqlQuery = "select beers.beerID, name, image, description, beerTypeID, originID, percentage, producerName, volume, isTap, package, price, avStars " +
+                "from beers, favourites where beers.beerID = favourites.beerID and favourites.userId = " + _id + ";";
+
+        // Execute user query
+        ArrayList<ArrayList<Object>> sqlData;
+
+        sqlData = MysqlDriver.selectMany(sqlQuery);
+
+        favourites = new ArrayList<Beer>();
+
+        for (int i = 0; i < sqlData.size(); i++) {
+            // Add a new Beer to the beer arraylist
+            Beer beer = new Beer(sqlData.get(i));
+            // Testoutput
+            System.out.print(beer.getName()+"\n");
+            this.favourites.add(beer);
         }
     }
 
@@ -151,4 +152,30 @@ public class User extends MysqlDriver
     public boolean get_isPub() {
         return _isPub;
     }
+
+    public String get_fullName() {
+        return _fullName;
+    }
+
+    public String get_password() {
+        return _password;
+    }
+
+    public String get_email() {
+        return _email;
+    }
+
+    public boolean is_isPub() {
+        return _isPub;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public int get_pubId() {
+        return _pubId;
+    }
+
+
 }

@@ -128,7 +128,7 @@ public class AccountSettings implements Initializable
     */
     @FXML
     public void onBack(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.backFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);

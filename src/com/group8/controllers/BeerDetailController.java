@@ -1,6 +1,9 @@
 package com.group8.controllers;
 
+import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.BeerRank;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +28,7 @@ import java.util.ResourceBundle;
 public class BeerDetailController implements Initializable{
 
     @FXML
-    public Button back;
+    public Button back, favourite;
     @FXML
     public Button newSearch;
     @FXML
@@ -48,6 +51,10 @@ public class BeerDetailController implements Initializable{
     public Label showProducer;
     @FXML
     public ImageView showImage;
+    @FXML
+    public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
+    @FXML
+    public Label rankShow;
 
 
     /**
@@ -57,12 +64,51 @@ public class BeerDetailController implements Initializable{
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.resultviewFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
+    }
+    public void rankStar(int number){
+    	BeerRank beer = new BeerRank(UserData.userInstance.get_id(), Beer.selectedBeer.getId(), number);
+    	
+    	beer.insertRank();
+    }
+    @FXML
+    public void onRankOneStar(ActionEvent event) throws IOException {
+        rankStar(1);
+    }
+    @FXML
+    public void onRankTwoStar(ActionEvent event) throws IOException {
+        rankStar(2);
+    }
+    @FXML
+    public void onRankThreeStar(ActionEvent event) throws IOException {
+        rankStar(3);
+    }
+    @FXML
+    public void onRankFourStar(ActionEvent event) throws IOException {
+        rankStar(4);
+    }
+    @FXML
+    public void onRankFiveStar(ActionEvent event) throws IOException {
+        rankStar(5);
+    }
 
+    @FXML
+    public void addToFavourite(ActionEvent event) throws IOException
+    {
+        if(UserData.userInstance!=null)
+        {
+            String sqlQuery = "insert into favourites values(" + Beer.selectedBeer.getId() + ", " + UserData.userInstance.get_id() + ");";
+
+            System.out.println(sqlQuery);
+
+            MysqlDriver.insert(sqlQuery);
+
+            UserData.userInstance.getFavourites();
+        }
     }
 
     /**
@@ -72,7 +118,7 @@ public class BeerDetailController implements Initializable{
      */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
@@ -98,6 +144,8 @@ public class BeerDetailController implements Initializable{
         showBeerType.setText(Beer.selectedBeer.getType());
         // Display beer Description
         showDescription.setText(Beer.selectedBeer.getDescription());
+       // Display Rank of beer
+        rankShow.setText(""+Beer.selectedBeer.getAvRank());
         // Display if beer is tap
         if (Beer.selectedBeer.getIsTap().toString().equals("false")) {
 

@@ -383,6 +383,8 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
+        Navigation.homescreenFXML = "/com/group8/resources/views/homescreen.fxml";
+
     }
 
 

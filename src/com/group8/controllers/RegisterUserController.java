@@ -98,6 +98,13 @@ public class RegisterUserController {
 
         newUser.insert();
 
+        UserData.userInstance = newUser;
+
+        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
+        Scene result_scene = new Scene(homescreen, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
     }
 
     //Checks if the input is correct.
