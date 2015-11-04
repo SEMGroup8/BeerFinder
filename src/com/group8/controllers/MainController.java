@@ -153,7 +153,7 @@ public class MainController implements Initializable {
             advancedType.setVisible(false);
             all.setVisible(false);
             advanced.setSelected(false);
-            advancedName.setSelected(false);
+            advancedName.setSelected(true);
             advancedName.setVisible(false);
             advancedOrigin.setVisible(false);
 
