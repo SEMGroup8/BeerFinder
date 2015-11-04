@@ -214,10 +214,11 @@ public class MainController implements Initializable {
             BeerData.searchInput = searchText.getText();
         }else {
             // name search is defualt
-            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, package, price, avStars" +
-                                        " from beers, beerType, origin where " +
+            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
+                                        " from beers, beerType, origin, package where " +
                                             "beers.beerTypeID = beerType.beerTypeID " +
                                                 "and beers.originID = origin.originID " +
+                                                    "and beers.package = package.packageID " +
                                         "and (";
 
             if(advancedName.isSelected()){

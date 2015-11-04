@@ -46,10 +46,11 @@
                         <CheckBox fx:id="runSqlBox" layoutY="84.0" mnemonicParsing="false" onAction="#noSearch" text="SQL" />
                         <CheckBox fx:id="advancedType" layoutX="-1.0" layoutY="174.0" mnemonicParsing="false" text="beerType" visible="false" />
                         <CheckBox fx:id="advancedProducer" layoutX="100.0" layoutY="146.0" mnemonicParsing="false" text="Producer" visible="false" />
-                        <CheckBox fx:id="advancedDescription" layoutX="-1.0" layoutY="202.0" mnemonicParsing="false" text="Description" visible="false" />
+                        <CheckBox fx:id="advancedDescription" layoutX="100.0" layoutY="174.0" mnemonicParsing="false" text="Description" visible="false" />
                         <CheckBox fx:id="advanced" layoutX="57.0" layoutY="84.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
-                        <CheckBox fx:id="all" layoutX="100.0" layoutY="174.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
+                        <CheckBox fx:id="all" layoutX="-1.0" layoutY="203.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
                         <CheckBox fx:id="advancedName" layoutX="-1.0" layoutY="146.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
+                        <CheckBox fx:id="advancedCountry" layoutX="100.0" layoutY="203.0" mnemonicParsing="false" text="Origin" visible="false" />
                      </children>
                   </AnchorPane>
                </children>
