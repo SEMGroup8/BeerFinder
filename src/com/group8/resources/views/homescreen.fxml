@@ -64,7 +64,7 @@
                         <CheckBox fx:id="advanced" layoutX="57.0" layoutY="84.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
                         <CheckBox fx:id="all" layoutX="-1.0" layoutY="202.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
                         <CheckBox fx:id="advancedName" layoutX="-1.0" layoutY="146.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
-                        <CheckBox fx:id="advancedOrigin" layoutX="100.0" layoutY="202.0" mnemonicParsing="false" text="Origin" visible="false" />
+                        <CheckBox fx:id="advancedCountry" layoutX="100.0" layoutY="202.0" mnemonicParsing="false" text="Origin" visible="false" />
                      </children>
                   </AnchorPane>
                </children>
