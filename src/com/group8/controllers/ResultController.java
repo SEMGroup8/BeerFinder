@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.omg.CORBA.NVList;
 
 
 import java.io.File;
@@ -49,8 +50,6 @@ public class ResultController implements Initializable {
     public TableColumn<Beer, String> beerName;
     @FXML
     public TableColumn<Beer, String> beerType;
-    @FXML
-    public TableColumn<Beer, String> beerDescription;
     @FXML
     public TableColumn<Beer, String> beerOrigin;
     @FXML
@@ -159,11 +158,11 @@ public class ResultController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         Navigation.resultviewFXML = "/com/group8/resources/views/resultScreen.fxml";
+        Navigation.backFXML = "/com/group8/resources/views/resultScreen.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
         beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("Type"));
-        beerDescription.setCellValueFactory(new PropertyValueFactory<Beer, String>("Description"));
         beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("Origin"));
         beerProducer.setCellValueFactory(new PropertyValueFactory<Beer, String>("Producer"));
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));

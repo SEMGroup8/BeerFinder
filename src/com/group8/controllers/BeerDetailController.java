@@ -67,18 +67,21 @@ public class BeerDetailController implements Initializable{
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
-        // Update the beer list for changes
-        BeerData.beer = new ArrayList<Beer>();
-        ArrayList<ArrayList<Object>> sqlData;
-        System.out.println(BeerData.searchInput);
-        sqlData = MysqlDriver.selectMany(BeerData.searchInput);
 
-        for (int i = 0; i < sqlData.size(); i++) {
-            // Add a new Beer to the beer arraylist
-            Beer beer = new Beer(sqlData.get(i));
-            // Testoutput
-            //System.out.print(beer.getName()+"\n");
-            BeerData.beer.add(beer);
+        if (!Navigation.backFXML.equals("/com/group8/resources/views/favourites.fxml")) {
+            // Update the beer list for changes
+            BeerData.beer = new ArrayList<Beer>();
+            ArrayList<ArrayList<Object>> sqlData;
+            System.out.println(BeerData.searchInput);
+            sqlData = MysqlDriver.selectMany(BeerData.searchInput);
+
+            for (int i = 0; i < sqlData.size(); i++) {
+                // Add a new Beer to the beer arraylist
+                Beer beer = new Beer(sqlData.get(i));
+                // Testoutput
+                //System.out.print(beer.getName()+"\n");
+                BeerData.beer.add(beer);
+            }
         }
         Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.resultviewFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);

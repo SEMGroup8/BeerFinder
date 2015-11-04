@@ -42,15 +42,14 @@
       <TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
-          <TableColumn fx:id="beerName" prefWidth="141.0" resizable="false" text="Name" />
-            <TableColumn fx:id="beerType" prefWidth="97.0" text="Type" />
-            <TableColumn fx:id="beerDescription" prefWidth="90.0" text="Description" />
-            <TableColumn fx:id="beerOrigin" prefWidth="51.0" text="Origin" />
-            <TableColumn fx:id="beerPercentage" prefWidth="87.0" text="Percentage" />
-            <TableColumn fx:id="beerProducer" prefWidth="108.0" text="Producer" />
-            <TableColumn fx:id="beerPackage" prefWidth="63.0" text="Package" />
-            <TableColumn fx:id="beerPrice" prefWidth="65.0" text="Price" />
-            <TableColumn fx:id="avrageRank" prefWidth="70.0" text="Rank" />
+          <TableColumn fx:id="beerName" prefWidth="196.0" resizable="false" text="Name" />
+            <TableColumn fx:id="beerType" prefWidth="123.0" text="Type" />
+            <TableColumn fx:id="beerOrigin" prefWidth="71.0" text="Origin" />
+            <TableColumn fx:id="beerPercentage" prefWidth="92.0" text="Percentage" />
+            <TableColumn fx:id="beerProducer" prefWidth="87.0" text="Producer" />
+            <TableColumn fx:id="beerPackage" prefWidth="76.0" text="Package" />
+            <TableColumn fx:id="beerPrice" prefWidth="58.0" text="Price" />
+            <TableColumn fx:id="avrageRank" prefWidth="49.0" text="Rank" />
         </columns>
       </TableView>
    </center>

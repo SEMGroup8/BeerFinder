@@ -51,7 +51,6 @@
           <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
           <TableColumn fx:id="beerName" prefWidth="141.0" resizable="false" text="Name" />
             <TableColumn fx:id="beerType" prefWidth="97.0" text="Type" />
-            <TableColumn fx:id="beerDescription" prefWidth="109.0" text="Description" />
             <TableColumn fx:id="beerOrigin" prefWidth="59.0" text="Origin" />
             <TableColumn fx:id="beerPercentage" prefWidth="96.0" text="Percentage" />
             <TableColumn fx:id="beerProducer" prefWidth="82.0" text="Producer" />
