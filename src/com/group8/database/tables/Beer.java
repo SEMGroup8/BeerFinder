@@ -30,12 +30,6 @@ public class Beer extends MysqlDriver{
 
 
 
-
-    // A open beer allows us to look at detailed info in
-    // result screen/beerDetailsScreen
-    public static Beer selectedBeer;
-
-
     /**
      * Constructor takeing a String query
      * @param query

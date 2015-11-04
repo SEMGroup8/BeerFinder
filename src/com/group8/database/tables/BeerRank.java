@@ -21,4 +21,7 @@ public class BeerRank extends MysqlDriver{
 		this.userId = userId;
 		this.beerID = beerID;
 	}
+
+
+
 }

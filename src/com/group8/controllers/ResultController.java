@@ -127,7 +127,7 @@ public class ResultController implements Initializable {
                     // Show that we can select items and print it
                     System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
                     // Set the selectedBeer instance of beer we have to selected item
-                    Beer.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
+                    BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
                     // Load the details scene
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     try {
