@@ -15,7 +15,7 @@
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
-      <Text layoutX="175.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rewarding your effort - here is what we chose for you!" textAlignment="CENTER">
+      <Text fx:id="textLine" layoutX="175.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rewarding your effort - here is what we chose for you!" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
@@ -144,7 +144,7 @@
                   </Label>
                   <Label fx:id="priceR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="300.0">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                      <padding>
                         <Insets left="15.0" />
@@ -167,7 +167,7 @@
             </Label>
             <Label fx:id="beerFound" layoutX="640.0" layoutY="502.0">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
          </children>

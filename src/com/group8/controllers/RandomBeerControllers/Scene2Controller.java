@@ -14,17 +14,14 @@ import java.io.IOException;
 
 public class Scene2Controller {
 
-    static double percentagePicked = 0;
+    static double percentagePicked = 18;
 
     @FXML
     private Button continueButton2;
-
     @FXML
     private Slider percentageSlider;
-
     @FXML
     private CheckBox yesCheckbox;
-
     @FXML
     private CheckBox noCheckbox;
 
@@ -37,11 +34,18 @@ public class Scene2Controller {
         stage = (Stage) continueButton2.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene3.fxml"));
         Scene scene = new Scene(root);
+
+        stage.setTitle("BeerFinder Alpha Test");
         stage.setScene(scene);
         stage.show();
 
         // Slider value setter
-        percentagePicked = percentageSlider.getValue();
+        if (noCheckbox.isSelected() || (!noCheckbox.isSelected() && !yesCheckbox.isSelected())){
+            percentagePicked = 18;
+        }
+        else {
+            percentagePicked = percentageSlider.getValue();
+        }
         System.out.println("Percentage picked:" + percentagePicked);
 
     }

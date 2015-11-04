@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class Scene4Controller {
 
 
     @FXML
-    private Button anotherButton11;
+    private Button anotherButton;
     @FXML
     private Label typeR;
     @FXML
@@ -57,38 +58,52 @@ public class Scene4Controller {
     private Label nameR;
     @FXML
     private Label priceR;
-
     @FXML
-    void onHomeClick(ActionEvent event) {
+    private Text textLine;
+
+    @FXML // Going back to home screen
+    void onHomeClick(ActionEvent event) throws Exception {
+
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
+        Scene scene = new Scene(root, 800, 600);
+
+        stage.setTitle("BeerFinder Alpha Test");
+        stage.setScene(scene);
+        stage.show();
 
     }
 
-    @FXML
+    @FXML // Showing another random result from already chosen parameters
     void onAnotherClick(ActionEvent event) {
 
+        // Getting one beer entry chosen randomly from the list of IDs
         ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(this.randomBeerQuery.randomQuery(generateRandom(this.arrayID)));
 
         Beer randomBeer = new Beer(list2.get(0));
         this.randomBeer = randomBeer;
 
+        // Populating beer info into scene
         this.typeR.setText(randomBeer.getType());
         this.originR.setText(randomBeer.getOrigin());
         this.percentageR.setText("" + randomBeer.getPercentage());
         this.nameR.setText(randomBeer.getName());
         this.packageR.setText(randomBeer.getBeerPackage());
         this.producerR.setText(randomBeer.getProducer());
-        this.priceR.setText("" + randomBeer.getPrice());
+        this.priceR.setText("" + randomBeer.getPrice() + " kr");
 
     }
 
 
-    @FXML
+    @FXML // Repeat the RandomBeer program from start
     void onRepeatClick(ActionEvent event) throws Exception {
         Stage stage;
         Parent root;
         stage = (Stage) repeatButton.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene1.fxml"));
         Scene scene = new Scene(root);
+
+        stage.setTitle("BeerFinder Alpha Test");
         stage.setScene(scene);
         stage.show();
 
@@ -98,42 +113,55 @@ public class Scene4Controller {
     @FXML
     void onCheckButtonClick(ActionEvent event) {
 
+        // Getting query with user choices
         RandomBeerQuery randomBeerQuery = new RandomBeerQuery();
         this.randomBeerQuery = randomBeerQuery;
 
+        // Getting the results from database with query
         ArrayList<ArrayList<Object>> list = MysqlDriver.selectMany(this.randomBeerQuery.resultQuery());
         this.arrayID = new int[list.size()];
 
+        // Making the array of beer IDs from query results
         for (int i = 0; i < list.size(); i++) {
             Beer beer = new Beer(list.get(i));
+            // Counting results
             count++;
             this.arrayID[i] = beer.getId();
-
         }
 
-//        System.out.println(arrayID[0]);
-//        System.out.println("Count: " + count + " Array: " + arrayID.length);
+        if (this.arrayID.length == 0){
+            checkButton.setVisible(false);
+            textLine.setText("No beers found :|");
+            HBoxButtons.setVisible(true);
+            anotherButton.setVisible(false);
+            return;
+        }
+        else {
 
-        ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(this.arrayID)));
+            // Getting one beer entry chosen randomly from the list of IDs
+            ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(this.arrayID)));
 
-        Beer randomBeer = new Beer(list2.get(0));
-        this.randomBeer = randomBeer;
 
-        this.typeR.setText(randomBeer.getType());
-        this.originR.setText(randomBeer.getOrigin());
-        this.percentageR.setText("" + randomBeer.getPercentage());
-        this.nameR.setText(randomBeer.getName());
-        this.packageR.setText(randomBeer.getBeerPackage());
-        this.producerR.setText(randomBeer.getProducer());
-        this.priceR.setText("" + randomBeer.getPrice());
-        this.beerFound.setText("" + count);
+            Beer randomBeer = new Beer(list2.get(0));
+            this.randomBeer = randomBeer;
 
-        VBoxInfo.setVisible(true);
-        HBoxButtons.setVisible(true);
-        HBoxFound.setVisible(true);
-        imageView.setVisible(true);
-        checkButton.setVisible(false);
+            // Populating beer info into scene
+            this.typeR.setText(randomBeer.getType());
+            this.originR.setText(randomBeer.getOrigin());
+            this.percentageR.setText("" + randomBeer.getPercentage());
+            this.nameR.setText(randomBeer.getName());
+            this.packageR.setText(randomBeer.getBeerPackage());
+            this.producerR.setText(randomBeer.getProducer());
+            this.priceR.setText("" + randomBeer.getPrice() + " kr");
+            this.beerFound.setText("" + count);
 
+            // Changing visibility of elements on scene
+            VBoxInfo.setVisible(true);
+            HBoxButtons.setVisible(true);
+            HBoxFound.setVisible(true);
+            imageView.setVisible(true);
+            checkButton.setVisible(false);
+        }
     }
     // Process the array of integers, returns one random integer
     public int generateRandom(int[] array) {

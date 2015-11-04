@@ -18,8 +18,14 @@ public class RandomBeerQuery extends MysqlDriver {
 // Search string for the user choice
     public String resultQuery(){
 
-        query = "SELECT * FROM beers WHERE (price < " + scene1.getPricePicked() + " AND percentage < "
-                + scene2.getPercentagePicked() + " AND beerTypeID IN " + scene3.getTypesPicked() + ")";
+        if (scene3.getTypesPicked().equals("(") || scene3.getTypesPicked().equals(")")){
+            query = "SELECT * FROM beers WHERE (price < " + scene1.getPricePicked() + " AND percentage < "
+                    + scene2.getPercentagePicked() + ")";
+        }
+        else {
+            query = "SELECT * FROM beers WHERE (price < " + scene1.getPricePicked() + " AND percentage < "
+                    + scene2.getPercentagePicked() + " AND beerTypeID IN " + scene3.getTypesPicked() + ")";
+        }
 
         //Test print
         System.out.println(query);

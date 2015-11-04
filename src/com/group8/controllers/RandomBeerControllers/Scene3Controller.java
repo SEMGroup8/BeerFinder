@@ -9,8 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javax.print.attribute.standard.MediaSize;
 import java.io.IOException;
 
 public class Scene3Controller {
@@ -19,52 +17,45 @@ public class Scene3Controller {
 
     @FXML
     private CheckBox OtherChecked;
-
     @FXML
     private CheckBox noCheckbox;
-
     @FXML
     private CheckBox SpecialCheck;
-
     @FXML
     private VBox VBoxTypes;
-
     @FXML
     private CheckBox AleCheck;
-
     @FXML
     private CheckBox WheatCheck;
-
     @FXML
     private CheckBox LagerCheck;
-
     @FXML
     private CheckBox PorterCheck;
-
     @FXML
     private CheckBox DarkLagerCheck;
-
     @FXML
     private Button continueButton3;
-
     @FXML
     private CheckBox yesCheckbox;
-
     @FXML
     private CheckBox FermentedCheck;
 
-    @FXML
-        // Clicking button "Continue"
+    @FXML // Clicking button "Continue"
     void onContinueClick3(ActionEvent event) throws IOException {
         Stage stage;
         Parent root;
         stage = (Stage) continueButton3.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene4.fxml"));
         Scene scene = new Scene(root);
+
+        stage.setTitle("BeerFinder Alpha Test");
         stage.setScene(scene);
         stage.show();
 
+        typesPicked = "(";
+
         // Checking checkboxes and initializing typesPicked
+
         if (AleCheck.isSelected()){
             typesPicked = typesPicked + "1,";
         }

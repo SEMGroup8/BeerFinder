@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class Scene1Controller {
 
-    static int pricePicked = 0;
+    static double pricePicked = 500;
 
 
     @FXML
@@ -30,16 +30,22 @@ public class Scene1Controller {
     @FXML
         // Clicking button "Continue"
     void onContinueClick1(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage = (Stage) continueButton1.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene2.fxml"));
+
+        Stage stage = (Stage) continueButton1.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene2.fxml"));
         Scene scene = new Scene(root);
+
+        stage.setTitle("BeerFinder Alpha Test");
         stage.setScene(scene);
         stage.show();
 
         // Slider value setter
-        pricePicked = (int) priceSlider.getValue();
+        if (noCheckbox.isSelected() || (!noCheckbox.isSelected() && !yesCheckbox.isSelected())){
+            pricePicked = 500;
+        }
+        else {
+            pricePicked = (int) priceSlider.getValue();
+        }
         System.out.println("Price picked:" + pricePicked);
 
     }
@@ -58,7 +64,7 @@ public class Scene1Controller {
     }
 
 
-    public int getPricePicked(){
+    public double getPricePicked(){
         return pricePicked;
     }
 
