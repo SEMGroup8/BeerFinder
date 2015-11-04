@@ -93,7 +93,7 @@ public class BeerDetailController implements Initializable{
     }
     public void rankStar(int number){
     	if(UserData.userInstance!=null) {
-            BeerRank beer = new BeerRank(UserData.userInstance.get_id(), Beer.selectedBeer.getId(), number);
+            BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
 
             beer.insertRank();
 
