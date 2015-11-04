@@ -54,6 +54,8 @@ public class BeerDetailController implements Initializable{
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
+//    @FXML
+//    public ImageView theoneStar;
 
 
     /**
@@ -70,10 +72,12 @@ public class BeerDetailController implements Initializable{
         main_stage.show();
     }
     public void rankStar(int number){
-    	BeerRank beer = new BeerRank(UserData.userInstance.get_id(), Beer.selectedBeer.getId(), number);
-    	
-    	beer.insertRank();
-    }
+    	if(UserData.userInstance!=null) {
+            BeerRank beer = new BeerRank(UserData.userInstance.get_id(), Beer.selectedBeer.getId(), number);
+
+            beer.insertRank();
+        }
+        }
     @FXML
     public void onRankOneStar(ActionEvent event) throws IOException {
         rankStar(1);
@@ -94,6 +98,10 @@ public class BeerDetailController implements Initializable{
     public void onRankFiveStar(ActionEvent event) throws IOException {
         rankStar(5);
     }
+//    @FXML
+//    public void mouseTheOnRankOneStar(ActionEvent event) throws IOException {
+//        rankStar(1);
+//    }
     
     /**
      * Home Button
