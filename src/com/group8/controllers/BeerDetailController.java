@@ -97,8 +97,10 @@ public class BeerDetailController implements Initializable{
 
             beer.insertRank();
 
+            UserData.userInstance.getFavourites();
         }
-        }
+    }
+
     @FXML
     public void onRankOneStar(ActionEvent event) throws IOException {
         rankStar(1);

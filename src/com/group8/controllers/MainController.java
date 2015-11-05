@@ -2,6 +2,7 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,6 +55,8 @@ public class MainController implements Initializable {
     public PasswordField pswrdField;
     @FXML
     public Label error;
+    @FXML
+    public Button randomButton;
 
     // TODO implement threads
    // public ProgressIndicator load;
@@ -382,6 +385,18 @@ public class MainController implements Initializable {
         main_stage.show();
     }
 
+    @FXML
+    public void onRandom (ActionEvent event) throws Exception{
+
+        Stage stage = (Stage) randomButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene1.fxml"));
+        Scene scene = new Scene(root);
+
+        stage.setTitle("BeerFinder Alpha Test");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     /**
      *  Initialize Main controller
      * @param location
@@ -393,6 +408,7 @@ public class MainController implements Initializable {
         BeerData.beer = new ArrayList<Beer>();
         Navigation.homescreenFXML = "/com/group8/resources/views/homescreen.fxml";
     }
+
 
 
 }

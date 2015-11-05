@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene4Controller">
+   <children>
+      <Label layoutX="255.0" layoutY="50.0" text="Random beer generator">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <Text fx:id="textLine" layoutX="175.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rewarding your effort - here is what we chose for you!" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <HBox fx:id="HBoxButtons" layoutX="50.0" layoutY="519.0" spacing="10.0" visible="false">
+         <children>
+            <Button fx:id="homeButton" layoutX="140.0" layoutY="500.0" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="30.0" prefWidth="160.0" text="Home">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="anotherButton" layoutX="487.0" layoutY="500.0" mnemonicParsing="false" onAction="#onAnotherClick" prefHeight="30.0" prefWidth="160.0" text="Show another">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="repeatButton" layoutX="315.0" layoutY="500.0" mnemonicParsing="false" onAction="#onRepeatClick" prefHeight="30.0" prefWidth="160.0" text="Start over">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="220.0" layoutX="79.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="/com/group8/resources/Images/beerHasNoImage.jpg" />
+         </image></ImageView>
+      <VBox fx:id="VBoxInfo" alignment="CENTER" layoutX="329.0" layoutY="202.0" spacing="10.0" visible="false">
+         <children>
+            <Label fx:id="nameR" alignment="CENTER" contentDisplay="CENTER" text="Name" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <HBox layoutX="348.0" layoutY="178.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" layoutX="348.0" layoutY="178.0" prefHeight="27.0" prefWidth="80.0" text="Type">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="typeR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="300.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" layoutX="348.0" layoutY="178.0" prefHeight="27.0" prefWidth="80.0" text="Origin">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="originR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="300.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="37.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" layoutX="348.0" layoutY="178.0" prefHeight="27.0" prefWidth="80.0" text="Producer">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="producerR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="300.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="64.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" layoutX="348.0" layoutY="178.0" prefHeight="27.0" prefWidth="80.0" text="Package">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="packageR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="300.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="91.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" layoutX="348.0" layoutY="178.0" prefHeight="27.0" prefWidth="80.0" text="Percentage">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="percentageR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="300.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="118.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" layoutX="348.0" layoutY="178.0" prefHeight="27.0" prefWidth="80.0" text="Price">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="priceR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="300.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="checkButton" layoutX="350.0" layoutY="244.0" mnemonicParsing="false" onAction="#onCheckButtonClick" prefHeight="100.0" prefWidth="100.0" text="?">
+         <font>
+            <Font size="48.0" />
+         </font></Button>
+      <HBox fx:id="HBoxFound" layoutX="622.0" layoutY="526.0" spacing="10.0" visible="false">
+         <children>
+            <Label layoutX="604.0" layoutY="502.0" text="Beers found:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="beerFound" layoutX="640.0" layoutY="502.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox fx:id="rankFavourite" alignment="CENTER" layoutX="179.0" layoutY="140.0" prefHeight="54.0" prefWidth="489.0" visible="false">
+      <children>
+         <Label text="Rank:" />
+         <Label fx:id="rankShow">
+            <HBox.margin>
+               <Insets left="10.0" right="10.0" />
+            </HBox.margin>
+         </Label>
+         <Button fx:id="oneStar" mnemonicParsing="false" onAction="#onRankOneStar">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="twoStar" mnemonicParsing="false" onAction="#onRankTwoStar">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="threeStar" mnemonicParsing="false" onAction="#onRankThreeStar">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="fourStar" mnemonicParsing="false" onAction="#onRankFourStar">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="fiveStar" mnemonicParsing="false" onAction="#onRankFiveStar" prefHeight="25.0" prefWidth="23.0" snapToPixel="false" textFill="TRANSPARENT">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin></Button>
+      </children>
+   </HBox>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</Pane>
