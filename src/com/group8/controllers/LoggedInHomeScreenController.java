@@ -66,6 +66,15 @@ public class LoggedInHomeScreenController extends MainController {
 
     // Checkbox that when checked shows advanced checkboxes
     public void showAdvanced() {
+
+        error.setText("");
+
+        if(advanced.isSelected()){
+            randomButton.setVisible(false);
+        }else{
+            randomButton.setVisible(true);
+        }
+
         if (runSqlBox.isSelected()) {
             runSqlBox.setSelected(false);
         }
@@ -262,9 +271,19 @@ public class LoggedInHomeScreenController extends MainController {
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
             main_stage.show();
-        } else {
+        } else
+        {
+            advanced.setSelected(false);
+            advancedType.setVisible(false);
+            advancedProducer.setVisible(false);
+            advancedDescription.setVisible(false);
+            all.setVisible(false);
+            advancedName.setVisible(false);
+            advancedCountry.setVisible(false);
+            advancedName.setSelected(true);
+
             //load.setVisible(false);
-            error.setText("Invalid Search String!");
+            error.setText("No result for: " + searchText.getText());
         }
     }
 
