@@ -1,7 +1,11 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BeerData;
+import com.group8.controllers.Navigation;
+import com.group8.controllers.UserData;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.BeerRank;
 import com.group8.database.tables.RandomBeerQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Scene4Controller {
@@ -43,7 +48,7 @@ public class Scene4Controller {
     @FXML
     private VBox VBoxInfo;
     @FXML
-    private HBox HBoxFound;
+    private HBox HBoxFound, rankFavourite;
     @FXML
     private Button homeButton;
     @FXML
@@ -65,7 +70,7 @@ public class Scene4Controller {
     void onHomeClick(ActionEvent event) throws Exception {
 
         Stage stage = (Stage) homeButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
         Scene scene = new Scene(root, 800, 600);
 
         stage.setTitle("BeerFinder Alpha Test");
@@ -143,6 +148,8 @@ public class Scene4Controller {
 
 
             Beer randomBeer = new Beer(list2.get(0));
+            BeerData.selectedBeer = randomBeer;
+
             this.randomBeer = randomBeer;
 
             // Populating beer info into scene
@@ -158,6 +165,7 @@ public class Scene4Controller {
             // Changing visibility of elements on scene
             VBoxInfo.setVisible(true);
             HBoxButtons.setVisible(true);
+            rankFavourite.setVisible(true);
             HBoxFound.setVisible(true);
             imageView.setVisible(true);
             checkButton.setVisible(false);
@@ -178,5 +186,50 @@ public class Scene4Controller {
             System.out.println("Array is empty");
         }
         return result;
+    }
+
+    @FXML
+    public void addToFavourite(ActionEvent event) throws IOException
+    {
+        if(UserData.userInstance!=null)
+        {
+            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.get_id() + ");";
+
+            System.out.println(sqlQuery);
+
+            MysqlDriver.insert(sqlQuery);
+
+            UserData.userInstance.getFavourites();
+        }
+    }
+
+    public void rankStar(int number){
+        if(UserData.userInstance!=null) {
+            BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
+
+            beer.insertRank();
+
+            UserData.userInstance.getFavourites();
+        }
+    }
+    @FXML
+    public void onRankOneStar(ActionEvent event) throws IOException {
+        rankStar(1);
+    }
+    @FXML
+    public void onRankTwoStar(ActionEvent event) throws IOException {
+        rankStar(2);
+    }
+    @FXML
+    public void onRankThreeStar(ActionEvent event) throws IOException {
+        rankStar(3);
+    }
+    @FXML
+    public void onRankFourStar(ActionEvent event) throws IOException {
+        rankStar(4);
+    }
+    @FXML
+    public void onRankFiveStar(ActionEvent event) throws IOException {
+        rankStar(5);
     }
 }

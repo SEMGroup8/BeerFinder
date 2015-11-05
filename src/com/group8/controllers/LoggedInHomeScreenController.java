@@ -4,6 +4,7 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 public class LoggedInHomeScreenController extends MainController {
     // Declaration of elements
     @FXML
-    public Button logout, account, favourites;
+    public Button logout, account, favourites, randomButton;
     @FXML
     public Label userName;
 
@@ -290,6 +291,18 @@ public class LoggedInHomeScreenController extends MainController {
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
+    }
+
+    @FXML
+    public void onRandom (ActionEvent event) throws Exception{
+
+        Stage stage = (Stage) randomButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene1.fxml"));
+        Scene scene = new Scene(root);
+
+        stage.setTitle("BeerFinder Alpha Test");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

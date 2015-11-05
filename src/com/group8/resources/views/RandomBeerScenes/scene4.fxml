@@ -20,7 +20,7 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <HBox fx:id="HBoxButtons" layoutX="50.0" layoutY="502.0" spacing="10.0" visible="false">
+      <HBox fx:id="HBoxButtons" layoutX="50.0" layoutY="519.0" spacing="10.0" visible="false">
          <children>
             <Button fx:id="homeButton" layoutX="140.0" layoutY="500.0" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="30.0" prefWidth="160.0" text="Home">
                <font>
@@ -39,11 +39,11 @@
             </Button>
          </children>
       </HBox>
-      <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="220.0" layoutX="80.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="220.0" layoutX="79.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="/com/group8/resources/Images/beerHasNoImage.jpg" />
          </image></ImageView>
-      <VBox fx:id="VBoxInfo" alignment="CENTER" layoutX="329.0" layoutY="164.0" spacing="10.0" visible="false">
+      <VBox fx:id="VBoxInfo" alignment="CENTER" layoutX="329.0" layoutY="202.0" spacing="10.0" visible="false">
          <children>
             <Label fx:id="nameR" alignment="CENTER" contentDisplay="CENTER" text="Name" textAlignment="CENTER">
                <font>
@@ -158,7 +158,7 @@
          <font>
             <Font size="48.0" />
          </font></Button>
-      <HBox fx:id="HBoxFound" layoutX="626.0" layoutY="510.0" spacing="10.0" visible="false">
+      <HBox fx:id="HBoxFound" layoutX="622.0" layoutY="526.0" spacing="10.0" visible="false">
          <children>
             <Label layoutX="604.0" layoutY="502.0" text="Beers found:">
                <font>
@@ -172,6 +172,65 @@
             </Label>
          </children>
       </HBox>
+      <HBox fx:id="rankFavourite" alignment="CENTER" layoutX="179.0" layoutY="140.0" prefHeight="54.0" prefWidth="489.0" visible="false">
+      <children>
+         <Label text="Rank:" />
+         <Label fx:id="rankShow">
+            <HBox.margin>
+               <Insets left="10.0" right="10.0" />
+            </HBox.margin>
+         </Label>
+         <Button fx:id="oneStar" mnemonicParsing="false" onAction="#onRankOneStar">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="twoStar" mnemonicParsing="false" onAction="#onRankTwoStar">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="threeStar" mnemonicParsing="false" onAction="#onRankThreeStar">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="fourStar" mnemonicParsing="false" onAction="#onRankFourStar">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="fiveStar" mnemonicParsing="false" onAction="#onRankFiveStar" prefHeight="25.0" prefWidth="23.0" snapToPixel="false" textFill="TRANSPARENT">
+            <graphic>
+               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../Images/rankStar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin></Button>
+      </children>
+   </HBox>
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
