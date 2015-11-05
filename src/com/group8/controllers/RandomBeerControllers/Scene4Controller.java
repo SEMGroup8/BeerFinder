@@ -10,6 +10,7 @@ import com.group8.database.tables.RandomBeerQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,9 +22,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class Scene4Controller {
+public class Scene4Controller{
 
    private int count;
    private Beer randomBeer;
@@ -65,6 +68,7 @@ public class Scene4Controller {
     private Label priceR;
     @FXML
     private Text textLine;
+
 
     @FXML // Going back to home screen
     void onHomeClick(ActionEvent event) throws Exception {
@@ -163,9 +167,15 @@ public class Scene4Controller {
             this.beerFound.setText("" + count);
 
             // Changing visibility of elements on scene
+
+            if (UserData.userInstance == null) {
+                rankFavourite.setVisible(false);
+            } else {
+                rankFavourite.setVisible(true);
+            }
+
             VBoxInfo.setVisible(true);
             HBoxButtons.setVisible(true);
-            rankFavourite.setVisible(true);
             HBoxFound.setVisible(true);
             imageView.setVisible(true);
             checkButton.setVisible(false);

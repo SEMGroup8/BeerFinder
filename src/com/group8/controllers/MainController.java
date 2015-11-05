@@ -327,6 +327,7 @@ public class MainController implements Initializable {
 
         String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
 
+        System.out.println(sqlQuery);
         ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
 
         if(userData == null)
