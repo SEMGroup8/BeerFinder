@@ -1,5 +1,6 @@
 package com.group8.controllers;
 
+import com.group8.database.tables.Pub;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -45,7 +47,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
     @FXML
     public GoogleMap map;
     @FXML
-    public TableColumn pubsColumn;
+    public TableColumn<Pub,String> pubsColumn;
     @FXML
     public TableView showPubs;
 
@@ -56,7 +58,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailScreen.fxml"));
+        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
@@ -81,6 +83,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mapView.addMapInializedListener(this);
+        pubsColumn.setCellValueFactory(new PropertyValueFactory<Pub, String>(":_name"));
     }
 
 
@@ -94,14 +97,14 @@ public class MapsController implements Initializable,MapComponentInitializedList
         // TODO set markers of all the pubs on map, and add dubbleClick listener so when u click a beer in the column the view is transported to that marker
         // TODO able to "follow" pubs marked by markers
 
-        LatLong andreasLocation = new LatLong(57.654382, 12.078235);
+        LatLong andreasLocation = new LatLong(BeerData.geoPos1, BeerData.geoPos2);
 
 
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(57.654382, 12.078235))
+        mapOptions.center(new LatLong(BeerData.geoPos1, BeerData.geoPos2))
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(false)
                 .panControl(false)
@@ -124,9 +127,9 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        infoWindowOptions.content("<h2>Andreas Grotta</h2>"
-                + "Här bor ett stort troll<br>"
-               + "tar 53 min till lindholmen med buss" );
+        infoWindowOptions.content("<h2>Haket</h2>"
+                + "Pub med Karoke<br>");
+
         InfoWindow andreasWindow = new InfoWindow(infoWindowOptions);
        andreasWindow.open(map, andreasMarker);
     }

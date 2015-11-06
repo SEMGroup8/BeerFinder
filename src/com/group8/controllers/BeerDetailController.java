@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import sun.plugin.javascript.JSObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -120,6 +121,34 @@ public class BeerDetailController implements Initializable{
 
         // get the GPS coordinates
 
+
+            String sqlQuery = "Select geoPos FROM pubGeoPos WHERE address LIKE '%första lång%';";
+
+            System.out.println(sqlQuery);
+            ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
+
+            BeerData.geoPos = ""+userData;
+
+            BeerData.geoPos = BeerData.geoPos.substring(1,(BeerData.geoPos.length()-1));
+            String lati="";
+            String longi="";
+            for( int i = 0; i < BeerData.geoPos.length();i++){
+                if(BeerData.geoPos.charAt(i) == ','){
+                    BeerData.geoPos = BeerData.geoPos.substring((i+1),BeerData.geoPos.length());
+
+                }else{
+                    lati += BeerData.geoPos.charAt(i);
+                }
+            }
+            longi = BeerData.geoPos;
+            System.out.println(BeerData.geoPos1);
+            System.out.println(BeerData.geoPos2);
+            BeerData.geoPos1 = Double.parseDouble(lati);
+            BeerData.geoPos2 = Double.parseDouble(longi);
+
+
+
+        System.out.println(BeerData.geoPos);
 
 
 

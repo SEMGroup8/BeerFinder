@@ -25,6 +25,11 @@ public class BeerData {
     // The pubs that have a sertain beer
     public static ArrayList<Pub> selectedBeerPubs;
 
+    // TEST
+    public static String geoPos;
+    public static double geoPos1;
+    public static double geoPos2;
+
     public static int[] beerID;
 
 }
