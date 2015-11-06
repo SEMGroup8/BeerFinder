@@ -1,5 +1,6 @@
 package com.group8.controllers;
 
+import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -97,14 +98,14 @@ public class MapsController implements Initializable,MapComponentInitializedList
         // TODO set markers of all the pubs on map, and add dubbleClick listener so when u click a beer in the column the view is transported to that marker
         // TODO able to "follow" pubs marked by markers
 
-        LatLong andreasLocation = new LatLong(BeerData.geoPos1, BeerData.geoPos2);
-
+        LatLong andreasLocation = new LatLong(Double.parseDouble(BeerData.geoPos1.get(1).toString()), Double.parseDouble(BeerData.geoPos2.get(1).toString()));
+        System.out.println("Loaded: " + BeerData.geoPos1 + " " + BeerData.geoPos2);
 
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(BeerData.geoPos1, BeerData.geoPos2))
+        mapOptions.center(new LatLong(Double.parseDouble(BeerData.geoPos1.get(1).toString()), Double.parseDouble(BeerData.geoPos2.get(1).toString())))
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(false)
                 .panControl(false)
@@ -127,8 +128,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        infoWindowOptions.content("<h2>Haket</h2>"
-                + "Pub med Karoke<br>");
+        infoWindowOptions.content("<h2>Current Pub</h2>"
+                + "Last pub in the array<br>");
 
         InfoWindow andreasWindow = new InfoWindow(infoWindowOptions);
        andreasWindow.open(map, andreasMarker);

@@ -122,32 +122,44 @@ public class BeerDetailController implements Initializable{
         // get the GPS coordinates
 
 
-            String sqlQuery = "Select geoPos FROM pubGeoPos WHERE address LIKE '%första lång%';";
+            String sqlQuery = "Select geoPos FROM pubGeoPos WHERE address LIKE '%%';";
 
             System.out.println(sqlQuery);
-            ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
+            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectMany(sqlQuery);
+            System.out.println(geoData.size());
+        System.out.println(geoData.get(1).toString());
+        for (int i = 0; i < geoData.size(); i++) {
+            BeerData.geoPos = "" + geoData.get(i);
 
-            BeerData.geoPos = ""+userData;
+            BeerData.geoPos = BeerData.geoPos.substring(1, (BeerData.geoPos.length() - 1));
+            String lati = "";
+            String longi = "";
+            for (int z = 0; z < BeerData.geoPos.length(); z++) {
+                if (BeerData.geoPos.charAt(z) == ',') {
+                    BeerData.geoPos = BeerData.geoPos.substring((z + 1), BeerData.geoPos.length());
 
-            BeerData.geoPos = BeerData.geoPos.substring(1,(BeerData.geoPos.length()-1));
-            String lati="";
-            String longi="";
-            for( int i = 0; i < BeerData.geoPos.length();i++){
-                if(BeerData.geoPos.charAt(i) == ','){
-                    BeerData.geoPos = BeerData.geoPos.substring((i+1),BeerData.geoPos.length());
-
-                }else{
-                    lati += BeerData.geoPos.charAt(i);
+                } else {
+                    lati += BeerData.geoPos.charAt(z);
                 }
             }
             longi = BeerData.geoPos;
+            System.out.println("framme");
+            System.out.println(Double.parseDouble(lati));
+            BeerData.geoLat = Double.parseDouble(lati);
+            BeerData.geoLong = Double.parseDouble(longi);
 
-            BeerData.geoPos1 = Double.parseDouble(lati);
-            BeerData.geoPos2 = Double.parseDouble(longi);
-        System.out.println(BeerData.geoPos1);
-        System.out.println(BeerData.geoPos2);
+            System.out.println(BeerData.geoLat);
+            System.out.println(BeerData.geoLong);
 
-        
+           // System.out.println(BeerData.geoPos1.size());
+            //System.out.println(BeerData.geoPos1.get(1));
+           // BeerData.geoPos1.add(lati);
+            System.out.println("igenom");
+           // BeerData.geoPos2.add(longi);
+            //System.out.println(BeerData.geoPos1.get(i));
+            //System.out.println(BeerData.geoPos2.get(i));
+
+        }
 
 
 

@@ -17,6 +17,8 @@ public class Pub extends MysqlDriver{
 
     private int _pubId;
     private String _name, _description, _adress, _phoneNumber, _offer;
+    private double _geoLong;
+    private double _geoLat;
     float entranceFee;
     Image pubImage;
 
