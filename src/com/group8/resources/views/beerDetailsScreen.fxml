@@ -155,6 +155,11 @@
                   <Button fx:id="newSearch" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="27.0" prefWidth="100.0" text="New Search" />
                </children>
             </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="googleMaps" layoutX="25.0" layoutY="43.0" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="100.0" text="Google Maps" visible="true" />
+               </children>
+            </AnchorPane>
          </children>
       </HBox>
    </bottom>

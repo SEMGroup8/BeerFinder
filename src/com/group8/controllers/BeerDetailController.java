@@ -29,6 +29,9 @@ import java.util.ResourceBundle;
  */
 public class BeerDetailController implements Initializable{
 
+
+    @FXML
+    public Button googleMaps;
     @FXML
     public Button back, favourite;
     @FXML
@@ -100,6 +103,33 @@ public class BeerDetailController implements Initializable{
 
             UserData.userInstance.getFavourites();
         }
+    }
+
+    /**
+     * Get the map scene loading the pubs that sell the beer selected
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void getMaps(ActionEvent event) throws IOException {
+
+
+        // TODO SQL query for getting Pubs that have the BeerData.selectedBeer
+
+        // populate the tableView with those pubs
+
+        // get the GPS coordinates
+
+
+
+
+        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
+        Scene result_scene = new Scene(homescreen, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
+
+
     }
 
     @FXML

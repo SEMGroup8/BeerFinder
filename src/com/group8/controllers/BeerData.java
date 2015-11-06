@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.Pub;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -18,7 +19,11 @@ public class BeerData {
     // result screen/beerDetailsScreen
     public static Beer selectedBeer;
 
+    // The SQL query
     public static String searchInput;
+
+    // The pubs that have a sertain beer
+    public static ArrayList<Pub> selectedBeerPubs;
 
     public static int[] beerID;
 

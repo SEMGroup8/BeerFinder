@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -23,6 +22,15 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="showPubs" layoutY="6.0" prefHeight="93.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="pubsColumn" editable="false" prefWidth="199.0" resizable="false" text="Pubs that sell this beer" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
          </children>

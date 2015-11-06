@@ -93,21 +93,7 @@ public class ResultController implements Initializable {
 
     }
 
-    /**
-     * Get the map scene
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void getMaps(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
 
-
-    }
 
     /**
      * Select a beer row and proceed to the beerDetail scene
