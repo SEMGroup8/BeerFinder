@@ -141,14 +141,13 @@ public class BeerDetailController implements Initializable{
                 }
             }
             longi = BeerData.geoPos;
-            System.out.println(BeerData.geoPos1);
-            System.out.println(BeerData.geoPos2);
+
             BeerData.geoPos1 = Double.parseDouble(lati);
             BeerData.geoPos2 = Double.parseDouble(longi);
+        System.out.println(BeerData.geoPos1);
+        System.out.println(BeerData.geoPos2);
 
-
-
-        System.out.println(BeerData.geoPos);
+        
 
 
 
