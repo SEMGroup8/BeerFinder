@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +25,8 @@ public class Scene2Controller {
     private CheckBox yesCheckbox;
     @FXML
     private CheckBox noCheckbox;
+    @FXML
+    private Button homeButton;
 
 
     @FXML
@@ -62,6 +65,19 @@ public class Scene2Controller {
             noCheckbox.setVisible(true);
             percentageSlider.setVisible(false);
         }
+    }
+
+    @FXML // Going back to home screen
+    void onHomeClick(ActionEvent event) throws Exception {
+
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
+        Scene scene = new Scene(root, 800, 600);
+
+        stage.setTitle("BeerFinder Alpha Test");
+        stage.setScene(scene);
+        stage.show();
+
     }
 
     public double getPercentagePicked(){
