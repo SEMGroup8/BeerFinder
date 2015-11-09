@@ -98,14 +98,14 @@ public class MapsController implements Initializable,MapComponentInitializedList
         // TODO set markers of all the pubs on map, and add dubbleClick listener so when u click a beer in the column the view is transported to that marker
         // TODO able to "follow" pubs marked by markers
 
-        LatLong andreasLocation = new LatLong(Double.parseDouble(BeerData.geoPos1.get(1).toString()), Double.parseDouble(BeerData.geoPos2.get(1).toString()));
+        LatLong andreasLocation = new LatLong(BeerData.geoLat,  BeerData.geoLong);
         System.out.println("Loaded: " + BeerData.geoPos1 + " " + BeerData.geoPos2);
 
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(Double.parseDouble(BeerData.geoPos1.get(1).toString()), Double.parseDouble(BeerData.geoPos2.get(1).toString())))
+        mapOptions.center(new LatLong(BeerData.geoLat, BeerData.geoLong))
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(false)
                 .panControl(false)
