@@ -121,7 +121,6 @@ public class BeerDetailController implements Initializable{
 
         // get the GPS coordinates
 
-
             String sqlQuery = "Select geoPos FROM pubGeoPos WHERE address LIKE '%%';";
 
             System.out.println(sqlQuery);
