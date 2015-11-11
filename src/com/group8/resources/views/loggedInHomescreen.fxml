@@ -39,7 +39,7 @@
                <children>
                   <AnchorPane prefHeight="270.0" prefWidth="274.0">
                      <children>
-                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" text="Search..." />
+                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" onKeyPressed="#searchEnterPressed" text="Search..." />
                         <Button fx:id="search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" prefHeight="27.0" prefWidth="64.0" text="Search" />
                         <Label fx:id="error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
                         <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
