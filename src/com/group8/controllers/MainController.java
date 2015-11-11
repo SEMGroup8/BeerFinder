@@ -163,8 +163,6 @@ public class MainController implements Initializable {
     // Makes the advanced search viseble or inviseble depending on runSQL
     public void noSearch()
     {
-
-
         if(runSqlBox.isSelected()) {
             advancedDescription.setVisible(false);
             advancedProducer.setVisible(false);
@@ -341,11 +339,11 @@ public class MainController implements Initializable {
     @FXML
     // Execute search button on pressing "Enter"
     public void searchEnterPressed(KeyEvent event){
-    if (event.getCode() == KeyCode.ENTER) {
-        search.setDefaultButton(true);
-        login.setDefaultButton(false);
+        if (event.getCode() == KeyCode.ENTER) {
+            search.setDefaultButton(true);
+            login.setDefaultButton(false);
+        }
     }
-}
 
     @FXML
     // Execute login button on pressing "Enter"
