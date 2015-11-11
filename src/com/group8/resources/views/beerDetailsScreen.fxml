@@ -64,50 +64,36 @@
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Button fx:id="oneStar" mnemonicParsing="false" onAction="#onRankOneStar">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="twoStar" mnemonicParsing="false" onAction="#onRankTwoStar">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="threeStar" mnemonicParsing="false" onAction="#onRankThreeStar">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="fourStar" mnemonicParsing="false" onAction="#onRankFourStar">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="fiveStar" mnemonicParsing="false" onAction="#onRankFiveStar" prefHeight="25.0" prefWidth="23.0" snapToPixel="false" textFill="TRANSPARENT">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                              <ImageView fx:id="oneStar" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onRankOneStar" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/rankStar.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="twoStar" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onRankTwoStar" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/rankStar.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="threeStar" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onRankThreeStar" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/rankStar.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="fourStar" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onRankFourStar" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/rankStar.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="fiveStar" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onRankFiveStar" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/rankStar.png" />
+                                 </image>
+                              </ImageView>
+                              <Button mnemonicParsing="false" onAction="#onRankOneStar" />
+                              <Button mnemonicParsing="false" onAction="#onRankTwoStar" />
+                              <Button mnemonicParsing="false" onAction="#onRankThreeStar" />
+                              <Button mnemonicParsing="false" onAction="#onRankFourStar" />
+                              <Button mnemonicParsing="false" onAction="#onRankFiveStar" prefHeight="25.0" prefWidth="23.0" snapToPixel="false" textFill="TRANSPARENT">
                                  <cursor>
                                     <Cursor fx:constant="DISAPPEAR" />
                                  </cursor>

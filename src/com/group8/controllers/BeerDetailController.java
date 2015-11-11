@@ -22,6 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.text.NavigationFilter;
+
 /**
  * Created by AnkanX on 15-10-27.
  * TODO fix nice detail layout and images
@@ -70,7 +72,7 @@ public class BeerDetailController implements Initializable{
     @FXML
     public void backAction(ActionEvent event) throws IOException {
 
-        if (!Navigation.backFXML.equals("/com/group8/resources/views/favourites.fxml")) {
+        if (!NavigationFilter.backFXML.equals("/com/group8/resources/views/favourites.fxml")) {
             // Update the beer list for changes
             BeerData.beer = new ArrayList<Beer>();
             ArrayList<ArrayList<Object>> sqlData;
