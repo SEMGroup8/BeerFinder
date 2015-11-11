@@ -3,6 +3,7 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,8 +11,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -327,6 +334,25 @@ public class MainController implements Initializable {
 
            //load.setVisible(false);
            error.setText("No result for: " + searchText.getText());
+        }
+    }
+
+
+    @FXML
+    // Execute search button on pressing "Enter"
+    public void searchEnterPressed(KeyEvent event){
+    if (event.getCode() == KeyCode.ENTER) {
+        search.setDefaultButton(true);
+        login.setDefaultButton(false);
+    }
+}
+
+    @FXML
+    // Execute login button on pressing "Enter"
+    public void passwordEnterPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            login.setDefaultButton(true);
+            search.setDefaultButton(false);
         }
     }
 

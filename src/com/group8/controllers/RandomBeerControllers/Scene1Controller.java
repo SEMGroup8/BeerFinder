@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Scene1Controller {
@@ -25,6 +25,8 @@ public class Scene1Controller {
     private CheckBox yesCheckbox;
     @FXML
     private CheckBox noCheckbox;
+    @FXML
+    private Button homeButton;
 
 
     @FXML
@@ -61,6 +63,19 @@ public class Scene1Controller {
             noCheckbox.setVisible(true);
             priceSlider.setVisible(false);
         }
+    }
+
+    @FXML // Going back to home screen
+    void onHomeClick(ActionEvent event) throws Exception {
+
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
+        Scene scene = new Scene(root, 800, 600);
+
+        stage.setTitle("BeerFinder Alpha Test");
+        stage.setScene(scene);
+        stage.show();
+
     }
 
 
