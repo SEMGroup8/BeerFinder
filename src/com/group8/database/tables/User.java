@@ -104,8 +104,8 @@ public class User extends MysqlDriver
 
     public void getFavourites()
     {
-        String sqlQuery = "select beers.beerID, name, image, description, beerTypeID, originID, percentage, producerName, volume, isTap, package, price, avStars " +
-                "from beers, favourites where beers.beerID = favourites.beerID and favourites.userId = " + _id + ";";
+        String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars " +
+                "from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = " + _id + ";";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;

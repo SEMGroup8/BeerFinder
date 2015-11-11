@@ -4,6 +4,7 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.BeerRank;
 
+import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -99,8 +100,10 @@ public class BeerDetailController implements Initializable{
 
             beer.insertRank();
 
+            UserData.userInstance.getFavourites();
         }
-        }
+    }
+
     @FXML
     public void onRankOneStar(ActionEvent event) throws IOException {
         rankStar(1);
@@ -162,6 +165,26 @@ public class BeerDetailController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if(UserData.userInstance==null)
+        {
+            oneStar.setVisible(false);
+            twoStar.setVisible(false);
+            threeStar.setVisible(false);
+            fourStar.setVisible(false);
+            fiveStar.setVisible(false);
+
+            favourite.setVisible(false);
+        }
+        else{
+            oneStar.setVisible(true);
+            twoStar.setVisible(true);
+            threeStar.setVisible(true);
+            fourStar.setVisible(true);
+            fiveStar.setVisible(true);
+
+            favourite.setVisible(true);
+        }
 
 
         // test output

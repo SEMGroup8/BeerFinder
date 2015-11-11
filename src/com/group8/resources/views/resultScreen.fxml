@@ -17,7 +17,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="Maps" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="100.0" text="Google Maps" />
+                  <Button  visible="false" fx:id="Maps" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="100.0" text="Google Maps" />
                </children>
             </AnchorPane>
          </children>

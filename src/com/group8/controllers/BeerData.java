@@ -2,6 +2,7 @@ package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -18,5 +19,7 @@ public class BeerData {
     public static Beer selectedBeer;
 
     public static String searchInput;
+
+    public static int[] beerID;
 
 }
