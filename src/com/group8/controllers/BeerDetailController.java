@@ -163,8 +163,7 @@ public class BeerDetailController implements Initializable{
 
         for (int i = 0; i < geoData.size(); i++) {
 
-            System.out.println(BeerData.selectedBeerPubs.get(i).get_geoLat());
-            System.out.println(BeerData.selectedBeerPubs.get(i).get_geoLong());
+            // derp
 
 
         }

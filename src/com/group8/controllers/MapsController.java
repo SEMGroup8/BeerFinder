@@ -81,7 +81,6 @@ public class MapsController implements Initializable,MapComponentInitializedList
         pubsColumn.setCellValueFactory(new PropertyValueFactory<Pub, String>(":_name"));
     }
 
-
     @Override
     public void mapInitialized() {
 
@@ -122,7 +121,6 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
             map.addMarker(markers.get(i));
 
-
             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
             infoWindowOptions.content("<h2>" + BeerData.selectedBeerPubs.get(i).get_name() + "</h2>"
                     + BeerData.selectedBeerPubs.get(i).get_adress());
@@ -131,5 +129,4 @@ public class MapsController implements Initializable,MapComponentInitializedList
             markerWindow.open(map, markers.get(i));
         }
     }
-
 }
