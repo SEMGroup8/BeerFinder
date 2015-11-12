@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -43,6 +44,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
     public TableColumn<Pub,String> pubsColumn;
     @FXML
     public TableView showPubs;
+
+    private ArrayList<Pub> pubs;
 
     /**
      * Back button pressed takes you back to "result screen"
@@ -77,7 +80,6 @@ public class MapsController implements Initializable,MapComponentInitializedList
         mapView.addMapInializedListener(this);
         pubsColumn.setCellValueFactory(new PropertyValueFactory<Pub, String>(":_name"));
     }
-
 
     @Override
     public void mapInitialized() {
@@ -117,7 +119,6 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
         map.addMarker( andreasMarker );
 
-
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
         infoWindowOptions.content("<h2>Current Pub</h2>"
                 + "Last pub in the array<br>");
@@ -125,5 +126,4 @@ public class MapsController implements Initializable,MapComponentInitializedList
         InfoWindow andreasWindow = new InfoWindow(infoWindowOptions);
        andreasWindow.open(map, andreasMarker);
     }
-
 }
