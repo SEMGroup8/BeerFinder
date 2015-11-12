@@ -12,10 +12,15 @@ import java.util.DoubleSummaryStatistics;
 public class MapMarker extends MysqlDriver
 {
     private int pubID;
+
     private double longitude, latitude;
+
+
     private double price;
 
+
     private String pubName;
+
     private String address;
 
     public MapMarker(ArrayList<Object> arrayList)
@@ -23,9 +28,30 @@ public class MapMarker extends MysqlDriver
         this.pubID = Integer.parseInt(arrayList.get(0).toString());
         this.pubName = arrayList.get(1).toString();
         this.address = arrayList.get(2).toString();
+        System.out.println("->" +this.address);
         this.price = Double.parseDouble(arrayList.get(3).toString());
-
         this.latitude = Double.parseDouble(arrayList.get(4).toString());
         this.longitude = Double.parseDouble(arrayList.get(5).toString());
+    }
+
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public String getPubName() {
+        return pubName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

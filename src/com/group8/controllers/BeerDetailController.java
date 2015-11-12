@@ -4,6 +4,7 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.BeerRank;
 
+import com.group8.database.tables.MapMarker;
 import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +35,8 @@ public class BeerDetailController implements Initializable{
     @FXML
     public Button googleMaps;
     @FXML
+    public Label gMapsError;
+    @FXML
     public Button back, favourite;
     @FXML
     public Button newSearch;
@@ -63,8 +66,7 @@ public class BeerDetailController implements Initializable{
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
-//    @FXML
-//    public ImageView theoneStar;
+
 
 
     /**
@@ -114,40 +116,33 @@ public class BeerDetailController implements Initializable{
     @FXML
     public void getMaps(ActionEvent event) throws IOException {
 
+        BeerData.markers = new ArrayList<MapMarker>();
 
         // TODO SQL query for getting Pubs that have the BeerData.selectedBeer
 
         // populate the tableView with those pubs
 
-        // get the GPS coordinates
-
-         //   String sqlQuery = "Select * FROM pubAddress WHERE address LIKE '%%';";
-
-        String sqlQuery = "SELECT distinct `pubAddress`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
-                " from pubs, pubAddress, beersInPub where " +
-                "pubs.pubID = beersInPub.pubID " +
-                "and beers.originID = origin.originID " +
-                "and beers.package = package.packageID " +
-                "and (";
+        String sqlQuery = "SELECT beerInPub.pubID, name, address, price,latitude, longitude" +
+                " from pubs, pubAddress, beerInPub where " +
+                "pubs.pubID = beerInPub.pubID " +
+                "and pubs.addressID = pubAddress.addressID " +
+                "and beerInPub.beerID = " + BeerData.selectedBeer.getId();
 
 
-
+        System.out.println(sqlQuery);
         // Execute user query to get markers
         ArrayList<ArrayList<Object>> sqlData;
-        sqlData = MysqlDriver.selectMany(sqlQuery);
+        sqlData = MysqlDriver.selectManyOther(sqlQuery);
 
-        System.out.println(sqlData.size());
 
         for (int i = 0; i < sqlData.size(); i++) {
-            // Add a new Beer to the beer arraylist
+            // Add a new marker to the beer arraylist
             MapMarker marker = new MapMarker(sqlData.get(i));
-            // Testoutput
-            //System.out.print(beer.getName()+"\n");
             BeerData.markers.add(marker);
         }
 
 
-        if ((BeerData.beer.size()>0)) {
+        if ((BeerData.markers.size()>0)) {
 
             // Load the result stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
@@ -158,15 +153,10 @@ public class BeerDetailController implements Initializable{
         }else
 
             System.out.println(sqlQuery);
-            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectMany(sqlQuery);
+            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectManyOther(sqlQuery);
             System.out.println(geoData.size());
-
-        for (int i = 0; i < geoData.size(); i++) {
-
-            // derp
-
-
-        }
+            System.out.println("No Pubs selling this beer");
+            gMapsError.setVisible(true);
 
 
     }
@@ -191,10 +181,7 @@ public class BeerDetailController implements Initializable{
     public void onRankFiveStar(ActionEvent event) throws IOException {
         rankStar(5);
     }
-//    @FXML
-//    public void mouseTheOnRankOneStar(ActionEvent event) throws IOException {
-//        rankStar(1);
-//    }
+
 
     @FXML
     public void addToFavourite(ActionEvent event) throws IOException
