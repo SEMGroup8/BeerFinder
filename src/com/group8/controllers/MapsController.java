@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -43,6 +44,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
     public TableColumn<Pub,String> pubsColumn;
     @FXML
     public TableView showPubs;
+
+    private ArrayList<Marker> markers = new ArrayList<>();
 
     /**
      * Back button pressed takes you back to "result screen"
@@ -90,41 +93,44 @@ public class MapsController implements Initializable,MapComponentInitializedList
         // TODO set markers of all the pubs on map, and add dubbleClick listener so when u click a beer in the column the view is transported to that marker
         // TODO able to "follow" pubs marked by markers
 
-        LatLong andreasLocation = new LatLong(BeerData.geoLat,  BeerData.geoLong);
-        System.out.println("Loaded: " + BeerData.geoPos1 + " " + BeerData.geoPos2);
+        for(int i = 0; i < BeerData.selectedBeerPubs.size(); i++){
+
+            LatLong markerLocation = new LatLong(BeerData.selectedBeerPubs.get(i).marker.getLatitude(), BeerData.selectedBeerPubs.get(i).marker.getLongitude());
+            System.out.println("Loaded: " + BeerData.selectedBeerPubs.get(i).marker.getLatitude() + " " + BeerData.selectedBeerPubs.get(i).marker.getLongitude();
+
+            //Set the initial properties of the map.
+            MapOptions mapOptions = new MapOptions();
+
+            mapOptions.center(new LatLong(BeerData.selectedBeerPubs.get(i).marker.getLatitude(), BeerData.selectedBeerPubs.get(i).marker.getLongitude()))
+                    .mapType(MapTypeIdEnum.ROADMAP)
+                    .overviewMapControl(false)
+                    .panControl(false)
+                    .rotateControl(false)
+                    .scaleControl(false)
+                    .streetViewControl(false)
+                    .zoomControl(true)
+                    .zoom(15);
+
+            map = mapView.createMap(mapOptions);
+
+            //Add markers to the map
+            MarkerOptions markerOptions1 = new MarkerOptions();
+            markerOptions1.position(markerLocation);
 
 
-        //Set the initial properties of the map.
-        MapOptions mapOptions = new MapOptions();
+            Marker marker = new Marker(markerOptions1);
+            markers.add(marker);
 
-        mapOptions.center(new LatLong(BeerData.geoLat, BeerData.geoLong))
-                .mapType(MapTypeIdEnum.ROADMAP)
-                .overviewMapControl(false)
-                .panControl(false)
-                .rotateControl(false)
-                .scaleControl(false)
-                .streetViewControl(false)
-                .zoomControl(true)
-                .zoom(15);
-
-        map = mapView.createMap(mapOptions);
-
-        //Add markers to the map
-        MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(andreasLocation);
+            map.addMarker(markers.get(i));
 
 
-        Marker andreasMarker = new Marker(markerOptions1);
+            InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+            infoWindowOptions.content("<h2>" + BeerData.selectedBeerPubs.get(i).get_name() + "</h2>"
+                    + BeerData.selectedBeerPubs.get(i).get_adress());
 
-        map.addMarker( andreasMarker );
-
-
-        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        infoWindowOptions.content("<h2>Current Pub</h2>"
-                + "Last pub in the array<br>");
-
-        InfoWindow andreasWindow = new InfoWindow(infoWindowOptions);
-       andreasWindow.open(map, andreasMarker);
+            InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
+            markerWindow.open(map, markers.get(i));
+        }
     }
 
 }

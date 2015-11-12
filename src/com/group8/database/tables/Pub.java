@@ -16,11 +16,20 @@ import java.util.ArrayList;
 public class Pub extends MysqlDriver{
 
     private int _pubId;
-    private String _name, _description, _adress, _phoneNumber, _offer;
+    private String _name;
+    private String _description;
+
+
+    private String _adress;
+    private String _phoneNumber;
+    private String _offer;
+
     private double _geoLong;
+
     private double _geoLat;
     float entranceFee;
     Image pubImage;
+
 
     public Pub()
     {
@@ -39,6 +48,8 @@ public class Pub extends MysqlDriver{
         this._phoneNumber = sqlReturn.get(4).toString();
         this._offer = sqlReturn.get(7).toString();
         this.entranceFee = Float.parseFloat(sqlReturn.get(8).toString());
+
+
     }
 
 
@@ -83,5 +94,25 @@ public class Pub extends MysqlDriver{
 
     public void set_name(String _name) {
         this._name = _name;
+    }
+
+    public double get_geoLat() {
+        return _geoLat;
+    }
+
+    public void set_geoLat(double _geoLat) {
+        this._geoLat = _geoLat;
+    }
+
+    public double get_geoLong() {
+        return _geoLong;
+    }
+
+    public void set_geoLong(double _geoLong) {
+        this._geoLong = _geoLong;
+    }
+
+    public String get_adress() {
+        return _adress;
     }
 }

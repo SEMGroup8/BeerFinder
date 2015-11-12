@@ -24,16 +24,10 @@ public class BeerData {
     public static String searchInput;
 
     // The pubs that have a sertain beer
-    public static ArrayList<Pub> selectedBeerPubs;
+    public static ArrayList<MapMarker> markers;
 
     // TEST
     public static String geoPos;
 
-    public  static double geoLong;
-    public static  double geoLat;
-    public static List geoPos1;
-    public static List geoPos2;
-
-    public static int[] beerID;
 
 }

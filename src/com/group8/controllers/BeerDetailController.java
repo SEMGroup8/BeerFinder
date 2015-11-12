@@ -121,52 +121,53 @@ public class BeerDetailController implements Initializable{
 
         // get the GPS coordinates
 
-            String sqlQuery = "Select geoPos FROM pubGeoPos WHERE address LIKE '%%';";
+         //   String sqlQuery = "Select * FROM pubAddress WHERE address LIKE '%%';";
+
+        String sqlQuery = "SELECT distinct `pubAddress`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
+                " from pubs, pubAddress, beersInPub where " +
+                "pubs.pubID = beersInPub.pubID " +
+                "and beers.originID = origin.originID " +
+                "and beers.package = package.packageID " +
+                "and (";
+
+
+
+        // Execute user query to get markers
+        ArrayList<ArrayList<Object>> sqlData;
+        sqlData = MysqlDriver.selectMany(sqlQuery);
+
+        System.out.println(sqlData.size());
+
+        for (int i = 0; i < sqlData.size(); i++) {
+            // Add a new Beer to the beer arraylist
+            MapMarker marker = new MapMarker(sqlData.get(i));
+            // Testoutput
+            //System.out.print(beer.getName()+"\n");
+            BeerData.markers.add(marker);
+        }
+
+
+        if ((BeerData.beer.size()>0)) {
+
+            // Load the result stage
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
+            Scene result_scene = new Scene(result,800,600);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }else
 
             System.out.println(sqlQuery);
             ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectMany(sqlQuery);
             System.out.println(geoData.size());
-        System.out.println(geoData.get(1).toString());
+
         for (int i = 0; i < geoData.size(); i++) {
-            BeerData.geoPos = "" + geoData.get(i);
 
-            BeerData.geoPos = BeerData.geoPos.substring(1, (BeerData.geoPos.length() - 1));
-            String lati = "";
-            String longi = "";
-            for (int z = 0; z < BeerData.geoPos.length(); z++) {
-                if (BeerData.geoPos.charAt(z) == ',') {
-                    BeerData.geoPos = BeerData.geoPos.substring((z + 1), BeerData.geoPos.length());
+            System.out.println(BeerData.selectedBeerPubs.get(i).get_geoLat());
+            System.out.println(BeerData.selectedBeerPubs.get(i).get_geoLong());
 
-                } else {
-                    lati += BeerData.geoPos.charAt(z);
-                }
-            }
-            longi = BeerData.geoPos;
-            System.out.println("framme");
-            System.out.println(Double.parseDouble(lati));
-            BeerData.geoLat = Double.parseDouble(lati);
-            BeerData.geoLong = Double.parseDouble(longi);
-
-            System.out.println(BeerData.geoLat);
-            System.out.println(BeerData.geoLong);
-
-           // System.out.println(BeerData.geoPos1.size());
-            //System.out.println(BeerData.geoPos1.get(1));
-           // BeerData.geoPos1.add(lati);
-            System.out.println("igenom");
-           // BeerData.geoPos2.add(longi);
-            //System.out.println(BeerData.geoPos1.get(i));
-            //System.out.println(BeerData.geoPos2.get(i));
 
         }
-
-
-
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
 
 
     }

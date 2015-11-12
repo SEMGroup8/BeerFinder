@@ -38,7 +38,7 @@
       <TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
-          <TableColumn fx:id="beerName" prefWidth="196.0" resizable="false" text="Name" />
+          <TableColumn fx:id="beerName" editable="false" prefWidth="196.0" resizable="false" text="Name" />
             <TableColumn fx:id="beerType" prefWidth="123.0" text="Type" />
             <TableColumn fx:id="beerOrigin" prefWidth="71.0" text="Origin" />
             <TableColumn fx:id="beerPercentage" prefWidth="92.0" text="Percentage" />
