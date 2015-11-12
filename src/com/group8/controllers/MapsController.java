@@ -16,17 +16,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.MapComponentInitializedListener;
-import com.lynden.gmapsfx.javascript.object.GoogleMap;
-import com.lynden.gmapsfx.javascript.object.LatLong;
-import com.lynden.gmapsfx.javascript.object.MapOptions;
-import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
-import com.lynden.gmapsfx.javascript.object.Marker;
-import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 
 
 
@@ -96,14 +89,14 @@ public class MapsController implements Initializable,MapComponentInitializedList
         // TODO set markers of all the pubs on map, and add dubbleClick listener so when u click a beer in the column the view is transported to that marker
         // TODO able to "follow" pubs marked by markers
 
-        LatLong andreasLocation = new LatLong(BeerData.geoPos1, BeerData.geoPos2);
-
+        LatLong andreasLocation = new LatLong(BeerData.geoLat,  BeerData.geoLong);
+        System.out.println("Loaded: " + BeerData.geoPos1 + " " + BeerData.geoPos2);
 
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(BeerData.geoPos1, BeerData.geoPos2))
+        mapOptions.center(new LatLong(BeerData.geoLat, BeerData.geoLong))
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(false)
                 .panControl(false)
@@ -126,8 +119,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        infoWindowOptions.content("<h2>Haket</h2>"
-                + "Pub med Karoke<br>");
+        infoWindowOptions.content("<h2>Current Pub</h2>"
+                + "Last pub in the array<br>");
 
         InfoWindow andreasWindow = new InfoWindow(infoWindowOptions);
        andreasWindow.open(map, andreasMarker);

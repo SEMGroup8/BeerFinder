@@ -5,6 +5,7 @@ import com.group8.database.tables.Pub;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by AnkanX on 15-10-26.
@@ -27,8 +28,11 @@ public class BeerData {
 
     // TEST
     public static String geoPos;
-    public static double geoPos1;
-    public static double geoPos2;
+
+    public  static double geoLong;
+    public static  double geoLat;
+    public static List geoPos1;
+    public static List geoPos2;
 
     public static int[] beerID;
 
