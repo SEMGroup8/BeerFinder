@@ -31,12 +31,19 @@ public class Pub extends MysqlDriver{
 
         ArrayList<Object> sqlReturn = select(query);
 
-        this._name = sqlReturn.get(2).toString();
-        this._description = sqlReturn.get(6).toString();
-        this._adress = sqlReturn.get(3).toString();
-        this._phoneNumber = sqlReturn.get(4).toString();
-        this._offer = sqlReturn.get(7).toString();
-        this.entranceFee = Float.parseFloat(sqlReturn.get(8).toString());
+        this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
+        this._name = sqlReturn.get(1).toString();
+        this._description = sqlReturn.get(5).toString();
+
+        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
+
+        ArrayList<Object> addressReturn = select(adressQuery);
+
+        this._adress = addressReturn.get(0).toString();
+
+        this._phoneNumber = sqlReturn.get(3).toString();
+        this._offer = sqlReturn.get(6).toString();
+        this.entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
     }
 
 

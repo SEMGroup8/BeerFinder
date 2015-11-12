@@ -58,12 +58,11 @@ public class MapsController implements Initializable,MapComponentInitializedList
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.resultviewFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
-
     }
 
     /**
@@ -73,7 +72,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
      */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
