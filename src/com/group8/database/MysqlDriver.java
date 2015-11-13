@@ -123,6 +123,7 @@ public class MysqlDriver {
                 for(int i = 1; i<=metaData.getColumnCount(); i++)
                 {
                     if(i == 3){
+
                         InputStream image =rs.getBinaryStream(3);
                         row.add(image);
                     }else {
