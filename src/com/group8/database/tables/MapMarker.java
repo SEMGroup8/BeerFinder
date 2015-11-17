@@ -28,7 +28,6 @@ public class MapMarker extends MysqlDriver
         this.pubID = Integer.parseInt(arrayList.get(0).toString());
         this.pubName = arrayList.get(1).toString();
         this.address = arrayList.get(2).toString();
-        System.out.println("->" +this.address);
         this.price = Double.parseDouble(arrayList.get(3).toString());
         this.latitude = Double.parseDouble(arrayList.get(4).toString());
         this.longitude = Double.parseDouble(arrayList.get(5).toString());

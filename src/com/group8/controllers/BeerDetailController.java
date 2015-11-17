@@ -67,8 +67,6 @@ public class BeerDetailController implements Initializable{
     @FXML
     public Label rankShow;
 
-
-
     /**
      * Back button pressed takes you back to "result screen"
      * @param event
@@ -122,25 +120,25 @@ public class BeerDetailController implements Initializable{
 
         // populate the tableView with those pubs
 
-        String sqlQuery = "SELECT beerInPub.pubID, name, address, price,latitude, longitude" +
-                " from pubs, pubAddress, beerInPub where " +
+        String sqlQuery = "SELECT beerInPub.pubID, name, address, price,latitude, longitude " +
+                "from pubs, pubAddress, beerInPub where " +
                 "pubs.pubID = beerInPub.pubID " +
                 "and pubs.addressID = pubAddress.addressID " +
-                "and beerInPub.beerID = " + BeerData.selectedBeer.getId();
-
+                "and beerInPub.beerID = " + BeerData.selectedBeer.getId() + " " +
+                "order by price asc";
 
         System.out.println(sqlQuery);
         // Execute user query to get markers
         ArrayList<ArrayList<Object>> sqlData;
         sqlData = MysqlDriver.selectManyOther(sqlQuery);
 
-
         for (int i = 0; i < sqlData.size(); i++) {
             // Add a new marker to the beer arraylist
             MapMarker marker = new MapMarker(sqlData.get(i));
             BeerData.markers.add(marker);
-        }
 
+            System.out.println(marker.getPrice());
+        }
 
         if ((BeerData.markers.size()>0)) {
 
@@ -157,8 +155,6 @@ public class BeerDetailController implements Initializable{
             System.out.println(geoData.size());
             System.out.println("No Pubs selling this beer");
             gMapsError.setVisible(true);
-
-
     }
 
     @FXML
@@ -181,7 +177,6 @@ public class BeerDetailController implements Initializable{
     public void onRankFiveStar(ActionEvent event) throws IOException {
         rankStar(5);
     }
-
 
     @FXML
     public void addToFavourite(ActionEvent event) throws IOException
@@ -240,7 +235,6 @@ public class BeerDetailController implements Initializable{
             favourite.setVisible(true);
         }
 
-
         // test output
         System.out.println("beerDetails accsessed and initializeing!");
         // Display Name of beer
@@ -278,15 +272,7 @@ public class BeerDetailController implements Initializable{
         // Display beer price
         showPrice.setText(BeerData.selectedBeer.getPrice()+":-");
 
-
-
         // Test the data in our beer instance
         System.out.println(BeerData.selectedBeer.toString());
-
-
-
     }
-
-
-
 }

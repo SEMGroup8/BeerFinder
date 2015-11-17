@@ -26,8 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
-
 /**
  * Created by AnkanX on 15-10-24.
  *
@@ -86,14 +84,10 @@ public class MapsController implements Initializable,MapComponentInitializedList
         mapView.addMapInializedListener(this);
         pubsColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("PubName"));
         showPubs.setItems(masterData);
-
     }
 
     @Override
     public void mapInitialized() {
-
-
-
 
         // TODO add the geoPosition column to the pub table ( string double,double ( maybe have secure input method in addpub?))
         // TODO make string -> double double converter
@@ -122,11 +116,9 @@ public class MapsController implements Initializable,MapComponentInitializedList
             LatLong markerLocation = new LatLong(BeerData.markers.get(i).getLatitude(), BeerData.markers.get(i).getLongitude());
             System.out.println("Loaded: " + BeerData.markers.get(i).getLatitude() + " " + BeerData.markers.get(i).getLongitude());
 
-
             //Add markers to the map
             MarkerOptions markerOptions1 = new MarkerOptions();
             markerOptions1.position(markerLocation);
-
 
             Marker marker = new Marker(markerOptions1);
             markers.add(marker);
