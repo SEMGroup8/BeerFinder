@@ -95,9 +95,9 @@ public class ResultController implements Initializable {
 
 
 
-    /**
-     * Select a beer row and proceed to the beerDetail scene
-     */
+           /**
+         * Select a beer row and proceed to the beerDetail scene
+         */
     public void getRow(){
         beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked

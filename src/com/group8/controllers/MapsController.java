@@ -11,6 +11,7 @@ import com.lynden.gmapsfx.javascript.object.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,9 +22,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import javax.swing.plaf.IconUIResource;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -91,9 +98,54 @@ public class MapsController implements Initializable,MapComponentInitializedList
         showPubs.setItems(masterData);
     }
 
+    /**
+     * Select a Pub row and proceed to the beerDetail scene
+     */
+    public void getRow() {
+        showPubs.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            // Select item will only be displayed when dubbleclicked
+
+            /**
+             * Dubleclick event
+             *
+             * @param event
+             */
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getClickCount() == 2) {
+
+                    // Set the selectedMarker instance of beer we have to selected item
+                    int z = showPubs.getSelectionModel().getSelectedIndex();
 
 
-    @Override
+                    for (int i = 0; i < markers.size(); i++) {
+                        map.removeMarker(markers.get(i));
+
+                        if(i == z) {
+                            map.addMarker(markers.get(z));
+
+                            InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+                            infoWindowOptions.content("<h2>" + BeerData.markers.get(i).getPubName() + "</h2>"
+                                    + "Address: " + BeerData.markers.get(i).getAddress() + "<br>"
+                                    + "Price. " + BeerData.markers.get(i).getPrice() + ":-");
+                            InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
+                            markerWindow.open(map, markers.get(z));
+                            map.setCenter(new LatLong(BeerData.markers.get(z).getLatitude(),BeerData.markers.get(z).getLongitude()));
+                            map.setZoom(15);
+                        }
+
+                    }
+
+
+                }
+            }
+
+        });
+    }
+
+
+
+        @Override
     public void mapInitialized() {
 
         // TODO add the geoPosition column to the pub table ( string double,double ( maybe have secure input method in addpub?))
@@ -108,7 +160,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
         mapOptions.center(new LatLong(BeerData.markers.get(1).getLatitude(), BeerData.markers.get(1).getLongitude()))
                 .mapType(MapTypeIdEnum.ROADMAP)
-                .overviewMapControl(false)
+                .overviewMapControl(true)
                 .panControl(false)
                 .rotateControl(false)
                 .scaleControl(false)
@@ -116,9 +168,10 @@ public class MapsController implements Initializable,MapComponentInitializedList
                 .zoomControl(true)
                 .zoom(15);
 
+
         map = mapView.createMap(mapOptions);
 
-        for(int i = 0; i < BeerData.markers.size(); i++){
+        for(int i = 0; i < BeerData.markers.size(); i++) {
 
             LatLong markerLocation = new LatLong(BeerData.markers.get(i).getLatitude(), BeerData.markers.get(i).getLongitude());
             System.out.println("Loaded: " + BeerData.markers.get(i).getLatitude() + " " + BeerData.markers.get(i).getLongitude());
@@ -126,24 +179,30 @@ public class MapsController implements Initializable,MapComponentInitializedList
             //Add markers to the map
             MarkerOptions markerOptions1 = new MarkerOptions();
             markerOptions1.position(markerLocation);
+            markerOptions1.icon("html/mymarker.png");
+
 
             Marker marker = new Marker(markerOptions1);
             markers.add(marker);
 
 
-            map.addMarker(markers.get(i));
+            if(i == 0) {
+                map.addMarker(markers.get(i));
+                InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+                infoWindowOptions.content("<h2>" + BeerData.markers.get(i).getPubName() + "</h2>"
+                        + "Address: " + BeerData.markers.get(i).getAddress() + "<br>"
+                        + "Price. " + BeerData.markers.get(i).getPrice() + ":-");
+                InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
+                markerWindow.open(map, markers.get(i));
+                map.setCenter(new LatLong(BeerData.markers.get(i).getLatitude(),BeerData.markers.get(i).getLongitude()));
+                map.setZoom(15);
+            }else {
+                map.addMarker(markers.get(i));
+            }
 
-
-            InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-            infoWindowOptions.content("<h2>" + BeerData.markers.get(i).getPubName() + "</h2>"
-                    + "Address: " + BeerData.markers.get(i).getAddress() + "<br>"
-                    + "Price. " + BeerData.markers.get(i).getPrice() + ":-");
-
-            InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
-            //markerWindow.open(map, markers.get(i));
 
 
             System.out.println(BeerData.markers.get(i).getAddress());
+            }
         }
-    }
 }
