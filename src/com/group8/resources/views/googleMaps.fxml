@@ -26,9 +26,10 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="showPubs" layoutY="6.0" prefHeight="93.0" prefWidth="240.0">
+                  <TableView fx:id="showPubs" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="93.0" prefWidth="260.0">
                     <columns>
-                      <TableColumn fx:id="pubsColumn" editable="false" prefWidth="199.0" resizable="false" text="Pubs that sell this beer" />
+                      <TableColumn fx:id="pubsColumn" editable="false" maxWidth="171.0" prefWidth="171.0" resizable="false" text="Pubs that sell this beer" />
+                        <TableColumn fx:id="priceColumn" editable="false" maxWidth="85.0" prefWidth="69.0" resizable="false" text="Price" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

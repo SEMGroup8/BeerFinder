@@ -5,6 +5,8 @@ import com.group8.database.tables.MapMarker;
 import com.group8.database.tables.Pub;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.event.UIEventHandler;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,6 +49,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
     @FXML
     public TableColumn<MapMarker,String> pubsColumn;
     @FXML
+    public TableColumn<MapMarker,String> priceColumn;
+    @FXML
     public TableView showPubs;
 
     private ArrayList<Marker> markers = new ArrayList<>();
@@ -85,9 +89,12 @@ public class MapsController implements Initializable,MapComponentInitializedList
     public void initialize(URL url, ResourceBundle rb) {
         mapView.addMapInializedListener(this);
         pubsColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("PubName"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("Price"));
         showPubs.setItems(masterData);
 
     }
+
+
 
     @Override
     public void mapInitialized() {
@@ -131,7 +138,9 @@ public class MapsController implements Initializable,MapComponentInitializedList
             Marker marker = new Marker(markerOptions1);
             markers.add(marker);
 
+
             map.addMarker(markers.get(i));
+
 
             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
             infoWindowOptions.content("<h2>" + BeerData.markers.get(i).getPubName() + "</h2>"
@@ -139,7 +148,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
                     + "Price. " + BeerData.markers.get(i).getPrice() + ":-");
 
             InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
-            markerWindow.open(map, markers.get(i));
+            //markerWindow.open(map, markers.get(i));
+
 
             System.out.println(BeerData.markers.get(i).getAddress());
         }

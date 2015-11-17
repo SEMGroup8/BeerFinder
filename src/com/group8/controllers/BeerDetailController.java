@@ -139,6 +139,7 @@ public class BeerDetailController implements Initializable{
             // Add a new marker to the beer arraylist
             MapMarker marker = new MapMarker(sqlData.get(i));
             BeerData.markers.add(marker);
+            System.out.println(marker.getPrice());
         }
 
 
