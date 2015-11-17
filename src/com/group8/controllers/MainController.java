@@ -1,4 +1,5 @@
 package com.group8.controllers;
+import com.group8.*;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
@@ -312,6 +313,7 @@ public class MainController implements Initializable {
 
 
         if ((BeerData.beer.size()>0)) {
+
 
             // Load the result stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
