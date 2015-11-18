@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene2Controller">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene2Controller">
    <children>
       <Label layoutX="255.0" layoutY="50.0" text="Random beer generator ..">
          <font>
@@ -40,7 +40,6 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Slider fx:id="percentageSlider" blockIncrement="1.0" layoutX="85.0" layoutY="320.0" majorTickUnit="1.0" max="17.0" min="3.0" minorTickCount="0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="630.0" showTickLabels="true" showTickMarks="true" visible="false" />
       <Button fx:id="homeButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/com/group8/resources/Images/home.jpg');">
          <font>
             <Font size="16.0" />

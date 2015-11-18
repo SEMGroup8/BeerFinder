@@ -20,6 +20,4 @@ public class BeerData {
 
     public static String searchInput;
 
-    public static int[] beerID;
-
 }

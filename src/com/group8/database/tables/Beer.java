@@ -41,7 +41,7 @@ public class Beer extends MysqlDriver{
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
 
-        try {
+     try {
             this.tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
@@ -73,6 +73,7 @@ public class Beer extends MysqlDriver{
         }catch (IOException ex){
             this.image = null;
         }
+
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();

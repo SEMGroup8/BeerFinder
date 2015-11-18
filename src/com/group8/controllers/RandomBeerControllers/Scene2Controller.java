@@ -4,29 +4,37 @@ import com.group8.controllers.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.controlsfx.control.RangeSlider;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Scene2Controller {
+public class Scene2Controller implements Initializable {
 
-    static double percentagePicked = 18;
+    private RangeSlider percentageSlider = new RangeSlider(0, 20, 0, 20);
+
+    static double percentagePickedLow = 0;
+    static double percentagePickedHigh = 20;
 
     @FXML
     private Button continueButton2;
-    @FXML
-    private Slider percentageSlider;
     @FXML
     private CheckBox yesCheckbox;
     @FXML
     private CheckBox noCheckbox;
     @FXML
     private Button homeButton;
+    @FXML
+    private Pane pane;
 
 
     @FXML
@@ -44,12 +52,14 @@ public class Scene2Controller {
 
         // Slider value setter
         if (noCheckbox.isSelected() || (!noCheckbox.isSelected() && !yesCheckbox.isSelected())){
-            percentagePicked = 18;
+            percentagePickedLow = 0;
+            percentagePickedHigh = 20;
         }
         else {
-            percentagePicked = percentageSlider.getValue();
+            percentagePickedLow = percentageSlider.getLowValue();
+            percentagePickedHigh = percentageSlider.getHighValue();
         }
-        System.out.println("Percentage picked:" + percentagePicked);
+        System.out.println("Percentage picked:" + percentagePickedLow + " and " + percentagePickedHigh);
 
     }
 
@@ -79,11 +89,29 @@ public class Scene2Controller {
         stage.show();
 
     }
+// Getters
+    public double getPercentagePickedLow(){
+        return percentagePickedLow;
+    }
 
-    public double getPercentagePicked(){
-        return percentagePicked;
+    public double getPercentagePickedHigh(){
+        return percentagePickedHigh;
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        pane.getChildren().add(percentageSlider);
+        percentageSlider.setShowTickMarks(true);
+        percentageSlider.setShowTickLabels(true);
+        percentageSlider.setBlockIncrement(1);
+        percentageSlider.majorTickUnitProperty().set(1);
+        percentageSlider.setLayoutX(85);
+        percentageSlider.setLayoutY(320);
+        percentageSlider.setPrefHeight(32);
+        percentageSlider.setPrefWidth(500);
+        percentageSlider.setVisible(false);
+    }
 }
 

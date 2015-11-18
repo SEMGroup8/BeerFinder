@@ -15,18 +15,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class Scene4Controller{
+
+public class Scene4Controller implements Initializable{
 
    private int count;
    private Beer randomBeer;
@@ -100,6 +103,12 @@ public class Scene4Controller{
         this.packageR.setText(randomBeer.getBeerPackage());
         this.producerR.setText(randomBeer.getProducer());
         this.priceR.setText("" + randomBeer.getPrice() + " kr");
+        if(randomBeer.getImage() != null) {
+            this.imageView.setImage(randomBeer.getImage());
+        }
+        else {
+            this.imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+        }
 
     }
 
@@ -118,69 +127,6 @@ public class Scene4Controller{
 
     }
 
-
-    @FXML
-    void onCheckButtonClick(ActionEvent event) {
-
-        // Getting query with user choices
-        RandomBeerQuery randomBeerQuery = new RandomBeerQuery();
-        this.randomBeerQuery = randomBeerQuery;
-
-        // Getting the results from database with query
-        ArrayList<ArrayList<Object>> list = MysqlDriver.selectMany(this.randomBeerQuery.resultQuery());
-        this.arrayID = new int[list.size()];
-
-        // Making the array of beer IDs from query results
-        for (int i = 0; i < list.size(); i++) {
-            Beer beer = new Beer(list.get(i));
-            // Counting results
-            count++;
-            this.arrayID[i] = beer.getId();
-        }
-
-        if (this.arrayID.length == 0){
-            checkButton.setVisible(false);
-            textLine.setText("No beers found :|");
-            HBoxButtons.setVisible(true);
-            anotherButton.setVisible(false);
-            return;
-        }
-        else {
-
-            // Getting one beer entry chosen randomly from the list of IDs
-            ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(this.arrayID)));
-
-
-            Beer randomBeer = new Beer(list2.get(0));
-            BeerData.selectedBeer = randomBeer;
-
-            this.randomBeer = randomBeer;
-
-            // Populating beer info into scene
-            this.typeR.setText(randomBeer.getType());
-            this.originR.setText(randomBeer.getOrigin());
-            this.percentageR.setText("" + randomBeer.getPercentage());
-            this.nameR.setText(randomBeer.getName());
-            this.packageR.setText(randomBeer.getBeerPackage());
-            this.producerR.setText(randomBeer.getProducer());
-            this.priceR.setText("" + randomBeer.getPrice() + " kr");
-            this.beerFound.setText("" + count);
-
-            // Changing visibility of elements on scene
-
-            if (UserData.userInstance == null) {
-                rankFavourite.setVisible(false);
-            } else {
-                rankFavourite.setVisible(true);
-            }
-
-            VBoxInfo.setVisible(true);
-            HBoxButtons.setVisible(true);
-            HBoxFound.setVisible(true);
-            imageView.setVisible(true);
-            checkButton.setVisible(false);
-        }
-    }
     // Process the array of integers, returns one random integer
     public int generateRandom(int[] array) {
         int result = 0;
@@ -242,4 +188,71 @@ public class Scene4Controller{
     public void onRankFiveStar(ActionEvent event) throws IOException {
         rankStar(5);
     }
-}
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Getting query with user choices
+        RandomBeerQuery randomBeerQuery = new RandomBeerQuery();
+        this.randomBeerQuery = randomBeerQuery;
+
+        // Getting the results from database with query
+        ArrayList<ArrayList<Object>> list = MysqlDriver.selectMany(this.randomBeerQuery.resultQuery());
+        this.arrayID = new int[list.size()];
+
+        // Making the array of beer IDs from query results
+        for (int i = 0; i < list.size(); i++) {
+            Beer beer = new Beer(list.get(i));
+            // Counting results
+            count++;
+            this.arrayID[i] = beer.getId();
+        }
+
+        if (this.arrayID.length == 0){
+            textLine.setText("No beers found :|");
+            HBoxButtons.setVisible(true);
+            anotherButton.setVisible(false);
+            return;
+        }
+        else {
+
+            // Getting one beer entry chosen randomly from the list of IDs
+            ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(this.arrayID)));
+
+
+
+            Beer randomBeer = new Beer(list2.get(0));
+            // BeerData.selectedBeer = randomBeer;
+
+            this.randomBeer = randomBeer;
+
+            // Populating beer info into scene
+            this.typeR.setText(randomBeer.getType());
+            this.originR.setText(randomBeer.getOrigin());
+            this.percentageR.setText("" + randomBeer.getPercentage());
+            this.nameR.setText(randomBeer.getName());
+            this.packageR.setText(randomBeer.getBeerPackage());
+            this.producerR.setText(randomBeer.getProducer());
+            this.priceR.setText("" + randomBeer.getPrice() + " kr");
+            this.beerFound.setText("" + count);
+            if(randomBeer.getImage() != null) {
+                this.imageView.setImage(randomBeer.getImage());
+            }
+            else {
+                this.imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+            }
+
+            // Changing visibility of elements on scene
+
+            if (UserData.userInstance == null) {
+                rankFavourite.setVisible(false);
+            } else {
+                rankFavourite.setVisible(true);
+            }
+
+            VBoxInfo.setVisible(true);
+            HBoxButtons.setVisible(true);
+            HBoxFound.setVisible(true);
+            imageView.setVisible(true);
+        }
+    }
+    }
