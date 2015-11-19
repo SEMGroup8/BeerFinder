@@ -18,6 +18,9 @@
       </AnchorPane>
    </top>
    <center>
+
       <GoogleMapView fx:id="mapView" />
+
    </center>
+
 </BorderPane>

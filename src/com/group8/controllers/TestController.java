@@ -3,17 +3,17 @@ package com.group8.controllers;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.GoogleMap;
-import com.lynden.gmapsfx.javascript.object.LatLong;
-import com.lynden.gmapsfx.javascript.object.MapOptions;
-import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
+import com.lynden.gmapsfx.javascript.object.*;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,6 +31,8 @@ public class TestController implements Initializable,MapComponentInitializedList
     public GoogleMap map;
     @FXML
     public Button getCenter;
+
+    Marker marker;
 
     public void getCenter(){
         centerScreen.setText(map.getCenter().toString());
@@ -63,20 +65,43 @@ public class TestController implements Initializable,MapComponentInitializedList
 
 
         map = mapView.createMap(mapOptions);
-        
+        MarkerOptions markerOptions2 = new MarkerOptions();
+        markerOptions2.position(start);
+        // markerOptions1.icon("html/mymarker.png");
+        markerOptions2.visible(true);
+        markerOptions2.animation(Animation.DROP);
+
+        marker = new Marker(markerOptions2);
+
         centerScreen.setText(start.toString());
         // gets the position of a click without drag
         map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
             LatLong ll = new LatLong((JSObject) obj.getMember("latLng"));
-            //System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
+            System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
             click.setText(ll.toString());
         });
         // gets the center of the screen after the mouse button is released
-        map.addUIEventHandler(UIEventType.mouseup, (JSObject obj) ->{
-            LatLong l2 = new LatLong(map.getCenter().getLatitude(),map.getCenter().getLongitude());
-        //System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
-        centerScreen.setText(l2.toString());
+        map.addUIEventHandler(UIEventType.mouseup, (JSObject obj) -> {
+            LatLong l2 = new LatLong(map.getCenter().getLatitude(), map.getCenter().getLongitude());
+            //System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
+            centerScreen.setText(l2.toString());
         });
+
+        map.addUIEventHandler(UIEventType.dblclick,(JSObject obj) -> {
+            map.removeMarker(marker);
+            LatLong l3 = new LatLong((JSObject) obj.getMember("latLng"));
+            MarkerOptions markerOptions1 = new MarkerOptions();
+            markerOptions1.position(l3);
+            // markerOptions1.icon("html/mymarker.png");
+            markerOptions1.visible(true);
+            markerOptions1.animation(Animation.DROP);
+
+            marker = new Marker(markerOptions1);
+            map.addMarker(marker);
+            
+
+        });
+
 
     }
 
