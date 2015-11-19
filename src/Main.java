@@ -1,3 +1,4 @@
+import com.group8.controllers.Navigation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -28,6 +29,8 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        Navigation.primaryStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
         Scene scene = new Scene(root, 800, 600);
 

@@ -7,16 +7,22 @@ import com.group8.database.tables.BeerRank;
 import com.group8.database.tables.MapMarker;
 import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sun.plugin.javascript.JSObject;
 
@@ -37,7 +43,7 @@ public class BeerDetailController implements Initializable{
     @FXML
     public Label gMapsError;
     @FXML
-    public Button back, favourite;
+    public Button back, favourite, addToPub;
     @FXML
     public Button newSearch;
     @FXML
@@ -194,6 +200,47 @@ public class BeerDetailController implements Initializable{
         }
     }
 
+    @FXML
+    public void addToPub(ActionEvent event) throws IOException {
+        if (UserData.userInstance != null)
+        {
+            if (UserData.userInstance.get_isPub()) {
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(Navigation.primaryStage);
+                VBox dialogVbox = new VBox(20);
+                dialogVbox.setAlignment(Pos.CENTER);
+                dialogVbox.getChildren().add(new Text("Add a beer to your pub!"));
+                TextField price = new TextField("Type in price:");
+                Button addBeerToPub = new Button("Add to pub");
+
+                addBeerToPub.setOnAction(
+                    new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+
+                            String query = "Insert into beerInPub values("
+                                    + UserData.userInstance.get_pubId() + ", "
+                                    + BeerData.selectedBeer.getId() + ", "
+                                    + Float.parseFloat(price.getText()) + ", 1)";
+
+                            MysqlDriver.insert(query);
+
+                            System.out.println("Inserted beer to pub");
+                            dialog.close();
+                        }
+                    });
+
+                dialogVbox.getChildren().add(price);
+                dialogVbox.getChildren().add(addBeerToPub);
+
+                Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                dialog.setScene(dialogScene);
+                dialog.show();
+            }
+        }
+    }
+
     /**
      * Home Button
      * @param event
@@ -234,6 +281,11 @@ public class BeerDetailController implements Initializable{
             fiveStar.setVisible(true);
 
             favourite.setVisible(true);
+
+            if(UserData.userInstance.get_isPub())
+            {
+                addToPub.setVisible(true);
+            }
         }
 
         // test output

@@ -69,6 +69,8 @@ public class FavouritesController implements Initializable
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
+        String backActionString = "";
+
         Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
