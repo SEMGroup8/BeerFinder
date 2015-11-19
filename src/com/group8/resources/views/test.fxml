@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.lynden.gmapsfx.GoogleMapView?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.TestController">
+   <top>
+      <AnchorPane prefHeight="62.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="centerScreen" layoutX="153.0" layoutY="10.0" prefHeight="17.0" prefWidth="280.0" />
+            <Button fx:id="getCenter" layoutX="482.0" layoutY="18.0" mnemonicParsing="false" onAction="#getCenter" text="getCenter" />
+            <Label fx:id="click" layoutX="153.0" layoutY="37.0" prefHeight="17.0" prefWidth="280.0" />
+            <Label layoutX="14.0" layoutY="37.0" text="Click Coordinates" />
+            <Label layoutX="14.0" layoutY="10.0" text="Center Coordinates" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <GoogleMapView fx:id="mapView" />
+   </center>
+</BorderPane>

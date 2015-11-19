@@ -92,6 +92,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("Initialized google maps!");
         mapView.addMapInializedListener(this);
         pubsColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("PubName"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("Price"));
@@ -158,7 +159,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(BeerData.markers.get(1).getLatitude(), BeerData.markers.get(1).getLongitude()))
+        mapOptions.center(new LatLong(BeerData.markers.get(0).getLatitude(), BeerData.markers.get(0).getLongitude()))
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(true)
                 .panControl(false)
@@ -179,7 +180,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
             //Add markers to the map
             MarkerOptions markerOptions1 = new MarkerOptions();
             markerOptions1.position(markerLocation);
-            markerOptions1.icon("html/mymarker.png");
+           // markerOptions1.icon("html/mymarker.png");
+            markerOptions1.visible(true);
 
 
             Marker marker = new Marker(markerOptions1);
