@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.LoadException;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -108,22 +109,26 @@ public class ResultController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    // Show that we can select items and print it
-                    System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
-                    // Set the selectedBeer instance of beer we have to selected item
-                    BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
-                    // Load the details scene
-                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
-                    try {
-                        // TODO have to fix nameing
-                        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
-                        Scene result_scene = new Scene(homescreen,800,600);
-                        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        main_stage.setScene(result_scene);
-                        main_stage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        // Show that we can select items and print it
+                        System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
+                        // Set the selectedBeer instance of beer we have to selected item
+                        BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
+                        // Load the details scene
+                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+                        try {
+                            // TODO have to fix nameing
+                            Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
+                            Scene result_scene = new Scene(homescreen, 800, 600);
+                            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            main_stage.setScene(result_scene);
+                            main_stage.show();
+                        } catch (IOException e) {
+                            // Print error msg
+                            //e.printStackTrace();
+                        }
+
+
+
 
                 }
             }
