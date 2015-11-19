@@ -73,7 +73,6 @@ public class ResultController implements Initializable {
 
 
 
-
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
 
 
@@ -93,25 +92,11 @@ public class ResultController implements Initializable {
 
     }
 
-    /**
-     * Get the map scene
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void getMaps(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
 
 
-    }
-
-    /**
-     * Select a beer row and proceed to the beerDetail scene
-     */
+           /**
+         * Select a beer row and proceed to the beerDetail scene
+         */
     public void getRow(){
         beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked
@@ -189,29 +174,34 @@ public class ResultController implements Initializable {
                      */
                     @Override
                     public void updateItem(Image item, boolean empty) {
-                        if (item != null) {
-                            VBox vb = new VBox();
-                            vb.setAlignment(Pos.CENTER);
-                            ImageView imgVw = new ImageView();
-                            imgVw.setImage(item);
-                            imgVw.setFitWidth(20);
-                            imgVw.setFitHeight(40);
-                            vb.getChildren().addAll(imgVw);
-                            setGraphic(vb);
 
-                        } else {
-                            VBox vb = new VBox();
-                            vb.setAlignment(Pos.CENTER);
-                            ImageView imgVw = new ImageView();
-                            imgVw.setImage(new Image (new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
-                            imgVw.setFitWidth(20);
-                            imgVw.setFitHeight(40);
-                            // Test Output
-                            //System.out.println(imgVw.getImage().toString());
-                            vb.getChildren().addAll(imgVw);
-                            setGraphic(vb);
 
-                        }
+                       if(!empty) {
+                           if (item != null) {
+                               VBox vb = new VBox();
+                               vb.setAlignment(Pos.CENTER);
+                               ImageView imgVw = new ImageView();
+                               imgVw.setImage(item);
+                               imgVw.setFitWidth(20);
+                               imgVw.setFitHeight(40);
+                               vb.getChildren().addAll(imgVw);
+                               setGraphic(vb);
+
+
+                           } else {
+                               VBox vb = new VBox();
+                               vb.setAlignment(Pos.CENTER);
+                               ImageView imgVw = new ImageView();
+                               imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+                               imgVw.setFitWidth(20);
+                               imgVw.setFitHeight(40);
+                               vb.getChildren().addAll(imgVw);
+                               setGraphic(vb);
+
+
+                           }
+                       }
+
                     }
                 };
                 return cell;

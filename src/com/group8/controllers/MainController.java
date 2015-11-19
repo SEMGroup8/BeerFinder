@@ -1,7 +1,9 @@
 package com.group8.controllers;
+import com.group8.*;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
+import com.lynden.gmapsfx.MainApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -64,6 +68,23 @@ public class MainController implements Initializable {
     public Label error;
     @FXML
     public Button randomButton;
+
+    public Button test;
+
+    public void getTest(javafx.event.ActionEvent event) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/test.fxml"));
+        BorderPane page = loader.load();
+        // Create the dialog Stage.
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Add Your Location");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+    }
 
     // TODO implement threads
    // public ProgressIndicator load;
@@ -313,6 +334,7 @@ public class MainController implements Initializable {
 
         if ((BeerData.beer.size()>0)) {
 
+
             // Load the result stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
             Scene result_scene = new Scene(result,800,600);
@@ -373,7 +395,6 @@ public class MainController implements Initializable {
 
         if(userData == null)
         {
-
             System.out.println("Is empty");
             return;
         }
@@ -394,7 +415,7 @@ public class MainController implements Initializable {
         if(fetchedUser.get_isPub())
         {
             // Load the pub stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
             Scene result_scene = new Scene(result,800,600);
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);

@@ -307,6 +307,11 @@ public class LoggedInHomeScreenController extends MainController {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        if(UserData.userInstance.get_isPub())
+        {
+            account.setText("Pub");
+        }
+
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
         userName.setText(UserData.userInstance.get_name());
@@ -331,12 +336,22 @@ public class LoggedInHomeScreenController extends MainController {
     @FXML
     public void onAccount(javafx.event.ActionEvent event) throws IOException
     {
-
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        if(UserData.userInstance.get_isPub())
+        {
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
+            Scene result_scene = new Scene(result, 800, 600);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }
+        else
+        {
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
+            Scene result_scene = new Scene(result, 800, 600);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }
     }
 
     @FXML
@@ -354,7 +369,6 @@ public class LoggedInHomeScreenController extends MainController {
     @FXML
     public void onFavourites(javafx.event.ActionEvent event) throws IOException
     {
-
         Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
         Scene result_scene = new Scene(result, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -115,6 +115,7 @@
                            </children>
                         </HBox>
                         <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" />
+                        <Button fx:id="addToPub" layoutX="315.0" layoutY="129.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -152,7 +153,13 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="newSearch" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="27.0" prefWidth="100.0" text="New Search" />
+                  <Button fx:id="newSearch" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="27.0" prefWidth="100.0" text="Home" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="googleMaps" layoutX="25.0" layoutY="37.0" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="100.0" text="Google Maps" visible="true" />
+                  <Label fx:id="gMapsError" layoutX="138.0" layoutY="42.0" prefHeight="17.0" prefWidth="218.0" text="This beer is not sold by any pubs!" textFill="RED" visible="false" />
                </children>
             </AnchorPane>
          </children>

@@ -75,8 +75,14 @@ public class User extends MysqlDriver
 
         }
 
-        System.out.println(this._isPub);
-        getFavourites();
+        if(_isPub)
+        {
+            getBeers();
+        }
+        else
+        {
+            getFavourites();
+        }
     }
 
     public void setUser(String name, String fullName, String password, String email, boolean isPub)
@@ -106,6 +112,27 @@ public class User extends MysqlDriver
     {
         String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars " +
                 "from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = " + _id + ";";
+
+        // Execute user query
+        ArrayList<ArrayList<Object>> sqlData;
+
+        sqlData = MysqlDriver.selectMany(sqlQuery);
+
+        favourites = new ArrayList<Beer>();
+
+        for (int i = 0; i < sqlData.size(); i++) {
+            // Add a new Beer to the beer arraylist
+            Beer beer = new Beer(sqlData.get(i));
+            // Testoutput
+            System.out.print(beer.getName()+"\n");
+            this.favourites.add(beer);
+        }
+    }
+
+    public void getBeers()
+    {
+        String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars " +
+                "from beers, beerInPub, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = beerInPub.beerID and beerInPub.pubID = " + _pubId + ";";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;

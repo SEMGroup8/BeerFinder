@@ -17,15 +17,13 @@ public class Beer extends MysqlDriver{
 
     String from = "beers";
     private String name, description, type, origin, producer, beerPackage;
-    private ImageView imV;
     int id;
-
 
     float avRank;
     float percentage,volume,price;
     Boolean isTap;
     BufferedImage image = null;  //Buffered image coming from database
-    InputStream tmpImg = null; //Inputstream
+    //InputStream tmpImg = null; //Inputstream
 
 
 
@@ -40,9 +38,8 @@ public class Beer extends MysqlDriver{
         ArrayList<Object> sqlReturn = select(query);
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
-
      try {
-            this.tmpImg = (InputStream) sqlReturn.get(2);
+            InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
             this.image = null;
@@ -68,9 +65,9 @@ public class Beer extends MysqlDriver{
         this.name = sqlReturn.get(1).toString();
         // Image handeling
         try {
-            this.tmpImg = (InputStream) sqlReturn.get(2);
+            InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
-        }catch (IOException ex){
+        }catch (IOException ex) {
             this.image = null;
         }
 
