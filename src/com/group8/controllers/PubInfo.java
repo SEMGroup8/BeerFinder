@@ -8,6 +8,8 @@ import com.group8.database.MysqlDriver;
 
 import com.lynden.gmapsfx.MainApp;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,11 +21,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
-	
-	
-	public class PubInfo {
+public class PubInfo {
 	public TextField pubID;
 	public TextField pubName;
 	public TextField pubAddress;
@@ -94,10 +95,26 @@ import javafx.stage.Stage;
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Add Your Location");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(Navigation.primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
+			dialogStage.show();
+			// Some real cool shit
+			dialogStage.setOnCloseRequest(new EventHandler() {
+				@Override
+				public void handle(Event event) {
+					pubAddress.setText(BeerData.Address.toString());
+
+				}
+			});
+			dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					pubAddress.setText(BeerData.Address.toString());
+				}
+			});
+
 		}
 
 

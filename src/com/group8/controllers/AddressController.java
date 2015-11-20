@@ -1,17 +1,24 @@
 package com.group8.controllers;
 
+import com.group8.database.tables.Beer;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import com.sun.javafx.stage.WindowHelper;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
-import javafx.stage.Stage;
+import javafx.stage.*;
+import javafx.stage.Window;
 import netscape.javascript.JSObject;
 
 import java.awt.*;
@@ -32,6 +39,8 @@ public class AddressController implements Initializable,MapComponentInitializedL
 
     // Connect the FXML elements
     @FXML
+    public Node root;
+    @FXML
     public Label centerScreen;
     @FXML
     public Label click;
@@ -41,6 +50,11 @@ public class AddressController implements Initializable,MapComponentInitializedL
     public GoogleMap map;
     @FXML
     public Button getCenter;
+    @FXML
+    public Button add;
+
+    // Tmp address for sending to main window
+    LatLong address;
 
     // We will only have one active marker so we keep track of it here
     Marker marker;
@@ -50,6 +64,37 @@ public class AddressController implements Initializable,MapComponentInitializedL
      */
     public void getCenter(){
         centerScreen.setText(map.getCenter().toString());
+        map.setCenter(new LatLong(57.7065806, 11.9294398));
+
+    }
+
+    public void addAddress(){
+        // Set global to address
+        BeerData.Address = address;
+        if (BeerData.Address == null){
+            // Show confirmation
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Address Information");
+            alert.setHeaderText("Alert!");
+            alert.setContentText("No Address selected!");
+            alert.showAndWait();
+        }else {
+
+            // Show confirmation
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Address Information");
+            alert.setHeaderText("Alert!");
+            alert.setContentText("Your Address has been added to the main window!");
+            alert.showAndWait();
+            root.getScene().getWindow().hide();
+
+        }
+
+        // get a handle to the stage
+        //Stage stage = (Stage) root.getScene().getWindow();
+        // do what you have to do
+        //stage.close();
+
 
     }
 
@@ -129,6 +174,9 @@ public class AddressController implements Initializable,MapComponentInitializedL
             // Apply the formating of the marker to a new marker
             marker = new Marker(markerOptions1);
 
+            // Save the current markers latlong
+            address = l3;
+
             // Add the marker to the map
             map.addMarker(marker);
 
@@ -144,6 +192,7 @@ public class AddressController implements Initializable,MapComponentInitializedL
             // Map repaint hack
             map.setZoom(map.getZoom()-1);
             map.setZoom(map.getZoom()+1);
+
 
 
 
