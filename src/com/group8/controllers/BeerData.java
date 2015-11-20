@@ -28,7 +28,7 @@ public class BeerData {
     // The pubs that have a sertain beer
     public static ArrayList<MapMarker> markers;
 
-    public static LatLong Address;
+    public static LatLong Address = null;
 
 
 }

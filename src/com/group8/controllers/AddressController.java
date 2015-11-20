@@ -16,11 +16,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.stage.*;
 import javafx.stage.Window;
 import netscape.javascript.JSObject;
 
+import javax.swing.plaf.ComponentInputMapUIResource;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
@@ -59,6 +61,9 @@ public class AddressController implements Initializable,MapComponentInitializedL
     // We will only have one active marker so we keep track of it here
     Marker marker;
 
+    ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
+
+
     /**
      * Sets a label to the center coordinates of the map when button pressed.
      */
@@ -69,14 +74,18 @@ public class AddressController implements Initializable,MapComponentInitializedL
     }
 
     public void addAddress(){
+        img.setFitWidth(60);
+        img.setFitHeight(60);
         // Set global to address
         BeerData.Address = address;
         if (BeerData.Address == null){
+
             // Show confirmation
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Address Information");
             alert.setHeaderText("Alert!");
             alert.setContentText("No Address selected!");
+            alert.setGraphic(img);
             alert.showAndWait();
         }else {
 
@@ -85,6 +94,8 @@ public class AddressController implements Initializable,MapComponentInitializedL
             alert.setTitle("Address Information");
             alert.setHeaderText("Alert!");
             alert.setContentText("Your Address has been added to the main window!");
+            alert.setGraphic(img);
+
             alert.showAndWait();
             root.getScene().getWindow().hide();
 
@@ -114,6 +125,11 @@ public class AddressController implements Initializable,MapComponentInitializedL
      */
     @Override
     public void mapInitialized() {
+
+        // Hack for fixing corner cases
+       // address = new LatLong(0.0,0.0);
+        //BeerData.Address = address;
+
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
         LatLong start = new LatLong(57.7065806, 11.9294398);
@@ -182,7 +198,7 @@ public class AddressController implements Initializable,MapComponentInitializedL
 
             // Adding a info window with the long lat of the marker
             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-            infoWindowOptions.content("<h2> Your Pub </h2>"
+            infoWindowOptions.content("<h2>" + " Your Pub "+ "</h2>"
                     + "LatLong: lat: " + l3.getLatitude() + " lng: " + l3.getLongitude() + "<br>");
             InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
             markerWindow.open(map,marker);

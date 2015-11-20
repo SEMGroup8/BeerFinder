@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -36,13 +37,16 @@ public class PubInfo {
 	
 	public Button pubSaveNew;
 	public Button addBeer;
-
+	@FXML
 	public Button getMap;
 	@FXML
     private ImageView pubImage;
-
     @FXML
     private Button loadImg;
+
+	// Latlong
+	double latitude;
+	double longitude;
 
    
 	
@@ -98,20 +102,25 @@ public class PubInfo {
 			dialogStage.initOwner(Navigation.primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
+			dialogStage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
 			// Show the dialog and wait until the user closes it
 			dialogStage.show();
-			// Some real cool shit
-			dialogStage.setOnCloseRequest(new EventHandler() {
-				@Override
-				public void handle(Event event) {
-					pubAddress.setText(BeerData.Address.toString());
 
-				}
-			});
+
+			// Some real cool shit
+
+			// When exeting the window update the address and fetch the latlong
 			dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
 				@Override
 				public void handle(WindowEvent event) {
-					pubAddress.setText(BeerData.Address.toString());
+					if(BeerData.Address != null) {
+						pubAddress.setText(BeerData.Address.toString());
+
+						// Store the address as lat and long doubles
+						latitude = BeerData.Address.getLatitude();
+						longitude = BeerData.Address.getLongitude();
+						System.out.println(latitude + " " + longitude);
+					}
 				}
 			});
 
