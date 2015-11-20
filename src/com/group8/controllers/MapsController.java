@@ -38,7 +38,11 @@ import java.util.ResourceBundle;
 /**
  * Created by AnkanX on 15-10-24.
  *
- * TODO learn the goglefx API and implement it
+ * TODO learn the googlefx API and implement it
+ *
+ * The Google maps scene originateing from the BeerDetail scene
+ * When a beer is sold by a pub this will display a google maps window with markers of those pubs
+ * locations, and a tableview sorted by the price of the beer you previously selected.
  *
  */
 public class MapsController implements Initializable,MapComponentInitializedListener {
@@ -120,18 +124,26 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
 
                     for (int i = 0; i < markers.size(); i++) {
+                        // Remove existing markers
                         map.removeMarker(markers.get(i));
 
+                        // Repaint Hack
+                        map.setZoom(14);
+                        map.setZoom(15);
                         if(i == z) {
+                            // Add the selected marker back to the map
                             map.addMarker(markers.get(z));
-
+                            // make the infowindow for the selected marker
                             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
                             infoWindowOptions.content("<h2>" + BeerData.markers.get(i).getPubName() + "</h2>"
                                     + "Address: " + BeerData.markers.get(i).getAddress() + "<br>"
                                     + "Price. " + BeerData.markers.get(i).getPrice() + ":-");
                             InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
+                            // Open the infowindow
                             markerWindow.open(map, markers.get(z));
+                            // Set the center of the screen to the active markers position
                             map.setCenter(new LatLong(BeerData.markers.get(z).getLatitude(),BeerData.markers.get(z).getLongitude()));
+                            // Set zoom to a good overview zoom
                             map.setZoom(15);
                         }
 
@@ -180,6 +192,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
             //Add markers to the map
             MarkerOptions markerOptions1 = new MarkerOptions();
             markerOptions1.position(markerLocation);
+
            // markerOptions1.icon("html/mymarker.png");
             markerOptions1.visible(true);
 

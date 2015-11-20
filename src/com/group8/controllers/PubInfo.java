@@ -1,15 +1,13 @@
 package com.group8.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.group8.database.MysqlDriver;
 
+import com.lynden.gmapsfx.MainApp;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,7 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -36,7 +35,8 @@ import javafx.stage.Stage;
 	
 	public Button pubSaveNew;
 	public Button addBeer;
-	
+
+	public Button getMap;
 	@FXML
     private ImageView pubImage;
 
@@ -84,12 +84,28 @@ import javafx.stage.Stage;
          main_stage.show();
          
 	}
+
+		public void getMap(javafx.event.ActionEvent event) throws IOException{
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/AddressMap.fxml"));
+			BorderPane page = loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add Your Location");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+		}
+
+
 }
 
 	
 
-	
-		// TODO Auto-generated method stub
+
 		
 	
 	
