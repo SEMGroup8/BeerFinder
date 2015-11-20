@@ -16,7 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.stage.*;
 import javafx.stage.Window;
@@ -86,6 +87,8 @@ public class AddressController implements Initializable,MapComponentInitializedL
             alert.setHeaderText("Alert!");
             alert.setContentText("No Address selected!");
             alert.setGraphic(img);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
             alert.showAndWait();
         }else {
 
@@ -95,7 +98,8 @@ public class AddressController implements Initializable,MapComponentInitializedL
             alert.setHeaderText("Alert!");
             alert.setContentText("Your Address has been added to the main window!");
             alert.setGraphic(img);
-
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
             alert.showAndWait();
             root.getScene().getWindow().hide();
 
