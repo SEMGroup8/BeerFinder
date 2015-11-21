@@ -266,7 +266,8 @@ public class MainController implements Initializable {
                 }
             }
         }
-        BeerData.searchInput +=")";
+        // Added a 100 beer limit as a safety for now / maybe have pages allso?
+        BeerData.searchInput +=") limit 100 ";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;
