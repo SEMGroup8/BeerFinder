@@ -71,6 +71,7 @@ public class AddressController implements Initializable,MapComponentInitializedL
     public void getCenter(){
         centerScreen.setText(map.getCenter().toString());
         map.setCenter(new LatLong(57.7065806, 11.9294398));
+        map.setZoom(15);
 
     }
 
@@ -212,7 +213,6 @@ public class AddressController implements Initializable,MapComponentInitializedL
             // Map repaint hack
             map.setZoom(map.getZoom()-1);
             map.setZoom(map.getZoom()+1);
-
 
 
 

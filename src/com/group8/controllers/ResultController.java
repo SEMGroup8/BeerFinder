@@ -147,7 +147,6 @@ public class ResultController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Navigation.resultviewFXML = "/com/group8/resources/views/resultScreen.fxml";
         Navigation.backFXML = "/com/group8/resources/views/resultScreen.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.

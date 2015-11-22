@@ -214,7 +214,7 @@ public class LoggedInHomeScreenController extends MainController {
                 }
             }
         }
-        BeerData.searchInput +=")";
+        BeerData.searchInput +=") limit 100";
 
 
         // Execute user query

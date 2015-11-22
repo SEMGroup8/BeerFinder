@@ -66,6 +66,12 @@ public class MainController implements Initializable {
     public Label error;
     @FXML
     public Button randomButton;
+    @FXML
+    public Button test;
+
+    public void test(){
+
+    }
 
 
 

@@ -73,7 +73,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.resultviewFXML));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.beerDetailviewFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
@@ -96,6 +96,10 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        Navigation.mapviewFXML = "/com/group8/resources/views/googleMaps.fxml";
+
+
         System.out.println("Initialized google maps!");
         mapView.addMapInializedListener(this);
         pubsColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("PubName"));
@@ -137,7 +141,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
                             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
                             infoWindowOptions.content("<h2>" + BeerData.markers.get(i).getPubName() + "</h2>"
                                     + "Address: " + BeerData.markers.get(i).getAddress() + "<br>"
-                                    + "Price. " + BeerData.markers.get(i).getPrice() + ":-");
+                                    + "Price. " + BeerData.markers.get(i).getPrice() + ":- <br>"
+                                    + "in stock: " + BeerData.markers.get(i).InStock());
                             InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
                             // Open the infowindow
                             markerWindow.open(map, markers.get(z));
@@ -206,7 +211,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
                 InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
                 infoWindowOptions.content("<h2>" + BeerData.markers.get(i).getPubName() + "</h2>"
                         + "Address: " + BeerData.markers.get(i).getAddress() + "<br>"
-                        + "Price. " + BeerData.markers.get(i).getPrice() + ":-");
+                        + "Price. " + BeerData.markers.get(i).getPrice() + ":- <br>"
+                        + "in stock: " + BeerData.markers.get(i).InStock());
                 InfoWindow markerWindow = new InfoWindow(infoWindowOptions);
                 markerWindow.open(map, markers.get(i));
                 map.setCenter(new LatLong(BeerData.markers.get(i).getLatitude(),BeerData.markers.get(i).getLongitude()));

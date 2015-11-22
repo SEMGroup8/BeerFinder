@@ -11,4 +11,6 @@ public class Navigation
     public static String homescreenFXML;
     public static String resultviewFXML;
     public static String backFXML;
+    public static String beerDetailviewFXML;
+    public static String mapviewFXML;
 }
