@@ -1,47 +1,40 @@
 package com.group8.controllers;
-import com.group8.*;
+
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
-import com.group8.database.tables.User;
-import com.lynden.gmapsfx.MainApp;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-10-22.
- *
- * TODO Visual Upgrade & optimizeation
- *
+ * Created by Shiratori on 24/11/15.
  */
-
-public class MainController implements Initializable {
-
-    // Declaration of FXML elements
+public class HomeCenter implements Initializable
+{
     @FXML
     public Button search;
     @FXML
-    public Button login;
+    public Label error;
+    @FXML
+    public Button randomButton;
+    @FXML
+    public Button test;
     @FXML
     public CheckBox advancedType;
     @FXML
@@ -58,51 +51,6 @@ public class MainController implements Initializable {
     public CheckBox advancedCountry;
     @FXML
     public TextField searchText;
-    @FXML
-    public TextField loginText;
-    @FXML
-    public PasswordField pswrdField;
-    @FXML
-    public Label error;
-    @FXML
-    public Button randomButton;
-    @FXML
-    public Button test;
-
-
-
-    // TODO implement threads
-   // public ProgressIndicator load;
-
-    /**
-     * Auto clear fields when selected
-     * Clear the Search field
-     */
-    public void clearFieldSearch()
-    {
-        exitField();
-
-        if (searchText.getText().equals("Search...")) {
-            searchText.setText("");
-        }
-    }
-    // Clear the Login field
-    public void clearFieldLogin()
-    {
-        exitField();
-        if (loginText.getText().equals("Type here:")) {
-            loginText.setText("");
-        }
-    }
-    // Clear the password field
-    public void clearFieldPassword()
-    {
-        exitField();
-        if(pswrdField.getText().equals("password"))
-        {
-            pswrdField.setText("");
-        }
-    }
 
     // Checkbox that when checked shows advanced checkboxes
     public void showAdvanced()
@@ -162,24 +110,12 @@ public class MainController implements Initializable {
 
     }
 
-
-
     // Resets guide text if no input was made
     public void exitField()
     {
-        if (loginText.getText().isEmpty()){
-            loginText.setText("Type here:");
-        }
-
         if (searchText.getText().isEmpty()){
             searchText.setText("Search...");
         }
-
-        if (pswrdField.getText().isEmpty()){
-            pswrdField.setText("password");
-        }
-
-
     }
 
     /**
@@ -206,11 +142,11 @@ public class MainController implements Initializable {
         {
             // name search is defualt
             BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
-                                        " from beers, beerType, origin, package where " +
-                                            "beers.beerTypeID = beerType.beerTypeID " +
-                                                "and beers.originID = origin.originID " +
-                                                    "and beers.package = package.packageID " +
-                                        "and (";
+                    " from beers, beerType, origin, package where " +
+                    "beers.beerTypeID = beerType.beerTypeID " +
+                    "and beers.originID = origin.originID " +
+                    "and beers.package = package.packageID " +
+                    "and (";
 
             if(advancedName.isSelected()){
                 BeerData.searchInput += "name like '%" + searchText.getText() + "%'";
@@ -307,100 +243,9 @@ public class MainController implements Initializable {
             advancedCountry.setVisible(false);
             advancedName.setSelected(true);
 
-           //load.setVisible(false);
-           error.setText("No result for: " + searchText.getText());
+            //load.setVisible(false);
+            error.setText("No result for: " + searchText.getText());
         }
-    }
-
-
-    @FXML
-    // Execute search button on pressing "Enter"
-    public void searchEnterPressed(KeyEvent event){
-        if (event.getCode() == KeyCode.ENTER) {
-            search.setDefaultButton(true);
-            login.setDefaultButton(false);
-        }
-    }
-
-    @FXML
-    // Execute login button on pressing "Enter"
-    public void passwordEnterPressed(KeyEvent event){
-        if (event.getCode() == KeyCode.ENTER) {
-            login.setDefaultButton(true);
-            search.setDefaultButton(false);
-        }
-    }
-
-
-    /**
-     * Login Button event
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void onLogin(javafx.event.ActionEvent event) throws IOException{
-
-        String username = loginText.getText();
-        String password = pswrdField.getText();
-
-        String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
-
-        System.out.println(sqlQuery);
-        ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
-
-        if(userData == null)
-        {
-            System.out.println("Is empty");
-            return;
-        }
-
-        User fetchedUser = new User(userData);
-
-        if(!fetchedUser.get_name().equals(username))
-        {
-            System.out.println(username);
-            System.out.println(fetchedUser.get_name());
-            return;
-        }
-
-        UserData.userInstance = fetchedUser;
-
-        //System.out.println(fetchedUser.get_isPub());
-
-        if(fetchedUser.get_isPub())
-        {
-            // Load the pub stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
-            Scene result_scene = new Scene(result,800,600);
-            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            main_stage.setScene(result_scene);
-            main_stage.show();
-        }
-        else
-        {
-            // Load the pub stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
-            Scene result_scene = new Scene(result,800,600);
-            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            main_stage.setScene(result_scene);
-            main_stage.show();
-        }
-    }
-
-    /**
-     * On Register
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void onRegister(javafx.event.ActionEvent event) throws IOException
-    {
-        // Load the Register stage
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/registerUser.fxml"));
-        Scene result_scene = new Scene(result,800,600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
     }
 
     @FXML
@@ -416,6 +261,27 @@ public class MainController implements Initializable {
     }
 
     /**
+     * Auto clear fields when selected
+     * Clear the Search field
+     */
+    public void clearFieldSearch()
+    {
+        exitField();
+
+        if (searchText.getText().equals("Search...")) {
+            searchText.setText("");
+        }
+    }
+
+    @FXML
+    // Execute search button on pressing "Enter"
+    public void searchEnterPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            search.setDefaultButton(true);
+        }
+    }
+
+    /**
      *  Initialize Main controller
      * @param location
      * @param resources
@@ -424,6 +290,5 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
-        Navigation.homescreenFXML = "/com/group8/resources/views/homescreen.fxml";
     }
 }
