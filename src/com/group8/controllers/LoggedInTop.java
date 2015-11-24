@@ -1,16 +1,10 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,10 +39,8 @@ public class LoggedInTop extends BaseController implements Initializable
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
         userName.setText(UserData.userInstance.get_name());
-
-        Navigation.homescreenFXML = "/com/group8/resources/views/loggedInHomescreen.fxml";
-        Navigation.resultviewFXML = "/com/group8/resources/views/resultScreen.fxml";
-        Navigation.backFXML = "/com/group8/resources/views/loggedInHomescreen.fxml";
+        Navigation.resultviewFXML = "/com/group8/resources/views/result_center.fxml";
+        Navigation.backFXML = "/com/group8/resources/views/home_center.fxml";
     }
 
     // Resets guide text if no input was made

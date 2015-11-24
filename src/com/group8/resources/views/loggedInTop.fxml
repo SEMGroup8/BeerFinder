@@ -5,27 +5,36 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox alignment="CENTER" prefHeight="33.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInTop">
+<HBox alignment="TOP_CENTER" prefHeight="33.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInTop">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="392.0" HBox.hgrow="ALWAYS">
+      <HBox prefHeight="36.0" prefWidth="392.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label text="Logged in as: " />
-            <Label fx:id="userName" text="Label" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <Label text="Logged in as: ">
+               <HBox.margin>
+                  <Insets left="10.0" top="8.0" />
+               </HBox.margin></Label>
+            <Label fx:id="userName" text="Label">
+               <HBox.margin>
+                  <Insets top="8.0" />
+               </HBox.margin></Label>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
                   <Button fx:id="favourites" mnemonicParsing="false" onAction="#onFavourites" text="Favourites" />
                </children>
+               <HBox.margin>
+                  <Insets top="3.0" />
+               </HBox.margin>
             </HBox>
          </children>
       </HBox>
       <Button fx:id="account" mnemonicParsing="false" onAction="#onAccount" onMousePressed="#exitField" text="Account" textAlignment="CENTER">
          <HBox.margin>
-            <Insets right="10.0" />
+            <Insets right="10.0" top="3.0" />
          </HBox.margin>
       </Button>
       <Button fx:id="logout" layoutX="540.0" layoutY="20.0" mnemonicParsing="false" onAction="#onLogout" onMousePressed="#exitField" text="Logout" textAlignment="CENTER">
          <HBox.margin>
-            <Insets right="10.0" />
+            <Insets right="10.0" top="3.0" />
          </HBox.margin>
       </Button>
    </children>

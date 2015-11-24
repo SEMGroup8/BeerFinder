@@ -1,15 +1,19 @@
 package com.group8.controllers;
 
+import com.group8.database.MysqlDriver;
+import com.group8.database.tables.Beer;
+import com.group8.database.tables.MapMarker;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -19,12 +23,21 @@ import java.util.ResourceBundle;
 
 public class MainScene implements Initializable {
     @FXML
-    private Pane center, top;
+    private Pane center, top, bottom;
     @FXML
     private Node root;
+    @FXML
+    public Button backButton;
+    @FXML
+    public Button homeButton;
+    @FXML
+    public Button mapsButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        Navigation.homescreenFXML = "/com/group8/resources/views/home_center.fxml";
+        Navigation.current_CenterFXML =  "/com/group8/resources/views/home_center.fxml";
 
         try {
             center.getChildren().clear();
@@ -38,6 +51,7 @@ public class MainScene implements Initializable {
 
             centerController.init(this);
 
+            //
             loader = new FXMLLoader(getClass().getResource("/com/group8/resources/views/home_top.fxml"));
             top.getChildren().add(loader.load());
 
@@ -45,7 +59,12 @@ public class MainScene implements Initializable {
 
             topController.init(this);
 
+
             System.out.println("test");
+
+
+
+
         } catch (IOException e) {
 
             System.out.println("test2");
@@ -55,6 +74,9 @@ public class MainScene implements Initializable {
 
     public void changeCenter(String url) throws IOException
     {
+
+        Navigation.backFXML = Navigation.current_CenterFXML;
+
         center.getChildren().clear();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
@@ -63,7 +85,24 @@ public class MainScene implements Initializable {
 
         BaseController topController = (BaseController)loader.getController();
 
+
         topController.init(this);
+        if (url.equals("/com/group8/resources/views/beerDetails_center.fxml"))
+        {
+            mapsButton.setVisible(true);
+        }
+
+        if(!url.equals("/com/group8/resources/views/home_center.fxml"))
+        {
+            backButton.setVisible(true);
+            homeButton.setVisible(true);
+        }else
+        {
+            backButton.setVisible(false);
+            homeButton.setVisible(false);
+            mapsButton.setVisible(false);
+        }
+
     }
 
     public void changeTop(String url) throws IOException
@@ -77,5 +116,83 @@ public class MainScene implements Initializable {
         BaseController topController = (BaseController)loader.getController();
 
         topController.init(this);
+
+
+
+    }
+
+    public void goHome() throws IOException
+    {
+
+        changeCenter(Navigation.homescreenFXML);
+
+    }
+
+    public void goBack() throws IOException
+    {
+
+       if(Navigation.current_CenterFXML.equals("/com/group8/resources/views/beerDetails_center.fxml")) {
+           if (!Navigation.backFXML.equals("/com/group8/resources/views/favourites.fxml")) {
+               // Update the beer list for changes
+               BeerData.beer = new ArrayList<Beer>();
+               ArrayList<ArrayList<Object>> sqlData;
+               System.out.println(BeerData.searchInput);
+               sqlData = MysqlDriver.selectMany(BeerData.searchInput);
+
+               for (int i = 0; i < sqlData.size(); i++) {
+                   // Add a new Beer to the beer arraylist
+                   Beer beer = new Beer(sqlData.get(i));
+                   // Testoutput
+                   //System.out.print(beer.getName()+"\n");
+                   BeerData.beer.add(beer);
+               }
+           }
+       }
+
+        changeCenter(Navigation.backFXML);
+
+    }
+
+    public void getMaps(ActionEvent event) throws IOException {
+
+        BeerData.markers = new ArrayList<MapMarker>();
+
+        // TODO SQL query for getting Pubs that have the BeerData.selectedBeer
+
+        // populate the tableView with those pubs
+
+        String sqlQuery = "SELECT beerInPub.pubID, name, address, price, latitude, longitude, inStock " +
+                "from pubs, pubAddress, beerInPub where " +
+                "pubs.pubID = beerInPub.pubID " +
+                "and pubs.addressID = pubAddress.addressID " +
+                "and beerInPub.beerID = " + BeerData.selectedBeer.getId() + " " +
+                "order by price asc";
+
+        System.out.println(sqlQuery);
+        // Execute user query to get markers
+        ArrayList<ArrayList<Object>> sqlData;
+        sqlData = MysqlDriver.selectManyOther(sqlQuery);
+
+        for (int i = 0; i < sqlData.size(); i++) {
+            // Add a new marker to the beer arraylist
+            MapMarker marker = new MapMarker(sqlData.get(i));
+            BeerData.markers.add(marker);
+            System.out.println(marker.isInStock());
+
+            System.out.println(marker.getPrice());
+        }
+
+        if ((BeerData.markers.size() > 0)) {
+
+            // Load the result stage
+            changeCenter("/com/group8/resources/views/googleMaps.fxml");
+        } else {
+
+            System.out.println(sqlQuery);
+            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectManyOther(sqlQuery);
+            System.out.println(geoData.size());
+            System.out.println("No Pubs selling this beer");
+           // gMapsError.setVisible(true);
+        }
     }
 }

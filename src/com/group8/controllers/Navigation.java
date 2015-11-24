@@ -13,4 +13,5 @@ public class Navigation
     public static String backFXML;
     public static String beerDetailviewFXML;
     public static String mapviewFXML;
+    public static String current_CenterFXML;
 }

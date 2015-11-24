@@ -48,10 +48,7 @@ import java.util.ResourceBundle;
  */
 public class MapsController extends BaseController implements Initializable,MapComponentInitializedListener {
 
-    @FXML
-    public Button Back;
-    @FXML
-    public Button Home;
+
     @FXML
     public GoogleMapView mapView;
     @FXML
@@ -67,31 +64,13 @@ public class MapsController extends BaseController implements Initializable,MapC
 
     public ObservableList<MapMarker> masterData = FXCollections.observableArrayList(BeerData.markers);
 
-    /**
-     * Back button pressed takes you back to "result screen"
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void backAction(ActionEvent event) throws IOException {
-        mainScene.changeCenter(Navigation.beerDetailviewFXML);
-    }
-
-    /**
-     * Home Button
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void returnHome(ActionEvent event) throws IOException {
-        mainScene.changeCenter(Navigation.homescreenFXML);
-
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+       // Navigation.backFXML = Navigation.current_CenterFXML;
         Navigation.mapviewFXML = "/com/group8/resources/views/googleMaps.fxml";
+       // Navigation.current_CenterFXML = "/com/group8/resources/views/googleMaps.fxml";
 
 
         System.out.println("Initialized google maps!");

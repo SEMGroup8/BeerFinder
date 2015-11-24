@@ -40,8 +40,7 @@ public class Scene3Controller {
     private CheckBox yesCheckbox;
     @FXML
     private CheckBox FermentedCheck;
-    @FXML
-    private Button homeButton;
+
 
     @FXML // Clicking button "Continue"
     void onContinueClick3(ActionEvent event) throws IOException {
@@ -110,18 +109,7 @@ public class Scene3Controller {
         }
     }
 
-    @FXML // Going back to home screen
-    void onHomeClick(ActionEvent event) throws Exception {
 
-        Stage stage = (Stage) homeButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
-
-    }
 
     public String getTypesPicked(){
         return typesPicked;

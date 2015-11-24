@@ -10,17 +10,13 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -32,8 +28,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javax.swing.text.NavigationFilter;
 
 /**
  * Created by AnkanX on 15-10-27.
@@ -78,31 +72,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     boolean justRanked=false; //I'm using this to keep the rank as the user just ranked the beer so he can know he ranked the beer
     public Label added;
 
-    /**
-     * Back button pressed takes you back to "result screen"
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void backAction(ActionEvent event) throws IOException {
 
-        if (!Navigation.backFXML.equals("/com/group8/resources/views/favourites.fxml")) {
-            // Update the beer list for changes
-            BeerData.beer = new ArrayList<Beer>();
-            ArrayList<ArrayList<Object>> sqlData;
-            System.out.println(BeerData.searchInput);
-            sqlData = MysqlDriver.selectMany(BeerData.searchInput);
-
-            for (int i = 0; i < sqlData.size(); i++) {
-                // Add a new Beer to the beer arraylist
-                Beer beer = new Beer(sqlData.get(i));
-                // Testoutput
-                //System.out.print(beer.getName()+"\n");
-                BeerData.beer.add(beer);
-            }
-        }
-        mainScene.changeCenter(Navigation.backFXML);
-    }
     public void rankStar(int number){
     	if(UserData.userInstance!=null) {
             BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
@@ -333,7 +303,9 @@ public class BeerDetailController extends BaseController implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
 
         defaultState();
-        Navigation.beerDetailviewFXML = "/com/group8/resources/views/beerDetailsScreen.fxml";
+       // Navigation.backFXML = Navigation.current_CenterFXML;
+        Navigation.beerDetailviewFXML = "/com/group8/resources/views/beerDetails_center.fxml";
+        Navigation.current_CenterFXML = "/com/group8/resources/views/beerDetails_center.fxml";
 
         if(UserData.userInstance!=null) {
             if (UserData.userInstance.get_isPub()) {

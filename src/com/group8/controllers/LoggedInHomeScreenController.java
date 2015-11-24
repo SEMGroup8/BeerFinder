@@ -3,7 +3,6 @@ package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
-import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -234,7 +233,7 @@ public class LoggedInHomeScreenController extends MainController {
         if ((BeerData.beer.size() > 0)) {
 
             // Load the result stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/result_center.fxml"));
             Scene result_scene = new Scene(result, 800, 600);
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
@@ -283,7 +282,7 @@ public class LoggedInHomeScreenController extends MainController {
         userName.setText(UserData.userInstance.get_name());
 
         Navigation.homescreenFXML = "/com/group8/resources/views/loggedInHomescreen.fxml";
-        Navigation.resultviewFXML = "/com/group8/resources/views/resultScreen.fxml";
+        Navigation.resultviewFXML = "/com/group8/resources/views/result_center.fxml";
         Navigation.backFXML = "/com/group8/resources/views/loggedInHomescreen.fxml";
     }
 

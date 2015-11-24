@@ -32,8 +32,6 @@ public class Scene2Controller implements Initializable {
     @FXML
     private CheckBox noCheckbox;
     @FXML
-    private Button homeButton;
-    @FXML
     private Pane pane;
 
 
@@ -77,18 +75,6 @@ public class Scene2Controller implements Initializable {
         }
     }
 
-    @FXML // Going back to home screen
-    void onHomeClick(ActionEvent event) throws Exception {
-
-        Stage stage = (Stage) homeButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
-
-    }
 // Getters
     public double getPercentagePickedLow(){
         return percentagePickedLow;

@@ -10,22 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
-   <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane prefHeight="100.0" prefWidth="232.0">
-               <children>
-                  <Label layoutX="17.0" layoutY="36.0" text="Beer Details View">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </children>
-      </HBox>
-   </top>
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -44,7 +29,7 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="showBeerName" layoutX="26.0" layoutY="-33.0" text="BeerName">
+                        <Label fx:id="showBeerName" layoutX="26.0" layoutY="6.0" text="BeerName">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -57,7 +42,32 @@
                         <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" />
                         <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" />
                         <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" />
-                        <HBox alignment="CENTER" layoutX="22.0" layoutY="10.0" prefHeight="36.0" prefWidth="374.0">
+                        <Button fx:id="addToPub" layoutX="315.0" layoutY="129.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
+                        <Label fx:id="added" layoutX="451.0" layoutY="160.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="showDescription" editable="false" layoutX="27.0" layoutY="35.0" prefHeight="142.0" prefWidth="461.0" wrapText="true" />
+                        <Label layoutX="27.0" layoutY="3.0" text="Description">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="380.0" layoutY="3.0" text="Price:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="showPrice" layoutX="436.0" layoutY="3.0" text="price">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" layoutX="152.0" layoutY="-3.0" prefHeight="36.0" prefWidth="374.0">
                            <children>
                               <ImageView fx:id="oneStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankOneStar" onMouseEntered="#hoverOne" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -102,31 +112,6 @@
                               <Label fx:id="cantRank" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="212.0" text="You have already ranked this beer." visible="false" />
                            </children>
                         </HBox>
-                        <Button fx:id="addToPub" layoutX="315.0" layoutY="129.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
-                        <Label fx:id="added" layoutX="451.0" layoutY="160.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <TextArea fx:id="showDescription" editable="false" layoutX="27.0" layoutY="35.0" prefHeight="165.0" prefWidth="477.0" wrapText="true" />
-                        <Label layoutX="27.0" layoutY="3.0" text="Description">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="380.0" layoutY="3.0" text="Price:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="showPrice" layoutX="436.0" layoutY="3.0" text="price">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
                      </children>
                   </AnchorPane>
                </children>
@@ -134,26 +119,4 @@
          </children>
       </HBox>
    </center>
-   <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="back" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#backAction" prefHeight="27.0" prefWidth="100.0" text="Back" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="newSearch" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="27.0" prefWidth="100.0" text="Home" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="googleMaps" layoutX="25.0" layoutY="37.0" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="100.0" text="Google Maps" visible="true" />
-                  <Label fx:id="gMapsError" layoutX="138.0" layoutY="42.0" prefHeight="17.0" prefWidth="218.0" text="This beer is not sold by any pubs!" textFill="RED" visible="false" />
-               </children>
-            </AnchorPane>
-         </children>
-      </HBox>
-   </bottom>
 </BorderPane>

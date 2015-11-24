@@ -56,7 +56,8 @@ public class PubInfo extends BaseController{
 
 	//@Override
 	public void initialize(URL location, ResourceBundle resources) {
-				
+
+		Navigation.current_CenterFXML= " /com/group8/resources/views/pubInfo.fxml";
 		// TODO Auto-generated method stub
 		
 		

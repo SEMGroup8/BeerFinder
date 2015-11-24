@@ -7,19 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane id="root" fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" style="-fx-background-color:transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.ResultController">
-   <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="Back" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#backAction" prefHeight="27.0" prefWidth="100.0" text="Back" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-         </children>
-      </HBox>
-   </bottom>
+<BorderPane id="root" fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="800.0" style="-fx-background-color:transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.ResultController">
    <center>
       <TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="400.0" prefWidth="776.0" BorderPane.alignment="CENTER">
         <columns>

@@ -3,15 +3,10 @@ package com.group8.controllers;
 import com.group8.database.tables.Beer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.File;
@@ -83,7 +77,7 @@ public class FavouritesController extends BaseController implements Initializabl
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     try {
                         // TODO have to fix nameing
-                        mainScene.changeCenter("/com/group8/resources/views/beerDetailsScreen.fxml");
+                        mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -103,8 +97,9 @@ public class FavouritesController extends BaseController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
+       // Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
         Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";
+        Navigation.current_CenterFXML =  "/com/group8/resources/views/favourites.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));

@@ -4,18 +4,13 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,8 +28,6 @@ public class HomeCenter extends BaseController implements Initializable
     public Label error;
     @FXML
     public Button randomButton;
-    @FXML
-    public Button test;
     @FXML
     public CheckBox advancedType;
     @FXML
@@ -227,7 +220,7 @@ public class HomeCenter extends BaseController implements Initializable
 
 
             // Load the result stage
-            mainScene.changeCenter("/com/group8/resources/views/resultScreen.fxml");
+            mainScene.changeCenter("/com/group8/resources/views/result_center.fxml");
         }else
         {
             advanced.setSelected(false);
