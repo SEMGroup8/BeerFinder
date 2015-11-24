@@ -53,15 +53,28 @@ public class MainScene implements Initializable {
         }
     }
 
-    public void login() throws IOException
+    public void changeCenter(String url) throws IOException
+    {
+        center.getChildren().clear();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
+
+        center.getChildren().add(loader.load());
+
+        BaseController topController = (BaseController)loader.getController();
+
+        topController.init(this);
+    }
+
+    public void changeTop(String url) throws IOException
     {
         top.getChildren().clear();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group8/resources/views/loggedInTop.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
 
         top.getChildren().add(loader.load());
 
-        LoggedInTop topController = (LoggedInTop)loader.getController();
+        BaseController topController = (BaseController)loader.getController();
 
         topController.init(this);
     }
