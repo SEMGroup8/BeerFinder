@@ -52,6 +52,13 @@ public class HomeCenter implements Initializable
     @FXML
     public TextField searchText;
 
+    private MainScene mainScene;
+
+    public void init(MainScene mainScene)
+    {
+        this.mainScene = mainScene;
+    }
+
     // Checkbox that when checked shows advanced checkboxes
     public void showAdvanced()
     {

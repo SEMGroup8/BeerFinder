@@ -31,6 +31,14 @@ public class HomeTop {
     public PasswordField pswrdField;
     @FXML
     public Button login;
+
+    private MainScene mainScene;
+
+    public void init(MainScene mainScene)
+    {
+        this.mainScene = mainScene;
+    }
+
     /**
      * Login Button event
      * @param event
@@ -66,24 +74,7 @@ public class HomeTop {
 
         //System.out.println(fetchedUser.get_isPub());
 
-        if(fetchedUser.get_isPub())
-        {
-            // Load the pub stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
-            Scene result_scene = new Scene(result,800,600);
-            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            main_stage.setScene(result_scene);
-            main_stage.show();
-        }
-        else
-        {
-            // Load the pub stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
-            Scene result_scene = new Scene(result,800,600);
-            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            main_stage.setScene(result_scene);
-            main_stage.show();
-        }
+        mainScene.login();
     }
 
     // Resets guide text if no input was made

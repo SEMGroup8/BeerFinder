@@ -37,7 +37,6 @@ import java.util.ResourceBundle;
  */
 public class BeerDetailController implements Initializable{
 
-
     @FXML
     public Button googleMaps;
     @FXML
