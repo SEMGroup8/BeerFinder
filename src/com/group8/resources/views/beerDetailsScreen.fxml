@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.paint.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
@@ -45,7 +44,7 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="showBeerName" layoutX="32.0" layoutY="14.0" text="BeerName">
+                        <Label fx:id="showBeerName" layoutX="26.0" layoutY="-33.0" text="BeerName">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -57,65 +56,52 @@
                         <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" />
                         <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" />
                         <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" />
-                        <HBox alignment="CENTER" layoutX="32.0" layoutY="-18.0" prefHeight="36.0" prefWidth="314.0">
+                        <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" />
+                        <HBox alignment="CENTER" layoutX="22.0" layoutY="10.0" prefHeight="36.0" prefWidth="374.0">
                            <children>
-                              <Label text="Rank:" />
-                              <Label fx:id="rankShow">
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Button fx:id="oneStar" mnemonicParsing="false" onAction="#onRankOneStar">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="twoStar" mnemonicParsing="false" onAction="#onRankTwoStar">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="threeStar" mnemonicParsing="false" onAction="#onRankThreeStar">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="fourStar" mnemonicParsing="false" onAction="#onRankFourStar">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="fiveStar" mnemonicParsing="false" onAction="#onRankFiveStar" prefHeight="25.0" prefWidth="23.0" snapToPixel="false" textFill="TRANSPARENT">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../Images/rankStar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="DISAPPEAR" />
-                                 </cursor>
-                              </Button>
+                              <ImageView fx:id="oneStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankOneStar" onMouseEntered="#hoverOne" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/staricon.png" />
+                                 </image>
+                                 <effect>
+                                    <Reflection />
+                                 </effect>
+                              </ImageView>
+                              <ImageView fx:id="twoStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankTwoStar" onMouseEntered="#hoverTwo" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/staricon.png" />
+                                 </image>
+                                 <effect>
+                                    <Reflection />
+                                 </effect>
+                              </ImageView>
+                              <ImageView fx:id="threeStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankThreeStar" onMouseEntered="#hoverThree" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/staricon.png" />
+                                 </image>
+                                 <effect>
+                                    <Reflection />
+                                 </effect>
+                              </ImageView>
+                              <ImageView fx:id="fourStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankFourStar" onMouseEntered="#hoverFour" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/staricon.png" />
+                                 </image>
+                                 <effect>
+                                    <Reflection />
+                                 </effect>
+                              </ImageView>
+                              <ImageView fx:id="fiveStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankFiveStar" onMouseEntered="#hoverFive" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/staricon.png" />
+                                 </image>
+                                 <effect>
+                                    <Reflection />
+                                 </effect>
+                              </ImageView>
+                              <Label fx:id="cantRank" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="212.0" text="You have already ranked this beer." visible="false" />
                            </children>
                         </HBox>
-                        <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" />
                         <Button fx:id="addToPub" layoutX="315.0" layoutY="129.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
                         <Label fx:id="added" layoutX="451.0" layoutY="160.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
                            <font>
