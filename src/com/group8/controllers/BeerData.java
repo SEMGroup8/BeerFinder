@@ -11,6 +11,9 @@ import java.util.List;
 
 /**
  * Created by AnkanX on 15-10-26.
+ *
+ * TODO make a better holding class contained inside a directory for holding classes for better structure.
+ *
  */
 public class BeerData {
     /*

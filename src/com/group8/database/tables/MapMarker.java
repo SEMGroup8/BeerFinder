@@ -60,7 +60,7 @@ public class MapMarker extends MysqlDriver
     }
 
     public String InStock() {
-        
+
         if (isInStock()) {
             return "yes";
         } else {

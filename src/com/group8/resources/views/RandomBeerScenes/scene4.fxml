@@ -36,7 +36,7 @@
       </HBox>
       <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="220.0" layoutX="79.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="/com/group8/resources/Images/beerHasNoImage.jpg" />
+            <Image url="/com/group8/resources/Images/beerHasNoImage.png" />
          </image></ImageView>
       <VBox fx:id="VBoxInfo" alignment="CENTER" layoutX="329.0" layoutY="202.0" spacing="10.0" visible="false">
          <children>
