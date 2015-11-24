@@ -103,7 +103,7 @@ public class AddressController implements Initializable,MapComponentInitializedL
             stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
             alert.showAndWait();
             root.getScene().getWindow().hide();
-            
+
 
         }
 

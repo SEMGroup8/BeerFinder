@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 
-public class PubInfo {
+public class PubInfo extends BaseController{
 	public TextField pubID;
 	public TextField pubName;
 	public TextField pubAddress;
@@ -81,12 +81,8 @@ public class PubInfo {
 	}
 	
 	public void onAddBeer(ActionEvent event) throws IOException{
-		
-		Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/addBeer.fxml"));
-         Scene result_scene = new Scene(result,800,600);
-         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-         main_stage.setScene(result_scene);
-         main_stage.show();
+
+		mainScene.changeCenter("/com/group8/resources/views/addBeer.fxml");
          
 	}
 

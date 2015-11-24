@@ -61,11 +61,8 @@ public class LoggedInTop extends BaseController implements Initializable
     {
         UserData.userInstance = null;
 
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeTop("/com/group8/resources/views/HomeTop.fxml");
+        mainScene.changeCenter("/com/group8/resources/views/home_center.fxml");
     }
 
     @FXML
@@ -73,30 +70,18 @@ public class LoggedInTop extends BaseController implements Initializable
     {
         if(UserData.userInstance.get_isPub())
         {
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
-            Scene result_scene = new Scene(result, 800, 600);
-            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            main_stage.setScene(result_scene);
-            main_stage.show();
+            mainScene.changeCenter("/com/group8/resources/views/pubInfo.fxml");
         }
         else
         {
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
-            Scene result_scene = new Scene(result, 800, 600);
-            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            main_stage.setScene(result_scene);
-            main_stage.show();
+            mainScene.changeCenter("/com/group8/resources/views/accountSettings.fxml");
         }
     }
 
     @FXML
     public void onFavourites(javafx.event.ActionEvent event) throws IOException
     {
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/favourites.fxml");
     }
 
 }
