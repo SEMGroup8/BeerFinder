@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Shiratori on 24/11/15.
  */
-public class HomeCenter implements Initializable
+public class HomeCenter extends BaseController implements Initializable
 {
     @FXML
     public Button search;
@@ -51,13 +51,6 @@ public class HomeCenter implements Initializable
     public CheckBox advancedCountry;
     @FXML
     public TextField searchText;
-
-    private MainScene mainScene;
-
-    public void init(MainScene mainScene)
-    {
-        this.mainScene = mainScene;
-    }
 
     // Checkbox that when checked shows advanced checkboxes
     public void showAdvanced()
@@ -234,11 +227,7 @@ public class HomeCenter implements Initializable
 
 
             // Load the result stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
-            Scene result_scene = new Scene(result,800,600);
-            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            main_stage.setScene(result_scene);
-            main_stage.show();
+            mainScene.changeCenter("/com/group8/resources/views/resultScreen.fxml");
         }else
         {
             advanced.setSelected(false);
@@ -258,13 +247,7 @@ public class HomeCenter implements Initializable
     @FXML
     public void onRandom (ActionEvent event) throws Exception{
 
-        Stage stage = (Stage) randomButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene1.fxml"));
-        Scene scene = new Scene(root);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
     }
 
     /**

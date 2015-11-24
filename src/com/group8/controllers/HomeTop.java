@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Shiratori on 24/11/15.
  */
-public class HomeTop {
+public class HomeTop extends BaseController{
 
     @FXML
     public TextField loginText;
@@ -31,13 +31,6 @@ public class HomeTop {
     public PasswordField pswrdField;
     @FXML
     public Button login;
-
-    private MainScene mainScene;
-
-    public void init(MainScene mainScene)
-    {
-        this.mainScene = mainScene;
-    }
 
     /**
      * Login Button event
@@ -74,7 +67,7 @@ public class HomeTop {
 
         //System.out.println(fetchedUser.get_isPub());
 
-        mainScene.login();
+        mainScene.changeTop("/com/group8/resources/views/loggedInTop.fxml");
     }
 
     // Resets guide text if no input was made

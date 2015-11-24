@@ -20,20 +20,13 @@ import java.util.ResourceBundle;
 /**
  * Created by Shiratori on 24/11/15.
  */
-public class LoggedInTop implements Initializable
+public class LoggedInTop extends BaseController implements Initializable
 {
     // Declaration of elements
     @FXML
     public Button logout, account, favourites;
     @FXML
     public Label userName;
-
-    private MainScene mainScene;
-
-    public void init(MainScene mainScene)
-    {
-        this.mainScene = mainScene;
-    }
 
     /**
      * Initialize Main controller
