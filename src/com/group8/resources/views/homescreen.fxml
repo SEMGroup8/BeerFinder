@@ -19,7 +19,7 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin></Text>
-            <TextField fx:id="loginText" onMouseClicked="#clearFieldLogin" prefHeight="26.0" prefWidth="100.0" text="Type here:">
+            <TextField fx:id="loginText" onKeyPressed="#passwordEnterPressed" onMouseClicked="#clearFieldLogin" prefHeight="26.0" prefWidth="100.0" text="Type here:">
                <HBox.margin>
                   <Insets />
                </HBox.margin></TextField>
@@ -27,7 +27,7 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin></Text>
-            <PasswordField fx:id="pswrdField" onMouseClicked="#clearFieldPassword" prefHeight="26.0" prefWidth="100.0" text="password">
+            <PasswordField fx:id="pswrdField" onKeyPressed="#passwordEnterPressed" onMouseClicked="#clearFieldPassword" prefHeight="26.0" prefWidth="100.0" text="password">
                <HBox.margin>
                   <Insets />
                </HBox.margin></PasswordField>
@@ -51,20 +51,22 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <AnchorPane prefHeight="270.0" prefWidth="274.0">
+                  <AnchorPane prefHeight="270.0" prefWidth="243.0">
                      <children>
-                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" text="Search..." />
-                        <Button fx:id="search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
+                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" text="Search..." />
+                        <Button fx:id="search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" prefWidth="70.0" text="Search" />
                         <Label fx:id="error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
                         <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
-                        <CheckBox fx:id="runSqlBox" layoutY="84.0" mnemonicParsing="false" onAction="#noSearch" text="SQL" />
                         <CheckBox fx:id="advancedType" layoutX="-1.0" layoutY="174.0" mnemonicParsing="false" text="beerType" visible="false" />
                         <CheckBox fx:id="advancedProducer" layoutX="100.0" layoutY="146.0" mnemonicParsing="false" text="Producer" visible="false" />
                         <CheckBox fx:id="advancedDescription" layoutX="100.0" layoutY="174.0" mnemonicParsing="false" text="Description" visible="false" />
-                        <CheckBox fx:id="advanced" layoutX="57.0" layoutY="84.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
+                        <CheckBox fx:id="advanced" layoutX="-1.0" layoutY="84.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
                         <CheckBox fx:id="all" layoutX="-1.0" layoutY="202.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
                         <CheckBox fx:id="advancedName" layoutX="-1.0" layoutY="146.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
-                        <CheckBox fx:id="advancedOrigin" layoutX="100.0" layoutY="202.0" mnemonicParsing="false" text="Origin" visible="false" />
+                        <CheckBox fx:id="advancedCountry" layoutX="100.0" layoutY="202.0" mnemonicParsing="false" text="Origin" visible="false" />
+                        <Button fx:id="randomButton" layoutX="167.0" layoutY="142.0" mnemonicParsing="false" onAction="#onRandom" prefWidth="70.0" text="Random" />
+                        <Button fx:id="test" layoutX="89.0" layoutY="198.0" mnemonicParsing="false" text="Button" />
+
                      </children>
                   </AnchorPane>
                </children>

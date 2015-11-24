@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: UndecoratorBis
+Permissions: sandbox
+Codebase: *
+JavaFX-Version: 8.0
+Class-Path: 
+Created-By: JavaFX Packager
+Implementation-Vendor: In-SideFX
+Main-Class: demoapp.UndecoratorSceneDemo
+

@@ -10,15 +10,26 @@ import java.util.ArrayList;
  *
  * Class to represent Pubs.
  *
- * Derives from MysqlDriver and thus inherits the relevant funcitons for inserting and selecting form the database.
+ * Derives from MysqlDriver and thus inherits the relevant functions for inserting and selecting form the database.
  *
  */
 public class Pub extends MysqlDriver{
 
-    private int _pubId;
-    private String _name, _description, _adress, _phoneNumber, _offer;
+    private int _pubId, _adressId;
+    private String _name;
+    private String _description;
+
+
+    private String _adress;
+    private String _phoneNumber;
+    private String _offer;
+
+    private double _geoLong;
+
+    private double _geoLat;
     float entranceFee;
     Image pubImage;
+
 
     public Pub()
     {
@@ -31,15 +42,21 @@ public class Pub extends MysqlDriver{
 
         ArrayList<Object> sqlReturn = select(query);
 
-        this._name = sqlReturn.get(2).toString();
-        this._description = sqlReturn.get(6).toString();
-        this._adress = sqlReturn.get(3).toString();
-        this._phoneNumber = sqlReturn.get(4).toString();
-        this._offer = sqlReturn.get(7).toString();
-        this.entranceFee = Float.parseFloat(sqlReturn.get(8).toString());
+        this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
+        this._name = sqlReturn.get(1).toString();
+        this._description = sqlReturn.get(5).toString();
+
+        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
+
+        ArrayList<Object> addressReturn = select(adressQuery);
+
+        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());
+        this._adress = addressReturn.get(0).toString();
+
+        this._phoneNumber = sqlReturn.get(3).toString();
+        this._offer = sqlReturn.get(6).toString();
+        this.entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
     }
-
-
 
     /*
     TODO implement the actual insert method
@@ -81,5 +98,25 @@ public class Pub extends MysqlDriver{
 
     public void set_name(String _name) {
         this._name = _name;
+    }
+
+    public double get_geoLat() {
+        return _geoLat;
+    }
+
+    public void set_geoLat(double _geoLat) {
+        this._geoLat = _geoLat;
+    }
+
+    public double get_geoLong() {
+        return _geoLong;
+    }
+
+    public void set_geoLong(double _geoLong) {
+        this._geoLong = _geoLong;
+    }
+
+    public String get_adress() {
+        return _adress;
     }
 }

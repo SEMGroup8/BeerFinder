@@ -4,18 +4,27 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.BeerRank;
 
+import com.group8.database.tables.MapMarker;
+import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sun.plugin.javascript.JSObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,8 +37,13 @@ import java.util.ResourceBundle;
  */
 public class BeerDetailController implements Initializable{
 
+
     @FXML
-    public Button back, favourite;
+    public Button googleMaps;
+    @FXML
+    public Label gMapsError;
+    @FXML
+    public Button back, favourite, addToPub;
     @FXML
     public Button newSearch;
     @FXML
@@ -58,7 +72,8 @@ public class BeerDetailController implements Initializable{
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
-
+    @FXML
+    public Label added;
 
     /**
      * Back button pressed takes you back to "result screen"
@@ -83,18 +98,75 @@ public class BeerDetailController implements Initializable{
                 BeerData.beer.add(beer);
             }
         }
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.resultviewFXML));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.backFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
     }
     public void rankStar(int number){
-    	BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
-    	
-    	beer.insertRank();
+    	if(UserData.userInstance!=null) {
+            BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
 
+            beer.insertRank();
+
+            UserData.userInstance.getFavourites();
+        }
     }
+
+    /**
+     * Get the map scene loading the pubs that sell the beer selected
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void getMaps(ActionEvent event) throws IOException {
+
+        BeerData.markers = new ArrayList<MapMarker>();
+
+        // TODO SQL query for getting Pubs that have the BeerData.selectedBeer
+
+        // populate the tableView with those pubs
+
+        String sqlQuery = "SELECT beerInPub.pubID, name, address, price, latitude, longitude, inStock " +
+                "from pubs, pubAddress, beerInPub where " +
+                "pubs.pubID = beerInPub.pubID " +
+                "and pubs.addressID = pubAddress.addressID " +
+                "and beerInPub.beerID = " + BeerData.selectedBeer.getId() + " " +
+                "order by price asc";
+
+        System.out.println(sqlQuery);
+        // Execute user query to get markers
+        ArrayList<ArrayList<Object>> sqlData;
+        sqlData = MysqlDriver.selectManyOther(sqlQuery);
+
+        for (int i = 0; i < sqlData.size(); i++) {
+            // Add a new marker to the beer arraylist
+            MapMarker marker = new MapMarker(sqlData.get(i));
+            BeerData.markers.add(marker);
+            System.out.println(marker.isInStock());
+
+            System.out.println(marker.getPrice());
+        }
+
+        if ((BeerData.markers.size()>0)) {
+
+            // Load the result stage
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
+            Scene result_scene = new Scene(result,800,600);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }else {
+
+            System.out.println(sqlQuery);
+            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectManyOther(sqlQuery);
+            System.out.println(geoData.size());
+            System.out.println("No Pubs selling this beer");
+            gMapsError.setVisible(true);
+        }
+    }
+
     @FXML
     public void onRankOneStar(ActionEvent event) throws IOException {
         rankStar(1);
@@ -128,6 +200,49 @@ public class BeerDetailController implements Initializable{
             MysqlDriver.insert(sqlQuery);
 
             UserData.userInstance.getFavourites();
+
+            added.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void addToPub(ActionEvent event) throws IOException {
+        if (UserData.userInstance != null)
+        {
+            if (UserData.userInstance.get_isPub()) {
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(Navigation.primaryStage);
+                VBox dialogVbox = new VBox(20);
+                dialogVbox.setAlignment(Pos.CENTER);
+                dialogVbox.getChildren().add(new Text("Add a beer to your pub!"));
+                TextField price = new TextField("Type in price:");
+                Button addBeerToPub = new Button("Add to pub");
+
+                addBeerToPub.setOnAction(
+                    new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+
+                            String query = "Insert into beerInPub values("
+                                    + UserData.userInstance.get_pubId() + ", "
+                                    + BeerData.selectedBeer.getId() + ", "
+                                    + Float.parseFloat(price.getText()) + ", 1)";
+
+                            MysqlDriver.insert(query);
+
+                            System.out.println("Inserted beer to pub");
+                            dialog.close();
+                        }
+                    });
+
+                dialogVbox.getChildren().add(price);
+                dialogVbox.getChildren().add(addBeerToPub);
+
+                Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                dialog.setScene(dialogScene);
+                dialog.show();
+            }
         }
     }
 
@@ -153,6 +268,34 @@ public class BeerDetailController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+        Navigation.beerDetailviewFXML = "/com/group8/resources/views/beerDetailsScreen.fxml";
+
+
+        if(UserData.userInstance==null)
+        {
+            oneStar.setVisible(false);
+            twoStar.setVisible(false);
+            threeStar.setVisible(false);
+            fourStar.setVisible(false);
+            fiveStar.setVisible(false);
+
+            favourite.setVisible(false);
+        }
+        else{
+            oneStar.setVisible(true);
+            twoStar.setVisible(true);
+            threeStar.setVisible(true);
+            fourStar.setVisible(true);
+            fiveStar.setVisible(true);
+
+            favourite.setVisible(true);
+
+            if(UserData.userInstance.get_isPub())
+            {
+                addToPub.setVisible(true);
+            }
+        }
 
         // test output
         System.out.println("beerDetails accsessed and initializeing!");
@@ -191,15 +334,7 @@ public class BeerDetailController implements Initializable{
         // Display beer price
         showPrice.setText(BeerData.selectedBeer.getPrice()+":-");
 
-
-
         // Test the data in our beer instance
         System.out.println(BeerData.selectedBeer.toString());
-
-
-
     }
-
-
-
 }

@@ -4,12 +4,15 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,7 +23,7 @@ import java.util.ResourceBundle;
 public class LoggedInHomeScreenController extends MainController {
     // Declaration of elements
     @FXML
-    public Button logout, account, favourites;
+    public Button logout, account, favourites, randomButton;
     @FXML
     public Label userName;
 
@@ -28,15 +31,15 @@ public class LoggedInHomeScreenController extends MainController {
     @FXML
     public Button search;
     @FXML
-    public CheckBox runSqlBox;
-    @FXML
     public CheckBox advancedType;
     @FXML
-    public CheckBox advancedProducer;
+    public CheckBox advancedProducer, advancedOrigin;
     @FXML
     public CheckBox advancedDescription;
     @FXML
     public CheckBox advanced;
+    @FXML
+    public CheckBox advancedCountry;
     @FXML
     public CheckBox all;
     @FXML
@@ -63,29 +66,39 @@ public class LoggedInHomeScreenController extends MainController {
 
     // Checkbox that when checked shows advanced checkboxes
     public void showAdvanced() {
-        if (runSqlBox.isSelected()) {
-            runSqlBox.setSelected(false);
+
+        error.setText("");
+
+        if(advanced.isSelected()){
+            randomButton.setVisible(false);
+        }else{
+            randomButton.setVisible(true);
         }
+
 
         // Handle diffrent casesof visability and selection
         if (!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible()) {
             advancedType.setVisible(true);
             advancedProducer.setVisible(true);
             advancedDescription.setVisible(true);
+            advancedCountry.setVisible(true);
             all.setVisible(true);
             advancedName.setVisible(true);
             advancedType.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
+            advancedCountry.setSelected(false);
             advancedName.setSelected(true);
             all.setSelected(false);
         } else {
             advancedType.setVisible(false);
             advancedProducer.setVisible(false);
+            advancedCountry.setVisible(false);
             advancedDescription.setVisible(false);
             all.setVisible(false);
             advancedName.setVisible(false);
             advancedName.setSelected(true);
+
         }
     }
 
@@ -96,43 +109,17 @@ public class LoggedInHomeScreenController extends MainController {
             advancedProducer.setSelected(true);
             advancedDescription.setSelected(true);
             advancedName.setSelected(true);
+            advancedCountry.setSelected(true);
         } else {
             advancedType.setSelected(false);
+            advancedCountry.setSelected(false);
             advancedProducer.setSelected(false);
             advancedDescription.setSelected(false);
             advancedName.setSelected(false);
         }
-
-
     }
 
-    /**
-     * Makes the advanced search viseble or inviseble depending on runSQL
-     */
-    public void noSearch() {
 
-
-        if (runSqlBox.isSelected()) {
-            advancedDescription.setVisible(false);
-            advancedProducer.setVisible(false);
-            advancedType.setVisible(false);
-            all.setVisible(false);
-            advanced.setSelected(false);
-            advancedName.setSelected(false);
-            advancedName.setVisible(false);
-
-        } else if (!runSqlBox.isSelected() && advanced.isSelected()) {
-            advancedDescription.setVisible(true);
-            advancedProducer.setVisible(true);
-            advancedType.setVisible(true);
-            all.setVisible(true);
-            error.setText("");
-            advancedName.setVisible(true);
-            advancedName.setSelected(true);
-        } else {
-            error.setText("");
-        }
-    }
 
     // Resets guide text if no input was made
     public void exitField() {
@@ -156,71 +143,78 @@ public class LoggedInHomeScreenController extends MainController {
         BeerData.searchInput="";
 
 
+
         /**
          * SQL query
          *
          * Construct a query as a String dependent on user specifications
          */
-        if (runSqlBox.isSelected()) {
-            BeerData.searchInput = searchText.getText();
-        } else {
-            // name search is defualt
-            BeerData.searchInput = "select * from beers where ";
 
-            if (advancedName.isSelected()) {
+       {
+            // name search is defualt
+            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
+                    " from beers, beerType, origin, package where " +
+                    "beers.beerTypeID = beerType.beerTypeID " +
+                    "and beers.originID = origin.originID " +
+                    "and beers.package = package.packageID " +
+                    "and (";
+
+            if(advancedName.isSelected()){
                 BeerData.searchInput += "name like '%" + searchText.getText() + "%'";
             }
 
 
             // Advanced
-            if (advanced.isSelected()) {
+            if(advanced.isSelected())
+            {
                 // For reasons
-                int selectedIteams = 0;
+                int selectedItems=0;
 
-                if (advancedOrigin.isSelected()) {
+                if (advancedCountry.isSelected()) {
                     if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
-                        BeerData.searchInput += " or originID like '%" + searchText.getText() + "%'";
-                        selectedIteams++;
+                        BeerData.searchInput += " or countryName like '%" + searchText.getText() + "%'";
+                        selectedItems++;
                     }else{
-                        BeerData.searchInput += "originID like '%" + searchText.getText() + "%'";
+                        BeerData.searchInput += "countryName like '%" + searchText.getText() + "%'";
                     }
                 }
 
                 if (advancedType.isSelected()) {
-                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedOrigin.isSelected()) {
-                        BeerData.searchInput += " or beerType like '%" + searchText.getText() + "%'";
-                        selectedIteams++;
-                    } else {
-                        BeerData.searchInput += "beerType like '%" + searchText.getText() + "%'";
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
+                        BeerData.searchInput += " or beerTypeEN like '%" + searchText.getText() + "%'";
+                        selectedItems++;
+                    } else{
+                        BeerData.searchInput += "beerTypeEN like '%" + searchText.getText() + "%'";
                     }
                 }
                 if (advancedProducer.isSelected()) {
-                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() ||advancedOrigin.isSelected()) {
+                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() ||advancedCountry.isSelected()) {
                         BeerData.searchInput += " or producerName like '%" + searchText.getText() + "%'";
-                        selectedIteams++;
-                    } else {
+                        selectedItems++;
+                    }else{
                         BeerData.searchInput += "producerName like '%" + searchText.getText() + "%'";
                     }
                 }
                 if (advancedDescription.isSelected()) {
-                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedOrigin.isSelected()) {
+                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedCountry.isSelected()) {
                         BeerData.searchInput += " or description like '%" + searchText.getText() + "%'";
-                        selectedIteams++;
-                    } else {
+                        selectedItems++;
+                    }else{
                         BeerData.searchInput += "description like '%" + searchText.getText() + "%'";
                     }
                 }
 
-                if (!advancedName.isSelected() && selectedIteams > 1) {
+                if (!advancedName.isSelected() && selectedItems > 1){
                     // Test Output
-                    System.out.println(BeerData.searchInput.substring(26, 28));
+                    System.out.println(BeerData.searchInput.substring(260, 262));
 
-                    BeerData.searchInput = BeerData.searchInput.substring(0,26) + BeerData.searchInput.substring(29);
+                    BeerData.searchInput = BeerData.searchInput.substring(0,260) + BeerData.searchInput.substring(262);
                     // Test Output
                     System.out.println(BeerData.searchInput);
                 }
             }
         }
+        BeerData.searchInput +=") limit 100";
 
 
         // Execute user query
@@ -245,11 +239,30 @@ public class LoggedInHomeScreenController extends MainController {
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
             main_stage.show();
-        } else {
+        } else
+        {
+            advanced.setSelected(false);
+            advancedType.setVisible(false);
+            advancedProducer.setVisible(false);
+            advancedDescription.setVisible(false);
+            all.setVisible(false);
+            advancedName.setVisible(false);
+            advancedCountry.setVisible(false);
+            advancedName.setSelected(true);
+
             //load.setVisible(false);
-            error.setText("Invalid Search String!");
+            error.setText("No result for: " + searchText.getText());
         }
     }
+
+    @FXML
+    // Execute search button on pressing "Enter"
+    public void searchEnterPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            search.setDefaultButton(true);
+        }
+    }
+
 
     /**
      * Initialize Main controller
@@ -260,6 +273,11 @@ public class LoggedInHomeScreenController extends MainController {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        if(UserData.userInstance.get_isPub())
+        {
+            account.setText("Pub");
+        }
+
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
         userName.setText(UserData.userInstance.get_name());
@@ -284,18 +302,39 @@ public class LoggedInHomeScreenController extends MainController {
     @FXML
     public void onAccount(javafx.event.ActionEvent event) throws IOException
     {
+        if(UserData.userInstance.get_isPub())
+        {
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
+            Scene result_scene = new Scene(result, 800, 600);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }
+        else
+        {
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
+            Scene result_scene = new Scene(result, 800, 600);
+            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            main_stage.setScene(result_scene);
+            main_stage.show();
+        }
+    }
 
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+    @FXML
+    public void onRandom (ActionEvent event) throws Exception{
+
+        Stage stage = (Stage) randomButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene1.fxml"));
+        Scene scene = new Scene(root);
+
+        stage.setTitle("BeerFinder Alpha Test");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     public void onFavourites(javafx.event.ActionEvent event) throws IOException
     {
-
         Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
         Scene result_scene = new Scene(result, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

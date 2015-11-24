@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene1Controller">
+   <children>
+      <Label layoutX="255.0" layoutY="50.0" text="Random beer generator .">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <Text layoutX="80.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Is there a price range you prefer? ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <VBox layoutX="130.0" layoutY="230.0" spacing="20.0">
+         <children>
+            <CheckBox fx:id="yesCheckbox" mnemonicParsing="false" onAction="#yesSelected1" text="Yes">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="noCheckbox" mnemonicParsing="false" text="No, I don't care...">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </CheckBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+      <Button fx:id="continueButton1" layoutX="315.0" layoutY="500.0" mnemonicParsing="false" onAction="#onContinueClick1" prefHeight="40.0" prefWidth="200.0" text="Continue">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="homeButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/com/group8/resources/Images/home.jpg');">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</Pane>
