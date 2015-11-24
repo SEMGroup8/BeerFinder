@@ -31,8 +31,6 @@ public class LoggedInHomeScreenController extends MainController {
     @FXML
     public Button search;
     @FXML
-    public CheckBox runSqlBox;
-    @FXML
     public CheckBox advancedType;
     @FXML
     public CheckBox advancedProducer, advancedOrigin;
@@ -77,9 +75,6 @@ public class LoggedInHomeScreenController extends MainController {
             randomButton.setVisible(true);
         }
 
-        if (runSqlBox.isSelected()) {
-            runSqlBox.setSelected(false);
-        }
 
         // Handle diffrent casesof visability and selection
         if (!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible()) {
@@ -124,35 +119,7 @@ public class LoggedInHomeScreenController extends MainController {
         }
     }
 
-    /**
-     * Makes the advanced search viseble or inviseble depending on runSQL
-     */
-    public void noSearch() {
 
-
-        if (runSqlBox.isSelected()) {
-            advancedDescription.setVisible(false);
-            advancedProducer.setVisible(false);
-            advancedType.setVisible(false);
-            advancedCountry.setVisible(false);
-            all.setVisible(false);
-            advanced.setSelected(false);
-            advancedName.setSelected(false);
-            advancedName.setVisible(false);
-
-        } else if (!runSqlBox.isSelected() && advanced.isSelected()) {
-            advancedDescription.setVisible(true);
-            advancedProducer.setVisible(true);
-            advancedType.setVisible(true);
-            advancedCountry.setVisible(true);
-            all.setVisible(true);
-            error.setText("");
-            advancedName.setVisible(true);
-            advancedName.setSelected(true);
-        } else {
-            error.setText("");
-        }
-    }
 
     // Resets guide text if no input was made
     public void exitField() {
@@ -182,9 +149,8 @@ public class LoggedInHomeScreenController extends MainController {
          *
          * Construct a query as a String dependent on user specifications
          */
-        if (runSqlBox.isSelected()) {
-            BeerData.searchInput = searchText.getText();
-        }else {
+
+       {
             // name search is defualt
             BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
                     " from beers, beerType, origin, package where " +
@@ -248,7 +214,7 @@ public class LoggedInHomeScreenController extends MainController {
                 }
             }
         }
-        BeerData.searchInput +=")";
+        BeerData.searchInput +=") limit 100";
 
 
         // Execute user query

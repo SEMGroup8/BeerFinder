@@ -78,6 +78,7 @@ public class User extends MysqlDriver
         if(_isPub)
         {
             getBeers();
+            getFavourites();
         }
         else
         {

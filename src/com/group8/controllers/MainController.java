@@ -43,8 +43,6 @@ public class MainController implements Initializable {
     @FXML
     public Button login;
     @FXML
-    public CheckBox runSqlBox;
-    @FXML
     public CheckBox advancedType;
     @FXML
     public CheckBox advancedProducer;
@@ -68,23 +66,15 @@ public class MainController implements Initializable {
     public Label error;
     @FXML
     public Button randomButton;
-
+    @FXML
     public Button test;
 
-    public void getTest(javafx.event.ActionEvent event) throws IOException{
+    public void test(){
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/test.fxml"));
-        BorderPane page = loader.load();
-        // Create the dialog Stage.
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Add Your Location");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
-        // Show the dialog and wait until the user closes it
-        dialogStage.showAndWait();
     }
+
+
+
 
     // TODO implement threads
    // public ProgressIndicator load;
@@ -130,10 +120,6 @@ public class MainController implements Initializable {
             randomButton.setVisible(true);
         }
 
-        if(runSqlBox.isSelected())
-        {
-            runSqlBox.setSelected(false);
-        }
 
         // Handle diffrent casesof visability and selection
         if(!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible())
@@ -181,33 +167,7 @@ public class MainController implements Initializable {
 
     }
 
-    // Makes the advanced search viseble or inviseble depending on runSQL
-    public void noSearch()
-    {
-        if(runSqlBox.isSelected()) {
-            advancedDescription.setVisible(false);
-            advancedProducer.setVisible(false);
-            advancedType.setVisible(false);
-            all.setVisible(false);
-            advanced.setSelected(false);
-            advancedName.setSelected(true);
-            advancedName.setVisible(false);
-            advancedCountry.setVisible(false);
 
-        }else if(!runSqlBox.isSelected() && advanced.isSelected()){
-            advancedDescription.setVisible(true);
-            advancedProducer.setVisible(true);
-            advancedType.setVisible(true);
-            all.setVisible(true);
-            error.setText("");
-            advancedName.setVisible(true);
-            advancedName.setSelected(true);
-            advancedCountry.setSelected(true);
-        }else
-        {
-            error.setText("");
-        }
-    }
 
     // Resets guide text if no input was made
     public void exitField()
@@ -247,9 +207,8 @@ public class MainController implements Initializable {
          *
          * Construct a query as a String dependent on user specifications
          */
-        if (runSqlBox.isSelected()) {
-            BeerData.searchInput = searchText.getText();
-        }else {
+
+        {
             // name search is defualt
             BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
                                         " from beers, beerType, origin, package where " +
@@ -313,7 +272,8 @@ public class MainController implements Initializable {
                 }
             }
         }
-        BeerData.searchInput +=")";
+        // Added a 100 beer limit as a safety for now / maybe have pages allso?
+        BeerData.searchInput +=") limit 100 ";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;

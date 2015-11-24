@@ -72,6 +72,8 @@ public class BeerDetailController implements Initializable{
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
+    @FXML
+    public Label added;
 
     /**
      * Back button pressed takes you back to "result screen"
@@ -96,7 +98,7 @@ public class BeerDetailController implements Initializable{
                 BeerData.beer.add(beer);
             }
         }
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.resultviewFXML));
+        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.backFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
@@ -126,7 +128,7 @@ public class BeerDetailController implements Initializable{
 
         // populate the tableView with those pubs
 
-        String sqlQuery = "SELECT beerInPub.pubID, name, address, price,latitude, longitude " +
+        String sqlQuery = "SELECT beerInPub.pubID, name, address, price, latitude, longitude, inStock " +
                 "from pubs, pubAddress, beerInPub where " +
                 "pubs.pubID = beerInPub.pubID " +
                 "and pubs.addressID = pubAddress.addressID " +
@@ -142,7 +144,7 @@ public class BeerDetailController implements Initializable{
             // Add a new marker to the beer arraylist
             MapMarker marker = new MapMarker(sqlData.get(i));
             BeerData.markers.add(marker);
-            System.out.println(marker.getPrice());
+            System.out.println(marker.isInStock());
 
             System.out.println(marker.getPrice());
         }
@@ -155,13 +157,14 @@ public class BeerDetailController implements Initializable{
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
             main_stage.show();
-        }else
+        }else {
 
             System.out.println(sqlQuery);
             ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectManyOther(sqlQuery);
             System.out.println(geoData.size());
             System.out.println("No Pubs selling this beer");
             gMapsError.setVisible(true);
+        }
     }
 
     @FXML
@@ -197,6 +200,8 @@ public class BeerDetailController implements Initializable{
             MysqlDriver.insert(sqlQuery);
 
             UserData.userInstance.getFavourites();
+
+            added.setVisible(true);
         }
     }
 
@@ -262,6 +267,10 @@ public class BeerDetailController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
+        Navigation.beerDetailviewFXML = "/com/group8/resources/views/beerDetailsScreen.fxml";
+
 
         if(UserData.userInstance==null)
         {

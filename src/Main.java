@@ -3,7 +3,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 
@@ -33,10 +35,12 @@ public class Main extends Application{
         Navigation.primaryStage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
         Scene scene = new Scene(root, 800, 600);
-
+        scene.getStylesheets().add("com/group8/resources/css/resultTableCss.css");
         stage.setTitle("BeerFinder Alpha Test");
         stage.setScene(scene);
         stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+
+
         stage.show();
     }
 }

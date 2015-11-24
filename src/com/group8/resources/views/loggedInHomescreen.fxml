@@ -39,11 +39,10 @@
                <children>
                   <AnchorPane prefHeight="270.0" prefWidth="274.0">
                      <children>
-                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onMouseClicked="#clearFieldSearch" onKeyPressed="#searchEnterPressed" text="Search..." />
+                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" text="Search..." />
                         <Button fx:id="search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" prefHeight="27.0" prefWidth="64.0" text="Search" />
                         <Label fx:id="error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
                         <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
-                        <CheckBox fx:id="runSqlBox" disable="true" layoutX="-2.0" layoutY="56.0" mnemonicParsing="false" onAction="#noSearch" text="SQL" />
                         <CheckBox fx:id="advancedType" layoutX="-1.0" layoutY="174.0" mnemonicParsing="false" text="beerType" visible="false" />
                         <CheckBox fx:id="advancedProducer" layoutX="100.0" layoutY="146.0" mnemonicParsing="false" text="Producer" visible="false" />
                         <CheckBox fx:id="advancedDescription" layoutX="100.0" layoutY="174.0" mnemonicParsing="false" text="Description" visible="false" />

@@ -15,9 +15,9 @@ public class MapMarker extends MysqlDriver
 
     private double longitude, latitude;
 
+    private boolean inStock;
 
     private double price;
-
 
     private String pubName;
 
@@ -31,6 +31,7 @@ public class MapMarker extends MysqlDriver
         this.price = Double.parseDouble(arrayList.get(3).toString());
         this.latitude = Double.parseDouble(arrayList.get(4).toString());
         this.longitude = Double.parseDouble(arrayList.get(5).toString());
+        this.inStock = Boolean.parseBoolean(arrayList.get(6).toString());
     }
 
 
@@ -52,5 +53,18 @@ public class MapMarker extends MysqlDriver
 
     public double getPrice() {
         return price;
+    }
+
+    public boolean isInStock() {
+        return inStock;
+    }
+
+    public String InStock() {
+
+        if (isInStock()) {
+            return "yes";
+        } else {
+            return "no";
+        }
     }
 }
