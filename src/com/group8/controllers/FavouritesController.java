@@ -69,6 +69,8 @@ public class FavouritesController implements Initializable
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
+        String backActionString = "";
+
         Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
         Scene result_scene = new Scene(homescreen, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -176,28 +178,31 @@ public class FavouritesController implements Initializable
                      */
                     @Override
                     public void updateItem(Image item, boolean empty) {
-                        if (item != null) {
-                            VBox vb = new VBox();
-                            vb.setAlignment(Pos.CENTER);
-                            ImageView imgVw = new ImageView();
-                            imgVw.setImage(item);
-                            imgVw.setFitWidth(20);
-                            imgVw.setFitHeight(40);
-                            vb.getChildren().addAll(imgVw);
-                            setGraphic(vb);
 
-                        } else {
-                            VBox vb = new VBox();
-                            vb.setAlignment(Pos.CENTER);
-                            ImageView imgVw = new ImageView();
-                            imgVw.setImage(new Image (new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
-                            imgVw.setFitWidth(20);
-                            imgVw.setFitHeight(40);
-                            // Test Output
-                            //System.out.println(imgVw.getImage().toString());
-                            vb.getChildren().addAll(imgVw);
-                            setGraphic(vb);
+                        if(!empty) {
+                            if (item != null) {
+                                VBox vb = new VBox();
+                                vb.setAlignment(Pos.CENTER);
+                                ImageView imgVw = new ImageView();
+                                imgVw.setImage(item);
+                                imgVw.setFitWidth(20);
+                                imgVw.setFitHeight(40);
+                                vb.getChildren().addAll(imgVw);
+                                setGraphic(vb);
 
+                            } else {
+                                VBox vb = new VBox();
+                                vb.setAlignment(Pos.CENTER);
+                                ImageView imgVw = new ImageView();
+                                imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+                                imgVw.setFitWidth(20);
+                                imgVw.setFitHeight(40);
+                                // Test Output
+                                //System.out.println(imgVw.getImage().toString());
+                                vb.getChildren().addAll(imgVw);
+                                setGraphic(vb);
+
+                            }
                         }
                     }
                 };

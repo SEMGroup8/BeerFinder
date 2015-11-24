@@ -19,12 +19,15 @@ public class RandomBeerQuery extends MysqlDriver {
     public String resultQuery(){
 
         if (scene3.getTypesPicked().equals("(") || scene3.getTypesPicked().equals(")")){
-            query = "SELECT * FROM beers WHERE (price < " + scene1.getPricePicked() + " AND percentage < "
-                    + scene2.getPercentagePicked() + ")";
+            query = "SELECT * FROM beers WHERE (price < " + scene1.getPricePickedHigh() + " AND price > " +
+                    scene1.getPricePickedLow() + " AND percentage < " + scene2.getPercentagePickedHigh()+
+                    " AND percentage > " + scene2.getPercentagePickedLow() + ") order by rand() limit 0, 100";
         }
         else {
-            query = "SELECT * FROM beers WHERE (price < " + scene1.getPricePicked() + " AND percentage < "
-                    + scene2.getPercentagePicked() + " AND beerTypeID IN " + scene3.getTypesPicked() + ")";
+            query = "SELECT * FROM beers WHERE (price < " + scene1.getPricePickedHigh() + " AND price > " +
+                    scene1.getPricePickedLow() + " AND percentage < " + scene2.getPercentagePickedHigh()+
+                    " AND percentage > " + scene2.getPercentagePickedLow() + " AND beerTypeID IN " +
+                    scene3.getTypesPicked() + ") order by rand() limit 0, 100";
         }
 
         //Test print
@@ -33,10 +36,10 @@ public class RandomBeerQuery extends MysqlDriver {
        return query;
     }
 
-    // Searc string for the random beer
+    // Search string for the random beer
     public String randomQuery(int integer){
 
-        query2 = "SELECT * FROM beers WHERE beerID = "+ integer;
+        query2 = "SELECT * FROM beers WHERE beerID = "+ integer + " order by rand() limit 0, 100";
 
         //Test print
         System.out.println(query2);

@@ -1,7 +1,9 @@
 package com.group8.controllers;
+import com.group8.*;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
+import com.lynden.gmapsfx.MainApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -38,8 +42,6 @@ public class MainController implements Initializable {
     public Button search;
     @FXML
     public Button login;
-    @FXML
-    public CheckBox runSqlBox;
     @FXML
     public CheckBox advancedType;
     @FXML
@@ -64,6 +66,15 @@ public class MainController implements Initializable {
     public Label error;
     @FXML
     public Button randomButton;
+    @FXML
+    public Button test;
+
+    public void test(){
+
+    }
+
+
+
 
     // TODO implement threads
    // public ProgressIndicator load;
@@ -109,10 +120,6 @@ public class MainController implements Initializable {
             randomButton.setVisible(true);
         }
 
-        if(runSqlBox.isSelected())
-        {
-            runSqlBox.setSelected(false);
-        }
 
         // Handle diffrent casesof visability and selection
         if(!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible())
@@ -160,33 +167,7 @@ public class MainController implements Initializable {
 
     }
 
-    // Makes the advanced search viseble or inviseble depending on runSQL
-    public void noSearch()
-    {
-        if(runSqlBox.isSelected()) {
-            advancedDescription.setVisible(false);
-            advancedProducer.setVisible(false);
-            advancedType.setVisible(false);
-            all.setVisible(false);
-            advanced.setSelected(false);
-            advancedName.setSelected(true);
-            advancedName.setVisible(false);
-            advancedCountry.setVisible(false);
 
-        }else if(!runSqlBox.isSelected() && advanced.isSelected()){
-            advancedDescription.setVisible(true);
-            advancedProducer.setVisible(true);
-            advancedType.setVisible(true);
-            all.setVisible(true);
-            error.setText("");
-            advancedName.setVisible(true);
-            advancedName.setSelected(true);
-            advancedCountry.setSelected(true);
-        }else
-        {
-            error.setText("");
-        }
-    }
 
     // Resets guide text if no input was made
     public void exitField()
@@ -226,9 +207,8 @@ public class MainController implements Initializable {
          *
          * Construct a query as a String dependent on user specifications
          */
-        if (runSqlBox.isSelected()) {
-            BeerData.searchInput = searchText.getText();
-        }else {
+
+        {
             // name search is defualt
             BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
                                         " from beers, beerType, origin, package where " +
@@ -292,7 +272,8 @@ public class MainController implements Initializable {
                 }
             }
         }
-        BeerData.searchInput +=")";
+        // Added a 100 beer limit as a safety for now / maybe have pages allso?
+        BeerData.searchInput +=") limit 100 ";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;
@@ -312,6 +293,7 @@ public class MainController implements Initializable {
 
 
         if ((BeerData.beer.size()>0)) {
+
 
             // Load the result stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
@@ -373,7 +355,6 @@ public class MainController implements Initializable {
 
         if(userData == null)
         {
-
             System.out.println("Is empty");
             return;
         }
@@ -394,7 +375,7 @@ public class MainController implements Initializable {
         if(fetchedUser.get_isPub())
         {
             // Load the pub stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
             Scene result_scene = new Scene(result,800,600);
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
