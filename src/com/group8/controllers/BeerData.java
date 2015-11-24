@@ -32,6 +32,8 @@ public class BeerData {
     public static ArrayList<MapMarker> markers;
 
     public static LatLong Address = null;
+    
+    public static Pub pubDetails;
 
 
 }

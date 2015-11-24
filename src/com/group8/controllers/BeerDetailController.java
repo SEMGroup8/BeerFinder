@@ -24,7 +24,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sun.plugin.javascript.JSObject;
 
 import java.io.IOException;
 import java.net.URL;

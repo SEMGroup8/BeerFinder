@@ -2,6 +2,7 @@ package com.group8.controllers;
 import com.group8.*;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
 import com.lynden.gmapsfx.MainApp;
 import javafx.event.ActionEvent;
@@ -349,9 +350,11 @@ public class MainController implements Initializable {
         String password = pswrdField.getText();
 
         String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
-
+        
+        
         System.out.println(sqlQuery);
         ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
+        
 
         if(userData == null)
         {
@@ -360,6 +363,7 @@ public class MainController implements Initializable {
         }
 
         User fetchedUser = new User(userData);
+        
 
         if(!fetchedUser.get_name().equals(username))
         {
@@ -369,6 +373,11 @@ public class MainController implements Initializable {
         }
 
         UserData.userInstance = fetchedUser;
+        String sqlQuery2 = "select * from pubs where pubID=" + UserData.userInstance.get_pubId();
+        ArrayList<Object> pubData = MysqlDriver.select(sqlQuery2);
+        
+        Pub fetchedPub = new Pub(pubData);
+        BeerData.pubDetails = fetchedPub;
 
         //System.out.println(fetchedUser.get_isPub());
 

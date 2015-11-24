@@ -27,7 +27,7 @@ public class Pub extends MysqlDriver{
     private double _geoLong;
 
     private double _geoLat;
-    float entranceFee;
+    float _entranceFee;
     Image pubImage;
 
 
@@ -55,7 +55,22 @@ public class Pub extends MysqlDriver{
 
         this._phoneNumber = sqlReturn.get(3).toString();
         this._offer = sqlReturn.get(6).toString();
-        this.entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
+        this._entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
+    }
+    
+    public Pub(ArrayList<Object> sqlReturn)
+    {
+        this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
+        this._name = sqlReturn.get(1).toString();
+        this._description = sqlReturn.get(5).toString();
+        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());
+        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
+        ArrayList<Object> addressReturn = select(adressQuery);
+        this._adress = addressReturn.get(0).toString();
+
+        this._phoneNumber = sqlReturn.get(3).toString();
+        this._offer = sqlReturn.get(6).toString();
+        this._entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
     }
 
     /*
@@ -119,4 +134,21 @@ public class Pub extends MysqlDriver{
     public String get_adress() {
         return _adress;
     }
+    public String get_description() {
+        return _description;
+    }
+
+    public String get_offer() {
+        return _offer;
+    }
+    public float get_entranceFee() {
+        return _entranceFee;
+    }
+
+    public String get_phoneNumber() {
+        return _phoneNumber;
+    }
+
+
+    
 }
