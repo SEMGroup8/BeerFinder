@@ -61,38 +61,6 @@ public class FavouritesController extends BaseController implements Initializabl
 
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
 
-
-    /**
-     * Back button pressed takes you back to "home screen"
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void backAction(ActionEvent event) throws IOException {
-        String backActionString = "";
-
-        mainScene.changeCenter(Navigation.homescreenFXML);
-    }
-
-    @FXML
-    public void onLogout(javafx.event.ActionEvent event) throws IOException
-    {
-        UserData.userInstance = null;
-
-        mainScene.changeCenter("/com/group8/resources/views/home_center.fxml");
-    }
-
-    @FXML
-    public void onAccount(javafx.event.ActionEvent event) throws IOException
-    {
-
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-    }
-
     /**
      * Select a beer row and proceed to the beerDetail scene
      */
@@ -134,8 +102,6 @@ public class FavouritesController extends BaseController implements Initializabl
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set username
-        userName.setText(UserData.userInstance.get_name());
 
         Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
         Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";
@@ -200,10 +166,7 @@ public class FavouritesController extends BaseController implements Initializabl
 
         });
 
-
-
         //Populate the Tableview
         beerTable.setItems(masterData);
-
     }
 }

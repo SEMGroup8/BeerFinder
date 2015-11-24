@@ -7,56 +7,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.FavouritesController">
-   <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="Back" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#backAction" prefHeight="27.0" prefWidth="100.0" text="Back" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-         </children>
-      </HBox>
-   </bottom>
-   <top>
-       <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
-           <children>
-               <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="392.0" HBox.hgrow="ALWAYS">
-                   <children>
-                       <Label text="Logged in as: " />
-                       <Label fx:id="userName" text="Label" />
-                       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label text="Favourite List" />
-                     </children></HBox>
-                   </children>
-               </HBox>
-               <Button fx:id="account" mnemonicParsing="false" onAction="#onAccount" text="Account" textAlignment="CENTER">
-                   <HBox.margin>
-                  <Insets right="10.0" />
-                   </HBox.margin></Button>
-               <Button fx:id="logout" layoutX="540.0" layoutY="20.0" mnemonicParsing="false" onAction="#onLogout" text="Logout" textAlignment="CENTER">
-                   <HBox.margin>
-                       <Insets right="10.0" />
-                   </HBox.margin>
-               </Button>
-           </children>
-       </HBox>
-   </top>
-   <center>
-      <TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
-          <TableColumn fx:id="beerName" prefWidth="141.0" resizable="false" text="Name" />
-            <TableColumn fx:id="beerType" prefWidth="97.0" text="Type" />
-            <TableColumn fx:id="beerOrigin" prefWidth="59.0" text="Origin" />
-            <TableColumn fx:id="beerPercentage" prefWidth="96.0" text="Percentage" />
-            <TableColumn fx:id="beerProducer" prefWidth="82.0" text="Producer" />
-            <TableColumn fx:id="beerPackage" prefWidth="110.0" text="Package" />
-            <TableColumn fx:id="avrageRank" prefWidth="58.0" text="avRank" />
-        </columns>
-      </TableView>
-   </center>
-</BorderPane>
+<TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.FavouritesController">
+   <columns>
+      <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
+      <TableColumn fx:id="beerName" prefWidth="141.0" resizable="false" text="Name" />
+      <TableColumn fx:id="beerType" prefWidth="97.0" text="Type" />
+      <TableColumn fx:id="beerOrigin" prefWidth="59.0" text="Origin" />
+      <TableColumn fx:id="beerPercentage" prefWidth="96.0" text="Percentage" />
+      <TableColumn fx:id="beerProducer" prefWidth="82.0" text="Producer" />
+      <TableColumn fx:id="beerPackage" prefWidth="110.0" text="Package" />
+      <TableColumn fx:id="avrageRank" prefWidth="58.0" text="avRank" />
+   </columns>
+</TableView>

@@ -61,7 +61,7 @@ public class LoggedInTop extends BaseController implements Initializable
     {
         UserData.userInstance = null;
 
-        mainScene.changeTop("/com/group8/resources/views/HomeTop.fxml");
+        mainScene.changeTop("/com/group8/resources/views/home_top.fxml");
         mainScene.changeCenter("/com/group8/resources/views/home_center.fxml");
     }
 
