@@ -10,33 +10,6 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.AddBeerController">
    <children>
       <BorderPane layoutX="273.0" layoutY="127.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-           <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
-        	 <children>
-           		 <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="392.0" HBox.hgrow="ALWAYS">
-              		 <children>
-		                  <Label text="Logged in as: " />
-		                  <Label fx:id="userName" text="Label" />
-		                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-		                     <children>
-		                        <Button fx:id="favourites" mnemonicParsing="false" onAction="#onFavourites" text="Favourites" />
-		                     </children>
-	                     </HBox>
-               		</children>
-          		  </HBox>
-           		 <Button fx:id="account" mnemonicParsing="false" onAction="#onAccount" text="Pub Info" textAlignment="CENTER">
-	              	 <HBox.margin>
-                        <Insets right="10.0" />
-	              	 </HBox.margin>
-              	 </Button>
-           		 <Button fx:id="logout" layoutX="540.0" layoutY="20.0" mnemonicParsing="false" onAction="#onLogout" text="Logout" textAlignment="CENTER">
-	               	<HBox.margin>
-	                  <Insets right="10.0" />
-	               	</HBox.margin>
-            	</Button>
-		         </children>
-		      </HBox>
-         </top>
          <left>
             <AnchorPane prefHeight="500.0" prefWidth="403.0" BorderPane.alignment="CENTER">
                <children>

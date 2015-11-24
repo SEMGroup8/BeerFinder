@@ -3,12 +3,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.MainScene">
-   <top>
-      <Pane fx:id="top" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </top>
    <center>
-      <Pane fx:id="center" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <HBox fx:id="center" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
+   <top>
+      <HBox fx:id="top" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>
