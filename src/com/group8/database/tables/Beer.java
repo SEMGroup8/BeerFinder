@@ -3,8 +3,6 @@ package com.group8.database.tables;
 import com.group8.database.MysqlDriver;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +20,8 @@ public class Beer extends MysqlDriver{
     float avRank;
     float percentage,volume,price;
     Boolean isTap;
-    BufferedImage image = null;  //Buffered image coming from database
+    BufferedImage image = null;//Buffered image coming from database
+    BufferedImage countryFlag = null;
     //InputStream tmpImg = null; //Inputstream
 
 
@@ -54,6 +53,12 @@ public class Beer extends MysqlDriver{
         this.beerPackage = sqlReturn.get(10).toString();
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
+        try {
+            InputStream tmpImg = (InputStream) sqlReturn.get(13);
+            this.countryFlag = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+            this.countryFlag = null;
+        }
     }
 
     /**
@@ -81,6 +86,12 @@ public class Beer extends MysqlDriver{
         this.beerPackage = sqlReturn.get(10).toString();
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
+        try {
+            InputStream tmpImg = (InputStream) sqlReturn.get(13);
+            this.countryFlag = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+            this.countryFlag = null;
+        }
     }
 
 
@@ -150,6 +161,16 @@ public class Beer extends MysqlDriver{
 
     public float getPrice(){
         return this.price;
+    }
+
+    public Image getCountryFlag(){
+        Image flagImage;
+        if(this.countryFlag == null){
+            flagImage = null;
+        }else{
+            flagImage = SwingFXUtils.toFXImage(this.countryFlag, null);
+        }
+        return flagImage;
     }
 
 

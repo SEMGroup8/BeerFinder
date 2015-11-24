@@ -69,6 +69,8 @@ public class BeerDetailController implements Initializable{
     @FXML
     public ImageView showImage;
     @FXML
+    public ImageView showCountryFlag;
+    @FXML
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
@@ -303,6 +305,8 @@ public class BeerDetailController implements Initializable{
         showBeerName.setText(BeerData.selectedBeer.getName());
         // Display Origin
         showOrigin.setText(BeerData.selectedBeer.getOrigin());
+        // Display country flag
+        showCountryFlag.setImage(BeerData.selectedBeer.getCountryFlag());
         // Display beer Type
         showBeerType.setText(BeerData.selectedBeer.getType());
         // Display beer Description

@@ -120,14 +120,24 @@ public class MysqlDriver {
             {
                 ArrayList<Object> row = new ArrayList<>();
 
+                for(int i = 0; i<=metaData.getColumnCount()-1; i++) {
+                    row.add(null);
+                }
+
                 for(int i = 1; i<=metaData.getColumnCount(); i++)
                 {
                     if(i == 3){
 
                         InputStream image =rs.getBinaryStream(3);
-                        row.add(image);
-                    }else {
-                        row.add(rs.getObject(i));
+                        row.set(i-1,image);
+                    }
+                    else if(i == 14){
+
+                        InputStream image =rs.getBinaryStream(14);
+                        row.set(i-1,image);
+                    }
+                    else{
+                        row.set(i-1,rs.getObject(i));
                     }
                 }
 
@@ -158,6 +168,7 @@ public class MysqlDriver {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
+        System.out.println(result);
 
         return result;
     }

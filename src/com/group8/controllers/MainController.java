@@ -210,7 +210,7 @@ public class MainController implements Initializable {
 
         {
             // name search is defualt
-            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
+            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag" +
                                         " from beers, beerType, origin, package where " +
                                             "beers.beerTypeID = beerType.beerTypeID " +
                                                 "and beers.originID = origin.originID " +
