@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.FavouritesController">
+<TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.FavouritesController">
    <columns>
       <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
       <TableColumn fx:id="beerName" prefWidth="141.0" resizable="false" text="Name" />

@@ -154,7 +154,7 @@ public class RegisterUserController extends BaseController {
         return canRegister;
     }
 
-    public boolean checkAvailability(String query)
+    public static boolean checkAvailability(String query)
     {
         ArrayList<Object> returnedUser = MysqlDriver.select(query);
 

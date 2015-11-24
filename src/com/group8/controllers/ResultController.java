@@ -116,7 +116,7 @@ public class ResultController extends BaseController implements Initializable {
                             mainScene.changeCenter("/com/group8/resources/views/beerDetailsScreen.fxml");
                         } catch (IOException e) {
                             // Print error msg
-                            //e.printStackTrace();
+                            e.printStackTrace();
                         }
 
 
