@@ -8,6 +8,7 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventHandler;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import com.sun.xml.internal.rngom.parse.host.Base;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,7 +46,7 @@ import java.util.ResourceBundle;
  * locations, and a tableview sorted by the price of the beer you previously selected.
  *
  */
-public class MapsController implements Initializable,MapComponentInitializedListener {
+public class MapsController extends BaseController implements Initializable,MapComponentInitializedListener {
 
     @FXML
     public Button Back;
@@ -73,11 +74,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.beerDetailviewFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter(Navigation.beerDetailviewFXML);
     }
 
     /**
@@ -87,11 +84,8 @@ public class MapsController implements Initializable,MapComponentInitializedList
      */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter(Navigation.homescreenFXML);
+
     }
 
     @Override

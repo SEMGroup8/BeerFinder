@@ -104,6 +104,7 @@ public class AddressController extends BaseController implements Initializable,M
             alert.showAndWait();
             root.getScene().getWindow().hide();
 
+
         }
 
         // get a handle to the stage

@@ -39,7 +39,7 @@ import java.util.ResourceBundle;
  * TODO Visual upgrade + presentation of objects + additional options
  *
  */
-public class ResultController implements Initializable {
+public class ResultController extends BaseController implements Initializable {
 
     @FXML
     public Button Back;
@@ -84,11 +84,7 @@ public class ResultController implements Initializable {
      */
     @FXML
     public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter(Navigation.backFXML);
 
 
     }
@@ -117,11 +113,7 @@ public class ResultController implements Initializable {
                         // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                         try {
                             // TODO have to fix nameing
-                            Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
-                            Scene result_scene = new Scene(homescreen, 800, 600);
-                            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            main_stage.setScene(result_scene);
-                            main_stage.show();
+                            mainScene.changeCenter("/com/group8/resources/views/beerDetailsScreen.fxml");
                         } catch (IOException e) {
                             // Print error msg
                             //e.printStackTrace();
