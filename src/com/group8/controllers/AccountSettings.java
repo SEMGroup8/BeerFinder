@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Shiratori on 03/11/15.
  */
-public class AccountSettings implements Initializable
+public class AccountSettings extends BaseController implements Initializable
 {
     @FXML
     public Button back;
@@ -128,11 +128,7 @@ public class AccountSettings implements Initializable
     */
     @FXML
     public void onBack(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.backFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/home_Center.fxml");
     }
 
     public void initialize(URL location, ResourceBundle resources) {

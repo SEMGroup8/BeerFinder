@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Shiratori on 04/11/15.
  */
-public class FavouritesController implements Initializable
+public class FavouritesController extends BaseController implements Initializable
 {
     @FXML
     public Button logout, account;
@@ -71,11 +71,7 @@ public class FavouritesController implements Initializable
     public void backAction(ActionEvent event) throws IOException {
         String backActionString = "";
 
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter(Navigation.homescreenFXML);
     }
 
     @FXML
@@ -83,11 +79,7 @@ public class FavouritesController implements Initializable
     {
         UserData.userInstance = null;
 
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/home_center.fxml");
     }
 
     @FXML
@@ -123,11 +115,8 @@ public class FavouritesController implements Initializable
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     try {
                         // TODO have to fix nameing
-                        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
-                        Scene result_scene = new Scene(homescreen,800,600);
-                        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        main_stage.setScene(result_scene);
-                        main_stage.show();
+                        mainScene.changeCenter("/com/group8/resources/views/beerDetailsScreen.fxml");
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

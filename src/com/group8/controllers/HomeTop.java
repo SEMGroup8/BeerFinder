@@ -80,8 +80,6 @@ public class HomeTop extends BaseController{
         if (pswrdField.getText().isEmpty()){
             pswrdField.setText("password");
         }
-
-
     }
 
     // Clear the Login field
@@ -111,11 +109,7 @@ public class HomeTop extends BaseController{
     public void onRegister(javafx.event.ActionEvent event) throws IOException
     {
         // Load the Register stage
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/registerUser.fxml"));
-        Scene result_scene = new Scene(result,800,600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/registerUser.fxml");
     }
 
     @FXML

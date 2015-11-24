@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import com.group8.database.*;
 
 
-public class AddBeerController  {
+public class AddBeerController extends BaseController {
 	
 	
 	ObservableList<String> beerTypeList =FXCollections.observableArrayList();

@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
  * Created by AnkanX on 15-10-27.
  * TODO fix nice detail layout and images
  */
-public class BeerDetailController implements Initializable{
+public class BeerDetailController extends BaseController implements Initializable{
 
     @FXML
     public Button googleMaps;
@@ -97,11 +97,7 @@ public class BeerDetailController implements Initializable{
                 BeerData.beer.add(beer);
             }
         }
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.backFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter(Navigation.backFXML);
     }
     public void rankStar(int number){
     	if(UserData.userInstance!=null) {
@@ -151,11 +147,7 @@ public class BeerDetailController implements Initializable{
         if ((BeerData.markers.size()>0)) {
 
             // Load the result stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/googleMaps.fxml"));
-            Scene result_scene = new Scene(result,800,600);
-            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            main_stage.setScene(result_scene);
-            main_stage.show();
+            mainScene.changeCenter("/com/group8/resources/views/googleMaps.fxml");
         }else {
 
             System.out.println(sqlQuery);
@@ -252,11 +244,7 @@ public class BeerDetailController implements Initializable{
      */
     @FXML
     public void returnHome(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter(Navigation.homescreenFXML);
     }
 
     /**
@@ -267,9 +255,7 @@ public class BeerDetailController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
         Navigation.beerDetailviewFXML = "/com/group8/resources/views/beerDetailsScreen.fxml";
-
 
         if(UserData.userInstance==null)
         {
