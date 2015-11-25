@@ -2,13 +2,14 @@ package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -44,6 +45,10 @@ public class HomeCenter extends BaseController implements Initializable
     public CheckBox advancedCountry;
     @FXML
     public TextField searchText;
+    public ProgressBar progressBar;
+    public ProgressIndicator Load;
+
+    Service<Void> backgroundThread;
 
     // Checkbox that when checked shows advanced checkboxes
     public void showAdvanced()
@@ -119,8 +124,17 @@ public class HomeCenter extends BaseController implements Initializable
     @FXML
     public void onSearch(javafx.event.ActionEvent event) throws IOException {
 
-        // Load wheel until task is finished//
-        // load.setVisible(true);
+
+        backgroundThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+
+
+                        // Load wheel until task is finished//
+                        Load.setVisible(true);
 
         // Fetch the user input
         BeerData.searchInput="";
@@ -215,26 +229,47 @@ public class HomeCenter extends BaseController implements Initializable
             BeerData.beer.add(beer);
         }
 
+                        return null;
+                    }
+                };
+            }
+        };
 
-        if ((BeerData.beer.size()>0)) {
 
 
-            // Load the result stage
-            mainScene.changeCenter("/com/group8/resources/views/result_center.fxml");
-        }else
-        {
-            advanced.setSelected(false);
-            advancedType.setVisible(false);
-            advancedProducer.setVisible(false);
-            advancedDescription.setVisible(false);
-            all.setVisible(false);
-            advancedName.setVisible(false);
-            advancedCountry.setVisible(false);
-            advancedName.setSelected(true);
 
-            //load.setVisible(false);
-            error.setText("No result for: " + searchText.getText());
-        }
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                Load.setVisible(false);
+                if ((BeerData.beer.size()>0)) {
+
+
+                    // Load the result stage
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/result_center.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else
+                {
+                    advanced.setSelected(false);
+                    advancedType.setVisible(false);
+                    advancedProducer.setVisible(false);
+                    advancedDescription.setVisible(false);
+                    all.setVisible(false);
+                    advancedName.setVisible(false);
+                    advancedCountry.setVisible(false);
+                    advancedName.setSelected(true);
+
+                    //load.setVisible(false);
+                    error.setText("No result for: " + searchText.getText());
+                }
+            }
+        });
+
+        backgroundThread.start();
+
     }
 
     @FXML
@@ -273,5 +308,6 @@ public class HomeCenter extends BaseController implements Initializable
     public void initialize(URL location, ResourceBundle resources) {
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
+
     }
 }
