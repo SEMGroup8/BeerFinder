@@ -70,7 +70,7 @@ public class MapsController extends BaseController implements Initializable,MapC
 
        // Navigation.backFXML = Navigation.current_CenterFXML;
         Navigation.mapviewFXML = "/com/group8/resources/views/googleMaps.fxml";
-       // Navigation.current_CenterFXML = "/com/group8/resources/views/googleMaps.fxml";
+        Navigation.backFXML = "/com/group8/resources/views/beerDetails_center.fxml";
 
 
         System.out.println("Initialized google maps!");

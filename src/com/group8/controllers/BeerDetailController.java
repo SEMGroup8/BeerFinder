@@ -305,7 +305,18 @@ public class BeerDetailController extends BaseController implements Initializabl
         defaultState();
        // Navigation.backFXML = Navigation.current_CenterFXML;
         Navigation.beerDetailviewFXML = "/com/group8/resources/views/beerDetails_center.fxml";
-        Navigation.current_CenterFXML = "/com/group8/resources/views/beerDetails_center.fxml";
+        //Navigation.current_CenterFXML = "/com/group8/resources/views/beerDetails_center.fxml";
+
+        if(Navigation.current_CenterFXML.equals("/com/group8/resources/views/favourites.fxml"))
+        {
+
+            Navigation.backFXML = Navigation.current_CenterFXML;
+
+        }else if (Navigation.current_CenterFXML.equals("/com/group8/resources/views/result_center.fxml"))
+        {
+            Navigation.backFXML = Navigation.current_CenterFXML;
+
+        }
 
         if(UserData.userInstance!=null) {
             if (UserData.userInstance.get_isPub()) {

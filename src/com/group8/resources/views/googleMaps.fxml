@@ -15,15 +15,6 @@
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="100.0" prefWidth="255.0">
-               <children>
-                  <Label layoutX="23.0" layoutY="36.0" text="Google Maps View" textAlignment="JUSTIFY">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <TableView fx:id="showPubs" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getRow" prefHeight="93.0" prefWidth="260.0">

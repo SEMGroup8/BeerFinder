@@ -131,8 +131,8 @@ public class MainScene implements Initializable {
     public void goBack() throws IOException
     {
 
-       if(Navigation.current_CenterFXML.equals("/com/group8/resources/views/beerDetails_center.fxml")) {
-           if (!Navigation.backFXML.equals("/com/group8/resources/views/favourites.fxml")) {
+
+           if (Navigation.backFXML.equals("/com/group8/resources/views/result_center.fxml")) {
                // Update the beer list for changes
                BeerData.beer = new ArrayList<Beer>();
                ArrayList<ArrayList<Object>> sqlData;
@@ -147,7 +147,7 @@ public class MainScene implements Initializable {
                    BeerData.beer.add(beer);
                }
            }
-       }
+
 
         changeCenter(Navigation.backFXML);
 
