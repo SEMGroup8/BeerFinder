@@ -4,25 +4,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.HomeCenter">
+<HBox alignment="CENTER" minHeight="400.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.HomeCenter">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER" minHeight="400.0" minWidth="800.0">
          <children>
-            <AnchorPane prefHeight="270.0" prefWidth="243.0">
+            <AnchorPane minHeight="400.0" minWidth="800.0">
                <children>
-                  <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" text="Search..." />
-                  <Button fx:id="search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" prefWidth="70.0" text="Search" />
-                  <Label fx:id="error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
-                  <CheckBox fx:id="advancedType" layoutX="-1.0" layoutY="174.0" mnemonicParsing="false" text="beerType" visible="false" />
-                  <CheckBox fx:id="advancedProducer" layoutX="100.0" layoutY="146.0" mnemonicParsing="false" text="Producer" visible="false" />
-                  <CheckBox fx:id="advancedDescription" layoutX="100.0" layoutY="174.0" mnemonicParsing="false" text="Description" visible="false" />
-                  <CheckBox fx:id="advanced" layoutX="-1.0" layoutY="84.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
-                  <CheckBox fx:id="all" layoutX="-1.0" layoutY="202.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
-                  <CheckBox fx:id="advancedName" layoutX="-1.0" layoutY="146.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
-                  <CheckBox fx:id="advancedCountry" layoutX="100.0" layoutY="202.0" mnemonicParsing="false" text="Origin" visible="false" />
-                  <Button fx:id="randomButton" layoutX="167.0" layoutY="142.0" mnemonicParsing="false" onAction="#onRandom" prefWidth="70.0" text="Random" />
-                  <ProgressBar fx:id="progressBar" layoutX="19.0" layoutY="201.0" prefWidth="200.0" progress="0.0" />
-                  <ProgressIndicator fx:id="Load" layoutX="91.0" layoutY="14.0" visible="false" />
+                  <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutX="282.0" layoutY="194.0" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" text="Search..." />
+                  <Button fx:id="search" layoutX="449.0" layoutY="194.0" mnemonicParsing="false" onAction="#onSearch" prefWidth="70.0" text="Search" />
+                  <Label fx:id="error" layoutX="298.0" layoutY="231.0" prefHeight="14.0" prefWidth="135.0" />
+                  <CheckBox fx:id="advancedType" layoutX="281.0" layoutY="257.0" mnemonicParsing="false" text="beerType" visible="false" />
+                  <CheckBox fx:id="advancedProducer" layoutX="382.0" layoutY="229.0" mnemonicParsing="false" text="Producer" visible="false" />
+                  <CheckBox fx:id="advancedDescription" layoutX="382.0" layoutY="257.0" mnemonicParsing="false" text="Description" visible="false" />
+                  <CheckBox fx:id="advanced" layoutX="281.0" layoutY="167.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
+                  <CheckBox fx:id="all" layoutX="281.0" layoutY="285.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
+                  <CheckBox fx:id="advancedName" layoutX="281.0" layoutY="229.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
+                  <CheckBox fx:id="advancedCountry" layoutX="382.0" layoutY="285.0" mnemonicParsing="false" text="Origin" visible="false" />
+                  <Button fx:id="randomButton" layoutX="449.0" layoutY="225.0" mnemonicParsing="false" onAction="#onRandom" prefWidth="70.0" text="Random" />
+                  <ProgressIndicator fx:id="Load" layoutX="373.0" layoutY="97.0" visible="false" />
                </children>
             </AnchorPane>
          </children>

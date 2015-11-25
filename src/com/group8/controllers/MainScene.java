@@ -3,12 +3,18 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.MapMarker;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -23,7 +29,7 @@ import java.util.ResourceBundle;
 
 public class MainScene implements Initializable {
     @FXML
-    private Pane center, top, bottom;
+    private HBox center, top;
     @FXML
     private Node root;
     @FXML
@@ -32,6 +38,10 @@ public class MainScene implements Initializable {
     public Button homeButton;
     @FXML
     public Button mapsButton;
+    @FXML
+    public ProgressIndicator Load;
+
+    Service<Void> backgroundThread;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,6 +100,8 @@ public class MainScene implements Initializable {
         if (url.equals("/com/group8/resources/views/beerDetails_center.fxml"))
         {
             mapsButton.setVisible(true);
+        }else{
+            mapsButton.setVisible(false);
         }
 
         if(!url.equals("/com/group8/resources/views/home_center.fxml"))
@@ -100,7 +112,6 @@ public class MainScene implements Initializable {
         {
             backButton.setVisible(false);
             homeButton.setVisible(false);
-            mapsButton.setVisible(false);
         }
 
     }
@@ -128,30 +139,81 @@ public class MainScene implements Initializable {
 
     }
 
-    public void goBack() throws IOException
-    {
+    public void goBack() throws IOException {
 
 
-           if (Navigation.backFXML.equals("/com/group8/resources/views/result_center.fxml")) {
-               // Update the beer list for changes
-               BeerData.beer = new ArrayList<Beer>();
-               ArrayList<ArrayList<Object>> sqlData;
-               System.out.println(BeerData.searchInput);
-               sqlData = MysqlDriver.selectMany(BeerData.searchInput);
+        if (Navigation.backFXML.equals("/com/group8/resources/views/result_center.fxml")) {
 
-               for (int i = 0; i < sqlData.size(); i++) {
-                   // Add a new Beer to the beer arraylist
-                   Beer beer = new Beer(sqlData.get(i));
-                   // Testoutput
-                   //System.out.print(beer.getName()+"\n");
-                   BeerData.beer.add(beer);
-               }
-           }
+            // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+            backgroundThread = new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
 
 
-        changeCenter(Navigation.backFXML);
+                            // Load wheel until task is finished//
+                            Load.setVisible(true);
+
+                            // Update the beer list for changes
+                            BeerData.beer = new ArrayList<Beer>();
+                            ArrayList<ArrayList<Object>> sqlData;
+                            System.out.println(BeerData.searchInput);
+                            sqlData = MysqlDriver.selectMany(BeerData.searchInput);
+
+                            for (int i = 0; i < sqlData.size(); i++) {
+                                // Add a new Beer to the beer arraylist
+                                Beer beer = new Beer(sqlData.get(i));
+                                // Testoutput
+                                //System.out.print(beer.getName()+"\n");
+                                BeerData.beer.add(beer);
+                            }
+
+
+                            return null;
+                        }
+                    };
+
+                }
+            };
+
+            // When the thread is done try to go to next stage.
+            backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                @Override
+                public void handle(WorkerStateEvent event) {
+                    Load.setVisible(false);
+                    if ((BeerData.beer.size()>0)) {
+
+
+                        // Load the result stage
+                        try {
+                            changeCenter(Navigation.backFXML);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+
+            // Start thread
+            backgroundThread.start();
+
+
+        }
+
+
+
 
     }
+
+
+
+
+
+
+
 
     public void getMaps(ActionEvent event) throws IOException {
 

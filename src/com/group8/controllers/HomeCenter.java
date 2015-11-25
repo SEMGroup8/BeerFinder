@@ -124,7 +124,7 @@ public class HomeCenter extends BaseController implements Initializable
     @FXML
     public void onSearch(javafx.event.ActionEvent event) throws IOException {
 
-
+        // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
         backgroundThread = new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -136,8 +136,8 @@ public class HomeCenter extends BaseController implements Initializable
                         // Load wheel until task is finished//
                         Load.setVisible(true);
 
-        // Fetch the user input
-        BeerData.searchInput="";
+                        // Fetch the user input
+                        BeerData.searchInput="";
 
 
         /**
@@ -237,7 +237,7 @@ public class HomeCenter extends BaseController implements Initializable
 
 
 
-
+        // When the thread is done try to go to next stage.
         backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
@@ -268,6 +268,7 @@ public class HomeCenter extends BaseController implements Initializable
             }
         });
 
+        // Start thread
         backgroundThread.start();
 
     }

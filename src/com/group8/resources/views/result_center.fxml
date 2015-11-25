@@ -9,7 +9,7 @@
 
 <BorderPane id="root" fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="800.0" style="-fx-background-color:transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.ResultController">
    <center>
-      <TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="400.0" prefWidth="776.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="beerTable" onMouseClicked="#getRow" prefHeight="400.0" prefWidth="750.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="beerImage" prefWidth="60.0" resizable="false" text="Image" />
           <TableColumn fx:id="beerName" editable="false" prefWidth="183.0" resizable="false" text="Name" />
@@ -30,9 +30,9 @@
       </TableView>
    </center>
    <left>
-      <VBox prefHeight="400.0" prefWidth="25.0" BorderPane.alignment="CENTER" />
+      <VBox fillWidth="false" minHeight="400.0" minWidth="10.0" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <VBox prefHeight="400.0" prefWidth="18.0" BorderPane.alignment="CENTER" />
+      <VBox fillWidth="false" minHeight="400.0" minWidth="10.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>

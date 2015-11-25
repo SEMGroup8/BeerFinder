@@ -11,28 +11,21 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="800.0" style="-fx-background-color: white;" stylesheets="@../css/resultTableCss.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.MapsController">
-   <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="showPubs" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getRow" prefHeight="93.0" prefWidth="260.0">
-                    <columns>
-                      <TableColumn fx:id="pubsColumn" editable="false" maxWidth="171.0" prefWidth="171.0" resizable="false" text="Pubs that sell this beer" />
-                        <TableColumn fx:id="priceColumn" editable="false" maxWidth="85.0" prefWidth="69.0" resizable="false" text="Price" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </AnchorPane>
-         </children>
-      </HBox>
-   </top>
+<BorderPane minHeight="300.0" minWidth="800.0" style="-fx-background-color: white;" stylesheets="@../css/resultTableCss.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.MapsController">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-      <GoogleMapView fx:id="mapView" />
+      <AnchorPane minHeight="400.0" minWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+         <GoogleMapView fx:id="mapView" maxHeight="400.0" minWidth="800.0" />
+            <TableView fx:id="showPubs" layoutY="296.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getRow" prefHeight="104.0" prefWidth="260.0" style="-fx-background-color: transparent;">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <columns>
+                  <TableColumn fx:id="pubsColumn" editable="false" maxWidth="171.0" prefWidth="171.0" resizable="false" text="Pubs that sell this beer" />
+                  <TableColumn fx:id="priceColumn" editable="false" maxWidth="85.0" prefWidth="69.0" resizable="false" text="Price" />
+               </columns>
+            </TableView>
+         </children>
+       </AnchorPane>
    </center>
 </BorderPane>
