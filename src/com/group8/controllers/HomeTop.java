@@ -3,6 +3,10 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -31,6 +36,11 @@ public class HomeTop extends BaseController{
     public PasswordField pswrdField;
     @FXML
     public Button login;
+    @FXML
+    public ProgressIndicator Load;
+
+    Service<Void> backgroundThread;
+
 
     /**
      * Login Button event
@@ -40,35 +50,68 @@ public class HomeTop extends BaseController{
     @FXML
     public void onLogin(javafx.event.ActionEvent event) throws IOException{
 
-        String username = loginText.getText();
-        String password = pswrdField.getText();
+        // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+        backgroundThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
 
-        String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
 
-        System.out.println(sqlQuery);
-        ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
+                        // Load wheel until task is finished//
+                        Load.setVisible(true);
 
-        if(userData == null)
-        {
-            System.out.println("Is empty");
-            return;
-        }
+                        String username = loginText.getText();
+                        String password = pswrdField.getText();
 
-        User fetchedUser = new User(userData);
+                        String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
 
-        if(!fetchedUser.get_name().equals(username))
-        {
-            System.out.println(username);
-            System.out.println(fetchedUser.get_name());
-            return;
-        }
+                        System.out.println(sqlQuery);
+                        ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
 
-        UserData.userInstance = fetchedUser;
+                        if (userData == null) {
+                            System.out.println("Is empty");
+                            return null;
+                        }
 
-        //System.out.println(fetchedUser.get_isPub());
+                        User fetchedUser = new User(userData);
 
-        mainScene.changeTop("/com/group8/resources/views/loggedInTop.fxml");
+                        if (!fetchedUser.get_name().equals(username)) {
+                            System.out.println(username);
+                            System.out.println(fetchedUser.get_name());
+                            return null;
+                        }
+
+                        UserData.userInstance = fetchedUser;
+
+                        //System.out.println(fetchedUser.get_isPub());
+
+                        return null;
+                    }
+                };
+            }
+        };
+        // When the thread is done try to go to next stage.
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                Load.setVisible(false);
+
+                try {
+                    mainScene.changeTop("/com/group8/resources/views/loggedInTop.fxml");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+
+        backgroundThread.start();
     }
+
 
     // Resets guide text if no input was made
     public void exitField()
