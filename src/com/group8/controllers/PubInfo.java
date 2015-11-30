@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 
-public class PubInfo extends BaseController{
+public class PubInfo extends BaseController implements Initializable{
 	public TextField pubID;
 	public TextField pubName;
 	public TextField pubAddress;
@@ -57,7 +58,7 @@ public class PubInfo extends BaseController{
 	//@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		Navigation.current_CenterFXML= " /com/group8/resources/views/pubInfo.fxml";
+		Navigation.current_CenterFXML= "/com/group8/resources/views/pubInfo.fxml";
 		// TODO Auto-generated method stub
 		
 		
