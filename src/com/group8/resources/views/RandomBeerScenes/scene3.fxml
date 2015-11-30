@@ -8,19 +8,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene3Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene3Controller">
    <children>
       <Label layoutX="255.0" layoutY="50.0" text="Random beer generator ...">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
-      <Text layoutX="80.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Is there a beer type you prefer? ">
+      <Text layoutX="84.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Is there a beer type you prefer? ">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <VBox layoutX="130.0" layoutY="230.0" spacing="20.0">
+      <VBox layoutX="84.0" layoutY="169.0" spacing="20.0">
          <children>
             <CheckBox fx:id="yesCheckbox" mnemonicParsing="false" onAction="#yesSelected3" text="Yes">
                <font>
@@ -37,12 +37,12 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <Button fx:id="continueButton3" layoutX="315.0" layoutY="500.0" mnemonicParsing="false" onAction="#onContinueClick3" prefHeight="40.0" prefWidth="200.0" text="Continue">
+      <Button fx:id="continueButton3" layoutX="318.0" layoutY="339.0" mnemonicParsing="false" onAction="#onContinueClick3" prefHeight="40.0" prefWidth="200.0" text="Continue">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <VBox fx:id="VBoxTypes" layoutX="118.0" layoutY="270.0" visible="false">
+      <VBox fx:id="VBoxTypes" layoutX="87.0" layoutY="212.0" visible="false">
          <children>
             <Line endX="400.0" layoutX="246.0" layoutY="147.0" startX="-100.0" stroke="#864f0b" strokeLineCap="BUTT" strokeLineJoin="ROUND" strokeWidth="3.0" />
             <HBox layoutX="389.0" layoutY="225.0" prefHeight="190.0" prefWidth="600.0" spacing="50.0">
@@ -111,11 +111,6 @@
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="homeButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/com/group8/resources/Images/home.jpg');">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

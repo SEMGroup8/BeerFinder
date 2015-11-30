@@ -1,6 +1,8 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BaseController;
 import com.group8.controllers.Navigation;
+import com.sun.xml.internal.rngom.parse.host.Base;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +20,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Scene2Controller implements Initializable {
+public class Scene2Controller extends BaseController implements Initializable {
 
-    private RangeSlider percentageSlider = new RangeSlider(0, 20, 0, 20);
+    private RangeSlider percentageSlider = new RangeSlider(0, 15, 0, 15);
 
     static double percentagePickedLow = 0;
     static double percentagePickedHigh = 20;
@@ -38,15 +40,9 @@ public class Scene2Controller implements Initializable {
     @FXML
         // Clicking button "Continue"
     void onContinueClick2(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage = (Stage) continueButton2.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene3.fxml"));
-        Scene scene = new Scene(root);
 
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene3.fxml");
+
 
         // Slider value setter
         if (noCheckbox.isSelected() || (!noCheckbox.isSelected() && !yesCheckbox.isSelected())){

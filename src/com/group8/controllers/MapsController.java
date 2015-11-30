@@ -94,6 +94,8 @@ public class MapsController extends BaseController implements Initializable,MapC
              */
             @Override
             public void handle(MouseEvent event) {
+
+                // TODO take away the looping that misplaces ids
                 if (event.getClickCount() == 2) {
 
                     // Set the selectedMarker instance of beer we have to selected item

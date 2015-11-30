@@ -18,5 +18,5 @@ public class Navigation
     public static String current_CenterFXML;
 
     // TODO store previous pages so you can correctly go back
-    ArrayList<String> breadcrubs = new ArrayList<>();
+   public static ArrayList<String> breadcrubs = new ArrayList<>();
 }

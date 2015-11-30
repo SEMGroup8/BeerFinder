@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BaseController;
 import com.group8.controllers.BeerData;
 import com.group8.controllers.Navigation;
 import com.group8.controllers.UserData;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class Scene4Controller implements Initializable{
+public class Scene4Controller extends BaseController implements Initializable{
 
    private int count;
    private Beer randomBeer;

@@ -222,11 +222,6 @@
                </HBox.margin></Button>
       </children>
    </HBox>
-      <Button fx:id="homeButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/com/group8/resources/Images/home.jpg');">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

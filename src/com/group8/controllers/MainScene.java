@@ -85,7 +85,8 @@ public class MainScene implements Initializable {
     public void changeCenter(String url) throws IOException
     {
 
-        Navigation.backFXML = Navigation.current_CenterFXML;
+        // Remember my past
+        Navigation.breadcrubs.add(Navigation.current_CenterFXML);
 
         center.getChildren().clear();
 
@@ -188,7 +189,7 @@ public class MainScene implements Initializable {
 
                         // Load the result stage
                         try {
-                            changeCenter(Navigation.backFXML);
+                            changeCenter(Navigation.breadcrubs.get(Navigation.breadcrubs.size()-2));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

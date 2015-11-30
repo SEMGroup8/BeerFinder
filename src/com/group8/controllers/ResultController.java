@@ -122,7 +122,7 @@ public class ResultController extends BaseController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Navigation.backFXML = Navigation.homescreenFXML;
+        
         Navigation.current_CenterFXML = "/com/group8/resources/views/result_center.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.

@@ -211,7 +211,7 @@ public class HomeCenter extends BaseController implements Initializable
             }
         }
         // Added a 100 beer limit as a safety for now / maybe have pages allso?
-        BeerData.searchInput +=") limit 100 ";
+        BeerData.searchInput +=") ";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;
@@ -225,7 +225,7 @@ public class HomeCenter extends BaseController implements Initializable
             // Add a new Beer to the beer arraylist
             Beer beer = new Beer(sqlData.get(i));
             // Testoutput
-            //System.out.print(beer.getName()+"\n");
+            System.out.print(beer.getName()+"\n");
             BeerData.beer.add(beer);
         }
 

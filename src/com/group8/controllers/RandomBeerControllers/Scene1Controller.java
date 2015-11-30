@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BaseController;
 import com.group8.controllers.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Scene1Controller implements Initializable {
+public class Scene1Controller extends BaseController implements Initializable {
 
     static double pricePickedLow = 0;
     static double pricePickedHigh = 500;
@@ -43,13 +44,7 @@ public class Scene1Controller implements Initializable {
         // Clicking button "Continue"
     void onContinueClick1(ActionEvent event) throws IOException {
 
-        Stage stage = (Stage) continueButton1.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene2.fxml"));
-        Scene scene = new Scene(root);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene2.fxml");
 
         // Slider value setter
         if (noCheckbox.isSelected() || (!noCheckbox.isSelected() && !yesCheckbox.isSelected())){
