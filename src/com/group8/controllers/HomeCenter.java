@@ -309,6 +309,8 @@ public class HomeCenter extends BaseController implements Initializable
     public void initialize(URL location, ResourceBundle resources) {
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
+        Navigation.current_CenterFXML = "/com/group8/resources/views/home_center.fxml";
+
 
     }
 }

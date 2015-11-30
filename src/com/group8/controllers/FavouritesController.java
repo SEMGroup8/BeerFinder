@@ -97,8 +97,8 @@ public class FavouritesController extends BaseController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-       // Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
-        Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";
+
+
         Navigation.current_CenterFXML =  "/com/group8/resources/views/favourites.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.

@@ -41,9 +41,9 @@ public class Beer extends MysqlDriver{
      try {
             InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
-         System.out.println("har bytes");
+       //  System.out.println("har bytes");
         }catch (IOException ex){
-         System.out.println("NEJ");
+        // System.out.println("NEJ");
             this.image = null;
         }
         this.description = sqlReturn.get(3).toString();
@@ -69,10 +69,10 @@ public class Beer extends MysqlDriver{
         try {
             InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
-            System.out.println("har bytes");
+           // System.out.println("har bytes");
         }catch (IOException ex) {
             this.image = null;
-            System.out.println("NEJ");
+         //   System.out.println("NEJ");
         }
 
         this.description = sqlReturn.get(3).toString();
@@ -143,7 +143,7 @@ public class Beer extends MysqlDriver{
         if(this.image == null){
             image2 = null;
         }else{
-            System.out.println("JA");
+           // System.out.println("JA");
             image2 = SwingFXUtils.toFXImage(this.image, null);
         }
         return image2;

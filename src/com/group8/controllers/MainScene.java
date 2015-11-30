@@ -49,6 +49,7 @@ public class MainScene implements Initializable {
         Navigation.homescreenFXML = "/com/group8/resources/views/home_center.fxml";
         Navigation.current_CenterFXML =  "/com/group8/resources/views/home_center.fxml";
 
+
         try {
             center.getChildren().clear();
             top.getChildren().clear();
@@ -84,9 +85,52 @@ public class MainScene implements Initializable {
 
     public void changeCenter(String url) throws IOException
     {
-
         // Remember my past
         Navigation.breadcrubs.add(Navigation.current_CenterFXML);
+
+
+        for(int i = 0; i < Navigation.breadcrubs.size();i++){
+            System.out.println(" Nav " + i +" ->" + Navigation.breadcrubs.get(i));
+        }
+
+        center.getChildren().clear();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
+
+        center.getChildren().add(loader.load());
+
+        BaseController topController = (BaseController)loader.getController();
+
+
+        topController.init(this);
+        if (url.equals("/com/group8/resources/views/beerDetails_center.fxml"))
+        {
+            mapsButton.setVisible(true);
+        }else{
+            mapsButton.setVisible(false);
+        }
+
+        if(!url.equals("/com/group8/resources/views/home_center.fxml"))
+        {
+            backButton.setVisible(true);
+            homeButton.setVisible(true);
+        }else
+        {
+            backButton.setVisible(false);
+            homeButton.setVisible(false);
+        }
+
+    }
+
+    public void changeCenterBack(String url) throws IOException
+    {
+
+        Navigation.breadcrubs.remove(Navigation.breadcrubs.size()-1);
+
+        for(int i =0; i <= Navigation.breadcrubs.size()-1;i++) {
+            System.out.println(" Nav  now ->" + i + " ->" + Navigation.breadcrubs.get(i));
+        }
+
 
         center.getChildren().clear();
 
@@ -137,13 +181,15 @@ public class MainScene implements Initializable {
     {
 
         changeCenter(Navigation.homescreenFXML);
+        Navigation.breadcrubs = new ArrayList<String>();
+
 
     }
 
     public void goBack() throws IOException {
 
 
-        if (Navigation.backFXML.equals("/com/group8/resources/views/result_center.fxml")) {
+        if (Navigation.breadcrubs.get(Navigation.breadcrubs.size()-1).equals("/com/group8/resources/views/result_center.fxml")) {
 
             // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
             backgroundThread = new Service<Void>() {
@@ -189,7 +235,8 @@ public class MainScene implements Initializable {
 
                         // Load the result stage
                         try {
-                            changeCenter(Navigation.breadcrubs.get(Navigation.breadcrubs.size()-2));
+                            changeCenterBack(Navigation.breadcrubs.get(Navigation.breadcrubs.size()-1));
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -202,15 +249,18 @@ public class MainScene implements Initializable {
             backgroundThread.start();
 
 
+        }else{
+            // Load the result stage
+            try {
+                changeCenterBack(Navigation.breadcrubs.get(Navigation.breadcrubs.size() - 1));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
 
-
-
-
     }
-
-
-
 
 
 
