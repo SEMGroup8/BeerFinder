@@ -135,6 +135,30 @@ public class MysqlDriver {
 
                         InputStream image =rs.getBinaryStream(14);
                         row.set(i-1,image);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        
                     }
                     else{
                         row.set(i-1,rs.getObject(i));

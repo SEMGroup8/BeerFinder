@@ -4,6 +4,7 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
 import com.lynden.gmapsfx.MainApp;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,8 +21,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import org.controlsfx.control.PopOver;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
@@ -68,6 +72,8 @@ public class MainController implements Initializable {
     public Button randomButton;
     @FXML
     public Button test;
+    @FXML
+    public Button beerScanButton;
 
     public void test(){
 
@@ -419,6 +425,45 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void onBeerScan (ActionEvent event) throws Exception{
+
+        SwingNode webCam = new SwingNode();
+        SwingNode barcode = new SwingNode();
+        BorderPane pane = new BorderPane();
+
+        getWebcam(webCam, barcode);
+
+        pane.setCenter(webCam);
+
+//        Stage stage = new Stage();
+//        stage.setScene(new Scene(pane, 600, 400));
+//        stage.show();
+
+        PopOver popUp = new PopOver(webCam);
+        popUp.setCornerRadius(3);
+        popUp.setDetachable(false);
+        popUp.setDetached(false);
+        popUp.setArrowSize(4);
+        popUp.setArrowIndent(1);
+        popUp.setAnchorLocation(PopOver.AnchorLocation.CONTENT_BOTTOM_RIGHT);
+        popUp.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+        popUp.show(beerScanButton);
+    }
+
+    private void getWebcam(final SwingNode webcam, SwingNode barcode) {
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                BeerScanner scanner = new BeerScanner();
+                webcam.setContent(scanner.panel);
+                barcode.setContent(scanner.textarea);
+            }
+        });
+    }
+
 
     /**
      *  Initialize Main controller
