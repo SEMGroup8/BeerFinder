@@ -74,6 +74,7 @@ public class LoggedInTop extends BaseController implements Initializable
     public void onFavourites(javafx.event.ActionEvent event) throws IOException
     {
         mainScene.changeCenter("/com/group8/resources/views/favourites.fxml");
+        favourites.setVisible(false);
     }
 
 }

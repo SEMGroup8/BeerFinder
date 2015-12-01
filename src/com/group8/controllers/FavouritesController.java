@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,6 +79,7 @@ public class FavouritesController extends BaseController implements Initializabl
                     try {
                         // TODO have to fix nameing
                         mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
+                        
 
                     } catch (IOException e) {
                         e.printStackTrace();
