@@ -1,33 +1,31 @@
 package com.group8.controllers;
-import com.group8.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
-import com.lynden.gmapsfx.MainApp;
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
  * Created by AnkanX on 15-10-22.
@@ -69,11 +67,42 @@ public class MainController implements Initializable {
     public Button randomButton;
     @FXML
     public Button test;
-
+    
+  @FXML
+  public Button pubListButton;
+    
+    
+//    public ArrayList<pubList>pubListDetails;
+   @FXML
+    public TableColumn<Pub,Image> pubImage;
+    
+    
+//    public void pubList(ActionEvent event) throws IOException{
+//    	String listOfPub="select * from pubs";
+//    	 ArrayList<ArrayList<Object>> SQLData4;
+//
+//         SQLData4 = MysqlDriver.selectMany(listOfPub);
+//
+//        pubListDetails = new ArrayList<pubList>();
+//
+//         for (int i = 0; i < SQLData4.size(); i++) {
+//             // Add a new Beer to the beer arraylist
+//             pubList pub = new pubList(SQLData4.get(i));
+//             // Testoutput
+//             //System.out.print(pub.get_name()+"\n");
+//             this.pubListDetails.add(pub);
+//             
+//             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubList.fxml"));
+//             Scene result_scene = new Scene(result,800,600);
+//             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//             main_stage.setScene(result_scene);
+//             main_stage.show();
+//    
+//         }}
+    
     public void test(){
 
     }
-
 
 
 
@@ -201,6 +230,7 @@ public class MainController implements Initializable {
 
         // Fetch the user input
         BeerData.searchInput="";
+      
 
 
         /**
@@ -361,6 +391,7 @@ public class MainController implements Initializable {
             System.out.println("Is empty");
             return;
         }
+        System.out.println(userData +"tryyyy");
 
         User fetchedUser = new User(userData);
         
@@ -372,17 +403,16 @@ public class MainController implements Initializable {
             return;
         }
 
-        UserData.userInstance = fetchedUser;
-        String sqlQuery2 = "select * from pubs where pubID=" + UserData.userInstance.get_pubId();
-        ArrayList<Object> pubData = MysqlDriver.select(sqlQuery2);
+        UserData.userInstance = fetchedUser;//creating a pubuser
         
-        Pub fetchedPub = new Pub(pubData);
-        BeerData.pubDetails = fetchedPub;
-
-        //System.out.println(fetchedUser.get_isPub());
 
         if(fetchedUser.get_isPub())
         {
+        	String sqlQuery2 = "select * from pubs where pubID=" + UserData.userInstance.get_pubId();
+        	//ArrayList<Object> pubData = MysqlDriver.select(sqlQuery2);
+        	Pub fetchedPub = new Pub(sqlQuery2);
+        	BeerData.pubDetails = fetchedPub;
+        	
             // Load the pub stage
             Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
             Scene result_scene = new Scene(result,800,600);

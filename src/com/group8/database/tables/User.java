@@ -1,213 +1,258 @@
 package com.group8.database.tables;
 
 import com.group8.controllers.BeerData;
+import com.group8.controllers.MapsController;
+import com.group8.controllers.UserData;
+import com.group8.controllers.PubList;
 import com.group8.database.MysqlDriver;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-public class User extends MysqlDriver
-{
-    private int _id;
-    private String _username;
-    private String _fullName;
-    private String _password;
-    private String _email;
-    private boolean _isPub;
-    private int _pubId;
-    private Pub _pub;
+public class User extends MysqlDriver {
+	private int _id;
+	private String _username;
+	private String _fullName;
+	private String _password;
+	private String _email;
+	private boolean _isPub;
+	private int _pubId;
+	private Pub _pub;
+	
 
-    public ArrayList<Beer> favourites;
+	public ArrayList<Beer> favourites;
+	public ArrayList<Pub> pubFavouritesDetails;
+	int id = get_pubId();
+	public ArrayList<Pub> pubListDetails;
 
-    public User()
-    {
+	public User() {
 
-    }
+	}
 
-    public User(String query)
-    {
-        super();
+	public User(String query) throws MalformedURLException {
+		super();
 
-        ArrayList<Object> sqlReturn = select(query);
+		ArrayList<Object> sqlReturn = select(query);
 
-        if(sqlReturn==null)
-        {
-            return;
-        }
+		if (sqlReturn == null) {
+			return;
+		}
 
-        this._id = Integer.parseInt(sqlReturn.get(0).toString());
-        this._username = sqlReturn.get(1).toString();
-        this._fullName = sqlReturn.get(2).toString();
-        this._password = sqlReturn.get(3).toString();
-        this._email = sqlReturn.get(4).toString();
+		this._id = Integer.parseInt(sqlReturn.get(0).toString());
+		this._username = sqlReturn.get(1).toString();
+		this._fullName = sqlReturn.get(2).toString();
+		this._password = sqlReturn.get(3).toString();
+		this._email = sqlReturn.get(4).toString();
 
-        System.out.println(sqlReturn.get(5).toString());
+		System.out.println(sqlReturn.get(5).toString());
 
-        switch (sqlReturn.get(5).toString())
-        {
+		switch (sqlReturn.get(5).toString()) {
 
-        }
-        this._isPub = Boolean.parseBoolean(sqlReturn.get(5).toString());
+		}
+		this._isPub = Boolean.parseBoolean(sqlReturn.get(5).toString());
 
-        System.out.println(_isPub);
-        
-        this._pubId = Integer.parseInt(sqlReturn.get(6).toString());
+		System.out.println(_isPub);
 
-        if(this._isPub)
-        {
-            this._pub = new Pub("Select * from pubs where pubID = '" + this._pubId + "';");
-        }
+		this._pubId = Integer.parseInt(sqlReturn.get(6).toString());
 
-        getFavourites();
-    }
+		if (this._isPub) {
+			this._pub = new Pub("Select * from pubs where pubID = '" + this._pubId + "';");
+		}
 
-    public User(ArrayList<Object> sqlData)
-    {
-        _id = Integer.parseInt(sqlData.get(0).toString());
+		getFavourites();
+	}
 
-        if(Boolean.parseBoolean(sqlData.get(5).toString()))
-        {
-            setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), sqlData.get(4).toString(), Boolean.parseBoolean(sqlData.get(5).toString()), Integer.parseInt(sqlData.get(6).toString()));
-        }
-        else
-        {
-            setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), sqlData.get(4).toString(), Boolean.parseBoolean(sqlData.get(5).toString()));
+	public User(ArrayList<Object> sqlData) throws IOException {
+		_id = Integer.parseInt(sqlData.get(0).toString());
 
-        }
+		if (Boolean.parseBoolean(sqlData.get(5).toString())) {
+			setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(),
+					sqlData.get(4).toString(), Boolean.parseBoolean(sqlData.get(5).toString()),
+					Integer.parseInt(sqlData.get(6).toString()));
+		} else {
+			setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(),
+					sqlData.get(4).toString(), Boolean.parseBoolean(sqlData.get(5).toString()));
 
-        if(_isPub)
-        {
-            getBeers();
-            getFavourites();
-        }
-        else
-        {
-            getFavourites();
-        }
-    }
+		}
 
-    public void setUser(String name, String fullName, String password, String email, boolean isPub)
-    {
-        this._username = name;
-        this._fullName = fullName;
-        this._password = password;
-        this._email = email;
-        this._isPub = isPub;
-    }
+		if (_isPub) {
+			getBeers();
+			getFavourites();
+			//getPubs();
+			//getPubFavourites();
 
-    public void setUser(String name, String fullName, String password, String email, boolean isPub, int pubId)
-    {
-        this._username = name;
-        this._fullName = fullName;
-        this._password = password;
-        this._email = email;
+		} else {
+			getFavourites();
+			
+			getPubs();
+			getPubFavourites();
+		}
+	}
 
-        this._isPub = isPub;
-        if(this._isPub)
-        {
-            this._pubId = pubId;
-        }
-    }
+	public void setUser(String name, String fullName, String password, String email, boolean isPub) {
+		this._username = name;
+		this._fullName = fullName;
+		this._password = password;
+		this._email = email;
+		this._isPub = isPub;
+	}
 
-    public void getFavourites()
-    {
-        String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars " +
-                "from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = " + _id + ";";
+	public void setUser(String name, String fullName, String password, String email, boolean isPub, int pubId) {
+		this._username = name;
+		this._fullName = fullName;
+		this._password = password;
+		this._email = email;
 
-        // Execute user query
-        ArrayList<ArrayList<Object>> sqlData;
+		this._isPub = isPub;
+		if (this._isPub) {
+			this._pubId = pubId;
+		}
+	}
 
-        sqlData = MysqlDriver.selectMany(sqlQuery);
+	public void getFavourites() {
+		String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars "
+				+ "from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = "
+				+ _id + ";";
 
-        favourites = new ArrayList<Beer>();
+		// Execute user query
+		ArrayList<ArrayList<Object>> sqlData;
 
-        for (int i = 0; i < sqlData.size(); i++) {
-            // Add a new Beer to the beer arraylist
-            Beer beer = new Beer(sqlData.get(i));
-            // Testoutput
-            System.out.print(beer.getName()+"\n");
-            this.favourites.add(beer);
-        }
-    }
+		sqlData = MysqlDriver.selectMany(sqlQuery);
+System.out.println(sqlData+"   are youuuu here");
+		favourites = new ArrayList<Beer>();
 
-    public void getBeers()
-    {
-        String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars " +
-                "from beers, beerInPub, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = beerInPub.beerID and beerInPub.pubID = " + _pubId + ";";
+		for (int i = 0; i < sqlData.size(); i++) {
+			// Add a new Beer to the beer arraylist
+			Beer beer = new Beer(sqlData.get(i));
+			// Testoutput
+			System.out.print(beer.getName() + "\n");
+			this.favourites.add(beer);
+		}
+	}
 
-        // Execute user query
-        ArrayList<ArrayList<Object>> sqlData;
+	public void getPubs() throws IOException {
+		String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
+		ArrayList<ArrayList<Object>> SQLData4;
 
-        sqlData = MysqlDriver.selectMany(sqlQuery);
+		SQLData4 = MysqlDriver.selectMany(listOfPub);
+		System.out.println(SQLData4 + " meeeee");
+		pubListDetails = new ArrayList<Pub>();
 
-        favourites = new ArrayList<Beer>();
+		for (int i = 0; i < SQLData4.size(); i++) {
+			// Add a new Beer to the beer arraylist
+			Pub pub = new Pub(SQLData4.get(i));
+			// Testoutput
+			System.out.println(pub.get_name() + "  which pub???");
+			this.pubListDetails.add(pub);
 
-        for (int i = 0; i < sqlData.size(); i++) {
-            // Add a new Beer to the beer arraylist
-            Beer beer = new Beer(sqlData.get(i));
-            // Testoutput
-            System.out.print(beer.getName()+"\n");
-            this.favourites.add(beer);
-        }
-    }
+		}
+	}
 
-    public void insert()
-    {
-        String selectQuery =
-                "INSERT INTO `beerfinder`.`users` (`userId`, `username`, `fullName`, `password`, `email`, `isPub`, `pubID`)" +
-                "VALUES (NULL, '" + _username + "', '" + _fullName + "', '" + _password + "', '" + _email + "', '" +
-                        (this._isPub ? 1 : 0) + "', " + (this._isPub ? this._pubId : "NULL") + ");";
+	public void getPubFavourites() {
+		System.out.println("get userId" + _id);
+		String selFavPub = "select pubs.pubID,`name`, image,`phoneNumber`, `description`, `offers`, `entrenceFee` FROM `pubs`,`favouritePub` WHERE pubs.pubID=favouritePub.pubId AND favouritePub.userId = "	+ _id;
+		ArrayList<ArrayList<Object>> sqlData3;
 
-        insert(selectQuery);
+		sqlData3 = MysqlDriver.selectMany(selFavPub);
+		System.out.println(sqlData3 +" \n trrrryyyyyfavpub");
+		pubFavouritesDetails = new ArrayList<Pub>();
+		System.out.println(pubFavouritesDetails+"....ok");
 
-        System.out.println("Inserted");
-    }
+		for (int i = 0; i < sqlData3.size(); i++) {
+			// Add a new Beer to the beer arraylist
+			Pub pubFavouritesDetails1 = new Pub(sqlData3.get(i));
+			// Testoutput
+			System.out.print(pubFavouritesDetails1.get_name() + "  again\n");
+			this.pubFavouritesDetails.add(pubFavouritesDetails1);
+		}
 
-    public void updateUser()
-    {
-        String query = "UPDATE `users` SET `fullName` = '" + _fullName + "', `password` = '" + _password +
-                "', `email` = '" + _email + "' WHERE `users`.`userId` = " + _id + ";";
+	}
 
-        System.out.println(query);
+	public void getBeers() {
+		String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars "
+				+ "from beers, beerInPub, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = beerInPub.beerID and beerInPub.pubID = "
+				+ _pubId + ";";
 
-        update(query);
-    }
+		// Execute user query
+		ArrayList<ArrayList<Object>> sqlData;
 
-    public int get_id() {
-        return _id;
-    }
+		sqlData = MysqlDriver.selectMany(sqlQuery);
 
-    public String get_name() {
-        return _username;
-    }
+		favourites = new ArrayList<Beer>();
 
-    public boolean get_isPub() {
-        return _isPub;
-    }
+		for (int i = 0; i < sqlData.size(); i++) {
+			// Add a new Beer to the beer arraylist
+			Beer beer = new Beer(sqlData.get(i));
+			// Testoutput
+			System.out.print(beer.getName() + "\n");
+			this.favourites.add(beer);
+		}
+	}
 
-    public String get_fullName() {
-        return _fullName;
-    }
+	public void insert() {
+		String selectQuery = "INSERT INTO `beerfinder`.`users` (`userId`, `username`, `fullName`, `password`, `email`, `isPub`, `pubID`)"
+				+ "VALUES (NULL, '" + _username + "', '" + _fullName + "', '" + _password + "', '" + _email + "', '"
+				+ (this._isPub ? 1 : 0) + "', " + (this._isPub ? this._pubId : "NULL") + ");";
 
-    public String get_password() {
-        return _password;
-    }
+		insert(selectQuery);
 
-    public String get_email() {
-        return _email;
-    }
+		System.out.println("Inserted");
+	}
 
-    public boolean is_isPub() {
-        return _isPub;
-    }
+	public void updateUser() {
+		String query = "UPDATE `users` SET `fullName` = '" + _fullName + "', `password` = '" + _password
+				+ "', `email` = '" + _email + "' WHERE `users`.`userId` = " + _id + ";";
 
-    public void set_id(int _id) {
-        this._id = _id;
-    }
+		System.out.println(query);
 
-    public int get_pubId() {
-        return _pubId;
-    }
+		update(query);
+	}
 
+	public int get_id() {
+		return _id;
+	}
+
+	public String get_name() {
+		return _username;
+	}
+
+	public boolean get_isPub() {
+		return _isPub;
+	}
+
+	public String get_fullName() {
+		return _fullName;
+	}
+
+	public String get_password() {
+		return _password;
+	}
+
+	public String get_email() {
+		return _email;
+	}
+
+	public boolean is_isPub() {
+		return _isPub;
+	}
+
+	public void set_id(int _id) {
+		this._id = _id;
+	}
+
+	public int get_pubId() {
+		return _pubId;
+	}
 
 }

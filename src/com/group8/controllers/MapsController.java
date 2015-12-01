@@ -65,6 +65,7 @@ public class MapsController implements Initializable,MapComponentInitializedList
     private ArrayList<Marker> markers = new ArrayList<>();
 
     public ObservableList<MapMarker> masterData = FXCollections.observableArrayList(BeerData.markers);
+    private int _pubID;
 
     /**
      * Back button pressed takes you back to "result screen"
@@ -225,5 +226,9 @@ public class MapsController implements Initializable,MapComponentInitializedList
 
             System.out.println(BeerData.markers.get(i).getAddress());
             }
+      
+        }
+        public int get_PubID(){
+        	return _pubID;
         }
 }

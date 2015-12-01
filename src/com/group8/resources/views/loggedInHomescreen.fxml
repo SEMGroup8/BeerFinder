@@ -6,13 +6,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#exitField" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInHomeScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#exitField" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInHomeScreenController">      
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="392.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="Logged in as: " />
+                  <Label fx:id="userName" text="Logged in as: " />
                   <Label fx:id="userName" text="Label" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
@@ -32,14 +32,14 @@
          </children>
       </HBox>
    </top>
-   <center>
+   <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <AnchorPane prefHeight="270.0" prefWidth="274.0">
                      <children>
-                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" text="Search..." />
+                        <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutY="111.0" onAction="#onSearch" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" text="Search..." />
                         <Button fx:id="search" layoutX="167.0" layoutY="111.0" mnemonicParsing="false" onAction="#onSearch" prefHeight="27.0" prefWidth="64.0" text="Search" />
                         <Label fx:id="error" layoutX="16.0" layoutY="148.0" prefHeight="14.0" prefWidth="135.0" />
                         <ProgressIndicator fx:id="Load" layoutX="100.0" layoutY="102.0" visible="false" />
@@ -51,11 +51,13 @@
                         <CheckBox fx:id="advancedName" layoutX="-1.0" layoutY="146.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
                         <CheckBox fx:id="advancedCountry" layoutX="100.0" layoutY="203.0" mnemonicParsing="false" text="Origin" visible="false" />
                         <Button fx:id="randomButton" layoutX="167.0" layoutY="144.0" mnemonicParsing="false" onAction="#onRandom" prefWidth="65.0" text="Random" />
+                        <Button fx:id="pubFavourites" layoutX="165.0" layoutY="179.0" mnemonicParsing="false" onAction="#onPubFavourites" text="pubfavt" />
+                        <Button fx:id="pubListButton" layoutX="165.0" layoutY="205.0" mnemonicParsing="false" onAction="#pubList" prefHeight="26.0" prefWidth="63.0" text="Button" />
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
          </children>
       </HBox>
-   </center>
+   </bottom>
 </BorderPane>

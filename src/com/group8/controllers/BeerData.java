@@ -34,6 +34,11 @@ public class BeerData {
     public static LatLong Address = null;
     
     public static Pub pubDetails;
+    
+    public static ArrayList<Pub> pub;
+    public static  ArrayList<Pub>pubFavouritesDetails;
+    
 
+   
 
 }

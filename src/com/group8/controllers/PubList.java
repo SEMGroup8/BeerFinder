@@ -1,6 +1,8 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.Pub;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,36 +32,32 @@ import java.util.ResourceBundle;
 /**
  * Created by Shiratori on 04/11/15.
  */
-public class FavouritesController implements Initializable
+public class PubList implements Initializable
 {
     @FXML
     public Button logout, account;
     @FXML
     public Button Back;
     @FXML
-    public TableView<Beer> beerTable;
+    public TableView<Pub> pubTable;
     @FXML
-    public TableColumn<Beer, String> beerName;
+    public TableColumn<Pub, String> pubName;
     @FXML
-    public TableColumn<Beer, String> beerType;
+    public TableColumn<Pub, String> pubEntranceFee;
     @FXML
-    public TableColumn<Beer, String> beerOrigin;
+    public TableColumn<Pub, String> pubPhoneNumber;
     @FXML
-    public TableColumn<Beer, String> beerProducer;
-    @FXML
-    public TableColumn<Beer, String> beerPackage;
-    @FXML
-    public TableColumn<Beer, String> beerPercentage;
-    @FXML
-    public TableColumn<Beer, String> avrageRank;
-    @FXML
-    public TableColumn<Beer,Image> beerImage;
-    @FXML
-    public PieChart showPie;
+    public TableColumn<Pub, String> pubDescription;
+   @FXML
+   public TableColumn<Pub, String> pubOffer;
+    
+   @FXML
+   public TableColumn<Pub, Image> image;
+  
     @FXML
     public Label userName;
 
-    public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
+    public ObservableList<Pub> masterData = FXCollections.observableArrayList(UserData.userInstance.pubListDetails);
     
 
     /**
@@ -105,7 +103,7 @@ public class FavouritesController implements Initializable
      * Select a beer row and proceed to the beerDetail scene
      */
     public void getRow(){
-        beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        pubTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked
 
             /**
@@ -116,9 +114,9 @@ public class FavouritesController implements Initializable
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
-                    System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
+                    System.out.println("clicked on " + pubTable.getSelectionModel().getSelectedItem());
                     // Set the selectedBeer instance of beer we have to selected item
-                    BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
+                   // BeerData.selectedBeer = pubTable.getSelectionModel().getSelectedItem();
                     // Load the details scene
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     try {
@@ -148,29 +146,29 @@ public class FavouritesController implements Initializable
         // Set username
         userName.setText(UserData.userInstance.get_name());
 
-        Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
-        Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";
+//        Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
+//        Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
-        beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
-        beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("Type"));
-        beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("Origin"));
-        beerProducer.setCellValueFactory(new PropertyValueFactory<Beer, String>("Producer"));
-        beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
-        avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("AvRank"));
-        beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
-        System.out.println(beerName +"yeeee");
+        pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("_name"));
+	       // pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("Address"));
+	        pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("_phoneNumber"));
+	        pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("_offers"));
+	        pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("_description"));
+	        pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("_entranceFee"));
+//        beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
+        System.out.println(pubName +"doki doki");
 
 
-        // Try loading the image, if there is none will use placeholder
-        beerImage.setCellValueFactory(new PropertyValueFactory<Beer, Image>("Image"));
+//        // Try loading the image, if there is none will use placeholder
+        image.setCellValueFactory(new PropertyValueFactory<Pub, Image>("image"));
         /**
          * Set the Cellfactory
          */
-        beerImage.setCellFactory(new Callback<TableColumn<Beer, Image>, TableCell<Beer, Image>>() {
+        image.setCellFactory(new Callback<TableColumn<Pub, Image>, TableCell<Pub, Image>>() {
             @Override
-            public TableCell<Beer, Image> call(TableColumn<Beer, Image> param) {
-                TableCell<Beer, Image> cell = new TableCell<Beer, Image>() {
+            public TableCell<Pub, Image> call(TableColumn<Pub, Image> param) {
+                TableCell<Pub, Image> cell = new TableCell<Pub, Image>() {
 
                     /**
                      * Override the updateItem method to set a imageView
@@ -213,9 +211,8 @@ public class FavouritesController implements Initializable
         });
 
 
-
         //Populate the Tableview
-        beerTable.setItems(masterData);
+        pubTable.setItems(masterData);
 
     }
 }

@@ -1,9 +1,26 @@
 package com.group8.database.tables;
 
 import com.group8.database.MysqlDriver;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Shiratori on 12/10/15.
@@ -14,6 +31,8 @@ import java.util.ArrayList;
  *
  */
 public class Pub extends MysqlDriver{
+	
+	File file;
 
     private int _pubId, _adressId;
     private String _name;
@@ -28,7 +47,8 @@ public class Pub extends MysqlDriver{
 
     private double _geoLat;
     float _entranceFee;
-    Image pubImage;
+
+	private BufferedImage image;
 
 
     public Pub()
@@ -36,11 +56,11 @@ public class Pub extends MysqlDriver{
 
     }
 
-    public Pub(String query)
+    public Pub(String query) throws MalformedURLException
     {
         super();
 
-        ArrayList<Object> sqlReturn = select(query);
+        ArrayList<Object> sqlReturn = selectPub(query);
 
         this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
         this._name = sqlReturn.get(1).toString();
@@ -52,25 +72,41 @@ public class Pub extends MysqlDriver{
 
         this._adressId = Integer.parseInt(sqlReturn.get(2).toString());
         this._adress = addressReturn.get(0).toString();
-
+        try {
+            InputStream tmpImg = (InputStream) sqlReturn.get(4);
+            this.image = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+        	ex.printStackTrace();
+            this.image = null;
+        }
         this._phoneNumber = sqlReturn.get(3).toString();
         this._offer = sqlReturn.get(6).toString();
         this._entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
     }
     
-    public Pub(ArrayList<Object> sqlReturn)
+    private String ImageParseImg(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Pub(ArrayList<Object> sqlReturn)
     {
         this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
         this._name = sqlReturn.get(1).toString();
-        this._description = sqlReturn.get(5).toString();
-        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());
-        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
-        ArrayList<Object> addressReturn = select(adressQuery);
-        this._adress = addressReturn.get(0).toString();
-
+        this._description = sqlReturn.get(4).toString();
+//        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());System.out.println(_adressId + "adddressss");
+//        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
+//        ArrayList<Object> addressReturn = select(adressQuery);
+//        this._adress = addressReturn.get(0).toString();
+        try {
+            InputStream tmpImg = (InputStream) sqlReturn.get(2);
+            this.image = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+            this.image = null;
+        }
         this._phoneNumber = sqlReturn.get(3).toString();
-        this._offer = sqlReturn.get(6).toString();
-        this._entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
+       this._offer = sqlReturn.get(5).toString();
+        this._entranceFee = Float.parseFloat(sqlReturn.get(6).toString());
     }
 
     /*
@@ -102,6 +138,85 @@ public class Pub extends MysqlDriver{
 
         return true;
     }
+    
+    private ArrayList<Object> selectPub(String query) {
+
+        ArrayList<Object> result = new ArrayList<>();
+
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+        String user = "Gr8";
+        String password = "group8";
+
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
+            rs = st.executeQuery(query);
+            ResultSetMetaData metaData = rs.getMetaData();
+
+            if(!rs.next())
+            {
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (st != null) {
+                        st.close();
+                    }
+                    if (con != null) {
+                        con.close();
+                    }
+
+                } catch (SQLException ex) {
+                    Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+                    lgr.log(Level.WARNING, ex.getMessage(), ex);
+                }
+
+                return null;
+            }
+
+            result = new ArrayList<>();
+
+            for(int i = 1; i<=metaData.getColumnCount(); i++)
+            {
+                if(i == 5){
+
+                    InputStream image =rs.getBinaryStream(5);
+                    result.add(image);
+                }else {
+                    result.add(rs.getObject(i));
+                }
+            }
+
+
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+
+        return result;
+    }
+    
 
     public int get_pubId() {
         return _pubId;
@@ -149,6 +264,17 @@ public class Pub extends MysqlDriver{
         return _phoneNumber;
     }
 
-
+    public Image getImage()
+    {
+    	Image image2;
+        if(this.image == null){
+        	System.out.println("Image is empty");
+            image2 = null;
+        }else{
+            image2 = SwingFXUtils.toFXImage(this.image, null);
+        }
+        return image2;
+    }
     
+	
 }

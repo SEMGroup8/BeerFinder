@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class LoggedInHomeScreenController extends MainController {
     // Declaration of elements
     @FXML
-    public Button logout, account, favourites, randomButton;
+    public Button logout, account, favourites, randomButton, pubFavourites, pubListButton;
     @FXML
     public Label userName;
 
@@ -340,5 +340,23 @@ public class LoggedInHomeScreenController extends MainController {
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);
         main_stage.show();
+    }
+    
+    @FXML
+    public void onPubFavourites(javafx.event.ActionEvent event) throws IOException
+    {
+        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/FavouritePub.fxml"));
+        Scene result_scene = new Scene(result, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
+    }
+    public void pubList(javafx.event.ActionEvent event) throws IOException{
+    	  Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubList.fxml"));
+          Scene result_scene = new Scene(result,800,600);
+          Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+          main_stage.setScene(result_scene);
+          main_stage.show();
+ 
     }
 }
