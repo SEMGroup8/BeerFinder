@@ -68,8 +68,8 @@ public class AddBeerController  implements Initializable{
 	public ImageView beerImage;
 	public Label addConfirmation;
 	
-	 @FXML
-	    public Button logout, account, favourites;
+	@FXML
+
 	 public Label userName;
 
 	public Button addBeerButton;
@@ -87,6 +87,8 @@ public class AddBeerController  implements Initializable{
 
             Stage primaryStage=new Stage();
 			file= fileChooser.showOpenDialog(primaryStage);
+		Navigation.current_CenterFXML =  "/com/group8/resources/views/addBeer.fxml";
+
 			imageStream = new FileInputStream(file);
 			
 			
@@ -203,39 +205,6 @@ public class AddBeerController  implements Initializable{
 	} // end of addBeer method         
 	                                                                                                                             
 
-	 @FXML
-	    public void onLogout(javafx.event.ActionEvent event) throws IOException
-	    {
-	        UserData.userInstance = null;
-
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
-
-	    @FXML
-	    public void onAccount(javafx.event.ActionEvent event) throws IOException
-	    {
-
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
-
-	    @FXML
-	    public void onFavourites(javafx.event.ActionEvent event) throws IOException
-	    {
-
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
 
 
 		@Override

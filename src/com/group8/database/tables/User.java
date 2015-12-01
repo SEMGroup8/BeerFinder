@@ -171,6 +171,8 @@ public class User extends MysqlDriver
         System.out.println(query);
 
         update(query);
+
+        getFavourites();
     }
 
     public int get_id() {

@@ -1,14 +1,43 @@
-.root-background{
+
+
+.table-view {
+    -fx-base: white;
+    -fx-control-inner-background: white;
+    -fx-background-color: white;
+    -fx-table-cell-border-color:#e6e6e6 ;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
     -fx-background-color: transparent;
 }
-/*
-    The Stage background.
-    Currently a Rectangle node
-*/
-.root-background{
-    /*    -fx-fill: radial-gradient(focus-angle 45deg, focus-distance 20%, center 25% 25%, radius 50%, reflect, #eeeeee88, #aaaaaa88 75%, gray);
-     */
-    -fx-stroke-width: 0;
-    -fx-arc-width:20px;
-    -fx-arc-height:20px;
+
+.table-view .column-header, .table-view .filler {
+
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: white;
+    -fx-border-insets: 0 10 1 0;
+    -fx-border-color: #e6e6e6;
 }
+
+.table-view .column-header .label {
+
+
+    -fx-opacity: 1;
+}
+
+.scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding:-7;
+}
+
+
+.table-row-cell:filled:selected,
+.table-row-cell:filled > .table-cell:selected {
+    -fx-background: rgba(255, 161, 226, 0.49);
+}
+.table-view {
+    -fx-table-cell-border-color: transparent;
+}
+

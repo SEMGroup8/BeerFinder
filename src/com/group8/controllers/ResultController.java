@@ -6,13 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.LoadException;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -23,9 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.omg.CORBA.NVList;
 
 
 import java.io.File;
@@ -39,12 +32,9 @@ import java.util.ResourceBundle;
  * TODO Visual upgrade + presentation of objects + additional options
  *
  */
-public class ResultController implements Initializable {
+public class ResultController extends BaseController implements Initializable {
 
-    @FXML
-    public Button Back;
-    @FXML
-    public Button Maps;
+
     @FXML
     public TableView<Beer> beerTable;
     @FXML
@@ -65,8 +55,6 @@ public class ResultController implements Initializable {
     public TableColumn<Beer,Image> beerImage;
     @FXML
     public TableColumn<Beer,String> beerPrice;
-    @FXML
-    public PieChart showPie;
 
 
 
@@ -82,16 +70,7 @@ public class ResultController implements Initializable {
      * @param event
      * @throws IOException
      */
-    @FXML
-    public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
 
-
-    }
 
 
 
@@ -117,14 +96,10 @@ public class ResultController implements Initializable {
                         // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                         try {
                             // TODO have to fix nameing
-                            Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
-                            Scene result_scene = new Scene(homescreen, 800, 600);
-                            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            main_stage.setScene(result_scene);
-                            main_stage.show();
+                            mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
                         } catch (IOException e) {
                             // Print error msg
-                            //e.printStackTrace();
+                            e.printStackTrace();
                         }
 
 
@@ -147,7 +122,8 @@ public class ResultController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Navigation.backFXML = "/com/group8/resources/views/resultScreen.fxml";
+        
+        Navigation.current_CenterFXML = "/com/group8/resources/views/result_center.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));

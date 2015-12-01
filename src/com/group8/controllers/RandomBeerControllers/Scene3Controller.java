@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BaseController;
 import com.group8.controllers.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-public class Scene3Controller {
+public class Scene3Controller extends BaseController {
 
     static String typesPicked = "(";
 
@@ -40,20 +41,12 @@ public class Scene3Controller {
     private CheckBox yesCheckbox;
     @FXML
     private CheckBox FermentedCheck;
-    @FXML
-    private Button homeButton;
+
 
     @FXML // Clicking button "Continue"
     void onContinueClick3(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage = (Stage) continueButton3.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene4.fxml"));
-        Scene scene = new Scene(root);
 
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene4.fxml");
 
         typesPicked = "(";
 
@@ -110,18 +103,7 @@ public class Scene3Controller {
         }
     }
 
-    @FXML // Going back to home screen
-    void onHomeClick(ActionEvent event) throws Exception {
 
-        Stage stage = (Stage) homeButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
-
-    }
 
     public String getTypesPicked(){
         return typesPicked;

@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 
-public class PubInfo {
+public class PubInfo extends BaseController implements Initializable{
 	public TextField pubID;
 	public TextField pubName;
 	public TextField pubAddress;
@@ -56,7 +57,8 @@ public class PubInfo {
 
 	//@Override
 	public void initialize(URL location, ResourceBundle resources) {
-				
+
+		Navigation.current_CenterFXML= "/com/group8/resources/views/pubInfo.fxml";
 		// TODO Auto-generated method stub
 		
 		
@@ -81,12 +83,8 @@ public class PubInfo {
 	}
 	
 	public void onAddBeer(ActionEvent event) throws IOException{
-		
-		Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/addBeer.fxml"));
-         Scene result_scene = new Scene(result,800,600);
-         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-         main_stage.setScene(result_scene);
-         main_stage.show();
+
+		mainScene.changeCenter("/com/group8/resources/views/addBeer.fxml");
          
 	}
 

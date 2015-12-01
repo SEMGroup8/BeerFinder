@@ -33,9 +33,9 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
 
         Navigation.primaryStage = stage;
-        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/mainScene.fxml"));
         Scene scene = new Scene(root, 800, 600);
-        scene.getStylesheets().add("com/group8/resources/css/resultTableCss.css");
+       // scene.getStylesheets().add("com/group8/resources/css/resultTableCss.css");
         stage.setTitle("BeerFinder Alpha Test");
         stage.setScene(scene);
         stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));

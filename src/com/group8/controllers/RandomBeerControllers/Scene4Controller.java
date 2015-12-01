@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BaseController;
 import com.group8.controllers.BeerData;
 import com.group8.controllers.Navigation;
 import com.group8.controllers.UserData;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class Scene4Controller implements Initializable{
+public class Scene4Controller extends BaseController implements Initializable{
 
    private int count;
    private Beer randomBeer;
@@ -56,8 +57,6 @@ public class Scene4Controller implements Initializable{
     @FXML
     private HBox HBoxFound, rankFavourite;
     @FXML
-    private Button homeButton;
-    @FXML
     private Label packageR;
     @FXML
     private Button repeatButton;
@@ -75,18 +74,6 @@ public class Scene4Controller implements Initializable{
     private Text textLine;
 
 
-    @FXML // Going back to home screen
-    void onHomeClick(ActionEvent event) throws Exception {
-
-        Stage stage = (Stage) homeButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
-
-    }
 
     @FXML // Showing another random result from already chosen parameters
     void onAnotherClick(ActionEvent event) {
