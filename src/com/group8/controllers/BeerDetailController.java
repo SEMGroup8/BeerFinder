@@ -24,7 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sun.plugin.javascript.JSObject;
+//import sun.plugin.javascript.JSObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,6 +74,8 @@ public class BeerDetailController implements Initializable{
     public Label rankShow;
     @FXML
     public Label added;
+    @FXML
+    public Button updateBeerButton;
 
     /**
      * Back button pressed takes you back to "result screen"
@@ -267,6 +269,13 @@ public class BeerDetailController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	
+    	 if(UserData.userInstance != null){
+       	  
+       	  if(UserData.userInstance.get_isPub()){
+       		  updateBeerButton.setVisible(true);
+       	  }
+         }
 
 
         Navigation.beerDetailviewFXML = "/com/group8/resources/views/beerDetailsScreen.fxml";
@@ -337,4 +346,27 @@ public class BeerDetailController implements Initializable{
         // Test the data in our beer instance
         System.out.println(BeerData.selectedBeer.toString());
     }
+    
+    
+    public void updateBeer(ActionEvent event) throws IOException {
+ 	   Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/updateBeer.fxml"));
+        Scene result_scene = new Scene(homescreen, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
+ 	   
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

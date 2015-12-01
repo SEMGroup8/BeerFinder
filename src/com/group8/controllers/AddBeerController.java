@@ -90,7 +90,10 @@ public class AddBeerController  implements Initializable{
 			imageStream = new FileInputStream(file);
 			
 			
-				if (file.isFile() && file.getName().contains("jpg")){
+				if (file.isFile() && (file.getName().contains(".jpg")
+						||file.getName().contains(".png")
+						||file.getName().contains(".jpeg")
+						)){
 				
 				
 				String thumbURL = file.toURI().toURL().toString();
@@ -126,12 +129,7 @@ public class AddBeerController  implements Initializable{
 			ArrayList<Object> result4 = MysqlDriver.select(sqlQuery4);
 			
 			String typeID4 = (result4.get(0).toString());
-			
-			
-			
 		
-
-
 			
 	   String beerInfo ;
 		beerInfo = "INSERT INTO `beers`(`name`, `description`, `originID`, `percentage`, `producerName`, `package`, `image`, `beerTypeID`, `volume`, `isTap`) VALUES ('"
@@ -191,9 +189,15 @@ public class AddBeerController  implements Initializable{
 	                
 	                
 	            }
+	            
+	           
 	        }
-		     //addConfirmation.setText("Beer was added");
-	       
+		   
+	        Parent parent = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
+	        Scene result_scene = new Scene(parent, 800, 600);
+	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        main_stage.setScene(result_scene);
+	        main_stage.show();
 	        
 	
 	} // end of addBeer method         
@@ -261,6 +265,7 @@ public class AddBeerController  implements Initializable{
 	    	}
 	    
 	    	beerPackageType.setItems(beerPackageTypeList);
+	    //	beerPackageType.setValue("Lager");
 	    	
 	    	
 	    	
@@ -290,7 +295,16 @@ public class AddBeerController  implements Initializable{
 		}
 
 	
-
+/*public void testPubView(ActionEvent event)throws IOException {
+	Parent parent = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubDetailView.fxml"));
+    Scene result_scene = new Scene(parent, 800, 600);
+    Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    main_stage.setScene(result_scene);
+    main_stage.show();
+    
+	
+	
+}*/
 
  
  

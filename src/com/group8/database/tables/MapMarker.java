@@ -67,4 +67,12 @@ public class MapMarker extends MysqlDriver
             return "no";
         }
     }
+    
+    public int getPubID(){
+    	return pubID;
+    }
+    
+    
+    
+    
 }
