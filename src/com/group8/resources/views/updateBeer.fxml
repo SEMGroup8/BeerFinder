@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.AddBeerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.UppdateBeerController">
    <children>
       <BorderPane layoutX="273.0" layoutY="127.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -67,7 +67,7 @@
          <right>
             <AnchorPane prefHeight="500.0" prefWidth="382.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="addBeerButton" layoutX="169.0" layoutY="433.0" mnemonicParsing="false" onAction="#addBeer" prefHeight="26.0" prefWidth="91.0" text="Add beer" />
+                  <Button fx:id="updateBeerButton" layoutX="169.0" layoutY="433.0" mnemonicParsing="false" onAction="#updateBeer" prefHeight="26.0" prefWidth="107.0" text="Update beer" />
                   <TextField fx:id="beerDescription" alignment="TOP_LEFT" layoutX="68.0" layoutY="70.0" prefHeight="297.0" prefWidth="274.0" promptText="description..." />
                   <Label layoutX="85.0" layoutY="48.0" text="Description" />
                   <Label fx:id="addConfirmation" alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="486.0" prefHeight="26.0" prefWidth="113.0" textAlignment="CENTER" textFill="#1b1a1a" />

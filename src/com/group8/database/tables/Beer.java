@@ -18,7 +18,8 @@ public class Beer extends MysqlDriver{
     int id;
 
     float avRank;
-    float percentage,volume,price;
+    float percentage,price;
+    int volume;
     Boolean isTap;
     BufferedImage image = null;//Buffered image coming from database
     BufferedImage countryFlag = null;
@@ -28,7 +29,7 @@ public class Beer extends MysqlDriver{
 
 
     /**
-     * Constructor takeing a String query
+     * Constructor taking a String query
      * @param query
      */
     public Beer(String query)  {
@@ -48,7 +49,7 @@ public class Beer extends MysqlDriver{
         this.origin = sqlReturn.get(5).toString();
         this.percentage = Float.parseFloat(sqlReturn.get(6).toString());
         this.producer = sqlReturn.get(7).toString();
-        this.volume = Float.parseFloat(sqlReturn.get(8).toString());
+        this.volume = Integer.parseInt(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
@@ -62,7 +63,7 @@ public class Beer extends MysqlDriver{
     }
 
     /**
-     *  Constructor takeing a Arraylist of Objects
+     *  Constructor taking a Arraylist of Objects
      * @param sqlReturn
      */
     public Beer(ArrayList<Object> sqlReturn)  {
@@ -81,7 +82,7 @@ public class Beer extends MysqlDriver{
         this.origin = sqlReturn.get(5).toString();
         this.percentage = Float.parseFloat(sqlReturn.get(6).toString());
         this.producer = sqlReturn.get(7).toString();
-        this.volume = Float.parseFloat(sqlReturn.get(8).toString());
+        this.volume = Integer.parseInt(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
@@ -136,7 +137,7 @@ public class Beer extends MysqlDriver{
         return percentage;
     }
 
-    public float getVolume() {
+    public int getVolume() {
         return volume;
     }
 

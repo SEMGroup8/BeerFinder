@@ -136,6 +136,22 @@ public class MapsController implements Initializable,MapComponentInitializedList
                         map.setZoom(15);
                         if(i == z) {
                             // Add the selected marker back to the map
+                        	
+                        	Pub selectedPub = new Pub("select * from pubs where pubID =" + BeerData.markers.get(z).getPubID());
+                        	PubData.selectedPub = selectedPub;
+                        	
+                        	Parent parent = null;
+							try {
+								parent = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubDetailView.fxml"));
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                            Scene result_scene = new Scene(parent, 800, 600);
+                            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            main_stage.setScene(result_scene);
+                            main_stage.show();
+                        	
                             map.addMarker(markers.get(z));
                             // make the infowindow for the selected marker
                             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
