@@ -2,8 +2,7 @@
 
 .table-view {
     -fx-base: white;
-    -fx-control-inner-background: white
-;
+    -fx-control-inner-background: white;
     -fx-background-color: white;
     -fx-table-cell-border-color:#e6e6e6 ;
     -fx-table-header-border-color: transparent;
@@ -41,3 +40,4 @@
 .table-view {
     -fx-table-cell-border-color: transparent;
 }
+
