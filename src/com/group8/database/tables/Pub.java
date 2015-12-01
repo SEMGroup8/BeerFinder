@@ -6,6 +6,9 @@ import com.sun.org.apache.xml.internal.security.utils.Base64;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -56,7 +59,7 @@ public class Pub extends MysqlDriver{
 
     }
 
-    public Pub(String query) throws MalformedURLException
+    public Pub(String query)
     {
         super();
 
@@ -64,24 +67,25 @@ public class Pub extends MysqlDriver{
 
         this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
         this._name = sqlReturn.get(1).toString();
-        this._description = sqlReturn.get(5).toString();
+        this._description = sqlReturn.get(4).toString();
 
-        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
+        System.out.println(sqlReturn.get(7).toString());
+        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(7).toString());
 
         ArrayList<Object> addressReturn = select(adressQuery);
 
-        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());
+        this._adressId = Integer.parseInt(sqlReturn.get(7).toString());
         this._adress = addressReturn.get(0).toString();
         try {
-            InputStream tmpImg = (InputStream) sqlReturn.get(4);
+            InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
         	ex.printStackTrace();
             this.image = null;
         }
         this._phoneNumber = sqlReturn.get(3).toString();
-        this._offer = sqlReturn.get(6).toString();
-        this._entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
+        this._offer = sqlReturn.get(5).toString();
+        this._entranceFee = Float.parseFloat(sqlReturn.get(6).toString());
     }
     
     private String ImageParseImg(String string) {
@@ -182,9 +186,9 @@ public class Pub extends MysqlDriver{
 
             for(int i = 1; i<=metaData.getColumnCount(); i++)
             {
-                if(i == 5){
+                if(i == 3){
 
-                    InputStream image =rs.getBinaryStream(5);
+                    InputStream image =rs.getBinaryStream(i);
                     result.add(image);
                 }else {
                     result.add(rs.getObject(i));
@@ -246,7 +250,7 @@ public class Pub extends MysqlDriver{
         this._geoLong = _geoLong;
     }
 
-    public String get_adress() {
+    public String get_address() {
         return _adress;
     }
     public String get_description() {
@@ -276,5 +280,21 @@ public class Pub extends MysqlDriver{
         return image2;
     }
     
-	
+    public void set_description(String _description){
+    	
+    	this._description = _description;
+    }
+
+
+   /* public String toString()
+    {
+        String result;
+
+       result = this.get_pubId() + " " +  this._name + " " + this._description + " " + this._offer + " " + this._entranceFee + " " + this._adress + " " + this._phoneNumber + " " + this._geoLong + " " + this._geoLat;
+
+        return result;
+    }*/
+
+
 }
+

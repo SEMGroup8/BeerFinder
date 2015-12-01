@@ -68,11 +68,15 @@ public class BeerDetailController implements Initializable{
     @FXML
     public ImageView showImage;
     @FXML
+    public ImageView showCountryFlag;
+    @FXML
     public Button oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
     @FXML
     public Label added;
+    @FXML
+    public Button updateBeerButton;
 
     /**
      * Back button pressed takes you back to "result screen"
@@ -266,6 +270,13 @@ public class BeerDetailController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	
+    	 if(UserData.userInstance != null){
+       	  
+       	  if(UserData.userInstance.get_isPub()){
+       		  updateBeerButton.setVisible(true);
+       	  }
+         }
 
 
         Navigation.beerDetailviewFXML = "/com/group8/resources/views/beerDetailsScreen.fxml";
@@ -302,6 +313,8 @@ public class BeerDetailController implements Initializable{
         showBeerName.setText(BeerData.selectedBeer.getName());
         // Display Origin
         showOrigin.setText(BeerData.selectedBeer.getOrigin());
+        // Display country flag
+        showCountryFlag.setImage(BeerData.selectedBeer.getCountryFlag());
         // Display beer Type
         showBeerType.setText(BeerData.selectedBeer.getType());
         // Display beer Description
@@ -336,4 +349,27 @@ public class BeerDetailController implements Initializable{
         // Test the data in our beer instance
         System.out.println(BeerData.selectedBeer.toString());
     }
+    
+    
+    public void updateBeer(ActionEvent event) throws IOException {
+ 	   Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/updateBeer.fxml"));
+        Scene result_scene = new Scene(homescreen, 800, 600);
+        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        main_stage.setScene(result_scene);
+        main_stage.show();
+ 	   
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

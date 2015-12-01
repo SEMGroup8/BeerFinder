@@ -34,7 +34,7 @@
             </Button>
          </children>
       </HBox>
-      <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="220.0" layoutX="79.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="imageView" fitHeight="360.0" fitWidth="180.0" layoutX="79.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="/com/group8/resources/Images/beerHasNoImage.png" />
          </image></ImageView>
@@ -69,14 +69,26 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="originR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="300.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="15.0" />
-                     </padding>
-                  </Label>
+                  <HBox>
+                     <children>
+                        <ImageView fx:id="countryFlagR" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="8.0" top="7.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="originR" layoutX="400.0" layoutY="178.0" prefHeight="27.0" prefWidth="250.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="37.0" spacing="15.0">

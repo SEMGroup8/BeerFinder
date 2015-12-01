@@ -147,7 +147,7 @@ public class PubInfo implements Initializable{
 				
 		pubName.setText(BeerData.pubDetails.get_name());
 		pubPhoneNumber.setText(BeerData.pubDetails.get_phoneNumber());
-		pubAddress.setText(BeerData.pubDetails.get_adress());
+		pubAddress.setText(BeerData.pubDetails.get_address());
 		pubDescription.setText(BeerData.pubDetails.get_description());
 		pubOffer.setText(BeerData.pubDetails.get_offer());
 		pubEntranceFee.setText(""+BeerData.pubDetails.get_entranceFee());

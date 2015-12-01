@@ -3,8 +3,6 @@ package com.group8.database.tables;
 import com.group8.database.MysqlDriver;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,16 +18,18 @@ public class Beer extends MysqlDriver{
     int id;
 
     float avRank;
-    float percentage,volume,price;
+    float percentage,price;
+    int volume;
     Boolean isTap;
-    BufferedImage image = null;  //Buffered image coming from database
+    BufferedImage image = null;//Buffered image coming from database
+    BufferedImage countryFlag = null;
     //InputStream tmpImg = null; //Inputstream
 
 
 
 
     /**
-     * Constructor takeing a String query
+     * Constructor taking a String query
      * @param query
      */
     public Beer(String query)  {
@@ -49,15 +49,21 @@ public class Beer extends MysqlDriver{
         this.origin = sqlReturn.get(5).toString();
         this.percentage = Float.parseFloat(sqlReturn.get(6).toString());
         this.producer = sqlReturn.get(7).toString();
-        this.volume = Float.parseFloat(sqlReturn.get(8).toString());
+        this.volume = Integer.parseInt(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
+        try {
+            InputStream tmpImg = (InputStream) sqlReturn.get(13);
+            this.countryFlag = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+            this.countryFlag = null;
+        }
     }
 
     /**
-     *  Constructor takeing a Arraylist of Objects
+     *  Constructor taking a Arraylist of Objects
      * @param sqlReturn
      */
     public Beer(ArrayList<Object> sqlReturn)  {
@@ -76,11 +82,17 @@ public class Beer extends MysqlDriver{
         this.origin = sqlReturn.get(5).toString();
         this.percentage = Float.parseFloat(sqlReturn.get(6).toString());
         this.producer = sqlReturn.get(7).toString();
-        this.volume = Float.parseFloat(sqlReturn.get(8).toString());
+        this.volume = Integer.parseInt(sqlReturn.get(8).toString());
         this.isTap = Boolean.parseBoolean(sqlReturn.get(9).toString());
         this.beerPackage = sqlReturn.get(10).toString();
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
+        try {
+            InputStream tmpImg = (InputStream) sqlReturn.get(13);
+            this.countryFlag = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+            this.countryFlag = null;
+        }
     }
 
 
@@ -125,7 +137,7 @@ public class Beer extends MysqlDriver{
         return percentage;
     }
 
-    public float getVolume() {
+    public int getVolume() {
         return volume;
     }
 
@@ -150,6 +162,16 @@ public class Beer extends MysqlDriver{
 
     public float getPrice(){
         return this.price;
+    }
+
+    public Image getCountryFlag(){
+        Image flagImage;
+        if(this.countryFlag == null){
+            flagImage = null;
+        }else{
+            flagImage = SwingFXUtils.toFXImage(this.countryFlag, null);
+        }
+        return flagImage;
     }
 
 

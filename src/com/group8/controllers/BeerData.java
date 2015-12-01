@@ -28,7 +28,7 @@ public class BeerData {
     // The SQL query
     public static String searchInput;
 
-    // The pubs that have a sertain beer
+    // The pubs that have a certain beer
     public static ArrayList<MapMarker> markers;
 
     public static LatLong Address = null;

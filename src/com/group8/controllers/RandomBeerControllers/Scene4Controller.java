@@ -66,6 +66,8 @@ public class Scene4Controller implements Initializable{
     @FXML
     private Label originR;
     @FXML
+    private ImageView countryFlagR;
+    @FXML
     private Label nameR;
     @FXML
     private Label priceR;
@@ -109,6 +111,7 @@ public class Scene4Controller implements Initializable{
         else {
             this.imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
         }
+        this.countryFlagR.setImage(randomBeer.getCountryFlag());
 
     }
 
@@ -218,17 +221,13 @@ public class Scene4Controller implements Initializable{
             // Getting one beer entry chosen randomly from the list of IDs
             ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(this.arrayID)));
 
-
-
             Beer randomBeer = new Beer(list2.get(0));
-            // BeerData.selectedBeer = randomBeer;
-
             this.randomBeer = randomBeer;
 
             // Populating beer info into scene
             this.typeR.setText(randomBeer.getType());
             this.originR.setText(randomBeer.getOrigin());
-            this.percentageR.setText("" + randomBeer.getPercentage());
+            this.percentageR.setText("" + randomBeer.getPercentage() + " %");
             this.nameR.setText(randomBeer.getName());
             this.packageR.setText(randomBeer.getBeerPackage());
             this.producerR.setText(randomBeer.getProducer());
@@ -240,6 +239,7 @@ public class Scene4Controller implements Initializable{
             else {
                 this.imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
             }
+            this.countryFlagR.setImage(randomBeer.getCountryFlag());
 
             // Changing visibility of elements on scene
 

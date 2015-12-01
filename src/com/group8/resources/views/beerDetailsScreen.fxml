@@ -50,7 +50,16 @@
                               <Font size="36.0" />
                            </font>
                         </Label>
-                        <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" />
+                        <HBox layoutX="32.0" layoutY="83.0" spacing="2.0">
+                           <children>
+                              <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" />
+                           </children>
+                        </HBox>
                         <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" />
                         <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" />
                         <Label fx:id="showVolume" layoutX="33.0" layoutY="142.0" text="Volume" />
@@ -165,6 +174,7 @@
                <children>
                   <Button fx:id="googleMaps" layoutX="25.0" layoutY="37.0" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="100.0" text="Google Maps" visible="true" />
                   <Label fx:id="gMapsError" layoutX="138.0" layoutY="42.0" prefHeight="17.0" prefWidth="218.0" text="This beer is not sold by any pubs!" textFill="RED" visible="false" />
+                  <Button fx:id="updateBeerButton" layoutX="203.0" layoutY="38.0" mnemonicParsing="false" onAction="#updateBeer" prefHeight="26.0" prefWidth="91.0" text="Update Beer" visible="false" />
                </children>
             </AnchorPane>
          </children>

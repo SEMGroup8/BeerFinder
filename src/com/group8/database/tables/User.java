@@ -67,7 +67,7 @@ public class User extends MysqlDriver {
 		this._pubId = Integer.parseInt(sqlReturn.get(6).toString());
 
 		if (this._isPub) {
-			this._pub = new Pub("Select * from pubs where pubID = '" + this._pubId + "';");
+			this._pub = new Pub("Select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee`, addressID from pubs where pubID = '" + this._pubId + "';");
 		}
 
 		getFavourites();
@@ -121,10 +121,11 @@ public class User extends MysqlDriver {
 	}
 
 	public void getFavourites() {
-		String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars "
-				+ "from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = "
+		String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag"
+				+ " from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = "
 				+ _id + ";";
 
+		System.out.println(sqlQuery);
 		// Execute user query
 		ArrayList<ArrayList<Object>> sqlData;
 
@@ -180,7 +181,7 @@ System.out.println(sqlData+"   are youuuu here");
 	}
 
 	public void getBeers() {
-		String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars "
+		String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars,  "
 				+ "from beers, beerInPub, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = beerInPub.beerID and beerInPub.pubID = "
 				+ _pubId + ";";
 
