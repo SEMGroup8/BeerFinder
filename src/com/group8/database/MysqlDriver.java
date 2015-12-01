@@ -135,7 +135,7 @@ public class MysqlDriver {
                     }
                     else if(i == 14){
 
-                        InputStream image =rs.getBinaryStream(14);
+                        InputStream image =rs.getBinaryStream(13);
                         row.set(i-1,image);
                     }
                     else{

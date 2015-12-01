@@ -25,7 +25,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-
+/**
+ * Shows the information about a Users pub and makes him able to manipulate that data.
+ * --> User is able to update fields on his pub or just view the current state of it.
+ */
 public class PubInfo extends BaseController implements Initializable{
 	public TextField pubID;
 	public TextField pubName;

@@ -75,10 +75,11 @@ public class Beer extends MysqlDriver{
         try {
             InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
-           // System.out.println("har bytes");
+            System.out.println("har bytes");
         }catch (IOException ex) {
             this.image = null;
-         //   System.out.println("NEJ");
+            System.out.println("NEJ");
+            ex.printStackTrace();
         }
 
         this.description = sqlReturn.get(3).toString();
@@ -92,10 +93,13 @@ public class Beer extends MysqlDriver{
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
         try {
+            System.out.println("trying");
             InputStream tmpImg = (InputStream) sqlReturn.get(13);
             this.countryFlag = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
+            System.out.println("failed");
             this.countryFlag = null;
+            ex.printStackTrace();
         }
     }
 
@@ -175,6 +179,7 @@ public class Beer extends MysqlDriver{
             flagImage = null;
         }else{
             flagImage = SwingFXUtils.toFXImage(this.countryFlag, null);
+            System.out.println("has image");
         }
         return flagImage;
     }

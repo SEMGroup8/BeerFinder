@@ -75,6 +75,9 @@ public class AddressController extends BaseController implements Initializable,M
 
     }
 
+    /**
+     *
+     */
     public void addAddress(){
         img.setFitWidth(60);
         img.setFitHeight(60);

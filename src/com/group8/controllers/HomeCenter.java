@@ -148,7 +148,7 @@ public class HomeCenter extends BaseController implements Initializable
 
                         {
                             // name search is defualt
-                            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars" +
+                            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag" +
                                     " from beers, beerType, origin, package where " +
                                     "beers.beerTypeID = beerType.beerTypeID " +
                                     "and beers.originID = origin.originID " +
@@ -225,10 +225,12 @@ public class HomeCenter extends BaseController implements Initializable
                             // Add a new Beer to the beer arraylist
                             Beer beer = new Beer(sqlData.get(i));
                             // Testoutput
-                            //System.out.print(beer.getName()+"\n");
+                            System.out.print(beer.getName()+"\n");
                             BeerData.beer.add(beer);
                         }
-
+                        for(int i=0;i<BeerData.beer.size();i++){
+                            System.out.println(BeerData.beer.get(i).getName());
+                        }
                         return null;
                     }
                 };

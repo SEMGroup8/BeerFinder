@@ -39,8 +39,7 @@ public class LoggedInTop extends BaseController implements Initializable
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
         userName.setText(UserData.userInstance.get_name());
-        Navigation.resultviewFXML = "/com/group8/resources/views/result_center.fxml";
-        Navigation.backFXML = "/com/group8/resources/views/home_center.fxml";
+
     }
 
     // Resets guide text if no input was made

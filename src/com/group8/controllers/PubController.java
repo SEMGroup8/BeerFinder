@@ -24,21 +24,6 @@ public class PubController  extends BaseController implements Initializable {
 
     private final static PubController instance = new PubController();
 
-    public Button Back;
-
-    /**
-     * Back button pressed takes you back to "home screen"
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void backAction(ActionEvent event) throws IOException {
-
-        mainScene.changeCenter(Navigation.backFXML);
-
-    }
-
-
 
     /*
     Initialize Pub controller

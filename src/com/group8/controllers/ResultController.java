@@ -30,7 +30,9 @@ import java.util.ResourceBundle;
  * Created by AnkanX on 15-10-22.
  *
  * TODO Visual upgrade + presentation of objects + additional options
- *
+ * Show results from a beer search.
+ * --> Used after the user has searched for a string of characters and gotten a result
+ *     larger then "0", this then display them in a tableview wich is clickable.
  */
 public class ResultController extends BaseController implements Initializable {
 
@@ -61,22 +63,16 @@ public class ResultController extends BaseController implements Initializable {
 
 
 
-
+    // Setup an ObservableArraylist for the tableview
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
 
-
     /**
-     * Back button pressed takes you back to "home screen"
-     * @param event
-     * @throws IOException
+     * Select a beer row and proceed to the beerDetail scene
+     *
+     * --> OnMouseClick get content of clicked row and store in BeerData.selectedBeer
+     * --> Change center_FXML to beerDetail_center
+     *
      */
-
-
-
-
-           /**
-         * Select a beer row and proceed to the beerDetail scene
-         */
     public void getRow(){
         beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked
@@ -116,15 +112,24 @@ public class ResultController extends BaseController implements Initializable {
 
     /**
      * initialize result controller
+     *
+     *  --> Populateing the TableView
+     *      Useing the .setCellValueFactory(new PropertyValueFactory<Object, Value>("valueGetterName -get"));
+     *
+     *  --> Override the updateItem on the Imageview to place thumbnails
+     *
      * @param location
      * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        
+        // Set current FXML
         Navigation.current_CenterFXML = "/com/group8/resources/views/result_center.fxml";
 
+        /**
+         * Set the Cellfactory
+         */
         // You have to have a get function that is named get +" type" for it to work sets values.
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
         beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("Type"));
@@ -135,13 +140,8 @@ public class ResultController extends BaseController implements Initializable {
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
         beerPrice.setCellValueFactory(new PropertyValueFactory<Beer, String>("Price"));
 
-
-
         // Try loading the image, if there is none will use placeholder
         beerImage.setCellValueFactory(new PropertyValueFactory<Beer, Image>("Image"));
-        /**
-         * Set the Cellfactory
-         */
         beerImage.setCellFactory(new Callback<TableColumn<Beer, Image>, TableCell<Beer, Image>>() {
             @Override
             public TableCell<Beer, Image> call(TableColumn<Beer, Image> param) {
@@ -155,7 +155,7 @@ public class ResultController extends BaseController implements Initializable {
                     @Override
                     public void updateItem(Image item, boolean empty) {
 
-
+                        // If not empty load the image stored in the beer arrays
                        if(!empty) {
                            if (item != null) {
                                VBox vb = new VBox();
@@ -167,7 +167,7 @@ public class ResultController extends BaseController implements Initializable {
                                vb.getChildren().addAll(imgVw);
                                setGraphic(vb);
 
-
+                            // Else load the placeholder image
                            } else {
                                VBox vb = new VBox();
                                vb.setAlignment(Pos.CENTER);
@@ -195,4 +195,4 @@ public class ResultController extends BaseController implements Initializable {
         beerTable.setItems(masterData);
 
     }
-    }
+}

@@ -24,6 +24,10 @@ import java.util.ResourceBundle;
 
 /**
  * Created by Shiratori on 24/11/15.
+ *
+ * Main Graphical Controller aka root
+ * --> Used as a canvas to paint content on ex changeing the top and center FXML's
+ *     to navigate the user around the program functions.
  */
 
 
@@ -43,6 +47,13 @@ public class MainScene implements Initializable {
 
     Service<Void> backgroundThread;
 
+    /**
+     * Initialize function
+     * --> Sets the default Home screen FXML's ( Home_top and Home_center )
+     *     to current FXML's and loads their controllers.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -83,6 +94,12 @@ public class MainScene implements Initializable {
         }
     }
 
+    /**
+     * Change the center FXML
+     * --> Used to change the center FXML to the supplied URL FXML and load its controller
+     * @param url
+     * @throws IOException
+     */
     public void changeCenter(String url) throws IOException
     {
         // Remember my past
@@ -122,6 +139,12 @@ public class MainScene implements Initializable {
 
     }
 
+    /**
+     * Change center FXML back to last visited center FXML
+     * --> Used by the "Back" button to load last entry in the Navigation.breadcrubs Array.
+     * @param url
+     * @throws IOException
+     */
     public void changeCenterBack(String url) throws IOException
     {
 
@@ -161,6 +184,12 @@ public class MainScene implements Initializable {
 
     }
 
+    /**
+     * Change the top FXML
+     * --> Used by the Login & Logout function to change the top FXML to supplied URL FXML.
+     * @param url
+     * @throws IOException
+     */
     public void changeTop(String url) throws IOException
     {
         top.getChildren().clear();
@@ -177,6 +206,11 @@ public class MainScene implements Initializable {
 
     }
 
+    /**
+     * Change the center FXML to Home_center
+     * --> Used by the "Home" button to allways return to default Home_center.
+     * @throws IOException
+     */
     public void goHome() throws IOException
     {
 
@@ -186,6 +220,13 @@ public class MainScene implements Initializable {
 
     }
 
+    /**
+     * Change the current center FXML to the last visited. (not duplicate)
+     * --> Used by the "Back" button to change current FXML to last visited
+     *     last entry in Navigation.breadcrubs Array, and if the last visited
+     *     was the result view it should update the list of beers in case of changes.
+     * @throws IOException
+     */
     public void goBack() throws IOException {
 
 
@@ -263,9 +304,13 @@ public class MainScene implements Initializable {
     }
 
 
-
-
-
+    /**
+     * Changes the center FXML to the googleMaps.FXML
+     * --> Used by the "google maps" button for when in the beerdetail view
+     *     and want to see where the beer is in stock.
+     * @param event
+     * @throws IOException
+     */
     public void getMaps(ActionEvent event) throws IOException {
 
         BeerData.markers = new ArrayList<MapMarker>();
