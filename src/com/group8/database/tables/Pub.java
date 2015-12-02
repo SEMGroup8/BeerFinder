@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -61,6 +63,27 @@ public class Pub extends MysqlDriver{
         this._offer = sqlReturn.get(6).toString();
         this._entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
     }
+    
+    public Pub(ArrayList<Object> sqlReturn)
+    {
+        this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
+        this._name = sqlReturn.get(1).toString();
+        this._description = sqlReturn.get(4).toString();
+//        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());System.out.println(_adressId + "adddressss");
+//        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
+//        ArrayList<Object> addressReturn = select(adressQuery);
+//        this._adress = addressReturn.get(0).toString();
+        try {
+            InputStream tmpImg = (InputStream) sqlReturn.get(2);
+            this.pubImage = javax.imageio.ImageIO.read(tmpImg);
+        }catch (IOException ex){
+            this.pubImage = null;
+        }
+        this._phoneNumber = sqlReturn.get(3).toString();
+       this._offer = sqlReturn.get(5).toString();
+        this._entranceFee = Float.parseFloat(sqlReturn.get(6).toString());
+    }
+
 
     /*
     TODO implement the actual insert method

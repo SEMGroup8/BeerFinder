@@ -2,7 +2,6 @@ package com.group8.controllers.RandomBeerControllers;
 
 import com.group8.controllers.BaseController;
 import com.group8.controllers.Navigation;
-import com.sun.xml.internal.rngom.parse.host.Base;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

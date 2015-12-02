@@ -2,6 +2,7 @@ package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -85,6 +86,13 @@ public class HomeTop extends BaseController{
 
                         UserData.userInstance = fetchedUser;
 
+                        if(fetchedUser.get_isPub())
+                        {
+                        	String sqlQuery2 = "select * from pubs where pubID=" + UserData.userInstance.get_pubId();
+                        	//ArrayList<Object> pubData = MysqlDriver.select(sqlQuery2);
+                        	Pub fetchedPub = new Pub(sqlQuery2);
+                        	PubData.loggedInPub = fetchedPub;
+                        }
                         //System.out.println(fetchedUser.get_isPub());
 
                         return null;

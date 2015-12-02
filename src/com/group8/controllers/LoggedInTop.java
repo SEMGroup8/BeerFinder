@@ -18,7 +18,7 @@ public class LoggedInTop extends BaseController implements Initializable
 {
     // Declaration of elements
     @FXML
-    public Button logout, account, favourites;
+    public Button logout, account, beerFavourite, pubFavourite;
     @FXML
     public Label userName;
 
@@ -70,10 +70,15 @@ public class LoggedInTop extends BaseController implements Initializable
     }
 
     @FXML
-    public void onFavourites(javafx.event.ActionEvent event) throws IOException
+    public void onBeerFavourites(javafx.event.ActionEvent event) throws IOException
     {
         mainScene.changeCenter("/com/group8/resources/views/favourites.fxml");
-        favourites.setVisible(false);
+        beerFavourite.setVisible(false);
     }
-
+    @FXML
+    public void onPubFavourites(javafx.event.ActionEvent event) throws IOException
+    {
+        mainScene.changeCenter("/com/group8/resources/views/FavouritePub.fxml");
+        pubFavourite.setVisible(false);
+    }
 }
