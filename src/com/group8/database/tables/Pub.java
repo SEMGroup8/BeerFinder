@@ -4,11 +4,16 @@ import com.group8.database.MysqlDriver;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -89,9 +94,24 @@ public class Pub extends MysqlDriver{
     TODO implement the actual insert method
 
     */
-    public boolean insertPub() {
+    public boolean insertPub() throws FileNotFoundException {
+
+
+        FileInputStream imageStream;
+        File file;
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("open image file");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+        Stage primaryStage=new Stage();
+        file= fileChooser.showOpenDialog(primaryStage);
+
+
+        imageStream = new FileInputStream(file);
 
         String query = "Select * from pubs where name = '" + this._name + "';";
+
 
         ArrayList<Object> mysqlData = select(query);
 
@@ -99,10 +119,29 @@ public class Pub extends MysqlDriver{
         {
             return false;
         }
+        Connection con = null;
+        PreparedStatement st = null;
+        String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+        String user = "Gr8";
+        String password = "group8";
+        try {
+            con = DriverManager.getConnection(url, user, password);
+        query = "Insert into pubAddress(addressID, address, latitude, longitude) values(NULL, 'no address', 0,0);";
 
-        query = "Insert into pubs(pubID, name) values(NULL, '" + this._name + "');";
+            st = con.prepareStatement(query);
+            // st.executeUpdate(query);
+            st.executeUpdate();
 
-        insert(query);
+        query = "Insert into pubs(addressID, name, pubID, image) values(LAST_INSERT_ID(), '" + this._name + "',NULL, ?);";
+            
+
+            st = con.prepareStatement(query);
+            // st.executeUpdate(query);
+            st.setBinaryStream(1, imageStream, (int) file.length());
+            st.executeUpdate();
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
 
         query = "Select * from pubs where name = '" + this._name + "';";
 

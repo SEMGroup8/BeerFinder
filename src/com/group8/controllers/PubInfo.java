@@ -281,12 +281,7 @@ public class PubInfo extends BaseController implements Initializable{
 }
 	
 	public void onAddBeer(ActionEvent event) throws IOException{
-		
-		Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/addBeer.fxml"));
-         Scene result_scene = new Scene(result,800,600);
-         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-         main_stage.setScene(result_scene);
-         main_stage.show();
+		mainScene.changeCenter("/com/group8/resources/views/addBeer.fxml");
          
 	}
 

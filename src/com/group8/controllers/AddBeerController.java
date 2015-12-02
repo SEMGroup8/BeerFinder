@@ -87,7 +87,7 @@ public class AddBeerController extends BaseController implements Initializable{
 
             Stage primaryStage=new Stage();
 			file= fileChooser.showOpenDialog(primaryStage);
-		Navigation.current_CenterFXML =  "/com/group8/resources/views/addBeer.fxml";
+
 
 			imageStream = new FileInputStream(file);
 			
@@ -103,7 +103,7 @@ public class AddBeerController extends BaseController implements Initializable{
 				Image imgLoad = new Image(thumbURL);
 				beerImage.setImage(imgLoad);
 				}
-				} // end of method
+	} // end of method
 	
 	
    
@@ -207,7 +207,7 @@ public class AddBeerController extends BaseController implements Initializable{
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			// TODO Auto-generated method stub
-
+			Navigation.current_CenterFXML =  "/com/group8/resources/views/addBeer.fxml";
 	    	
 	    	beerTypeList.clear();
 	    	String beerTypeInfo;

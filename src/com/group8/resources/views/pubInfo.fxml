@@ -7,33 +7,32 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.PubInfo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.PubInfo">
    <children>
-      <Pane layoutY="89.0" prefHeight="522.0" prefWidth="800.0">
+      <Pane layoutY="24.0" prefHeight="481.0" prefWidth="800.0">
          <children>
-            <TextField fx:id="pubDescription" layoutX="131.0" layoutY="375.0" onAction="#updatePub" prefHeight="128.0" prefWidth="211.0" />
-            <TextField fx:id="pubPhoneNumber" layoutX="131.0" layoutY="274.0" onAction="#updatePub" prefHeight="26.0" prefWidth="211.0" />
-            <TextField fx:id="pubAddress" layoutX="131.0" layoutY="231.0" onAction="#updatePub" prefHeight="33.0" prefWidth="211.0" />
-            <TextField fx:id="pubName" layoutX="131.0" layoutY="189.0" onAction="#updatePub" prefHeight="26.0" prefWidth="211.0" />
-            <TextField fx:id="pubOffer" layoutX="131.0" layoutY="307.0" onAction="#updatePub" prefHeight="53.0" prefWidth="211.0" />
-            <TextField layoutX="500.0" layoutY="191.0" onAction="#updatePub" prefHeight="141.0" prefWidth="211.0" />
-            <TextField fx:id="pubEntranceFee" layoutX="500.0" layoutY="370.0" onAction="#updatePub" prefHeight="53.0" prefWidth="211.0" />
-            <Text layoutX="27.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-            <Text layoutX="20.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
-            <Text layoutX="18.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
-            <Text layoutX="21.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Text layoutX="20.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offers" />
-            <Text layoutX="22.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
-            <Text layoutX="565.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Photo" />
-            <Text layoutX="409.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrance Fee" />
-            <Button fx:id="pubSaveNew" layoutX="605.0" layoutY="433.0" mnemonicParsing="false" onAction="#updatePub" prefHeight="26.0" prefWidth="102.0" text="Save New" />
-            <ImageView fx:id="pubImage" fitHeight="135.0" fitWidth="211.0" layoutX="499.0" layoutY="194.0" onDragDetected="#updatePub" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="loadImg" layoutX="656.0" layoutY="333.0" mnemonicParsing="false" onAction="#loadPubImage" text="Button" />
-            <Button fx:id="addBeer" layoutX="626.0" layoutY="466.0" mnemonicParsing="false" onAction="#onAddBeer" prefHeight="26.0" prefWidth="82.0" text="Add Beer" />
-            <Button fx:id="getMap" layoutX="342.0" layoutY="235.0" mnemonicParsing="false" onAction="#getMap" text="Map" />
-            <Text layoutX="21.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beer in Pub" />
+            <TextField fx:id="pubDescription" layoutX="140.0" layoutY="349.0" onAction="#updatePub" prefHeight="128.0" prefWidth="211.0" />
+            <TextField fx:id="pubPhoneNumber" layoutX="140.0" layoutY="248.0" onAction="#updatePub" prefHeight="26.0" prefWidth="211.0" />
+            <TextField fx:id="pubAddress" layoutX="140.0" layoutY="205.0" onAction="#updatePub" prefHeight="33.0" prefWidth="211.0" />
+            <TextField fx:id="pubName" layoutX="140.0" layoutY="163.0" onAction="#updatePub" prefHeight="26.0" prefWidth="211.0" />
+            <TextField fx:id="pubOffer" layoutX="140.0" layoutY="281.0" onAction="#updatePub" prefHeight="53.0" prefWidth="211.0" />
+            <TextField layoutX="509.0" layoutY="165.0" onAction="#updatePub" prefHeight="141.0" prefWidth="211.0" />
+            <TextField fx:id="pubEntranceFee" layoutX="509.0" layoutY="344.0" onAction="#updatePub" prefHeight="53.0" prefWidth="211.0" />
+            <Text layoutX="36.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+            <Text layoutX="29.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+            <Text layoutX="27.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
+            <Text layoutX="30.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text layoutX="29.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offers" />
+            <Text layoutX="31.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+            <Text layoutX="416.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Photo" />
+            <Text layoutX="418.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrance Fee" />
+            <Button fx:id="pubSaveNew" layoutX="614.0" layoutY="407.0" mnemonicParsing="false" onAction="#updatePub" prefHeight="26.0" prefWidth="102.0" text="Save New" />
+            <ImageView fx:id="pubImage" fitHeight="135.0" fitWidth="211.0" layoutX="508.0" layoutY="168.0" onDragDetected="#updatePub" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="loadImg" layoutX="665.0" layoutY="307.0" mnemonicParsing="false" onAction="#loadPubImage" text="Button" />
+            <Button fx:id="addBeer" layoutX="635.0" layoutY="440.0" mnemonicParsing="false" onAction="#onAddBeer" prefHeight="26.0" prefWidth="82.0" text="Add Beer" />
+            <Button fx:id="getMap" layoutX="351.0" layoutY="209.0" mnemonicParsing="false" onAction="#getMap" text="Map" />
             <Label fx:id="testtLabel" layoutX="3.0" layoutY="88.0" onDragDetected="#updatePub" prefHeight="53.0" prefWidth="122.0" />
-            <TableView fx:id="beerTable" layoutX="126.0" layoutY="14.0" onMouseClicked="#getRow" prefHeight="141.0" prefWidth="598.0">
+            <TableView fx:id="beerTable" layoutX="72.0" layoutY="14.0" onMouseClicked="#getRow" prefHeight="141.0" prefWidth="702.0">
                <columns>
                   <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
                   <TableColumn fx:id="beerName" prefWidth="141.0" resizable="false" text="Name" />
@@ -45,10 +44,10 @@
                   <TableColumn fx:id="avrageRank" prefWidth="58.0" text="avRank" />
                </columns>
             </TableView>
+            <Text layoutX="1.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beer in Pub" />
          </children>
       </Pane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#acb1b5" height="90.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="800.0" />
-      <Text fill="#6f381e" layoutX="115.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDIT BASIC PUB INFORMATION OR ADD A BEER" wrappingWidth="374.7134094238281">
+      <Text fill="#6f381e" layoutX="213.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDIT BASIC PUB INFORMATION OR ADD A BEER" wrappingWidth="374.7134094238281">
          <font>
             <Font name="Arial Narrow" size="19.0" />
          </font>

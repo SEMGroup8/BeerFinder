@@ -10,7 +10,7 @@
       <HBox fx:id="top" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </top>
    <bottom>
-      <HBox alignment="CENTER_LEFT" minHeight="50.0" minWidth="800.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" maxHeight="50.0" minHeight="50.0" minWidth="800.0" prefHeight="50.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Back" visible="false">
                <HBox.margin>
@@ -31,7 +31,7 @@
       </HBox>
    </bottom>
    <center>
-      <HBox minHeight="400.0" minWidth="800.0" BorderPane.alignment="CENTER">
+      <HBox alignment="TOP_CENTER" minHeight="400.0" minWidth="800.0" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane minHeight="300.0" minWidth="800.0">
                <children>

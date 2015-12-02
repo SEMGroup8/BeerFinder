@@ -73,12 +73,12 @@ public class LoggedInTop extends BaseController implements Initializable
     public void onBeerFavourites(javafx.event.ActionEvent event) throws IOException
     {
         mainScene.changeCenter("/com/group8/resources/views/favourites.fxml");
-        beerFavourite.setVisible(false);
+
     }
     @FXML
     public void onPubFavourites(javafx.event.ActionEvent event) throws IOException
     {
         mainScene.changeCenter("/com/group8/resources/views/FavouritePub.fxml");
-        pubFavourite.setVisible(false);
+
     }
 }
