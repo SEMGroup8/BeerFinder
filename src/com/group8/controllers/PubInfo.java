@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.Pub;
 import com.lynden.gmapsfx.MainApp;
 
 import javafx.collections.FXCollections;
@@ -93,8 +94,8 @@ public class PubInfo extends BaseController implements Initializable{
     public Label userName;
 
 	// Latlong
-	double latitude;
-	double longitude;
+	double latitude = 0;
+	double longitude = 0;
 	
 	Image imgLoad;
 	FileInputStream imageStream;
@@ -246,39 +247,41 @@ public class PubInfo extends BaseController implements Initializable{
 		Connection con = DriverManager.getConnection(url, user, password);
 		
 
-		PreparedStatement statement = con.prepareStatement("UPDATE `pubs` SET `name`='"+pubName.getText()+"',`addressID`='"+pubAddress.getText()+"',`phoneNumber`='"+pubPhoneNumber.getText()+"',`image`=?,`description`='"+pubDescription.getText()+"',`offers`='"+pubOffer.getText()+"',`entrenceFee`="+entrance+" WHERE pubID="+pubID);
+		PreparedStatement statement = con.prepareStatement("UPDATE `pubs` SET `name`='"+pubName.getText()+"',`phoneNumber`='"+pubPhoneNumber.getText()+"',`image`=?,`description`='"+pubDescription.getText()+"',`offers`='"+pubOffer.getText()+"',`entrenceFee`="+entrance+" WHERE pubID='"+PubData.selectedPub.get_pubId()+"';");
 		statement.setBinaryStream(1, imageStream, (int) file.length());
 		//System.out.println(pubInfo);
-		  statement.executeUpdate();
+		statement.executeUpdate();
+		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + PubData.selectedPub.get_adressId());
+		statement.executeUpdate();
 	}
-	
-	
+
+
 	public void loadPubImage(ActionEvent event)throws IOException {
-		
-		
+
+
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("open image file");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-
 		Stage primaryStage=new Stage();
 		file= fileChooser.showOpenDialog(primaryStage);
-		
-		
-			
-				if (file.isFile() && file.getName().contains("jpg")){
-					imageStream = new FileInputStream(file);
-				
-				String thumbURL = file.toURI().toURL().toString();
-				System.out.println(thumbURL);
-				Image imgLoad = new Image(thumbURL);
-				pubImage.setImage(imgLoad);
-				
-				
-			System.out.println(imgLoad);
-			}	
-		
-}
+
+
+		imageStream = new FileInputStream(file);
+
+
+		if (file.isFile() && (file.getName().contains(".jpg")
+				||file.getName().contains(".png")
+				||file.getName().contains(".jpeg")
+		)){
+
+
+			String thumbURL = file.toURI().toURL().toString();
+			//	System.out.println(thumbURL);
+			Image imgLoad = new Image(thumbURL);
+			pubImage.setImage(imgLoad);
+		}
+	} // end of method
 	
 	public void onAddBeer(ActionEvent event) throws IOException{
 		mainScene.changeCenter("/com/group8/resources/views/addBeer.fxml");
@@ -309,7 +312,6 @@ public class PubInfo extends BaseController implements Initializable{
 				@Override
 				public void handle(WindowEvent event) {
 					if(BeerData.Address != null) {
-						pubAddress.setText(BeerData.Address.toString());
 
 						// Store the address as lat and long doubles
 						latitude = BeerData.Address.getLatitude();

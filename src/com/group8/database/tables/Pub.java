@@ -133,7 +133,7 @@ public class Pub extends MysqlDriver{
             st.executeUpdate();
 
         query = "Insert into pubs(addressID, name, pubID, image) values(LAST_INSERT_ID(), '" + this._name + "',NULL, ?);";
-            
+
 
             st = con.prepareStatement(query);
             // st.executeUpdate(query);
@@ -219,7 +219,11 @@ public class Pub extends MysqlDriver{
     	
     	this._description = _description;
     }
-    
+
+    public int get_adressId() {
+        return _adressId;
+    }
+
     public String get_description(){
     	return _description;
     }
