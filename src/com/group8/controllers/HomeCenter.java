@@ -136,6 +136,7 @@ public class HomeCenter extends BaseController implements Initializable
                         // Load wheel until task is finished//
                         Load.setVisible(true);
 
+
                         // Fetch the user input
                         BeerData.searchInput="";
 

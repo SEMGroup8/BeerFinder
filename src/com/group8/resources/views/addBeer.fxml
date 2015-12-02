@@ -7,44 +7,44 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.AddBeerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.AddBeerController">
    <children>
-      <BorderPane layoutX="273.0" layoutY="127.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <AnchorPane prefHeight="500.0" prefWidth="403.0" BorderPane.alignment="CENTER">
+      <BorderPane minHeight="420.0" minWidth="800.0" prefHeight="441.0" prefWidth="800.0">
+         <center>
+            <AnchorPane minHeight="441.0" minWidth="800.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="beerImage" fitHeight="199.0" fitWidth="200.0" layoutX="102.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
-
-                  </ImageView>
-                  <TextField fx:id="beerName" layoutX="107.0" layoutY="25.0" prefHeight="36.0" prefWidth="177.0" promptText="Beer name..." />
-                  <TextField fx:id="beerPercentage" layoutX="52.0" layoutY="474.0" prefHeight="28.0" prefWidth="49.0" promptText="per.." />
-                  <ChoiceBox fx:id="beerType" layoutX="191.0" layoutY="368.0" prefHeight="27.0" prefWidth="147.0" />
-                  <Label layoutX="229.0" layoutY="394.0" text="Producer" />
-                  <Label layoutX="77.0" layoutY="394.0" text="Origin" />
-                  <Label layoutX="70.0" layoutY="451.0" text="\%" />
-                  <Label layoutX="230.0" layoutY="451.0" text="Package" />
-                  <Label layoutX="152.0" layoutY="6.0" text="Beer name" />
-                  <CheckBox fx:id="beerIsTap" layoutX="75.0" layoutY="372.0" mnemonicParsing="false" text="isTap" />
-                  <TextField fx:id="beerVolume" layoutX="111.0" layoutY="475.0" prefHeight="26.0" prefWidth="66.0" promptText="vol..." />
-                  <Label layoutX="122.0" layoutY="451.0" text="Volume" />
-                  <ChoiceBox fx:id="beerProducer" layoutX="189.0" layoutY="419.0" prefWidth="150.0" />
-                  <ChoiceBox fx:id="beerOrigin" layoutX="53.0" layoutY="419.0" prefHeight="26.0" prefWidth="100.0" />
-                  <ChoiceBox fx:id="beerPackageType" layoutX="189.0" layoutY="475.0" prefWidth="150.0" />
-                  <Label layoutX="241.0" layoutY="345.0" text="Type" />
-                  <Button fx:id="addBeerImageButton" layoutX="103.0" layoutY="294.0" mnemonicParsing="false" onAction="#addBeerImage" text="Add Image" />
+                  <AnchorPane maxHeight="441.0" maxWidth="1.7976931348623157E308" minHeight="437.0" minWidth="398.0" prefHeight="477.0" prefWidth="398.0">
+                     <children>
+                        <ImageView fx:id="beerImage1" fitHeight="199.0" fitWidth="200.0" layoutX="99.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextField fx:id="beerName" layoutX="107.0" layoutY="25.0" prefHeight="36.0" prefWidth="177.0" promptText="Beer name..." />
+                        <TextField fx:id="beerPercentage" layoutX="40.0" layoutY="405.0" prefHeight="28.0" prefWidth="49.0" promptText="per.." />
+                        <ChoiceBox fx:id="beerType" layoutX="177.0" layoutY="350.0" prefHeight="27.0" prefWidth="147.0" />
+                        <Label layoutX="183.0" layoutY="386.0" text="Producer" />
+                        <Label layoutX="39.0" layoutY="328.0" text="Origin" />
+                        <Label layoutX="47.0" layoutY="386.0" text="\%" />
+                        <Label layoutX="176.0" layoutY="274.0" text="Package" />
+                        <Label layoutX="152.0" layoutY="6.0" text="Beer name" />
+                        <CheckBox fx:id="beerIsTap" layoutX="331.0" layoutY="360.0" mnemonicParsing="false" text="isTap" />
+                        <TextField fx:id="beerVolume" layoutX="95.0" layoutY="406.0" prefHeight="26.0" prefWidth="66.0" promptText="vol..." />
+                        <Label layoutX="95.0" layoutY="386.0" text="Volume" />
+                        <ChoiceBox fx:id="beerProducer" layoutX="176.0" layoutY="406.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="beerOrigin" layoutX="39.0" layoutY="349.0" prefHeight="26.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="beerPackageType" layoutX="176.0" layoutY="296.0" prefWidth="150.0" />
+                        <Label layoutX="180.0" layoutY="328.0" text="Type" />
+                        <Button fx:id="addBeerImageButton" layoutX="40.0" layoutY="291.0" mnemonicParsing="false" onAction="#addBeerImage" text="Add Image" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="392.0" minHeight="441.0" minWidth="382.0" prefHeight="441.0" prefWidth="382.0">
+                     <children>
+                        <Button fx:id="addBeerButton" layoutX="169.0" layoutY="394.0" mnemonicParsing="false" onAction="#addBeer" prefHeight="26.0" prefWidth="91.0" text="Add beer" />
+                        <TextField fx:id="beerDescription" alignment="TOP_LEFT" layoutX="68.0" layoutY="70.0" prefHeight="297.0" prefWidth="274.0" promptText="description..." />
+                        <Label layoutX="85.0" layoutY="48.0" text="Description" />
+                        <Label fx:id="addConfirmation1" alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="486.0" prefHeight="26.0" prefWidth="113.0" textAlignment="CENTER" textFill="#1b1a1a" />
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
-         </left>
-         <right>
-            <AnchorPane prefHeight="500.0" prefWidth="382.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="addBeerButton" layoutX="169.0" layoutY="433.0" mnemonicParsing="false" onAction="#addBeer" prefHeight="26.0" prefWidth="91.0" text="Add beer" />
-                  <TextField fx:id="beerDescription" alignment="TOP_LEFT" layoutX="68.0" layoutY="70.0" prefHeight="297.0" prefWidth="274.0" promptText="description..." />
-                  <Label layoutX="85.0" layoutY="48.0" text="Description" />
-                  <Label fx:id="addConfirmation" alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="486.0" prefHeight="26.0" prefWidth="113.0" textAlignment="CENTER" textFill="#1b1a1a" />
-               </children>
-            </AnchorPane>
-         </right>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>
