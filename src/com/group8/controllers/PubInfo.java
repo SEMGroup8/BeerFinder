@@ -48,7 +48,7 @@ import javafx.util.Callback;
 
 
 
-public class PubInfo implements Initializable{
+public class PubInfo extends BaseController implements Initializable{
 	public TextField pubID;
 	public TextField pubName;
 	public TextField pubAddress;
@@ -325,8 +325,6 @@ public class PubInfo implements Initializable{
 			});
 
 		}
-
-
 }
 
 	

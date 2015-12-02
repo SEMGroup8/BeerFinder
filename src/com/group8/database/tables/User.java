@@ -4,6 +4,7 @@ import com.group8.controllers.BeerData;
 import com.group8.database.MysqlDriver;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class User extends MysqlDriver
