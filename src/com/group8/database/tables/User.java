@@ -109,6 +109,43 @@ public class User extends MysqlDriver
         }
     }
 
+    public void getPubs() throws IOException {
+		String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
+		ArrayList<ArrayList<Object>> SQLData4;
+
+		SQLData4 = MysqlDriver.selectMany(listOfPub);
+		System.out.println(SQLData4 + " meeeee");
+		pubListDetails = new ArrayList<Pub>();
+
+		for (int i = 0; i < SQLData4.size(); i++) {
+			// Add a new Beer to the beer arraylist
+			Pub pub = new Pub(SQLData4.get(i));
+			// Testoutput
+			System.out.println(pub.get_name() + "  which pub???");
+			this.pubListDetails.add(pub);
+
+		}
+	}
+
+	public void getPubFavourites() {
+		System.out.println("get userId" + _id);
+		String selFavPub = "select pubs.pubID,`name`, image,`phoneNumber`, `description`, `offers`, `entrenceFee` FROM `pubs`,`favouritePub` WHERE pubs.pubID=favouritePub.pubId AND favouritePub.userId = "	+ _id;
+		ArrayList<ArrayList<Object>> sqlData3;
+
+		sqlData3 = MysqlDriver.selectMany(selFavPub);
+		System.out.println(sqlData3 +" \n trrrryyyyyfavpub");
+		pubFavouritesDetails = new ArrayList<Pub>();
+		System.out.println(pubFavouritesDetails+"....ok");
+
+		for (int i = 0; i < sqlData3.size(); i++) {
+			// Add a new Beer to the beer arraylist
+			Pub pubFavouritesDetails1 = new Pub(sqlData3.get(i));
+			// Testoutput
+			System.out.print(pubFavouritesDetails1.get_name() + "  again\n");
+			this.pubFavouritesDetails.add(pubFavouritesDetails1);
+		}
+	}
+	
     public void getFavourites()
     {
         String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
