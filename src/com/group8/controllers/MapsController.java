@@ -8,7 +8,6 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventHandler;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-import com.sun.xml.internal.rngom.parse.host.Base;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
