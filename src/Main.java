@@ -7,7 +7,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -39,8 +44,36 @@ public class Main extends Application{
         stage.setTitle("BeerFinder Beta Test");
         stage.setScene(scene);
         stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
-
-
+        //play();
         stage.show();
+
     }
+
+    // DERP
+    public void play() {
+
+            new Thread() {
+
+                @Override
+                public void run() {
+                    try {
+                        File file = new File("src/11k16bitpcm.wav");
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(AudioSystem.getAudioInputStream(file));
+                        clip.start();
+                        Thread.sleep(clip.getMicrosecondLength());
+                    } catch (LineUnavailableException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedAudioFileException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+                    .start();
+        }
+
 }
