@@ -3,15 +3,10 @@ package com.group8.controllers;
 import com.group8.database.tables.Beer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,8 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
+import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +25,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Shiratori on 04/11/15.
  */
-public class FavouritesController implements Initializable
+public class FavouritesController extends BaseController implements Initializable
 {
     @FXML
     public Button logout, account;
@@ -61,46 +56,6 @@ public class FavouritesController implements Initializable
 
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
 
-
-    /**
-     * Back button pressed takes you back to "home screen"
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void backAction(ActionEvent event) throws IOException {
-        String backActionString = "";
-
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-    }
-
-    @FXML
-    public void onLogout(javafx.event.ActionEvent event) throws IOException
-    {
-        UserData.userInstance = null;
-
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-    }
-
-    @FXML
-    public void onAccount(javafx.event.ActionEvent event) throws IOException
-    {
-
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-    }
-
     /**
      * Select a beer row and proceed to the beerDetail scene
      */
@@ -123,11 +78,9 @@ public class FavouritesController implements Initializable
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     try {
                         // TODO have to fix nameing
-                        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
-                        Scene result_scene = new Scene(homescreen,800,600);
-                        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        main_stage.setScene(result_scene);
-                        main_stage.show();
+                        mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
+                        
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -145,11 +98,10 @@ public class FavouritesController implements Initializable
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set username
-        userName.setText(UserData.userInstance.get_name());
 
-        Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
-        Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";
+
+
+        Navigation.current_CenterFXML =  "/com/group8/resources/views/favourites.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
@@ -211,10 +163,7 @@ public class FavouritesController implements Initializable
 
         });
 
-
-
         //Populate the Tableview
         beerTable.setItems(masterData);
-
     }
 }

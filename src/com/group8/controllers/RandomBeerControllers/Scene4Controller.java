@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BaseController;
 import com.group8.controllers.BeerData;
 import com.group8.controllers.Navigation;
 import com.group8.controllers.UserData;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class Scene4Controller implements Initializable{
+public class Scene4Controller extends BaseController implements Initializable{
 
    private int count;
    private Beer randomBeer;
@@ -56,8 +57,6 @@ public class Scene4Controller implements Initializable{
     @FXML
     private HBox HBoxFound, rankFavourite;
     @FXML
-    private Button homeButton;
-    @FXML
     private Label packageR;
     @FXML
     private Button repeatButton;
@@ -66,6 +65,8 @@ public class Scene4Controller implements Initializable{
     @FXML
     private Label originR;
     @FXML
+    private ImageView countryFlagR;
+    @FXML
     private Label nameR;
     @FXML
     private Label priceR;
@@ -73,18 +74,6 @@ public class Scene4Controller implements Initializable{
     private Text textLine;
 
 
-    @FXML // Going back to home screen
-    void onHomeClick(ActionEvent event) throws Exception {
-
-        Stage stage = (Stage) homeButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
-
-    }
 
     @FXML // Showing another random result from already chosen parameters
     void onAnotherClick(ActionEvent event) {
@@ -109,6 +98,7 @@ public class Scene4Controller implements Initializable{
         else {
             this.imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
         }
+        this.countryFlagR.setImage(randomBeer.getCountryFlag());
 
     }
 
@@ -218,17 +208,13 @@ public class Scene4Controller implements Initializable{
             // Getting one beer entry chosen randomly from the list of IDs
             ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(this.arrayID)));
 
-
-
             Beer randomBeer = new Beer(list2.get(0));
-            // BeerData.selectedBeer = randomBeer;
-
             this.randomBeer = randomBeer;
 
             // Populating beer info into scene
             this.typeR.setText(randomBeer.getType());
             this.originR.setText(randomBeer.getOrigin());
-            this.percentageR.setText("" + randomBeer.getPercentage());
+            this.percentageR.setText("" + randomBeer.getPercentage() + " %");
             this.nameR.setText(randomBeer.getName());
             this.packageR.setText(randomBeer.getBeerPackage());
             this.producerR.setText(randomBeer.getProducer());
@@ -240,6 +226,7 @@ public class Scene4Controller implements Initializable{
             else {
                 this.imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
             }
+            this.countryFlagR.setImage(randomBeer.getCountryFlag());
 
             // Changing visibility of elements on scene
 

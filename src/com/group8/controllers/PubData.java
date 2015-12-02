@@ -10,20 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by AnkanX on 15-10-26.
- *
- * TODO make a better holding class contained inside a directory for holding classes for better structure.
- *
+ * Used to store data on pubs.
+ * --> Used by the Pubdetail view to store data before showing selected data to the user.
  */
-public class BeerData {
-    /*
-     Create a Arraylist of Beer(s)
-    */
-    public static ArrayList<Beer> beer;
+public class PubData {
+	
+	public static Pub loggedInPub;
+	  
+    public static ArrayList<Pub> pubs;
 
     // A open beer allows us to look at detailed info in
     // result screen/beerDetailsScreen
-    public static Beer selectedBeer;
+    public static Pub selectedPub;
 
     // The SQL query
     public static String searchInput;

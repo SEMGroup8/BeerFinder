@@ -20,27 +20,9 @@ import java.util.ResourceBundle;
  * TODO Insert method
  *
  */
-public class PubController implements Initializable {
+public class PubController  extends BaseController implements Initializable {
 
     private final static PubController instance = new PubController();
-
-    public Button Back;
-
-    /**
-     * Back button pressed takes you back to "home screen"
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void backAction(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-
-    }
-
 
 
     /*

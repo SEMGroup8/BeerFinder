@@ -1,67 +1,113 @@
 package com.group8.controllers;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.util.ArrayList;
 import com.group8.database.*;
 
 
-public class AddBeerController  {
+public class AddBeerController extends BaseController implements Initializable{
 	
 	
 	ObservableList<String> beerTypeList =FXCollections.observableArrayList();
+	ObservableList<String> beerPackageTypeList =FXCollections.observableArrayList();
+	ObservableList<String> beerProducerList=FXCollections.observableArrayList();
+	ObservableList<String> beerOriginList =FXCollections.observableArrayList();
+	
 	public TextField beerName;
 	public TextField beerDescription;
 	public TextField beerPercentage;
-	public TextField beerPackageType;
+	public ChoiceBox<String> beerPackageType;
 	public ChoiceBox<String> beerType;
-	public TextField beerProducer;
-	public TextField beerOrigin;
+	public ChoiceBox<String> beerProducer;
+	public ChoiceBox<String> beerOrigin;
 	public TextField beerVolume;
 	public CheckBox beerIsTap;
-	 @FXML
-	    public Button logout, account, favourites;
+	public ImageView beerImage;
+	public Label addConfirmation;
+	
+	@FXML
+
 	 public Label userName;
 
 	public Button addBeerButton;
+	public Button addBeerImageButton;
+	FileInputStream imageStream;
+	File file;
+	boolean warning;
 	
-	
-	
-    public void initialize(){
-    	
-    	userName.setText(UserData.userInstance.get_name());
-    	
-    	beerTypeList.clear();
-    	String beerTypeInfo;
-    	beerTypeInfo ="select distinct beerTypeEN from beerType";
-    	
-    	ArrayList<ArrayList<Object>> result = MysqlDriver.selectMany(beerTypeInfo);
-    	for( int i = 0 ; i < result.size(); i++){
-    		beerTypeList.add(result.get(i).get(0).toString());
-    	}
-    	beerType.setItems(beerTypeList);
-    }
+	public void addBeerImage(ActionEvent event)throws IOException {
+		
+		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("open image file");
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
+            Stage primaryStage=new Stage();
+			file= fileChooser.showOpenDialog(primaryStage);
+		Navigation.current_CenterFXML =  "/com/group8/resources/views/addBeer.fxml";
 
-	public void addBeer(ActionEvent event) {
+			imageStream = new FileInputStream(file);
+			
+			
+				if (file.isFile() && (file.getName().contains(".jpg")
+						||file.getName().contains(".png")
+						||file.getName().contains(".jpeg")
+						)){
+				
+				
+				String thumbURL = file.toURI().toURL().toString();
+			//	System.out.println(thumbURL);
+				Image imgLoad = new Image(thumbURL);
+				beerImage.setImage(imgLoad);
+				}
+				} // end of method
+	
+	
+   
+	public void addBeer(ActionEvent event) throws IOException {
 		
 		String sqlQuery = "select beerTypeID from beerType where beerTypeEN = '" + beerType.getValue() + "'";
 		
@@ -70,75 +116,154 @@ public class AddBeerController  {
 		int typeID = Integer.parseInt(result.get(0).toString());
 		
 		
+       String sqlQuery2 = "select distinct packageID from package where packageTypeEN = '"+ beerPackageType.getValue() + "'";
 		
-		Byte[] defaultImage = new Byte[0];
+		ArrayList<Object> result2 = MysqlDriver.select(sqlQuery2);
+		
+		int typeID2 = Integer.parseInt(result2.get(0).toString());
 		
 		
-	    String beerInfo ;
+		
+			
+			
+            String sqlQuery4 = "select distinct originID from origin where countryName = '"+ beerOrigin.getValue() + "'";
+			
+			ArrayList<Object> result4 = MysqlDriver.select(sqlQuery4);
+			
+			String typeID4 = (result4.get(0).toString());
+		
+			
+	   String beerInfo ;
 		beerInfo = "INSERT INTO `beers`(`name`, `description`, `originID`, `percentage`, `producerName`, `package`, `image`, `beerTypeID`, `volume`, `isTap`) VALUES ('"
-	    + beerName.getText() + "','" + beerDescription.getText() + "','" + beerOrigin.getText().toUpperCase() + "','" + beerPercentage.getText() + "','" 
-		+ beerProducer.getText() + "','"+ beerPackageType.getText() +"','" + defaultImage + "','" + typeID +"','" + beerVolume.getText()+"','" + (beerIsTap.isSelected() ? 1 : 0) +"')";
+	    + beerName.getText() + "','" + beerDescription.getText() + "','" + typeID4 + "','" + beerPercentage.getText() + "','" 
+		+ beerProducer.getValue()  + "','"+ typeID2 +"',?,'" + typeID +"','" + beerVolume.getText()+"','" + (beerIsTap.isSelected() ? 1 : 0) +"')";
 		
-	//	System.out.println(beerInfo);
+		//System.out.println(beerInfo);
 		
-		MysqlDriver.insert(beerInfo);
-		
-	}            
+		 Connection con = null;
+	     PreparedStatement st = null;
+
+	        String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+	        String user = "Gr8";
+	        String password = "group8";
+
+
+
+	        try {
+	            con = DriverManager.getConnection(url, user, password);
+	            st = con.prepareStatement(beerInfo);
+	           // st.executeUpdate(query);
+             st.setBinaryStream(1, imageStream, (int) file.length());
+             st.executeUpdate();
+
+             
+             
+            Alert alert = new Alert(AlertType.INFORMATION);
+ 	        alert.setTitle("Information Dialog");
+ 	        alert.setHeaderText(null);
+ 	        alert.setContentText("Beer was successfully added!");
+
+ 	        alert.showAndWait();
+ 	
+	        } catch (SQLException ex) {
+	            Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+	            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+	            
+	            Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Look, an Error Dialog");
+                alert.setContentText("Ooops, there was an error!");
+
+                alert.showAndWait();
+
+	        } finally {
+	            try {
+	                if (st != null) {
+	                    st.close();
+	                }
+	                if (con != null) {
+	                    con.close();
+	                }
+
+	            } catch (SQLException ex) {
+	                Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+	                lgr.log(Level.WARNING, ex.getMessage(), ex);
+	                
+	                
+	                
+	            }
+	            
+	           
+	        }
+		   
+
+	        
+	
+	} // end of addBeer method         
 	                                                                                                                             
 
-	 @FXML
-	    public void onLogout(javafx.event.ActionEvent event) throws IOException
-	    {
-	        UserData.userInstance = null;
 
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
 
-	    @FXML
-	    public void onAccount(javafx.event.ActionEvent event) throws IOException
-	    {
+		@Override
+		public void initialize(URL location, ResourceBundle resources) {
+			// TODO Auto-generated method stub
 
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
+	    	
+	    	beerTypeList.clear();
+	    	String beerTypeInfo;
+	    	beerTypeInfo ="select distinct beerTypeEN from beerType";
+	    	
+	    	ArrayList<ArrayList<Object>> result = MysqlDriver.selectMany(beerTypeInfo);
+	    	for( int i = 0 ; i < result.size(); i++){
+	    		beerTypeList.add(result.get(i).get(0).toString());
+	    	}
+	    	beerType.setItems(beerTypeList);
+	    	
+	        
+	    
+	    	beerPackageTypeList.clear();
+	    	String beerPackageTypeInfo;
+	    	beerPackageTypeInfo = "select distinct packageTypeEN from package";
+	    	
+	    	ArrayList<ArrayList<Object>> result2 = MysqlDriver.selectMany(beerPackageTypeInfo);
+	    	for(int i = 0 ; i < result2.size(); i++){
+	    		beerPackageTypeList.add(result2.get(i).get(0).toString());
+	    	}
+	    
+	    	beerPackageType.setItems(beerPackageTypeList);
+	    //	beerPackageType.setValue("Lager");
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	beerProducerList.clear();
+	    	String beerProducerInfo;
+	    	beerProducerInfo = "select distinct producerName from producers";
+	    	
+	    	ArrayList<ArrayList<Object>> result3 = MysqlDriver.selectMany(beerProducerInfo);
+	    	for(int i = 0 ; i < result3.size(); i++){
+	    		beerProducerList.add(result3.get(i).get(0).toString());
+	    	}
+	    	beerProducer.setItems(beerProducerList); 
+	   
 
-	    @FXML
-	    public void onFavourites(javafx.event.ActionEvent event) throws IOException
-	    {
+	    	
+	    	beerOriginList.clear();
+	    	String beerOriginInfo;
+	    	beerOriginInfo = "select distinct countryName from origin";
+	    	
+	    	ArrayList<ArrayList<Object>> result4 = MysqlDriver.selectMany(beerOriginInfo);
+	    	for(int i = 0 ; i < result4.size(); i++){
+	    		beerOriginList.add(result4.get(i).get(0).toString());
+	    	}
+	    	beerOrigin.setItems(beerOriginList);
+		}
 
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
-
-	
 
 
  
  
-  /*public void existingBeers(ActionEvent event){
- BeerData.beer = new ArrayList<Beer>();
- ArrayList<ArrayList<Object>> sqlData;
-String searchInput = "select * from beers";
-sqlData = MysqlDriver.selectMany(searchInput);
-
- for (int i = 0; i < sqlData.size(); i++) {
-     // Add a new Beer to the beer arraylist
-  Beer beer = new Beer(sqlData.get(i));
-     // Testoutput
-     System.out.print(beer.getName()+"\n");
-     BeerData.beer.add(beer);
- }
- }*/
  
 
  
