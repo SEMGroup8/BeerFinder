@@ -145,14 +145,14 @@ public class PubInfo implements Initializable{
 
 	public void initialize(URL location, ResourceBundle resources) {
 				
-		pubName.setText(BeerData.pubDetails.get_name());
-		pubPhoneNumber.setText(BeerData.pubDetails.get_phoneNumber());
-		pubAddress.setText(BeerData.pubDetails.get_adress());
-		pubDescription.setText(BeerData.pubDetails.get_description());
-		pubOffer.setText(BeerData.pubDetails.get_offer());
-		pubEntranceFee.setText(""+BeerData.pubDetails.get_entranceFee());
-		pubImage.setImage(BeerData.pubDetails.getImage());
-		System.out.println(BeerData.pubDetails.getImage()+"    why IMAGE");
+		pubName.setText(PubData.loggedInPub.get_name());
+		pubPhoneNumber.setText(PubData.loggedInPub.get_phoneNumber());
+		pubAddress.setText(PubData.loggedInPub.get_address());
+		pubDescription.setText(PubData.loggedInPub.get_description());
+		pubOffer.setText(PubData.loggedInPub.get_offer());
+		pubEntranceFee.setText(""+PubData.loggedInPub.get_entranceFee());
+		pubImage.setImage(PubData.loggedInPub.getImage());
+		System.out.println(PubData.loggedInPub.getImage()+"    why IMAGE");
 
 		//testtLabel.setText(BeerData.beersInPubDetails.get_price());
 		
