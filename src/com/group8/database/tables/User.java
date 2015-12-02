@@ -18,7 +18,8 @@ public class User extends MysqlDriver
     private Pub _pub;
 
     public ArrayList<Beer> favourites;
-
+    public ArrayList<Pub> pubFavouritesDetails;
+    public ArrayList<Pub> pubListDetails;
     public User()
     {
 
