@@ -1,0 +1,17 @@
+.bg {
+     -fx-background-image: url("BG.png");
+     -fx-background-color: rgb(152, 152, 152);
+     -fx-background-size:  stretch;
+}
+.button {
+	-fx-background-image:url("button.png");
+	-fx-background-color: transparent ;
+     -fx-background-size:  stretch;
+     -fx-padding: 4 10 4 10;
+}
+.button:hover {
+	-fx-background-image:url("buttonH.png");
+}
+.button:onclick {
+	-fx-background-image:url("buttonC.png");
+}
