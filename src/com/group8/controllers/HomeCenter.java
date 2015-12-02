@@ -2,6 +2,8 @@ package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.Pub;
+
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -24,7 +26,7 @@ import java.util.ResourceBundle;
 public class HomeCenter extends BaseController implements Initializable
 {
     @FXML
-    public Button search;
+    public Button search, showPubs;
     @FXML
     public Label error;
     @FXML
@@ -280,7 +282,30 @@ public class HomeCenter extends BaseController implements Initializable
 
         mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
     }
+    
+    @FXML
+    public void onShowPubs (ActionEvent event) throws Exception{
 
+    	String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
+		ArrayList<ArrayList<Object>> SQLData4;
+
+		SQLData4 = MysqlDriver.selectMany(listOfPub);
+		System.out.println(SQLData4 + " meeeee");
+		ArrayList<Pub> pubListDetails = new ArrayList<Pub>();
+
+		for (int i = 0; i < SQLData4.size(); i++) {
+			// Add a new Beer to the beer arraylist
+			Pub pub = new Pub(SQLData4.get(i));
+			// Testoutput
+			System.out.println(pub.get_name() + "  which pub???");
+			pubListDetails.add(pub);
+
+		}
+		
+		PubData.pubs = pubListDetails;
+		
+    	mainScene.changeCenter("/com/group8/resources/views/pubList.fxml");
+    }
     /**
      * Auto clear fields when selected
      * Clear the Search field

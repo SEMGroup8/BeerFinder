@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Shiratori on 04/11/15.
  */
-public class PubList implements Initializable
+public class PubList extends BaseController implements Initializable
 {
     @FXML
     public Button logout, account;
@@ -57,7 +57,7 @@ public class PubList implements Initializable
     @FXML
     public Label userName;
 
-    public ObservableList<Pub> masterData = FXCollections.observableArrayList(UserData.userInstance.pubListDetails);
+    public ObservableList<Pub> masterData = FXCollections.observableArrayList(PubData.pubs);
     
 
     /**
@@ -143,8 +143,6 @@ public class PubList implements Initializable
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set username
-        userName.setText(UserData.userInstance.get_name());
 
 //        Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
 //        Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";

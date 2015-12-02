@@ -85,6 +85,7 @@ public class User extends MysqlDriver
         else
         {
             getFavourites();
+            getPubFavourites();
         }
     }
 

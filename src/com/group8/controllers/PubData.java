@@ -17,7 +17,7 @@ public class PubData {
 	
 	public static Pub loggedInPub;
 	  
-    public static ArrayList<Pub> pup;
+    public static ArrayList<Pub> pubs;
 
     // A open beer allows us to look at detailed info in
     // result screen/beerDetailsScreen
