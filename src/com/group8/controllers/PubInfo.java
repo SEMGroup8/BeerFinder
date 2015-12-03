@@ -94,8 +94,8 @@ public class PubInfo extends BaseController implements Initializable{
     public Label userName;
 
 	// Latlong
-	double latitude = 0;
-	double longitude = 0;
+	double latitude = PubData.loggedInPub.get_geoLat();
+	double longitude = PubData.loggedInPub.get_geoLong();
 	
 	Image imgLoad;
 	FileInputStream imageStream;
@@ -256,7 +256,7 @@ public class PubInfo extends BaseController implements Initializable{
 		statement.setBinaryStream(1, imageStream, (int) file.length());
 		//System.out.println(pubInfo);
 		statement.executeUpdate();
-		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + UserData.userInstance.get_pubId());
+		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + PubData.loggedInPub.get_adressId());
 		statement.executeUpdate();
 	}
 
