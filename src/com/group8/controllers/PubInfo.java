@@ -247,11 +247,16 @@ public class PubInfo extends BaseController implements Initializable{
 		Connection con = DriverManager.getConnection(url, user, password);
 		
 
-		PreparedStatement statement = con.prepareStatement("UPDATE `pubs` SET `name`='"+pubName.getText()+"',`phoneNumber`='"+pubPhoneNumber.getText()+"',`image`=?,`description`='"+pubDescription.getText()+"',`offers`='"+pubOffer.getText()+"',`entrenceFee`="+entrance+" WHERE pubID='"+PubData.selectedPub.get_pubId()+"';");
+		PreparedStatement statement = con.prepareStatement("UPDATE `pubs` SET `name`='"+
+				pubName.getText()+"',`phoneNumber`='"+
+				pubPhoneNumber.getText()+"',`image`=?,`description`='"+
+				pubDescription.getText()+"',`offers`='"+
+				pubOffer.getText()+"',`entrenceFee`="+entrance+" WHERE pubID='"+
+				UserData.userInstance.get_pubId()+"';");
 		statement.setBinaryStream(1, imageStream, (int) file.length());
 		//System.out.println(pubInfo);
 		statement.executeUpdate();
-		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + PubData.selectedPub.get_adressId());
+		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + UserData.userInstance.get_pubId());
 		statement.executeUpdate();
 	}
 
