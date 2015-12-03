@@ -27,12 +27,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -66,11 +61,13 @@ public class PubInfo extends BaseController implements Initializable{
 	public Button getMap;
 	@FXML
     private ImageView pubImage;
-   
-    
-    
-    
-    //table for beers in Pub
+	ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
+
+
+
+
+
+	//table for beers in Pub
     public TableView<Beer> beerTable;
     @FXML
     public TableColumn<Beer, String> beerName;
@@ -258,6 +255,19 @@ public class PubInfo extends BaseController implements Initializable{
 		statement.executeUpdate();
 		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + PubData.loggedInPub.get_adressId());
 		statement.executeUpdate();
+
+		// Show confirmation
+		img.setFitWidth(60);
+		img.setFitHeight(60);
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Address Information");
+		alert.setHeaderText("Alert!");
+		alert.setContentText("Your Address has been added to the main window!");
+		alert.setGraphic(img);
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+		alert.showAndWait();
+
 	}
 
 
