@@ -260,9 +260,9 @@ public class PubInfo extends BaseController implements Initializable{
 		img.setFitWidth(60);
 		img.setFitHeight(60);
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Address Information");
+		alert.setTitle("Update Complete");
 		alert.setHeaderText("Alert!");
-		alert.setContentText("Your Address has been added to the main window!");
+		alert.setContentText("Your pub has been updated!");
 		alert.setGraphic(img);
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));

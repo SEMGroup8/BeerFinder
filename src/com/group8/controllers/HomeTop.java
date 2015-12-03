@@ -13,10 +13,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -41,6 +40,8 @@ public class HomeTop extends BaseController{
     public ProgressIndicator Load;
 
     Service<Void> backgroundThread;
+
+    ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
 
 
     /**
@@ -100,17 +101,38 @@ public class HomeTop extends BaseController{
                 };
             }
         };
+
+
         // When the thread is done try to go to next stage.
         backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
                 Load.setVisible(false);
 
-                try {
-                    mainScene.changeTop("/com/group8/resources/views/loggedInTop.fxml");
+                /**
+                 * Error checking if userinstance is null, then dont try to load the loggedintop
+                 */
+                if (UserData.userInstance == null) {
+                    System.out.println("no userdata");
+                    // Show user password / username error
+                    img.setFitWidth(60);
+                    img.setFitHeight(60);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Login Error");
+                    alert.setHeaderText("Login failed");
+                    alert.setContentText("Wrong Username or Password!");
+                    alert.setGraphic(img);
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+                    alert.showAndWait();
+                }else{
+                    // Load the loggedinTOP
+                    try {
+                        mainScene.changeTop("/com/group8/resources/views/loggedInTop.fxml");
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
 
