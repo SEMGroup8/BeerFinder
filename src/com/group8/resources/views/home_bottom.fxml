@@ -5,20 +5,19 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.Backup.HomeBottom">
    <children>
-      <Button fx:id="backAction" mnemonicParsing="false" text="Back" visible="false">
+      <Button fx:id="backAction" mnemonicParsing="false" text="Back" textFill="#ffffff" visible="false">
          <HBox.margin>
             <Insets left="10.0" />
          </HBox.margin>
       </Button>
-      <Button fx:id="homeAction" mnemonicParsing="false" text="Home" visible="false">
+      <Button fx:id="homeAction" mnemonicParsing="false" text="Home" textFill="#ffffff" visible="false">
          <HBox.margin>
             <Insets left="10.0" />
          </HBox.margin>
       </Button>
-      <Button fx:id="mapsAction" mnemonicParsing="false" text="Google Maps" visible="false">
+      <Button fx:id="mapsAction" mnemonicParsing="false" text="Google Maps" textFill="#ffffff" visible="false">
          <HBox.margin>
             <Insets left="10.0" />
          </HBox.margin>
