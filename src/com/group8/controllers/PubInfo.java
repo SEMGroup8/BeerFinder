@@ -56,11 +56,10 @@ public class PubInfo extends BaseController implements Initializable{
 	
 	public Button pubSaveNew;
 	public Button addBeer;
-	public Button button2;
 	@FXML
 	public Button getMap;
 	@FXML
-    private ImageView pubImage;
+    public ImageView pubImage;
 	ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
 
 
@@ -235,7 +234,8 @@ public class PubInfo extends BaseController implements Initializable{
 		Byte[] emptyImage = new Byte[0];
 		String pubInfo = "";
 		int pubID = UserData.userInstance.get_pubId();
-		
+
+		// Setup the mysel connection
 		String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
         String user = "Gr8";
         String password = "group8";
@@ -243,7 +243,7 @@ public class PubInfo extends BaseController implements Initializable{
 		Class.forName("com.mysql.jdbc.Driver"); 
 		Connection con = DriverManager.getConnection(url, user, password);
 		
-
+		// Make the sql statement
 		PreparedStatement statement = con.prepareStatement("UPDATE `pubs` SET `name`='"+
 				pubName.getText()+"',`phoneNumber`='"+
 				pubPhoneNumber.getText()+"',`image`=?,`description`='"+
@@ -273,7 +273,7 @@ public class PubInfo extends BaseController implements Initializable{
 
 	public void loadPubImage(ActionEvent event)throws IOException {
 
-
+		// Start a filechooser
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("open image file");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -284,7 +284,7 @@ public class PubInfo extends BaseController implements Initializable{
 
 		imageStream = new FileInputStream(file);
 
-
+		// Supported formats include JPEG , PNG, JPG
 		if (file.isFile() && (file.getName().contains(".jpg")
 				||file.getName().contains(".png")
 				||file.getName().contains(".jpeg")

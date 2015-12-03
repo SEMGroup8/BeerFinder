@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -44,7 +45,8 @@ public class MainScene implements Initializable {
     public Button mapsButton;
     @FXML
     public ProgressIndicator Load;
-
+    @FXML
+    public Label gmapsError;
     Service<Void> backgroundThread;
 
     /**
@@ -345,12 +347,12 @@ public class MainScene implements Initializable {
             // Load the result stage
             changeCenter("/com/group8/resources/views/googleMaps.fxml");
         } else {
-
+            // Testoutput
             System.out.println(sqlQuery);
             ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectManyOther(sqlQuery);
             System.out.println(geoData.size());
             System.out.println("No Pubs selling this beer");
-           // gMapsError.setVisible(true);
+            gmapsError.setVisible(true);
         }
     }
 }

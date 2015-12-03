@@ -27,7 +27,10 @@
             <Text layoutX="416.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload Photo" />
             <Text layoutX="418.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrance Fee" />
             <Button fx:id="pubSaveNew" layoutX="614.0" layoutY="407.0" mnemonicParsing="false" onAction="#updatePub" prefHeight="26.0" prefWidth="102.0" text="Save New" />
-            <ImageView fx:id="pubImage" fitHeight="135.0" fitWidth="211.0" layoutX="508.0" layoutY="168.0" onDragDetected="#updatePub" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pubImage" fitHeight="135.0" fitWidth="211.0" layoutX="508.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/home.jpg" />
+               </image></ImageView>
             <Button fx:id="loadImg" layoutX="665.0" layoutY="307.0" mnemonicParsing="false" onAction="#loadPubImage" text="Button" />
             <Button fx:id="addBeer" layoutX="635.0" layoutY="440.0" mnemonicParsing="false" onAction="#onAddBeer" prefHeight="26.0" prefWidth="82.0" text="Add Beer" />
             <Button fx:id="getMap" layoutX="351.0" layoutY="209.0" mnemonicParsing="false" onAction="#getMap" text="Map" />

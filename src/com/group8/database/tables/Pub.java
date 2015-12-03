@@ -77,7 +77,7 @@ public class Pub extends MysqlDriver{
 //        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());System.out.println(_adressId + "adddressss");
 //        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
 //        ArrayList<Object> addressReturn = select(adressQuery);
-//        this._adress = addressReturn.get(0).toString();
+ //       this._adress = addressReturn.get(0).toString();
         try {
             InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.pubImage = javax.imageio.ImageIO.read(tmpImg);
@@ -227,8 +227,8 @@ public class Pub extends MysqlDriver{
     public String get_description(){
     	return _description;
     }
+
  public Image getImage(){
-	 
 	Image image2;
      if(this.pubImage == null){
          image2 = null;
@@ -238,14 +238,14 @@ public class Pub extends MysqlDriver{
      return image2;
  }
 
-   /* public String toString()
+    public String toString2()
     {
         String result;
 
-       result = this.get_pubId() + " " +  this._name + " " + this._description + " " + this._offer + " " + this._entranceFee + " " + this._adress + " " + this._phoneNumber + " " + this._geoLong + " " + this._geoLat;
+       result = this.get_pubId() + " " +  this._name + " " + this._description + " " + this._offer + " " + this._entranceFee + " " + this._adress + " " + this._phoneNumber + " " + this._geoLong + " " + this._geoLat +"" +this.getImage();
 
         return result;
-    }*/
+    }
 
 
 }

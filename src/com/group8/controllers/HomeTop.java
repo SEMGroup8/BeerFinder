@@ -92,7 +92,8 @@ public class HomeTop extends BaseController{
                         	String sqlQuery2 = "select * from pubs where pubID=" + UserData.userInstance.get_pubId();
                         	//ArrayList<Object> pubData = MysqlDriver.select(sqlQuery2);
                         	Pub fetchedPub = new Pub(sqlQuery2);
-                        	PubData.loggedInPub = fetchedPub;
+                            System.out.println(fetchedPub.toString2());
+                            PubData.loggedInPub = fetchedPub;
                         }
                         //System.out.println(fetchedUser.get_isPub());
 

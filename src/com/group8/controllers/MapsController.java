@@ -101,7 +101,7 @@ public class MapsController extends BaseController implements Initializable,MapC
             public void handle(MouseEvent event) {
 
                 // TODO take away the looping that misplaces ids
-                if (event.getClickCount() == 2) {
+                if (event.getClickCount() == 1) {
 
                     // Set the selectedMarker instance of beer we have to selected item
                     int z = showPubs.getSelectionModel().getSelectedIndex();
@@ -116,15 +116,7 @@ public class MapsController extends BaseController implements Initializable,MapC
                         map.setZoom(15);
                         if(i == z) {
                             // Add the selected marker back to the map
-                        	
-                        	Pub selectedPub = new Pub("select * from pubs where pubID =" + BeerData.markers.get(z).getPubID());
-                        	PubData.selectedPub = selectedPub;
 
-                            try {
-                                mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
 
                             map.addMarker(markers.get(z));
                             // make the infowindow for the selected marker
@@ -145,6 +137,16 @@ public class MapsController extends BaseController implements Initializable,MapC
                     }
 
 
+                }else if(event.getClickCount() == 2){
+                    int z = showPubs.getSelectionModel().getSelectedIndex();
+                    Pub selectedPub = new Pub("select * from pubs where pubID =" + BeerData.markers.get(z).getPubID());
+                    PubData.selectedPub = selectedPub;
+
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

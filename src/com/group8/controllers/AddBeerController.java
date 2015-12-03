@@ -162,9 +162,9 @@ public class AddBeerController extends BaseController implements Initializable{
  	        alert.setTitle("Information Dialog");
  	        alert.setHeaderText(null);
  	        alert.setContentText("Beer was successfully added!");
-
  	        alert.showAndWait();
- 	
+ 			mainScene.changeCenter("/com/group8/resources/views/pubInfo.fxml");
+
 	        } catch (SQLException ex) {
 	            Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
 	            lgr.log(Level.SEVERE, ex.getMessage(), ex);
