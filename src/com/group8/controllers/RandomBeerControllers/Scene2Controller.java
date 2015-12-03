@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BaseController;
 import com.group8.controllers.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,9 +19,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Scene2Controller implements Initializable {
+public class Scene2Controller extends BaseController implements Initializable {
 
-    private RangeSlider percentageSlider = new RangeSlider(0, 20, 0, 20);
+    private RangeSlider percentageSlider = new RangeSlider(0, 15, 0, 15);
 
     static double percentagePickedLow = 0;
     static double percentagePickedHigh = 20;
@@ -32,23 +33,15 @@ public class Scene2Controller implements Initializable {
     @FXML
     private CheckBox noCheckbox;
     @FXML
-    private Button homeButton;
-    @FXML
     private Pane pane;
 
 
     @FXML
         // Clicking button "Continue"
     void onContinueClick2(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage = (Stage) continueButton2.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene3.fxml"));
-        Scene scene = new Scene(root);
 
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
+        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene3.fxml");
+
 
         // Slider value setter
         if (noCheckbox.isSelected() || (!noCheckbox.isSelected() && !yesCheckbox.isSelected())){
@@ -77,18 +70,6 @@ public class Scene2Controller implements Initializable {
         }
     }
 
-    @FXML // Going back to home screen
-    void onHomeClick(ActionEvent event) throws Exception {
-
-        Stage stage = (Stage) homeButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
-
-    }
 // Getters
     public double getPercentagePickedLow(){
         return percentagePickedLow;

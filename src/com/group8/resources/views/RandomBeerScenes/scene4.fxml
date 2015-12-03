@@ -8,19 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene4Controller">
+<Pane minHeight="393.0" minWidth="800.0" prefHeight="420.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene4Controller">
    <children>
-      <Label layoutX="255.0" layoutY="50.0" text="Random beer generator">
-         <font>
-            <Font name="System Bold" size="26.0" />
-         </font>
-      </Label>
-      <Text fx:id="textLine" layoutX="175.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rewarding your effort - here is what we chose for you!" textAlignment="CENTER">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <HBox fx:id="HBoxButtons" layoutX="50.0" layoutY="519.0" spacing="10.0" visible="false">
+      <HBox fx:id="HBoxButtons" layoutX="400.0" layoutY="375.0" spacing="10.0" visible="false">
          <children>
             <Button fx:id="anotherButton" layoutX="487.0" layoutY="500.0" mnemonicParsing="false" onAction="#onAnotherClick" prefHeight="30.0" prefWidth="160.0" text="Show another">
                <font>
@@ -34,11 +24,11 @@
             </Button>
          </children>
       </HBox>
-      <ImageView fx:id="imageView" fitHeight="360.0" fitWidth="180.0" layoutX="79.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="imageView" fitHeight="360.0" fitWidth="180.0" layoutX="24.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="/com/group8/resources/Images/beerHasNoImage.png" />
+            <Image url="@../../Images/beerHasNoImage.png" />
          </image></ImageView>
-      <VBox fx:id="VBoxInfo" alignment="CENTER" layoutX="329.0" layoutY="202.0" spacing="10.0" visible="false">
+      <VBox fx:id="VBoxInfo" alignment="CENTER" layoutX="354.0" layoutY="125.0" spacing="10.0" visible="false">
          <children>
             <Label fx:id="nameR" alignment="CENTER" contentDisplay="CENTER" text="Name" textAlignment="CENTER">
                <font>
@@ -161,21 +151,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox fx:id="HBoxFound" layoutX="622.0" layoutY="526.0" spacing="10.0" visible="false">
-         <children>
-            <Label layoutX="604.0" layoutY="502.0" text="Beers found:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="beerFound" layoutX="640.0" layoutY="502.0">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox fx:id="rankFavourite" alignment="CENTER" layoutX="179.0" layoutY="140.0" prefHeight="54.0" prefWidth="489.0" visible="false">
+      <HBox fx:id="rankFavourite" alignment="CENTER" layoutX="297.0" layoutY="14.0" prefHeight="54.0" prefWidth="489.0" visible="false">
       <children>
          <Label text="Rank:" />
          <Label fx:id="rankShow">
@@ -234,11 +210,6 @@
                </HBox.margin></Button>
       </children>
    </HBox>
-      <Button fx:id="homeButton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/com/group8/resources/Images/home.jpg');">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

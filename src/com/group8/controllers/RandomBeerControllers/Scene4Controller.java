@@ -1,5 +1,6 @@
 package com.group8.controllers.RandomBeerControllers;
 
+import com.group8.controllers.BaseController;
 import com.group8.controllers.BeerData;
 import com.group8.controllers.Navigation;
 import com.group8.controllers.UserData;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class Scene4Controller implements Initializable{
+public class Scene4Controller extends BaseController implements Initializable{
 
    private int count;
    private Beer randomBeer;
@@ -44,8 +45,6 @@ public class Scene4Controller implements Initializable{
     @FXML
     private Button checkButton;
     @FXML
-    private Label beerFound;
-    @FXML
     private Label percentageR;
     @FXML
     private ImageView imageView;
@@ -54,9 +53,7 @@ public class Scene4Controller implements Initializable{
     @FXML
     private VBox VBoxInfo;
     @FXML
-    private HBox HBoxFound, rankFavourite;
-    @FXML
-    private Button homeButton;
+    private HBox rankFavourite;
     @FXML
     private Label packageR;
     @FXML
@@ -75,18 +72,6 @@ public class Scene4Controller implements Initializable{
     private Text textLine;
 
 
-    @FXML // Going back to home screen
-    void onHomeClick(ActionEvent event) throws Exception {
-
-        Stage stage = (Stage) homeButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
-
-    }
 
     @FXML // Showing another random result from already chosen parameters
     void onAnotherClick(ActionEvent event) {
@@ -118,15 +103,9 @@ public class Scene4Controller implements Initializable{
 
     @FXML // Repeat the RandomBeer program from start
     void onRepeatClick(ActionEvent event) throws Exception {
-        Stage stage;
-        Parent root;
-        stage = (Stage) repeatButton.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene1.fxml"));
-        Scene scene = new Scene(root);
 
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
+       mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
+
 
     }
 
@@ -232,7 +211,6 @@ public class Scene4Controller implements Initializable{
             this.packageR.setText(randomBeer.getBeerPackage());
             this.producerR.setText(randomBeer.getProducer());
             this.priceR.setText("" + randomBeer.getPrice() + " kr");
-            this.beerFound.setText("" + count);
             if(randomBeer.getImage() != null) {
                 this.imageView.setImage(randomBeer.getImage());
             }
@@ -251,7 +229,6 @@ public class Scene4Controller implements Initializable{
 
             VBoxInfo.setVisible(true);
             HBoxButtons.setVisible(true);
-            HBoxFound.setVisible(true);
             imageView.setVisible(true);
         }
     }

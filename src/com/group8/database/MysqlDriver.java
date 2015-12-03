@@ -126,6 +126,8 @@ public class MysqlDriver {
 
                 for(int i = 1; i<=metaData.getColumnCount(); i++)
                 {
+
+
                     if(i == 3){
 
                         InputStream image =rs.getBinaryStream(3);
@@ -133,7 +135,7 @@ public class MysqlDriver {
                     }
                     else if(i == 14){
 
-                        InputStream image =rs.getBinaryStream(14);
+                        InputStream image =rs.getBinaryStream(13);
                         row.set(i-1,image);
 
 
@@ -163,9 +165,11 @@ public class MysqlDriver {
                     else{
                         row.set(i-1,rs.getObject(i));
                     }
+
                 }
 
                 result.add(row);
+                System.out.println(row.toString());
             }
 
 

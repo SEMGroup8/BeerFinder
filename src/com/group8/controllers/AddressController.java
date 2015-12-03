@@ -38,7 +38,7 @@ import java.util.stream.IntStream;
  * When a Pub owner wants to add an address.
  *
  */
-public class AddressController implements Initializable,MapComponentInitializedListener {
+public class AddressController extends BaseController implements Initializable,MapComponentInitializedListener {
 
     // Connect the FXML elements
     @FXML
@@ -75,6 +75,9 @@ public class AddressController implements Initializable,MapComponentInitializedL
 
     }
 
+    /**
+     *
+     */
     public void addAddress(){
         img.setFitWidth(60);
         img.setFitHeight(60);
@@ -103,6 +106,7 @@ public class AddressController implements Initializable,MapComponentInitializedL
             stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
             alert.showAndWait();
             root.getScene().getWindow().hide();
+
 
         }
 
@@ -213,13 +217,6 @@ public class AddressController implements Initializable,MapComponentInitializedL
             // Map repaint hack
             map.setZoom(map.getZoom()-1);
             map.setZoom(map.getZoom()+1);
-
-
-
         });
-
-
     }
-
-
 }

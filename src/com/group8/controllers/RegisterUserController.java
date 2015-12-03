@@ -26,7 +26,7 @@ import java.util.ArrayList;
  *
  * TODO: Layout and style.
  */
-public class RegisterUserController {
+public class RegisterUserController extends BaseController {
 
     @FXML
     public Button back;
@@ -98,11 +98,7 @@ public class RegisterUserController {
 
         newUser.insert();
 
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter(Navigation.homescreenFXML);
     }
 
     //Checks if the input is correct.
@@ -158,7 +154,7 @@ public class RegisterUserController {
         return canRegister;
     }
 
-    public boolean checkAvailability(String query)
+    public static boolean checkAvailability(String query)
     {
         ArrayList<Object> returnedUser = MysqlDriver.select(query);
 
@@ -177,10 +173,6 @@ public class RegisterUserController {
     */
     @FXML
     public void onBack(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homeScreen.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
+        mainScene.changeCenter(Navigation.homescreenFXML);
     }
 }

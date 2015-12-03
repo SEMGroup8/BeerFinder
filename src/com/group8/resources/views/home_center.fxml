@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox alignment="CENTER" minHeight="400.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.HomeCenter">
+   <children>
+      <VBox alignment="CENTER" minHeight="400.0" minWidth="800.0">
+         <children>
+            <AnchorPane minHeight="400.0" minWidth="800.0">
+               <children>
+                  <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutX="282.0" layoutY="194.0" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" text="Search..." />
+                  <Button fx:id="search" layoutX="449.0" layoutY="194.0" mnemonicParsing="false" onAction="#onSearch" prefWidth="70.0" text="Search" />
+                  <Label fx:id="error" layoutX="298.0" layoutY="231.0" prefHeight="14.0" prefWidth="135.0" />
+                  <CheckBox fx:id="advancedType" layoutX="281.0" layoutY="257.0" mnemonicParsing="false" text="beerType" visible="false" />
+                  <CheckBox fx:id="advancedProducer" layoutX="382.0" layoutY="229.0" mnemonicParsing="false" text="Producer" visible="false" />
+                  <CheckBox fx:id="advancedDescription" layoutX="382.0" layoutY="257.0" mnemonicParsing="false" text="Description" visible="false" />
+                  <CheckBox fx:id="advanced" layoutX="281.0" layoutY="167.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
+                  <CheckBox fx:id="all" layoutX="281.0" layoutY="285.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
+                  <CheckBox fx:id="advancedName" layoutX="281.0" layoutY="229.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
+                  <CheckBox fx:id="advancedCountry" layoutX="382.0" layoutY="285.0" mnemonicParsing="false" text="Origin" visible="false" />
+                  <Button fx:id="randomButton" layoutX="449.0" layoutY="225.0" mnemonicParsing="false" onAction="#onRandom" prefWidth="70.0" text="Random" />
+                  <ProgressIndicator fx:id="Load" layoutX="373.0" layoutY="97.0" visible="false" />
+                  <Button fx:id="showPubs" layoutX="298.0" layoutY="262.0" mnemonicParsing="false" onAction="#onShowPubs" prefHeight="26.0" prefWidth="135.0" text="Show all pubs" />
+                  <Button fx:id="beerScanButton" layoutX="167.0" layoutY="173.0" mnemonicParsing="false" onAction="#onBeerScan" prefWidth="70.0" text="Beer scan" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>
