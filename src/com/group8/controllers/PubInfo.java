@@ -3,6 +3,7 @@ package com.group8.controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,8 +41,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
-
-
+import javax.imageio.stream.ImageInputStream;
 
 
 public class PubInfo extends BaseController implements Initializable{
@@ -94,7 +94,7 @@ public class PubInfo extends BaseController implements Initializable{
 	double longitude = PubData.loggedInPub.get_geoLong();
 	
 	Image imgLoad;
-	FileInputStream imageStream;
+	FileInputStream imageStream ;
 	File file;
 	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
 	

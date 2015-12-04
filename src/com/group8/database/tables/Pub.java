@@ -37,7 +37,7 @@ public class Pub extends MysqlDriver{
     private double _geoLat;
     float _entranceFee;
     BufferedImage pubImage;
-
+    InputStream tmpImg;
     /**
      * TODO Do we need this??
      */
@@ -65,7 +65,7 @@ public class Pub extends MysqlDriver{
         this._entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
 
         try {
-            InputStream tmpImg = (InputStream) sqlReturn.get(4);
+             tmpImg = (InputStream) sqlReturn.get(4);
             this.pubImage = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
             this.pubImage = null;
@@ -95,7 +95,7 @@ public class Pub extends MysqlDriver{
 //        ArrayList<Object> addressReturn = select(adressQuery);
  //       this._adress = addressReturn.get(0).toString();
         try {
-            InputStream tmpImg = (InputStream) sqlReturn.get(2);
+            tmpImg = (InputStream) sqlReturn.get(2);
             this.pubImage = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
             this.pubImage = null;
@@ -252,6 +252,8 @@ public class Pub extends MysqlDriver{
         }
         return image2;
     }
+
+
 
     /**
      * Testoutput returner for sys out calls.

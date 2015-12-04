@@ -47,37 +47,62 @@ import javafx.stage.Window;
 import java.util.ArrayList;
 import com.group8.database.*;
 
-
+/**
+ * AddBeerController to let Pub Users add new beers to the Databse.
+ * -->
+ * TODO error handleing, field highlightning etc
+ */
 public class AddBeerController extends BaseController implements Initializable{
 	
-	
+	// Make Observeble Lists out of our ArrayLists
 	ObservableList<String> beerTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerPackageTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerProducerList=FXCollections.observableArrayList();
 	ObservableList<String> beerOriginList =FXCollections.observableArrayList();
-	
-	public TextField beerName;
-	public TextField beerDescription;
-	public TextField beerPercentage;
-	public ChoiceBox<String> beerPackageType;
-	public ChoiceBox<String> beerType;
-	public ChoiceBox<String> beerProducer;
-	public ChoiceBox<String> beerOrigin;
-	public TextField beerVolume;
-	public CheckBox beerIsTap;
-	public ImageView beerImage;
-	public Label addConfirmation;
-	
+
 	@FXML
-
-	 public Label userName;
-
+	public TextField beerName;
+	@FXML
+	public TextField beerDescription;
+	@FXML
+	public TextField beerPercentage;
+	@FXML
+	public ChoiceBox<String> beerPackageType;
+	@FXML
+	public ChoiceBox<String> beerType;
+	@FXML
+	public ChoiceBox<String> beerProducer;
+	@FXML
+	public ChoiceBox<String> beerOrigin;
+	@FXML
+	public TextField beerVolume;
+	@FXML
+	public CheckBox beerIsTap;
+	@FXML
+	public ImageView beerImage;
+	@FXML
+	public Label addConfirmatin;
+	@FXML
+	public Label userName;
+	@FXML
 	public Button addBeerButton;
+	@FXML
 	public Button addBeerImageButton;
+	@FXML
 	FileInputStream imageStream;
+	@FXML
 	File file;
+
+	// USED??
 	boolean warning;
-	
+
+	/**
+	 * Pressing the add Image button will make a filechooser popup
+	 * --> requests a image of the JPG,PNG,JPEG types to load into
+	 *	   the imageview and upload to Database.
+	 * @param event
+	 * @throws IOException
+	 */
 	public void addBeerImage(ActionEvent event)throws IOException {
 		
 		
@@ -104,9 +129,14 @@ public class AddBeerController extends BaseController implements Initializable{
 				beerImage.setImage(imgLoad);
 				}
 	} // end of method
-	
-	
-   
+
+
+	/**
+	 * Pressing the Addbeer button this code will run and add the beer to the Database
+	 * -->
+	 * @param event
+	 * @throws IOException
+	 */
 	public void addBeer(ActionEvent event) throws IOException {
 		
 		String sqlQuery = "select beerTypeID from beerType where beerTypeEN = '" + beerType.getValue() + "'";
@@ -135,10 +165,10 @@ public class AddBeerController extends BaseController implements Initializable{
 			
 	   String beerInfo ;
 		beerInfo = "INSERT INTO `beers`(`name`, `description`, `originID`, `percentage`, `producerName`, `package`, `image`, `beerTypeID`, `volume`, `isTap`) VALUES ('"
-	    + beerName.getText() + "','" + beerDescription.getText() + "','" + typeID4 + "','" + beerPercentage.getText() + "','" 
+	    + beerName.getText() + "','" + beerDescription.getText() + "','" + typeID4 + "','" + beerPercentage.getText() + "','"
 		+ beerProducer.getValue()  + "','"+ typeID2 +"',?,'" + typeID +"','" + beerVolume.getText()+"','" + (beerIsTap.isSelected() ? 1 : 0) +"')";
 		
-		//System.out.println(beerInfo);
+
 		
 		 Connection con = null;
 	     PreparedStatement st = null;
@@ -152,9 +182,8 @@ public class AddBeerController extends BaseController implements Initializable{
 	        try {
 	            con = DriverManager.getConnection(url, user, password);
 	            st = con.prepareStatement(beerInfo);
-	           // st.executeUpdate(query);
-             st.setBinaryStream(1, imageStream, (int) file.length());
-             st.executeUpdate();
+				st.setBinaryStream(1, imageStream, (int) file.length());
+				st.executeUpdate();
 
              
              
@@ -200,10 +229,13 @@ public class AddBeerController extends BaseController implements Initializable{
 	        
 	
 	} // end of addBeer method         
-	                                                                                                                             
 
 
-
+		/**
+		 * Initialize the AddBeerController
+		 * @param location
+		 * @param resources
+		 */
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			// TODO Auto-generated method stub
@@ -229,9 +261,9 @@ public class AddBeerController extends BaseController implements Initializable{
 	    	for(int i = 0 ; i < result2.size(); i++){
 	    		beerPackageTypeList.add(result2.get(i).get(0).toString());
 	    	}
-	    
+	    	// TODO add packagetypes??
 	    	beerPackageType.setItems(beerPackageTypeList);
-	    //	beerPackageType.setValue("Lager");
+
 	    	
 	    	
 	    	
