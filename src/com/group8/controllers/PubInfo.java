@@ -3,7 +3,6 @@ package com.group8.controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,9 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
-import com.group8.database.tables.Pub;
 import com.lynden.gmapsfx.MainApp;
 
 import javafx.collections.FXCollections;
@@ -40,8 +37,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
-
-import javax.imageio.stream.ImageInputStream;
 
 
 public class PubInfo extends BaseController implements Initializable{
@@ -117,15 +112,10 @@ public class PubInfo extends BaseController implements Initializable{
 	                        // Load the details scene
 	                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 	                        try {
-	                            // TODO have to fix nameing
-	                            Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
-	                            Scene result_scene = new Scene(homescreen, 800, 600);
-	                            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	                            main_stage.setScene(result_scene);
-	                            main_stage.show();
+	  							mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
 	                        } catch (IOException e) {
 	                            // Print error msg
-	                            //e.printStackTrace();
+	                            e.printStackTrace();
 	                        }
 
 

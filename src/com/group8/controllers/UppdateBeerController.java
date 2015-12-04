@@ -99,7 +99,7 @@ public void addBeerImage(ActionEvent event)throws IOException {
 	    {
 	        UserData.userInstance = null;
 
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
+	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/homescreen.fxml"));
 	        Scene result_scene = new Scene(result, 800, 600);
 	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	        main_stage.setScene(result_scene);
@@ -239,7 +239,7 @@ public void addBeerImage(ActionEvent event)throws IOException {
                 
                 
             }
-            Parent result3 = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
+            Parent result3 = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/beerDetailsScreen.fxml"));
 	        Scene result_scene = new Scene(result3, 800, 600);
 	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	        main_stage.setScene(result_scene);

@@ -1,14 +1,10 @@
 package com.group8.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.group8.database.MysqlDriver;
-import com.group8.database.tables.Beer;
-import com.group8.database.tables.MapMarker;
 import com.group8.database.tables.Pub;
 
 import javafx.collections.FXCollections;
@@ -18,23 +14,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class FavouritePub extends BaseController implements Initializable {
 	@FXML
@@ -204,7 +195,7 @@ System.out.println(pubName+"  sooooooo");
 	    {
 	        UserData.userInstance = null;
 
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
+	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/homescreen.fxml"));
 	        Scene result_scene = new Scene(result, 800, 600);
 	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	        main_stage.setScene(result_scene);
@@ -233,7 +224,7 @@ System.out.println(pubName+"  sooooooo");
 	        }
 	    @FXML
 	    public void backAction(ActionEvent event) throws IOException {
-	        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
+	        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/loggedInHomescreen.fxml"));
 	        Scene result_scene = new Scene(homescreen, 800, 600);
 	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	        main_stage.setScene(result_scene);

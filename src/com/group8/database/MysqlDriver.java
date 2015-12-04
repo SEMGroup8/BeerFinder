@@ -130,7 +130,7 @@ public class MysqlDriver {
                 for(int i = 0; i<=metaData.getColumnCount()-1; i++) {
                     row.add(null);
                     // test output
-                    System.out.println("type name-->"+metaData.getColumnTypeName(i+1));
+                   // System.out.println("type name-->"+metaData.getColumnTypeName(i+1));
                 }
 
                 for(int i = 1; i<=metaData.getColumnCount(); i++)

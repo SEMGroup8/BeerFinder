@@ -50,7 +50,7 @@ import com.group8.database.*;
 /**
  * AddBeerController to let Pub Users add new beers to the Databse.
  * -->
- * TODO error handleing, field highlightning etc
+ * TODO error handling, field highlightning etc
  */
 public class AddBeerController extends BaseController implements Initializable{
 	

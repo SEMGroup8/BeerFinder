@@ -310,6 +310,7 @@ public class HomeCenter extends BaseController implements Initializable
                         // Load wheel until task is finished//
                         Load.setVisible(true);
 
+                        // TODO use same as other to get all fields right...
                         String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
                         ArrayList<ArrayList<Object>> SQLData4;
 
