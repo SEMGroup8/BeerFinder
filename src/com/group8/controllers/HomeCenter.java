@@ -207,11 +207,11 @@ public class HomeCenter extends BaseController implements Initializable
 
                                 if (!advancedName.isSelected() && selectedIteams > 1){
                                     // Test Output
-                                    System.out.println(BeerData.searchInput.substring(260, 262));
+                                    //System.out.println(BeerData.searchInput.substring(260, 262));
 
                                     BeerData.searchInput = BeerData.searchInput.substring(0,260) + BeerData.searchInput.substring(262);
                                     // Test Output
-                                    System.out.println(BeerData.searchInput);
+                                    //System.out.println(BeerData.searchInput);
                                 }
                             }
                         }
@@ -315,14 +315,11 @@ public class HomeCenter extends BaseController implements Initializable
                         ArrayList<ArrayList<Object>> SQLData4;
 
                         SQLData4 = MysqlDriver.selectMany(listOfPub);
-                        System.out.println(SQLData4 + " meeeee");
                         ArrayList<Pub> pubListDetails = new ArrayList<Pub>();
 
                         for (int i = 0; i < SQLData4.size(); i++) {
                             // Add a new Beer to the beer arraylist
                             Pub pub = new Pub(SQLData4.get(i));
-                            // Testoutput
-                            System.out.println(pub.get_name() + "  which pub???");
                             pubListDetails.add(pub);
 
                         }

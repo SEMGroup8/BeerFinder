@@ -47,7 +47,7 @@ public class Pub extends MysqlDriver{
     }
 
     /**
-     * TODO fix pubimages (MYSQLDRIVER)
+     * Pub constructor.
      * @param query
      */
     public Pub(String query)
@@ -82,7 +82,7 @@ public class Pub extends MysqlDriver{
     }
 
     /**
-     * TODO fix pubimages (MYSQLDRIVER)
+     * Pub constructor.
      * @param sqlReturn
      */
     public Pub(ArrayList<Object> sqlReturn)
@@ -159,7 +159,7 @@ public class Pub extends MysqlDriver{
         query = "Select * from pubs where name = '" + this._name + "';";
         mysqlData = select(query);
         this._pubId = Integer.parseInt(mysqlData.get(0).toString());
-        System.out.println(_pubId);
+        //System.out.println(_pubId);
 
         return true;
     }

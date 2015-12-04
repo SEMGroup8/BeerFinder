@@ -22,6 +22,8 @@ import javax.imageio.ImageIO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,6 +61,8 @@ public class AddBeerController extends BaseController implements Initializable{
 	ObservableList<String> beerPackageTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerProducerList=FXCollections.observableArrayList();
 	ObservableList<String> beerOriginList =FXCollections.observableArrayList();
+	// Threading service
+	Service<Void> backgroundThread;
 
 	@FXML
 	public TextField beerName;
@@ -239,62 +243,70 @@ public class AddBeerController extends BaseController implements Initializable{
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			// TODO Auto-generated method stub
-			Navigation.current_CenterFXML =  "/com/group8/resources/views/addBeer.fxml";
-	    	
-	    	beerTypeList.clear();
-	    	String beerTypeInfo;
-	    	beerTypeInfo ="select distinct beerTypeEN from beerType";
-	    	
-	    	ArrayList<ArrayList<Object>> result = MysqlDriver.selectMany(beerTypeInfo);
-	    	for( int i = 0 ; i < result.size(); i++){
-	    		beerTypeList.add(result.get(i).get(0).toString());
-	    	}
-	    	beerType.setItems(beerTypeList);
-	    	
-	        
-	    
-	    	beerPackageTypeList.clear();
-	    	String beerPackageTypeInfo;
-	    	beerPackageTypeInfo = "select distinct packageTypeEN from package";
-	    	
-	    	ArrayList<ArrayList<Object>> result2 = MysqlDriver.selectMany(beerPackageTypeInfo);
-	    	for(int i = 0 ; i < result2.size(); i++){
-	    		beerPackageTypeList.add(result2.get(i).get(0).toString());
-	    	}
-	    	// TODO add packagetypes??
-	    	beerPackageType.setItems(beerPackageTypeList);
+			Navigation.current_CenterFXML = "/com/group8/resources/views/addBeer.fxml";
+			// Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
 
-	    	
-	    	
-	    	
-	    	
-	    	
-	    	beerProducerList.clear();
-	    	String beerProducerInfo;
-	    	beerProducerInfo = "select distinct producerName from producers";
-	    	
-	    	ArrayList<ArrayList<Object>> result3 = MysqlDriver.selectMany(beerProducerInfo);
-	    	for(int i = 0 ; i < result3.size(); i++){
-	    		beerProducerList.add(result3.get(i).get(0).toString());
-	    	}
-	    	beerProducer.setItems(beerProducerList); 
-	   
+			backgroundThread = new Service<Void>() {
+				@Override
+				protected Task<Void> createTask() {
+					return new Task<Void>() {
+						@Override
+						protected Void call() throws Exception {
 
-	    	
-	    	beerOriginList.clear();
-	    	String beerOriginInfo;
-	    	beerOriginInfo = "select distinct countryName from origin";
-	    	
-	    	ArrayList<ArrayList<Object>> result4 = MysqlDriver.selectMany(beerOriginInfo);
-	    	for(int i = 0 ; i < result4.size(); i++){
-	    		beerOriginList.add(result4.get(i).get(0).toString());
-	    	}
-	    	beerOrigin.setItems(beerOriginList);
+
+							beerTypeList.clear();
+							String beerTypeInfo;
+							beerTypeInfo = "select distinct beerTypeEN from beerType";
+
+							ArrayList<ArrayList<Object>> result = MysqlDriver.selectMany(beerTypeInfo);
+							for (int i = 0; i < result.size(); i++) {
+								beerTypeList.add(result.get(i).get(0).toString());
+							}
+							beerType.setItems(beerTypeList);
+
+
+							beerPackageTypeList.clear();
+							String beerPackageTypeInfo;
+							beerPackageTypeInfo = "select distinct packageTypeEN from package";
+
+							ArrayList<ArrayList<Object>> result2 = MysqlDriver.selectMany(beerPackageTypeInfo);
+							for (int i = 0; i < result2.size(); i++) {
+								beerPackageTypeList.add(result2.get(i).get(0).toString());
+							}
+							// TODO add packagetypes??
+							beerPackageType.setItems(beerPackageTypeList);
+
+
+							beerProducerList.clear();
+							String beerProducerInfo;
+							beerProducerInfo = "select distinct producerName from producers";
+
+							ArrayList<ArrayList<Object>> result3 = MysqlDriver.selectMany(beerProducerInfo);
+							for (int i = 0; i < result3.size(); i++) {
+								beerProducerList.add(result3.get(i).get(0).toString());
+							}
+							beerProducer.setItems(beerProducerList);
+
+
+							beerOriginList.clear();
+							String beerOriginInfo;
+							beerOriginInfo = "select distinct countryName from origin";
+
+							ArrayList<ArrayList<Object>> result4 = MysqlDriver.selectMany(beerOriginInfo);
+							for (int i = 0; i < result4.size(); i++) {
+								beerOriginList.add(result4.get(i).get(0).toString());
+							}
+							beerOrigin.setItems(beerOriginList);
+
+
+							return null;
+						}
+					};
+				}
+			};
+			backgroundThread.start();
+
 		}
-
-
-
- 
  
  
 

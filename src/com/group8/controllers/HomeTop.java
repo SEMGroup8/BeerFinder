@@ -114,7 +114,7 @@ public class HomeTop extends BaseController{
                  * Error checking if userinstance is null, then dont try to load the loggedintop
                  */
                 if (UserData.userInstance == null) {
-                    System.out.println("no userdata");
+                    //System.out.println("no userdata");
                     // Show user password / username error
                     img.setFitWidth(60);
                     img.setFitHeight(60);

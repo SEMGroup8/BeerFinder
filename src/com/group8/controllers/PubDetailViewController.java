@@ -43,6 +43,8 @@ public class PubDetailViewController extends BaseController implements Initializ
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		Navigation.current_CenterFXML = "/com/group8/resources/views/pubDetailView.fxml";
+
 	  	pubImage.setImage(PubData.selectedPub.getImage());
 		pubNameLabel.setText(PubData.selectedPub.get_name());
 		pubAddressLabel.setText(PubData.selectedPub.get_address());

@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableSelectionModel;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -81,6 +82,11 @@ public class MapsController extends BaseController implements Initializable,MapC
         pubsColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("PubName"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("Price"));
         showPubs.setItems(masterData);
+       // showPubs.getSelectionModel().select(0);
+        showPubs.getSelectionModel().selectFirst();
+
+
+
     }
 
     /**
@@ -164,6 +170,7 @@ public class MapsController extends BaseController implements Initializable,MapC
      */
         @Override
     public void mapInitialized() {
+
 
         // TODO add the geoPosition column to the pub table ( string double,double ( maybe have secure input method in addpub?))
         // TODO make string -> double double converter

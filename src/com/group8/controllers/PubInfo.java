@@ -106,7 +106,7 @@ public class PubInfo extends BaseController implements Initializable{
 	            public void handle(MouseEvent event) {
 	                if (event.getClickCount() == 2) {
 	                        // Show that we can select items and print it
-	                        System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
+	                        //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
 	                        // Set the selectedBeer instance of beer we have to selected item
 	                        BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
 	                        // Load the details scene
@@ -117,10 +117,6 @@ public class PubInfo extends BaseController implements Initializable{
 	                            // Print error msg
 	                            e.printStackTrace();
 	                        }
-
-
-
-
 	                }
 	            }
 
@@ -206,8 +202,6 @@ public class PubInfo extends BaseController implements Initializable{
 
         });
 
-
-
         //Populate the Tableview
         beerTable.setItems(masterData);
 
@@ -287,7 +281,13 @@ public class PubInfo extends BaseController implements Initializable{
 			pubImage.setImage(imgLoad);
 		}
 	} // end of method
-	
+
+	/**
+	 * Load the addBeer scene
+	 * --> Used to change the center FXML to the addBeer FXML alt "scene"
+	 * @param event
+	 * @throws IOException
+	 */
 	public void onAddBeer(ActionEvent event) throws IOException{
 		mainScene.changeCenter("/com/group8/resources/views/addBeer.fxml");
          
