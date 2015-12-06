@@ -7,10 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -44,23 +41,34 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
         play();
+        System.out.println("running --> start");
         stage.show();
 
     }
 
-    // DERP
+    /**
+     * Starts playing 8bit background music when the program launches.
+     * --> will start before the FX thread is initialized.
+     * -->
+     */
     public void play() {
-        Thread derp = new Thread() {
+        Thread irritateingBackgorundMusic = new Thread() {
             @Override
             public void run() {
 
-
-                System.out.println("running -->");
+                // test
+                System.out.println("running --> irritateing backgorund music");
 
                 try {
                     Clip clip = AudioSystem.getClip();
-                        clip.open(AudioSystem.getAudioInputStream(file));
-                        clip.loop(Clip.LOOP_CONTINUOUSLY);
+                    // Set the audiostream to selected file --> row 23
+                    clip.open(AudioSystem.getAudioInputStream(file));
+                    // set to low background volume
+                    FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                    volume.setValue(-12.0f);
+                    // Loop the clip
+                    clip.loop(Clip.LOOP_CONTINUOUSLY);
+
                         Thread.sleep(clip.getMicrosecondLength());
 
                 } catch (LineUnavailableException e) {
@@ -76,9 +84,10 @@ public class Main extends Application {
 
 
         };
-
-        derp.setDaemon(true);
-        derp.start();
+        // Set thread to daemon, makes it terminate when the program does.
+        irritateingBackgorundMusic.setDaemon(true);
+        // Start the thread
+        irritateingBackgorundMusic.start();
 
     }
 }

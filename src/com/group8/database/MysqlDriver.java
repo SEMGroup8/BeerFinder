@@ -1,5 +1,6 @@
 package com.group8.database;
 
+import com.group8.controllers.BeerData;
 import com.mysql.jdbc.MysqlParameterMetadata;
 
 import java.awt.image.BufferedImage;
@@ -68,7 +69,10 @@ public class MysqlDriver {
                 // Generic data setter
                 if(metaData.getColumnTypeName(i).equals("MEDIUMBLOB")){
                     InputStream image =rs.getBinaryStream(i);
+                    BeerData.lenght = rs.getBlob(i).length();
+                    System.out.println(BeerData.lenght);
                     result.add(image);
+
                 }else{
                     result.add(rs.getObject(i));
                 }

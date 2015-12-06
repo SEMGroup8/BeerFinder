@@ -2,11 +2,13 @@ package com.group8.database.tables;
 
 import com.group8.database.MysqlDriver;
 
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -37,7 +39,10 @@ public class Pub extends MysqlDriver{
     private double _geoLat;
     float _entranceFee;
     BufferedImage pubImage;
-    InputStream tmpImg;
+    private InputStream tmpImg;
+    private InputStream out;
+    private OutputStream in;
+
     /**
      * TODO Do we need this??
      */
@@ -67,6 +72,11 @@ public class Pub extends MysqlDriver{
         try {
              tmpImg = (InputStream) sqlReturn.get(4);
             this.pubImage = javax.imageio.ImageIO.read(tmpImg);
+            System.out.println("->"+tmpImg.toString());
+
+
+
+
         }catch (IOException ex){
             this.pubImage = null;
         }
@@ -97,6 +107,8 @@ public class Pub extends MysqlDriver{
         try {
             tmpImg = (InputStream) sqlReturn.get(2);
             this.pubImage = javax.imageio.ImageIO.read(tmpImg);
+            System.out.println("->"+tmpImg.toString());
+            System.out.println("->"+tmpImg.available());
         }catch (IOException ex){
             this.pubImage = null;
         }
@@ -253,7 +265,9 @@ public class Pub extends MysqlDriver{
         return image2;
     }
 
-
+    public InputStream getTmpImg() {
+        return tmpImg;
+    }
 
     /**
      * Testoutput returner for sys out calls.

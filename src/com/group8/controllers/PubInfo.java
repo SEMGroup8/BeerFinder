@@ -1,18 +1,17 @@
 package com.group8.controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.sql.*;
+import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.group8.database.tables.Beer;
 import com.lynden.gmapsfx.MainApp;
 
+import com.mysql.jdbc.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,18 +37,33 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
-
+/**
+ * Pub information scene
+ * --> Used to show the user information about his Pub
+ * --> Gives the user the ability to change all information about his Pub
+ *
+ * TODO change local object Pub when doing an update instead of re-fetchig data from server?
+ */
 public class PubInfo extends BaseController implements Initializable{
-	public TextField pubID;
+
+	// Not needed?
+	//@FXML
+	//public TextField pubID;
+	@FXML
 	public TextField pubName;
+	@FXML
 	public TextField pubAddress;
+	@FXML
 	public TextField pubPhoneNumber;
+	@FXML
 	public TextField pubDescription;
+	@FXML
 	public TextField pubOffer;
-	
+	@FXML
 	public TextField pubEntranceFee;
-	
+	@FXML
 	public Button pubSaveNew;
+	@FXML
 	public Button addBeer;
 	@FXML
 	public Button getMap;
@@ -91,6 +105,7 @@ public class PubInfo extends BaseController implements Initializable{
 	Image imgLoad;
 	FileInputStream imageStream ;
 	File file;
+	boolean loadAnImage = false;
 	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
 	
 	
@@ -135,12 +150,14 @@ public class PubInfo extends BaseController implements Initializable{
 		pubOffer.setText(PubData.loggedInPub.get_offer());
 		pubEntranceFee.setText(""+PubData.loggedInPub.get_entranceFee());
 		pubImage.setImage(PubData.loggedInPub.getImage());
+
+
+
+
 		System.out.println(PubData.loggedInPub.getImage()+"    why IMAGE");
 
 		//testtLabel.setText(BeerData.beersInPubDetails.get_price());
-		
-        Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
-        Navigation.resultviewFXML = "/com/group8/resources/views/pubDetailView.fxml";
+		Navigation.current_CenterFXML = "/com/group8/resources/views/pubInfo.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
@@ -181,6 +198,8 @@ public class PubInfo extends BaseController implements Initializable{
                                 vb.getChildren().addAll(imgVw);
                                 setGraphic(vb);
 
+
+
                             } else {
                                 VBox vb = new VBox();
                                 vb.setAlignment(Pos.CENTER);
@@ -211,7 +230,7 @@ public class PubInfo extends BaseController implements Initializable{
 	
 		 
 		
-	public void updatePub(ActionEvent event) throws SQLException, ClassNotFoundException{
+	public void updatePub(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
 		
 		float entrance = Float.parseFloat(pubEntranceFee.getText());
 		
@@ -227,15 +246,30 @@ public class PubInfo extends BaseController implements Initializable{
 		Class.forName("com.mysql.jdbc.Driver"); 
 		Connection con = DriverManager.getConnection(url, user, password);
 		
-		// Make the sql statement
-		PreparedStatement statement = con.prepareStatement("UPDATE `pubs` SET `name`='"+
-				pubName.getText()+"',`phoneNumber`='"+
-				pubPhoneNumber.getText()+"',`image`=?,`description`='"+
-				pubDescription.getText()+"',`offers`='"+
+		// Make the sql statement as a string
+		String statmnt = "UPDATE `pubs` SET `name`='"+
+				pubName.getText()+
+				"',`phoneNumber`='"+ pubPhoneNumber.getText()+"'";
+
+				// If you loaded an image, update the image field allso.
+				if(loadAnImage) {
+					statmnt += ",`image`=?";
+				}
+
+		// rest of the fields
+		statmnt +=",`description`='"+ pubDescription.getText()+"',`offers`='"+
 				pubOffer.getText()+"',`entrenceFee`="+entrance+" WHERE pubID='"+
-				UserData.userInstance.get_pubId()+"';");
-		statement.setBinaryStream(1, imageStream, (int) file.length());
-		//System.out.println(pubInfo);
+				UserData.userInstance.get_pubId()+"';";
+
+		// Set the statement to the prepared statement
+		PreparedStatement statement = con.prepareStatement(statmnt);
+		// Debug output
+		System.out.println("loaded an image? ->"+loadAnImage);
+		// if you loaded a new image set tthe binary stream
+		if(loadAnImage) {
+			statement.setBinaryStream(1, imageStream, (int) file.length());
+		}
+
 		statement.executeUpdate();
 		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + PubData.loggedInPub.get_adressId());
 		statement.executeUpdate();
@@ -257,12 +291,17 @@ public class PubInfo extends BaseController implements Initializable{
 
 	public void loadPubImage(ActionEvent event)throws IOException {
 
-		// Start a filechooser
+		// Set to true if you wanted to load an image
+		loadAnImage = true;
+		// Try catch to handle exeptions if user cancels imageload
+		try{
+			// Start a filechooser
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("open image file");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
 		Stage primaryStage=new Stage();
+
 		file= fileChooser.showOpenDialog(primaryStage);
 
 
@@ -272,13 +311,22 @@ public class PubInfo extends BaseController implements Initializable{
 		if (file.isFile() && (file.getName().contains(".jpg")
 				||file.getName().contains(".png")
 				||file.getName().contains(".jpeg")
-		)){
+		)) {
 
 
 			String thumbURL = file.toURI().toURL().toString();
 			//	System.out.println(thumbURL);
 			Image imgLoad = new Image(thumbURL);
 			pubImage.setImage(imgLoad);
+
+		}
+		}catch(NullPointerException ex){
+			// If the user cancels the imageload the loadAnImage is set to false
+			// curently allso prints debug msg to console in form of boolean and file ( will be null )
+			//ex.printStackTrace();
+			System.out.println(file);
+			loadAnImage = false;
+			System.out.println(loadAnImage);
 		}
 	} // end of method
 
