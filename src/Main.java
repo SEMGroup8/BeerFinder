@@ -53,7 +53,6 @@ public class Main extends Application{
     public void play() {
 
             new Thread() {
-
                 @Override
                 public void run() {
                     try {
@@ -74,6 +73,7 @@ public class Main extends Application{
                 }
             }
                     .start();
+
         }
 
 }

@@ -34,10 +34,8 @@ public class AccountSettings extends BaseController implements Initializable
     public TextField email;
     @FXML
     public PasswordField password;
-
     @FXML
     public Label emailError, passwordError, isPubError, fullNameError;
-
     @FXML
     public void onUpdate(ActionEvent event) throws IOException
     {

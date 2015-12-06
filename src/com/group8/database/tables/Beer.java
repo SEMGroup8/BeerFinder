@@ -3,6 +3,8 @@ package com.group8.database.tables;
 import com.group8.database.MysqlDriver;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import jdk.nashorn.internal.objects.annotations.Getter;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 public class Beer extends MysqlDriver{
 
     String from = "beers";
-    private String name, description, type, origin, producer, beerPackage;
+   private String name, description, type, origin, producer, beerPackage;
     int id;
 
     float avRank;

@@ -3,6 +3,7 @@ package com.group8.database.tables;
 import com.group8.database.MysqlDriver;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 
+
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 
@@ -19,7 +20,9 @@ public class MapMarker extends MysqlDriver
 
     private double longitude, latitude;
 
+
     private boolean inStock;
+
 
     private double price;
 
