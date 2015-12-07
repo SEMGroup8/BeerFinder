@@ -1,10 +1,15 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
+import com.group8.database.tables.Pub;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +26,7 @@ public class LoggedInTop extends BaseController implements Initializable
     public Button logout, account, beerFavourite, pubFavourite;
     @FXML
     public Label userName;
+    ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
 
     /**
      * Initialize Main controller
@@ -39,6 +45,8 @@ public class LoggedInTop extends BaseController implements Initializable
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
         userName.setText(UserData.userInstance.get_name());
+
+        PubData.pubs = new ArrayList<Pub>();
 
     }
 
@@ -78,7 +86,20 @@ public class LoggedInTop extends BaseController implements Initializable
     @FXML
     public void onPubFavourites(javafx.event.ActionEvent event) throws IOException
     {
-        mainScene.changeCenter("/com/group8/resources/views/FavouritePub.fxml");
+        if(!PubData.pubs.isEmpty()) {
+            mainScene.changeCenter("/com/group8/resources/views/FavouritePub.fxml");
+        }else{
+            img.setFitWidth(60);
+            img.setFitHeight(60);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Favourites Error");
+            alert.setHeaderText("Cant't Show Favourite Pubs :/");
+            alert.setContentText("You don't have any Favourite Pubs.");
+            alert.setGraphic(img);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+            alert.showAndWait();
 
+        }
     }
 }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style=".root" stylesheets="@../css/Buttontest.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.MainScene">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style=".root" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.MainScene">
    <top>
       <HBox fx:id="top" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </top>
@@ -17,7 +18,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goHome" style=".button" stylesheets="@../css/Buttontest.css" text="Home" visible="false">
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goHome" style=".button" stylesheets="@../css/Main.css" text="Home" visible="false">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -27,6 +28,11 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Button>
+            <Label fx:id="gmapsError" text="No Pubs Selling this beer" textFill="#fc0707" visible="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
    </bottom>

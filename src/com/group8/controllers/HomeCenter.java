@@ -34,6 +34,8 @@ import java.util.ResourceBundle;
 
 /**
  * Created by Shiratori on 24/11/15.
+ * Default Home_Center FXML
+ * -->
  */
 public class HomeCenter extends BaseController implements Initializable
 {
@@ -63,9 +65,9 @@ public class HomeCenter extends BaseController implements Initializable
     private Button beerScanSearchButton;
 
     public TextField searchText;
-    public ProgressBar progressBar;
+    @FXML
     public ProgressIndicator Load;
-
+    // Threading service
     private SwingNode webCam;
     private BorderPane pane;
     private Stage webcamStage;
@@ -248,11 +250,11 @@ public class HomeCenter extends BaseController implements Initializable
 
                                 if (!advancedName.isSelected() && selectedIteams > 1){
                                     // Test Output
-                                    System.out.println(BeerData.searchInput.substring(260, 262));
+                                    //System.out.println(BeerData.searchInput.substring(260, 262));
 
                                     BeerData.searchInput = BeerData.searchInput.substring(0,260) + BeerData.searchInput.substring(262);
                                     // Test Output
-                                    System.out.println(BeerData.searchInput);
+                                    //System.out.println(BeerData.searchInput);
                                 }
                             }
                         }
@@ -336,35 +338,81 @@ public class HomeCenter extends BaseController implements Initializable
 
     }
 
+    /**
+     * Loads the random beer generator
+     * @param event
+     * @throws Exception
+     */
     @FXML
     public void onRandom (ActionEvent event) throws Exception{
 
         mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
     }
-    
+
+    /**
+     * Show all existing Pubs (testing??)
+     * @param event
+     * @throws Exception
+     */
     @FXML
     public void onShowPubs (ActionEvent event) throws Exception{
+        // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+        backgroundThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
 
-    	String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
-		ArrayList<ArrayList<Object>> SQLData4;
 
-		SQLData4 = MysqlDriver.selectMany(listOfPub);
-		System.out.println(SQLData4 + " meeeee");
-		ArrayList<Pub> pubListDetails = new ArrayList<Pub>();
+                        // Load wheel until task is finished//
+                        Load.setVisible(true);
 
-		for (int i = 0; i < SQLData4.size(); i++) {
-			// Add a new Beer to the beer arraylist
-			Pub pub = new Pub(SQLData4.get(i));
-			// Testoutput
-			System.out.println(pub.get_name() + "  which pub???");
-			pubListDetails.add(pub);
+                        // TODO use same as other to get all fields right...
+                        String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
+                        ArrayList<ArrayList<Object>> SQLData4;
 
-		}
-		
-		PubData.pubs = pubListDetails;
-		
-    	mainScene.changeCenter("/com/group8/resources/views/pubList.fxml");
+                        SQLData4 = MysqlDriver.selectMany(listOfPub);
+                        ArrayList<Pub> pubListDetails = new ArrayList<Pub>();
+
+                        for (int i = 0; i < SQLData4.size(); i++) {
+                            // Add a new Beer to the beer arraylist
+                            Pub pub = new Pub(SQLData4.get(i));
+                            pubListDetails.add(pub);
+
+                        }
+
+
+                        PubData.pubs = pubListDetails;
+
+                        return null;
+                    }
+                };
+            }
+        };
+                        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                            @Override
+                            public void handle(WorkerStateEvent event) {
+                                Load.setVisible(false);
+
+
+                                // Load the result stage
+                                try {
+                                    mainScene.changeCenter("/com/group8/resources/views/pubList.fxml");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        });
+
+                        // Start thread
+                        backgroundThread.start();
+
+
     }
+
     /**
      * Auto clear fields when selected
      * Clear the Search field

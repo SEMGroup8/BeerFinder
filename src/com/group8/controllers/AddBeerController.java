@@ -22,6 +22,8 @@ import javax.imageio.ImageIO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,37 +49,64 @@ import javafx.stage.Window;
 import java.util.ArrayList;
 import com.group8.database.*;
 
-
+/**
+ * AddBeerController to let Pub Users add new beers to the Databse.
+ * -->
+ * TODO error handling, field highlightning etc
+ */
 public class AddBeerController extends BaseController implements Initializable{
 	
-	
+	// Make Observeble Lists out of our ArrayLists
 	ObservableList<String> beerTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerPackageTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerProducerList=FXCollections.observableArrayList();
 	ObservableList<String> beerOriginList =FXCollections.observableArrayList();
-	
-	public TextField beerName;
-	public TextField beerDescription;
-	public TextField beerPercentage;
-	public ChoiceBox<String> beerPackageType;
-	public ChoiceBox<String> beerType;
-	public ChoiceBox<String> beerProducer;
-	public ChoiceBox<String> beerOrigin;
-	public TextField beerVolume;
-	public CheckBox beerIsTap;
-	public ImageView beerImage;
-	public Label addConfirmation;
-	
+	// Threading service
+	Service<Void> backgroundThread;
+
 	@FXML
-
-	 public Label userName;
-
+	public TextField beerName;
+	@FXML
+	public TextField beerDescription;
+	@FXML
+	public TextField beerPercentage;
+	@FXML
+	public ChoiceBox<String> beerPackageType;
+	@FXML
+	public ChoiceBox<String> beerType;
+	@FXML
+	public ChoiceBox<String> beerProducer;
+	@FXML
+	public ChoiceBox<String> beerOrigin;
+	@FXML
+	public TextField beerVolume;
+	@FXML
+	public CheckBox beerIsTap;
+	@FXML
+	public ImageView beerImage;
+	@FXML
+	public Label addConfirmatin;
+	@FXML
+	public Label userName;
+	@FXML
 	public Button addBeerButton;
+	@FXML
 	public Button addBeerImageButton;
+	@FXML
 	FileInputStream imageStream;
+	@FXML
 	File file;
+
+	// USED??
 	boolean warning;
-	
+
+	/**
+	 * Pressing the add Image button will make a filechooser popup
+	 * --> requests a image of the JPG,PNG,JPEG types to load into
+	 *	   the imageview and upload to Database.
+	 * @param event
+	 * @throws IOException
+	 */
 	public void addBeerImage(ActionEvent event)throws IOException {
 		
 		
@@ -104,9 +133,14 @@ public class AddBeerController extends BaseController implements Initializable{
 				beerImage.setImage(imgLoad);
 				}
 	} // end of method
-	
-	
-   
+
+
+	/**
+	 * Pressing the Addbeer button this code will run and add the beer to the Database
+	 * -->
+	 * @param event
+	 * @throws IOException
+	 */
 	public void addBeer(ActionEvent event) throws IOException {
 		
 		String sqlQuery = "select beerTypeID from beerType where beerTypeEN = '" + beerType.getValue() + "'";
@@ -135,10 +169,10 @@ public class AddBeerController extends BaseController implements Initializable{
 			
 	   String beerInfo ;
 		beerInfo = "INSERT INTO `beers`(`name`, `description`, `originID`, `percentage`, `producerName`, `package`, `image`, `beerTypeID`, `volume`, `isTap`) VALUES ('"
-	    + beerName.getText() + "','" + beerDescription.getText() + "','" + typeID4 + "','" + beerPercentage.getText() + "','" 
+	    + beerName.getText() + "','" + beerDescription.getText() + "','" + typeID4 + "','" + beerPercentage.getText() + "','"
 		+ beerProducer.getValue()  + "','"+ typeID2 +"',?,'" + typeID +"','" + beerVolume.getText()+"','" + (beerIsTap.isSelected() ? 1 : 0) +"')";
 		
-		//System.out.println(beerInfo);
+
 		
 		 Connection con = null;
 	     PreparedStatement st = null;
@@ -152,9 +186,8 @@ public class AddBeerController extends BaseController implements Initializable{
 	        try {
 	            con = DriverManager.getConnection(url, user, password);
 	            st = con.prepareStatement(beerInfo);
-	           // st.executeUpdate(query);
-             st.setBinaryStream(1, imageStream, (int) file.length());
-             st.executeUpdate();
+				st.setBinaryStream(1, imageStream, (int) file.length());
+				st.executeUpdate();
 
              
              
@@ -162,9 +195,9 @@ public class AddBeerController extends BaseController implements Initializable{
  	        alert.setTitle("Information Dialog");
  	        alert.setHeaderText(null);
  	        alert.setContentText("Beer was successfully added!");
-
  	        alert.showAndWait();
- 	
+ 			mainScene.changeCenter("/com/group8/resources/views/pubInfo.fxml");
+
 	        } catch (SQLException ex) {
 	            Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
 	            lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -200,69 +233,80 @@ public class AddBeerController extends BaseController implements Initializable{
 	        
 	
 	} // end of addBeer method         
-	                                                                                                                             
 
 
-
+		/**
+		 * Initialize the AddBeerController
+		 * @param location
+		 * @param resources
+		 */
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			// TODO Auto-generated method stub
-			Navigation.current_CenterFXML =  "/com/group8/resources/views/addBeer.fxml";
-	    	
-	    	beerTypeList.clear();
-	    	String beerTypeInfo;
-	    	beerTypeInfo ="select distinct beerTypeEN from beerType";
-	    	
-	    	ArrayList<ArrayList<Object>> result = MysqlDriver.selectMany(beerTypeInfo);
-	    	for( int i = 0 ; i < result.size(); i++){
-	    		beerTypeList.add(result.get(i).get(0).toString());
-	    	}
-	    	beerType.setItems(beerTypeList);
-	    	
-	        
-	    
-	    	beerPackageTypeList.clear();
-	    	String beerPackageTypeInfo;
-	    	beerPackageTypeInfo = "select distinct packageTypeEN from package";
-	    	
-	    	ArrayList<ArrayList<Object>> result2 = MysqlDriver.selectMany(beerPackageTypeInfo);
-	    	for(int i = 0 ; i < result2.size(); i++){
-	    		beerPackageTypeList.add(result2.get(i).get(0).toString());
-	    	}
-	    
-	    	beerPackageType.setItems(beerPackageTypeList);
-	    //	beerPackageType.setValue("Lager");
-	    	
-	    	
-	    	
-	    	
-	    	
-	    	beerProducerList.clear();
-	    	String beerProducerInfo;
-	    	beerProducerInfo = "select distinct producerName from producers";
-	    	
-	    	ArrayList<ArrayList<Object>> result3 = MysqlDriver.selectMany(beerProducerInfo);
-	    	for(int i = 0 ; i < result3.size(); i++){
-	    		beerProducerList.add(result3.get(i).get(0).toString());
-	    	}
-	    	beerProducer.setItems(beerProducerList); 
-	   
+			Navigation.current_CenterFXML = "/com/group8/resources/views/addBeer.fxml";
+			// Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
 
-	    	
-	    	beerOriginList.clear();
-	    	String beerOriginInfo;
-	    	beerOriginInfo = "select distinct countryName from origin";
-	    	
-	    	ArrayList<ArrayList<Object>> result4 = MysqlDriver.selectMany(beerOriginInfo);
-	    	for(int i = 0 ; i < result4.size(); i++){
-	    		beerOriginList.add(result4.get(i).get(0).toString());
-	    	}
-	    	beerOrigin.setItems(beerOriginList);
+			backgroundThread = new Service<Void>() {
+				@Override
+				protected Task<Void> createTask() {
+					return new Task<Void>() {
+						@Override
+						protected Void call() throws Exception {
+
+
+							beerTypeList.clear();
+							String beerTypeInfo;
+							beerTypeInfo = "select distinct beerTypeEN from beerType";
+
+							ArrayList<ArrayList<Object>> result = MysqlDriver.selectMany(beerTypeInfo);
+							for (int i = 0; i < result.size(); i++) {
+								beerTypeList.add(result.get(i).get(0).toString());
+							}
+							beerType.setItems(beerTypeList);
+
+
+							beerPackageTypeList.clear();
+							String beerPackageTypeInfo;
+							beerPackageTypeInfo = "select distinct packageTypeEN from package";
+
+							ArrayList<ArrayList<Object>> result2 = MysqlDriver.selectMany(beerPackageTypeInfo);
+							for (int i = 0; i < result2.size(); i++) {
+								beerPackageTypeList.add(result2.get(i).get(0).toString());
+							}
+							// TODO add packagetypes??
+							beerPackageType.setItems(beerPackageTypeList);
+
+
+							beerProducerList.clear();
+							String beerProducerInfo;
+							beerProducerInfo = "select distinct producerName from producers";
+
+							ArrayList<ArrayList<Object>> result3 = MysqlDriver.selectMany(beerProducerInfo);
+							for (int i = 0; i < result3.size(); i++) {
+								beerProducerList.add(result3.get(i).get(0).toString());
+							}
+							beerProducer.setItems(beerProducerList);
+
+
+							beerOriginList.clear();
+							String beerOriginInfo;
+							beerOriginInfo = "select distinct countryName from origin";
+
+							ArrayList<ArrayList<Object>> result4 = MysqlDriver.selectMany(beerOriginInfo);
+							for (int i = 0; i < result4.size(); i++) {
+								beerOriginList.add(result4.get(i).get(0).toString());
+							}
+							beerOrigin.setItems(beerOriginList);
+
+
+							return null;
+						}
+					};
+				}
+			};
+			backgroundThread.start();
+
 		}
-
-
-
- 
  
  
 

@@ -13,7 +13,7 @@
         <columns>
           <TableColumn fx:id="image" prefWidth="47.0" resizable="false" text="Image" />
           <TableColumn fx:id="pubName" prefWidth="141.0" resizable="false" text="Name" />
-            <TableColumn prefWidth="97.0" text="Address" />
+            <TableColumn fx:id="pubAddress" prefWidth="97.0" text="Address" />
             <TableColumn fx:id="pubPhoneNumber" prefWidth="110.0" text="Phone Number" />
             <TableColumn fx:id="pubOffer" prefWidth="112.0" text="Offers" />
             <TableColumn fx:id="pubDescription" prefWidth="120.0" text="Description" />

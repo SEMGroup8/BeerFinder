@@ -1,5 +1,6 @@
 package com.group8.database;
 
+import com.group8.controllers.BeerData;
 import com.mysql.jdbc.MysqlParameterMetadata;
 
 import java.awt.image.BufferedImage;
@@ -65,7 +66,17 @@ public class MysqlDriver {
 
             for(int i = 1; i<=metaData.getColumnCount(); i++)
             {
-                result.add(rs.getObject(i));
+                // Generic data setter
+                if(metaData.getColumnTypeName(i).equals("MEDIUMBLOB")){
+                    InputStream image =rs.getBinaryStream(i);
+                    BeerData.lenght = rs.getBlob(i).length();
+                    System.out.println(BeerData.lenght);
+                    result.add(image);
+
+                }else{
+                    result.add(rs.getObject(i));
+                }
+
             }
 
 
@@ -122,22 +133,17 @@ public class MysqlDriver {
 
                 for(int i = 0; i<=metaData.getColumnCount()-1; i++) {
                     row.add(null);
+                    // test output
+                   // System.out.println("type name-->"+metaData.getColumnTypeName(i+1));
                 }
 
                 for(int i = 1; i<=metaData.getColumnCount(); i++)
                 {
-
-
-                    if(i == 3){
-
-                        InputStream image =rs.getBinaryStream(3);
+                    // Generic data setter
+                    if(metaData.getColumnTypeName(i).equals("MEDIUMBLOB")){
+                        InputStream image =rs.getBinaryStream(i);
                         row.set(i-1,image);
-                    }
-                    else if(i == 14){
-
-                        InputStream image =rs.getBinaryStream(13);
-                        row.set(i-1,image);
-
+                    }else{
 
 
 
@@ -161,8 +167,6 @@ public class MysqlDriver {
 
 
                         
-                    }
-                    else{
                         row.set(i-1,rs.getObject(i));
                     }
 

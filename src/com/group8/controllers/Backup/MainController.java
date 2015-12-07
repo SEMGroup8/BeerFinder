@@ -381,7 +381,7 @@ public class MainController implements Initializable {
         if(fetchedUser.get_isPub())
         {
             // Load the pub stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/loggedInHomescreen.fxml"));
             Scene result_scene = new Scene(result,800,600);
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
@@ -390,7 +390,7 @@ public class MainController implements Initializable {
         else
         {
             // Load the pub stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/loggedInHomescreen.fxml"));
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/loggedInHomescreen.fxml"));
             Scene result_scene = new Scene(result,800,600);
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
@@ -474,7 +474,7 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
-        Navigation.homescreenFXML = "/com/group8/resources/views/homescreen.fxml";
+        Navigation.homescreenFXML = "/com/group8/resources/views/Backup/homescreen.fxml";
     }
 
 

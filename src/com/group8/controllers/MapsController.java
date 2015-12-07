@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableSelectionModel;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -81,6 +82,11 @@ public class MapsController extends BaseController implements Initializable,MapC
         pubsColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("PubName"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("Price"));
         showPubs.setItems(masterData);
+       // showPubs.getSelectionModel().select(0);
+        showPubs.getSelectionModel().selectFirst();
+
+
+
     }
 
     /**
@@ -101,7 +107,7 @@ public class MapsController extends BaseController implements Initializable,MapC
             public void handle(MouseEvent event) {
 
                 // TODO take away the looping that misplaces ids
-                if (event.getClickCount() == 2) {
+                if (event.getClickCount() == 1) {
 
                     // Set the selectedMarker instance of beer we have to selected item
                     int z = showPubs.getSelectionModel().getSelectedIndex();
@@ -116,15 +122,7 @@ public class MapsController extends BaseController implements Initializable,MapC
                         map.setZoom(15);
                         if(i == z) {
                             // Add the selected marker back to the map
-                        	
-                        	Pub selectedPub = new Pub("select * from pubs where pubID =" + BeerData.markers.get(z).getPubID());
-                        	PubData.selectedPub = selectedPub;
 
-                            try {
-                                mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
 
                             map.addMarker(markers.get(z));
                             // make the infowindow for the selected marker
@@ -145,6 +143,16 @@ public class MapsController extends BaseController implements Initializable,MapC
                     }
 
 
+                }else if(event.getClickCount() == 2){
+                    int z = showPubs.getSelectionModel().getSelectedIndex();
+                    Pub selectedPub = new Pub("select * from pubs where pubID =" + BeerData.markers.get(z).getPubID());
+                    PubData.selectedPub = selectedPub;
+
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -162,6 +170,7 @@ public class MapsController extends BaseController implements Initializable,MapC
      */
         @Override
     public void mapInitialized() {
+
 
         // TODO add the geoPosition column to the pub table ( string double,double ( maybe have secure input method in addpub?))
         // TODO make string -> double double converter
