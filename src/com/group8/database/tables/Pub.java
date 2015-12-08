@@ -40,8 +40,6 @@ public class Pub extends MysqlDriver{
     float _entranceFee;
     BufferedImage pubImage;
     private InputStream tmpImg;
-    private InputStream out;
-    private OutputStream in;
 
     /**
      * TODO Do we need this??

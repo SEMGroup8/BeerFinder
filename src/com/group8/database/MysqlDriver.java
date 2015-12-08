@@ -69,8 +69,6 @@ public class MysqlDriver {
                 // Generic data setter
                 if(metaData.getColumnTypeName(i).equals("MEDIUMBLOB")){
                     InputStream image =rs.getBinaryStream(i);
-                    BeerData.lenght = rs.getBlob(i).length();
-                    System.out.println(BeerData.lenght);
                     result.add(image);
 
                 }else{

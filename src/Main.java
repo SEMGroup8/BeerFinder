@@ -17,15 +17,9 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    public static String test;
     File file = new File("src/8bit projekt.wav");
 
     public static void main(String[] args) {
-        test = "Bajs";
-
-        for (int i = 0; i < test.length(); i++) {
-            System.out.println(test.substring(i, i + 1));
-        }
 
         launch(args);
     }

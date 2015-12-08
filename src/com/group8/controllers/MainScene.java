@@ -3,6 +3,7 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.MapMarker;
+import com.lynden.gmapsfx.MainApp;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -12,11 +13,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,6 +51,8 @@ public class MainScene implements Initializable {
     public Button mapsButton;
     @FXML
     public ProgressIndicator Load;
+    @FXML
+    Button helpButton;
     @FXML
     public Label gmapsError;
     Service<Void> backgroundThread;
@@ -354,5 +362,21 @@ public class MainScene implements Initializable {
             System.out.println("No Pubs selling this beer");
             gmapsError.setVisible(true);
         }
+    }
+
+    public void help() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/help.fxml"));
+        BorderPane page = loader.load();
+        // Create the dialog Stage.
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Help");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(Navigation.primaryStage);
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+        dialogStage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+        // Show the dialog and wait until the user closes it
+        dialogStage.show();
     }
 }

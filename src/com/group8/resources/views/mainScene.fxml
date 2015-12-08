@@ -23,7 +23,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="mapsButton" mnemonicParsing="false" onAction="#getMaps" text="google maps" visible="false">
+            <Button fx:id="mapsButton" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="99.0" text="google maps" visible="false">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -33,6 +33,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="267.0" />
+            <Button id="helpButton" fx:id="helpButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#help" prefHeight="43.0" prefWidth="46.0" stylesheets="@../css/Main.css">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </bottom>

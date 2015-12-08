@@ -341,7 +341,7 @@ public class PubInfo extends BaseController implements Initializable{
          
 	}
 
-		public void getMap(javafx.event.ActionEvent event) throws IOException{
+	public void getMap(javafx.event.ActionEvent event) throws IOException{
 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/AddressMap.fxml"));

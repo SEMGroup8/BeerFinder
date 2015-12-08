@@ -33,7 +33,5 @@ public class BeerData {
 
     public static LatLong Address = null;
 
-    public static long lenght;
-
 
 }
