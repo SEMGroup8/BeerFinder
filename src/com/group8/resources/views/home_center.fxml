@@ -21,8 +21,9 @@
                   <CheckBox fx:id="advancedName" layoutX="281.0" layoutY="229.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
                   <CheckBox fx:id="advancedCountry" layoutX="382.0" layoutY="285.0" mnemonicParsing="false" text="Origin" visible="false" />
                   <Button fx:id="randomButton" layoutX="449.0" layoutY="225.0" mnemonicParsing="false" onAction="#onRandom" prefWidth="70.0" text="Random" />
-                  <ProgressIndicator fx:id="Load" layoutX="373.0" layoutY="97.0" visible="false" />
-                  <Button fx:id="showPubs" layoutX="298.0" layoutY="262.0" mnemonicParsing="false" onAction="#onShowPubs" prefHeight="26.0" prefWidth="135.0" text="Show all pubs" />
+                  <ProgressIndicator fx:id="Load" layoutX="373.0" layoutY="97.0" visible="false" /><Button fx:id="showPubs" layoutX="298.0" layoutY="262.0" mnemonicParsing="false" onAction="#onShowPubs" prefHeight="26.0" prefWidth="135.0" text="Show all pubs" />
+                  <Button fx:id="beerScanButton" layoutX="449.0" layoutY="163.0" mnemonicParsing="false" onAction="#onBeerScan" prefWidth="70.0" text="Beer scan" />
+                  <Button fx:id="beerScanSearchButton" layoutX="163.0" layoutY="97.0" mnemonicParsing="false" onAction="#onSearch" text="Search barcode" />
                </children>
             </AnchorPane>
          </children>
