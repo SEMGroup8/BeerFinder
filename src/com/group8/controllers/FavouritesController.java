@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
