@@ -293,8 +293,12 @@ public class HomeCenter extends BaseController implements Initializable
             public void handle(WorkerStateEvent event) {
 
                 Load.setVisible(false);
-                webcamStage.close();
-                Navigation.primaryStage.setOpacity(1); //Undim stage
+                try {
+                    webcamStage.close();
+                    Navigation.primaryStage.setOpacity(1); //Undim stage
+                }
+                catch(NullPointerException e){
+                }
 
                 // If only one result for a search, go straight to beer profile
                 if ((BeerData.beer.size()==1)) {
