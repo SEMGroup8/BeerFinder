@@ -38,7 +38,6 @@
             <Button layoutX="501.0" layoutY="16.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="25.0" text="+" />
             <Button layoutX="411.0" layoutY="351.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Preview" />
             <Button layoutX="411.0" layoutY="383.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Submit" />
-            <Button fx:id="Back" onAction="#backAction" layoutX="411.0" layoutY="414.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="180.0" text="Back" />
          </children></AnchorPane>
   </items>
 </SplitPane>

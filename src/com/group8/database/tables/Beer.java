@@ -3,6 +3,8 @@ package com.group8.database.tables;
 import com.group8.database.MysqlDriver;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import jdk.nashorn.internal.objects.annotations.Getter;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 public class Beer extends MysqlDriver{
 
     String from = "beers";
-    private String name, description, type, origin, producer, beerPackage;
+   private String name, description, type, origin, producer, beerPackage;
     int id;
 
     float avRank;
@@ -75,10 +77,8 @@ public class Beer extends MysqlDriver{
         try {
             InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
-            System.out.println("har bytes");
         }catch (IOException ex) {
             this.image = null;
-            System.out.println("NEJ");
             ex.printStackTrace();
         }
 
@@ -93,11 +93,9 @@ public class Beer extends MysqlDriver{
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
         try {
-            System.out.println("trying");
             InputStream tmpImg = (InputStream) sqlReturn.get(13);
             this.countryFlag = javax.imageio.ImageIO.read(tmpImg);
         }catch (IOException ex){
-            System.out.println("failed");
             this.countryFlag = null;
             ex.printStackTrace();
         }

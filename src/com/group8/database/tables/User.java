@@ -7,8 +7,13 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class for constructing Users of diffrent kinds.
+ * --> Used by the RegisterUserController.
+ */
 public class User extends MysqlDriver
 {
+    // User Data
     private int _id;
     private String _username;
     private String _fullName;
@@ -17,15 +22,27 @@ public class User extends MysqlDriver
     private boolean _isPub;
     private int _pubId;
     private Pub _pub;
-
+    // User Specific Extra Data
     public ArrayList<Beer> favourites;
     public ArrayList<Pub> pubFavouritesDetails;
     public ArrayList<Pub> pubListDetails;
+
+    /**
+     * Default User constructor.
+     */
     public User()
     {
 
     }
 
+    /**
+     * User constructor.
+     * --> Calls diffrent functions inside the User constructor class to construct a User
+     *     from specifications.
+     * --> Takes a SQL query and constructs a User or Pubowner User depending
+     *     on if _isPub is 'true' or not.
+     * @param query
+     */
     public User(String query)
     {
         super();
@@ -63,6 +80,14 @@ public class User extends MysqlDriver
         getFavourites();
     }
 
+    /**
+     * User constructor.
+     * --> Calls diffrent functions inside the User constructor class to construct a User
+     *     from specifications.
+     * --> Takes a Arraylist of the type Object and constructs a User or Pubowner User depending
+     *     on if _isPub is 'true' or not.
+     * @param sqlData
+     */
     public User(ArrayList<Object> sqlData)
     {
         _id = Integer.parseInt(sqlData.get(0).toString());
@@ -89,6 +114,15 @@ public class User extends MysqlDriver
         }
     }
 
+    /**
+     * User setter.
+     * --> Takes a number odf variables to construct a User object. ( Have no pubID) ??
+     * @param name
+     * @param fullName
+     * @param password
+     * @param email
+     * @param isPub
+     */
     public void setUser(String name, String fullName, String password, String email, boolean isPub)
     {
         this._username = name;
@@ -98,6 +132,16 @@ public class User extends MysqlDriver
         this._isPub = isPub;
     }
 
+    /**
+     * User setter.
+     * --> Takes a number odf variables to construct a User object.
+     * @param name
+     * @param fullName
+     * @param password
+     * @param email
+     * @param isPub
+     * @param pubId
+     */
     public void setUser(String name, String fullName, String password, String email, boolean isPub, int pubId)
     {
         this._username = name;
@@ -112,6 +156,9 @@ public class User extends MysqlDriver
         }
     }
 
+    /**
+     * TODO ??
+     */
     public void getPubs() throws IOException {
 		String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
 		ArrayList<ArrayList<Object>> SQLData4;
@@ -130,6 +177,11 @@ public class User extends MysqlDriver
 		}
 	}
 
+    /**
+     * Gets normal users Favourites list of pubs.
+     * --> Used when pushing the "Favourite pubs" button.
+     * --> Gets an array of pubs from the server and stores them in the UserInstance.
+     */
 	public void getPubFavourites() {
 		System.out.println("get userId" + _id);
 		String selFavPub = "select pubs.pubID,`name`, image,`phoneNumber`, `description`, `offers`, `entrenceFee` FROM `pubs`,`favouritePub` WHERE pubs.pubID=favouritePub.pubId AND favouritePub.userId = "	+ _id;
@@ -148,7 +200,11 @@ public class User extends MysqlDriver
 			this.pubFavouritesDetails.add(pubFavouritesDetails1);
 		}
 	}
-	
+    /**
+     * Gets normal users Favourites list of beers.
+     * --> Used when pushing the "Favourite beers" button.
+     * --> Gets an array of beers from the server and stores them in the UserInstance.
+     */
     public void getFavourites()
     {
         String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
@@ -170,6 +226,9 @@ public class User extends MysqlDriver
         }
     }
 
+    /**
+     *
+     */
     public void getBeers()
     {
         String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars, countryFlag " +
@@ -191,6 +250,9 @@ public class User extends MysqlDriver
         }
     }
 
+    /**
+     * User insert fucntion.
+     */
     public void insert()
     {
         String selectQuery =
@@ -203,6 +265,9 @@ public class User extends MysqlDriver
         System.out.println("Inserted");
     }
 
+    /**
+     * User update function.
+     */
     public void updateUser()
     {
         String query = "UPDATE `users` SET `fullName` = '" + _fullName + "', `password` = '" + _password +
@@ -215,6 +280,7 @@ public class User extends MysqlDriver
         getFavourites();
     }
 
+    // Getters and setters.
     public int get_id() {
         return _id;
     }

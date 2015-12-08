@@ -284,9 +284,9 @@ public class LoggedInHomeScreenController extends MainController {
         BeerData.beer = new ArrayList<Beer>();
         userName.setText(UserData.userInstance.get_name());
 
-        Navigation.homescreenFXML = "/com/group8/resources/views/loggedInHomescreen.fxml";
+        Navigation.homescreenFXML = "/com/group8/resources/views/Backup/loggedInHomescreen.fxml";
         Navigation.resultviewFXML = "/com/group8/resources/views/result_center.fxml";
-        Navigation.backFXML = "/com/group8/resources/views/loggedInHomescreen.fxml";
+        Navigation.backFXML = "/com/group8/resources/views/Backup/loggedInHomescreen.fxml";
     }
 
     @FXML
@@ -294,7 +294,7 @@ public class LoggedInHomeScreenController extends MainController {
     {
         UserData.userInstance = null;
 
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
+        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/homescreen.fxml"));
         Scene result_scene = new Scene(result, 800, 600);
         Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         main_stage.setScene(result_scene);

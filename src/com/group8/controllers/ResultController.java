@@ -85,7 +85,7 @@ public class ResultController extends BaseController implements Initializable {
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                         // Show that we can select items and print it
-                        System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
+                        //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
                         // Set the selectedBeer instance of beer we have to selected item
                         BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
                         // Load the details scene

@@ -1,6 +1,5 @@
 package com.group8.controllers;
 
-import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
 
 import javafx.collections.FXCollections;
@@ -14,7 +13,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -34,10 +32,7 @@ import java.util.ResourceBundle;
  */
 public class PubList extends BaseController implements Initializable
 {
-    @FXML
-    public Button logout, account;
-    @FXML
-    public Button Back;
+
     @FXML
     public TableView<Pub> pubTable;
     @FXML
@@ -48,56 +43,15 @@ public class PubList extends BaseController implements Initializable
     public TableColumn<Pub, String> pubPhoneNumber;
     @FXML
     public TableColumn<Pub, String> pubDescription;
-   @FXML
-   public TableColumn<Pub, String> pubOffer;
-    
-   @FXML
-   public TableColumn<Pub, Image> image;
-  
     @FXML
-    public Label userName;
+    public TableColumn<Pub, String> pubOffer;
+    @FXML
+    public TableColumn<Pub,String> pubAddress;
+    @FXML
+    public TableColumn<Pub, Image> image;
+
 
     public ObservableList<Pub> masterData = FXCollections.observableArrayList(PubData.pubs);
-    
-
-    /**
-     * Back button pressed takes you back to "home screen"
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void backAction(ActionEvent event) throws IOException {
-        String backActionString = "";
-
-        Parent homescreen = FXMLLoader.load(getClass().getResource(Navigation.homescreenFXML));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-    }
-
-    @FXML
-    public void onLogout(javafx.event.ActionEvent event) throws IOException
-    {
-        UserData.userInstance = null;
-
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/homescreen.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-    }
-
-    @FXML
-    public void onAccount(javafx.event.ActionEvent event) throws IOException
-    {
-
-        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/accountSettings.fxml"));
-        Scene result_scene = new Scene(result, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
-    }
 
     /**
      * Select a beer row and proceed to the beerDetail scene
@@ -115,17 +69,14 @@ public class PubList extends BaseController implements Initializable
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
                     System.out.println("clicked on " + pubTable.getSelectionModel().getSelectedItem());
-                    // Set the selectedBeer instance of beer we have to selected item
-                   // BeerData.selectedBeer = pubTable.getSelectionModel().getSelectedItem();
-                    // Load the details scene
+                    int id = pubTable.getSelectionModel().getSelectedItem().get_pubId();
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+
+                    Pub selectedPub = new Pub("select * from pubs where pubID =" + id);
+                    PubData.selectedPub = selectedPub;
+
                     try {
-                        // TODO have to fix nameing
-                        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerDetailsScreen.fxml"));
-                        Scene result_scene = new Scene(homescreen,800,600);
-                        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        main_stage.setScene(result_scene);
-                        main_stage.show();
+                        mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -144,21 +95,20 @@ public class PubList extends BaseController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-//        Navigation.backFXML = "/com/group8/resources/views/favourites.fxml";
-//        Navigation.resultviewFXML = "/com/group8/resources/views/favourites.fxml";
+
+          Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
-        pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("_name"));
-	       // pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("Address"));
+            pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("_name"));
+	        pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("_address"));
 	        pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("_phoneNumber"));
 	        pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("_offers"));
 	        pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("_description"));
 	        pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("_entranceFee"));
-//        beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
-        System.out.println(pubName +"doki doki");
+            System.out.println(pubName +"doki doki");
 
 
-//        // Try loading the image, if there is none will use placeholder
+        // Try loading the image, if there is none will use placeholder
         image.setCellValueFactory(new PropertyValueFactory<Pub, Image>("image"));
         /**
          * Set the Cellfactory
@@ -194,8 +144,6 @@ public class PubList extends BaseController implements Initializable
                                 imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
                                 imgVw.setFitWidth(20);
                                 imgVw.setFitHeight(40);
-                                // Test Output
-                                //System.out.println(imgVw.getImage().toString());
                                 vb.getChildren().addAll(imgVw);
                                 setGraphic(vb);
 

@@ -3,19 +3,26 @@ package com.group8.database.tables;
 import com.group8.database.MysqlDriver;
 import com.mysql.fabric.jdbc.FabricMySQLDriver;
 
+
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 
 /**
  * Created by Shiratori on 12/11/15.
+ *
+ * Class for constructing Google Maps Markers.
+ *
  */
 public class MapMarker extends MysqlDriver
 {
+    // Marker variables
     private int pubID;
 
     private double longitude, latitude;
 
+
     private boolean inStock;
+
 
     private double price;
 
@@ -23,6 +30,11 @@ public class MapMarker extends MysqlDriver
 
     private String address;
 
+    /**
+     * Marker Constructor that takes an arraylist of markerdata to produce a number of markers.
+     * --> Used when placeing out markers after fetching data from the database.
+     * @param arrayList
+     */
     public MapMarker(ArrayList<Object> arrayList)
     {
         this.pubID = Integer.parseInt(arrayList.get(0).toString());
@@ -33,6 +45,7 @@ public class MapMarker extends MysqlDriver
         this.longitude = Double.parseDouble(arrayList.get(5).toString());
         this.inStock = Boolean.parseBoolean(arrayList.get(6).toString());
     }
+
 
 
     public double getLatitude() {

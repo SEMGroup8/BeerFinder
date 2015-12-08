@@ -45,8 +45,6 @@ public class Scene4Controller extends BaseController implements Initializable{
     @FXML
     private Button checkButton;
     @FXML
-    private Label beerFound;
-    @FXML
     private Label percentageR;
     @FXML
     private ImageView imageView;
@@ -55,7 +53,7 @@ public class Scene4Controller extends BaseController implements Initializable{
     @FXML
     private VBox VBoxInfo;
     @FXML
-    private HBox HBoxFound, rankFavourite;
+    private HBox rankFavourite;
     @FXML
     private Label packageR;
     @FXML
@@ -105,15 +103,9 @@ public class Scene4Controller extends BaseController implements Initializable{
 
     @FXML // Repeat the RandomBeer program from start
     void onRepeatClick(ActionEvent event) throws Exception {
-        Stage stage;
-        Parent root;
-        stage = (Stage) repeatButton.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/RandomBeerScenes/scene1.fxml"));
-        Scene scene = new Scene(root);
 
-        stage.setTitle("BeerFinder Alpha Test");
-        stage.setScene(scene);
-        stage.show();
+       mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
+
 
     }
 
@@ -219,7 +211,6 @@ public class Scene4Controller extends BaseController implements Initializable{
             this.packageR.setText(randomBeer.getBeerPackage());
             this.producerR.setText(randomBeer.getProducer());
             this.priceR.setText("" + randomBeer.getPrice() + " kr");
-            this.beerFound.setText("" + count);
             if(randomBeer.getImage() != null) {
                 this.imageView.setImage(randomBeer.getImage());
             }
@@ -238,7 +229,6 @@ public class Scene4Controller extends BaseController implements Initializable{
 
             VBoxInfo.setVisible(true);
             HBoxButtons.setVisible(true);
-            HBoxFound.setVisible(true);
             imageView.setVisible(true);
         }
     }

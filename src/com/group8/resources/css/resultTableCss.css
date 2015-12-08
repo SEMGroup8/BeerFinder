@@ -32,11 +32,6 @@
     -fx-padding:-7;
 }
 
-
-.table-row-cell:filled:selected,
-.table-row-cell:filled > .table-cell:selected {
-    -fx-background: rgba(255, 161, 226, 0.49);
-}
 .table-view {
     -fx-table-cell-border-color: transparent;
 }

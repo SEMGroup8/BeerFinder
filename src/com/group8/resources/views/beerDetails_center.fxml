@@ -34,6 +34,7 @@
                               <Font size="36.0" />
                            </font>
                         </Label>
+<<<<<<< HEAD
                         <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" textFill="#ffffff" />
                         <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" textFill="#ffffff" />
                         <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" textFill="#ffffff" />
@@ -92,6 +93,22 @@
                               <Label fx:id="cantRank" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="212.0" text="You have already ranked this beer." textFill="#f2cf25" visible="false" />
                            </children>
                         </VBox>
+=======
+                        <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" />
+                        <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" />
+                        <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" />
+                        <Label fx:id="showVolume" layoutX="33.0" layoutY="142.0" text="Volume" />
+                        <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" />
+                        <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" />
+                        <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" />
+                        <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" />
+                        <Button fx:id="addToPub" layoutX="315.0" layoutY="129.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
+                        <Label fx:id="added" layoutX="451.0" layoutY="160.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" layoutX="115.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+>>>>>>> develop
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
