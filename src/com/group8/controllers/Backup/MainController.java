@@ -1,11 +1,12 @@
-package com.group8.controllers.Backup;
-import com.group8.controllers.BeerData;
-import com.group8.controllers.Navigation;
-import com.group8.controllers.UserData;
+package com.group8.controllers;
+import com.group8.*;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.User;
+import com.lynden.gmapsfx.MainApp;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,8 +19,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import org.controlsfx.control.PopOver;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -65,6 +72,13 @@ public class MainController implements Initializable {
     public Button randomButton;
     @FXML
     public Button test;
+    @FXML
+    public Button beerScanButton;
+
+    public void test(){
+
+    }
+
 
 
 
@@ -288,7 +302,7 @@ public class MainController implements Initializable {
 
 
             // Load the result stage
-            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/result_center.fxml"));
+            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
             Scene result_scene = new Scene(result,800,600);
             Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             main_stage.setScene(result_scene);
@@ -412,6 +426,45 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    public void onBeerScan (ActionEvent event) throws Exception{
+
+        SwingNode webCam = new SwingNode();
+        SwingNode barcode = new SwingNode();
+        BorderPane pane = new BorderPane();
+
+        getWebcam(webCam, barcode);
+
+        pane.setCenter(webCam);
+
+//        Stage stage = new Stage();
+//        stage.setScene(new Scene(pane, 600, 400));
+//        stage.show();
+
+        PopOver popUp = new PopOver(webCam);
+        popUp.setCornerRadius(3);
+        popUp.setDetachable(false);
+        popUp.setDetached(false);
+        popUp.setArrowSize(4);
+        popUp.setArrowIndent(1);
+        popUp.setAnchorLocation(PopOver.AnchorLocation.CONTENT_BOTTOM_RIGHT);
+        popUp.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+        popUp.show(beerScanButton);
+    }
+
+    private void getWebcam(final SwingNode webcam, SwingNode barcode) {
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                BeerScanner scanner = new BeerScanner();
+                webcam.setContent(scanner.panel);
+                barcode.setContent(scanner.textarea);
+            }
+        });
+    }
+
+
     /**
      *  Initialize Main controller
      * @param location
@@ -423,4 +476,7 @@ public class MainController implements Initializable {
         BeerData.beer = new ArrayList<Beer>();
         Navigation.homescreenFXML = "/com/group8/resources/views/Backup/homescreen.fxml";
     }
+
+
+
 }

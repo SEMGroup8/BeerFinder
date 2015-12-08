@@ -67,7 +67,8 @@ public class HomeCenter extends BaseController implements Initializable
     public TextField searchText;
     @FXML
     public ProgressIndicator Load;
-    // Threading service
+<<<<<<< HEAD
+
     private SwingNode webCam;
     private BorderPane pane;
     private Stage webcamStage;
@@ -75,6 +76,9 @@ public class HomeCenter extends BaseController implements Initializable
     private static String barcode = null;
     private static Button workaroundButton;
 
+=======
+    // Threading service
+>>>>>>> develop
     Service<Void> backgroundThread;
 
     // Checkbox that when checked shows advanced checkboxes
@@ -293,12 +297,8 @@ public class HomeCenter extends BaseController implements Initializable
             public void handle(WorkerStateEvent event) {
 
                 Load.setVisible(false);
-                try {
-                    webcamStage.close();
-                    Navigation.primaryStage.setOpacity(1); //Undim stage
-                }
-                catch(NullPointerException e){
-                }
+                webcamStage.close();
+                Navigation.primaryStage.setOpacity(1); //Undim stage
 
                 // If only one result for a search, go straight to beer profile
                 if ((BeerData.beer.size()==1)) {

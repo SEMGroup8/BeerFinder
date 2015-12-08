@@ -69,6 +69,8 @@ public class MysqlDriver {
                 // Generic data setter
                 if(metaData.getColumnTypeName(i).equals("MEDIUMBLOB")){
                     InputStream image =rs.getBinaryStream(i);
+                    BeerData.lenght = rs.getBlob(i).length();
+                    System.out.println(BeerData.lenght);
                     result.add(image);
 
                 }else{
@@ -141,7 +143,13 @@ public class MysqlDriver {
                     if(metaData.getColumnTypeName(i).equals("MEDIUMBLOB")){
                         InputStream image =rs.getBinaryStream(i);
                         row.set(i-1,image);
-                    }else{
+<<<<<<< HEAD
+                    }
+                    else if(i == 14){
+
+                        InputStream image =rs.getBinaryStream(13);
+                        row.set(i-1,image);
+
 
 
 
@@ -165,6 +173,11 @@ public class MysqlDriver {
 
 
                         
+                    }
+                    else{
+=======
+                    }else{
+>>>>>>> develop
                         row.set(i-1,rs.getObject(i));
                     }
 
