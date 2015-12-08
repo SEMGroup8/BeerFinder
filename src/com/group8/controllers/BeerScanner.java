@@ -79,17 +79,17 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 
 
 
-				// Stopped the thread !!! but something's still running
-				if(t != null){
-					System.out.println("Thread 31 before: " + t.isAlive());
-					try {
-						running = false;
-						t.join();
-					}
-					catch (InterruptedException e){
-					}
-				}
-				System.out.println("Thread 31 after: " + t.isAlive());
+//				// Stopped the thread !!! but something's still running
+//				if(t != null){
+//					System.out.println("Thread 31 before: " + t.isAlive());
+//					try {
+//						running = false;
+//						t.join();
+//					}
+//					catch (InterruptedException e){
+//					}
+//				}
+//				System.out.println("Thread 31 after: " + t.isAlive());
 
 
 			}
@@ -112,6 +112,9 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 	}
 
 	public static void disconnectWebcam(){
+		// Disconnect the device
+		webcam.getDevice().close();
+		// Close the webcam service
 		webcam.close();
 	}
 

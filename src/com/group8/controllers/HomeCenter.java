@@ -74,6 +74,7 @@ public class HomeCenter extends BaseController implements Initializable
     private Scene webcamScene;
     private static String barcode = null;
     private static Button workaroundButton;
+    boolean cameraOpen= false;
 
     Service<Void> backgroundThread;
 
@@ -293,12 +294,15 @@ public class HomeCenter extends BaseController implements Initializable
             public void handle(WorkerStateEvent event) {
 
                 Load.setVisible(false);
-                try {
-                    webcamStage.close();
-                    Navigation.primaryStage.setOpacity(1); //Undim stage
-                    BeerScanner.disconnectWebcam();
-                }
-                catch(NullPointerException e){
+                if(cameraOpen) {
+                    try {
+
+                        closeWebcam();
+
+
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 // If only one result for a search, go straight to beer profile
@@ -442,6 +446,7 @@ public class HomeCenter extends BaseController implements Initializable
     @FXML
     public void onBeerScan (ActionEvent event) throws Exception {
 
+        cameraOpen = true;
         webCam = new SwingNode();
         SwingNode barcode = new SwingNode();
         pane = new BorderPane();
