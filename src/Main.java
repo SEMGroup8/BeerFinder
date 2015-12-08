@@ -1,9 +1,11 @@
 import com.group8.controllers.Navigation;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -32,9 +34,16 @@ public class Main extends Application {
         stage.setTitle("BeerFinder Beta Test");
         stage.setScene(scene);
         stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
-        play();
+        //play();
         System.out.println("running --> start");
         stage.show();
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
 
     }
 
