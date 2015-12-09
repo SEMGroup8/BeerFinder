@@ -124,13 +124,52 @@ public class helpController extends BaseController implements Initializable{
                 break;
             case "changeCenter(String URL)":
                 helpText.setText("This is the changeCenter explanation section.\n\n" +
-                        "-->The function changeTop(String) gets an URL in String format and performs a FXML & Controller switch for the center element in the mainScene.");
+                        "--> The function changeTop(String) gets an URL in String format and performs a FXML & Controller switch for the center element in the mainScene to the URL FXML supplied.\n\n" +
+                        "--> This function is called every time the user presses something to navigate around, except for the login / logout. ");
                 helpImage.setImage(new Image(new File("src/com/group8/resources/Images/changeCenter.png").toURI().toString()));
                 break;
             case "changeTop(String URL)":
                 helpText.setText("This is the changeTop explanation section.\n\n" +
-                        "--> The function changeTop(String) gets an URL in String format and performs a FXML & Controller switch for the top element in the mainScene.");
+                        "--> The function changeTop(String) gets an URL in String format and performs a FXML & Controller switch for the top element in the mainScene.\n\n" +
+                        "--> This function is currently only used when loggin in and logging out.");
                 helpImage.setImage(new Image(new File("src/com/group8/resources/Images/changeTop.png").toURI().toString()));
+                break;
+            case "Objects":
+                helpText.setText("This is the Object explanation section.\n\n" +
+                        "This program uses a number of different Objects to store information.\n" +
+                        "--> Beer Object\n" +
+                        "    Used to store a beer's information.\n\n" +
+                        "--> Pub Object\n" +
+                        "    Used to store a pub's information.\n\n" +
+                        "--> Marker Object\n" +
+                        "    Used to store a Markers information.\n\n" +
+                        "--> User Object\n" +
+                        "    Used to store a user's information.");
+                helpImage.setImage(new Image(new File("src/com/group8/resources/Images/objectHelp.png").toURI().toString()));
+                break;
+            case "Beer Object":
+                helpText.setText("This is the Beer Object explanation section.\n\n" +
+                        "This is used when fetching a search result to store the information.\n" +
+                        "-->");
+                helpImage.setImage(new Image(new File("src/com/group8/resources/Images/objectHelp.png").toURI().toString()));
+                break;
+            case "Pub Object":
+                helpText.setText("This is the Object explanation section.\n\n" +
+                        "This program uses a number of different Objects to store information.\n" +
+                        "-->");
+                helpImage.setImage(new Image(new File("src/com/group8/resources/Images/objectHelp.png").toURI().toString()));
+                break;
+            case "Marker Object":
+                helpText.setText("This is the Object explanation section.\n\n" +
+                        "This program uses a number of different Objects to store information.\n" +
+                        "-->");
+                helpImage.setImage(new Image(new File("src/com/group8/resources/Images/objectHelp.png").toURI().toString()));
+                break;
+            case "User Object":
+                helpText.setText("This is the Object explanation section.\n\n" +
+                        "This program uses a number of different Objects to store information.\n" +
+                        "-->");
+                helpImage.setImage(new Image(new File("src/com/group8/resources/Images/objectHelp.png").toURI().toString()));
                 break;
         }
 
@@ -158,6 +197,11 @@ public class helpController extends BaseController implements Initializable{
         TreeItem<String> subChild_Navigation = new TreeItem<>("Navigation");
         TreeItem<String> subChild_changeCenter = new TreeItem<>("changeCenter(String URL)");
         TreeItem<String> subChild_changeTop = new TreeItem<>("changeTop(String URL)");
+        TreeItem<String> subChild_Objects = new TreeItem<>("Objects");
+        TreeItem<String> subChild_Beer = new TreeItem<>("Beer Object");
+        TreeItem<String> subChild_Pub = new TreeItem<>("Pub Object");
+        TreeItem<String> subChild_Marker = new TreeItem<>("Marker Object");
+        TreeItem<String> subChild_User = new TreeItem<>("User Object");
         // Set root item
         helpTree.setRoot(treeRoot);
 
@@ -169,8 +213,18 @@ public class helpController extends BaseController implements Initializable{
 
         treeRoot.getChildren().add(child_Programmer);
         child_Programmer.getChildren().add(subChild_Navigation);
-        child_Programmer.getChildren().add(subChild_changeTop);
-        child_Programmer.getChildren().add(subChild_changeCenter);
+        subChild_Navigation.getChildren().add(subChild_changeTop);
+        subChild_Navigation.getChildren().add(subChild_changeCenter);
+        child_Programmer.getChildren().add(subChild_Objects);
+        subChild_Objects.getChildren().add(subChild_Beer);
+        subChild_Objects.getChildren().add(subChild_Pub);
+        subChild_Objects.getChildren().add(subChild_User);
+        subChild_Objects.getChildren().add(subChild_Marker);
+
+
+
+        // Error fix for clicking randomly when nothing is selected.
+        helpTree.getSelectionModel().selectFirst();
 
     }
 }
