@@ -74,6 +74,7 @@ public class HomeCenter extends BaseController implements Initializable
     private Scene webcamScene;
     private static String barcode = null;
     private static Button workaroundButton;
+    boolean cameraOpen= false;
 
     Service<Void> backgroundThread;
 
@@ -293,11 +294,15 @@ public class HomeCenter extends BaseController implements Initializable
             public void handle(WorkerStateEvent event) {
 
                 Load.setVisible(false);
-                try {
-                    webcamStage.close();
-                    Navigation.primaryStage.setOpacity(1); //Undim stage
-                }
-                catch(NullPointerException e){
+                if(cameraOpen) {
+                    try {
+
+                        closeWebcam();
+
+
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 // If only one result for a search, go straight to beer profile
@@ -441,6 +446,7 @@ public class HomeCenter extends BaseController implements Initializable
     @FXML
     public void onBeerScan (ActionEvent event) throws Exception {
 
+        cameraOpen = true;
         webCam = new SwingNode();
         SwingNode barcode = new SwingNode();
         pane = new BorderPane();
@@ -471,9 +477,6 @@ public class HomeCenter extends BaseController implements Initializable
         webcamStage.show();
 
         getWebcam(webCam);
-
-        //System.out.println(Arrays.toString(com.group8.resources.Tools.ThreadUtilities.getAllThreadInfos()));
-        //System.out.println(com.group8.resources.Tools.ThreadUtilities.getAllThreadInfos());
     }
 
     private void getWebcam(final SwingNode webcam) {
@@ -511,11 +514,13 @@ public class HomeCenter extends BaseController implements Initializable
         while (running);
     }
 
-    public void closeWebcam(){
+    public void closeWebcam() {
         webcamStage.close();
         Navigation.primaryStage.setOpacity(1);
-    }
+        BeerScanner.disconnectWebcam();
+        //System.exit(0);
 
+    }
 
     /**
      *  Initialize Main controller
@@ -528,6 +533,8 @@ public class HomeCenter extends BaseController implements Initializable
         BeerData.beer = new ArrayList<Beer>();
         Navigation.current_CenterFXML = "/com/group8/resources/views/home_center.fxml";
         beerScanSearchButton.setVisible(false);
+
+        System.out.println("Threads on start: " + Arrays.toString(com.group8.resources.Tools.ThreadUtilities.getAllDaemonThreads()));
     }
 
 }
