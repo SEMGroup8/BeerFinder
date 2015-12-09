@@ -29,20 +29,6 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="showBeerName" layoutX="26.0" layoutY="6.0" text="BeerName" textFill="#ffffff">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" textFill="#ffffff" />
-                        <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" textFill="#ffffff" />
-                        <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" textFill="#ffffff" />
-                        <Label fx:id="showVolume" layoutX="33.0" layoutY="142.0" text="Volume" textFill="#ffffff" />
-                        <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" textFill="#ffffff" />
-                        <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" textFill="#ffffff" />
-                        <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" textFill="#ffffff" />
-                        <Button fx:id="addToPub" layoutX="355.0" layoutY="79.0" mnemonicParsing="false" onAction="#addToPub" prefHeight="15.0" prefWidth="77.0" text="Add to pub" textFill="#ffffff" visible="false" />
-                        <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" layoutX="75.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
                         <VBox layoutX="269.0" layoutY="128.0">
                            <children>
                               <HBox alignment="CENTER" layoutX="182.0" layoutY="111.0" prefHeight="36.0" prefWidth="253.0">
@@ -92,14 +78,18 @@
                               <Label fx:id="cantRank" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="212.0" text="You have already ranked this beer." textFill="#f2cf25" visible="false" />
                            </children>
                         </VBox>
-                        <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" />
-                        <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" />
-                        <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" />
-                        <Label fx:id="showVolume" layoutX="33.0" layoutY="142.0" text="Volume" />
-                        <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" />
-                        <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" />
-                        <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" />
-                        <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" />
+                        <Label fx:id="showBeerName" layoutX="26.0" layoutY="6.0" text="BeerName" textFill="#ffffff">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" textFill="WHITE" />
+                        <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" textFill="WHITE" />
+                        <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" textFill="WHITE" />
+                        <Label fx:id="showVolume" layoutX="33.0" layoutY="142.0" text="Volume" textFill="WHITE" />
+                        <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" textFill="WHITE" />
+                        <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" textFill="WHITE" />
+                        <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" textFill="WHITE" />
                         <Button fx:id="addToPub" layoutX="315.0" layoutY="129.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
                         <Label fx:id="added" layoutX="451.0" layoutY="160.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
                            <font>
