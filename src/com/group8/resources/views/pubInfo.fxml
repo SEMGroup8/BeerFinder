@@ -28,18 +28,19 @@
             <Button fx:id="pubSaveNew" layoutX="510.0" layoutY="371.0" mnemonicParsing="false" onAction="#updatePub" prefHeight="26.0" prefWidth="102.0" text="Update" />
             <Button fx:id="loadImg" layoutX="640.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadPubImage" text="Set Image" />
             <Button fx:id="addBeer" layoutX="629.0" layoutY="371.0" mnemonicParsing="false" onAction="#onAddBeer" prefHeight="27.0" prefWidth="102.0" text="Add a Beer" />
-            <Button fx:id="getMap" layoutX="284.0" layoutY="213.0" mnemonicParsing="false" onAction="#getMap" text="Map" />
+            <Button fx:id="getMap" layoutX="284.0" layoutY="180.0" mnemonicParsing="false" onAction="#getMap" text="Map" />
             <Label fx:id="testtLabel" layoutX="3.0" layoutY="88.0" onDragDetected="#updatePub" prefHeight="53.0" prefWidth="122.0" />
             <TableView fx:id="beerTable" layoutX="72.0" layoutY="-1.0" onMouseClicked="#getRow" prefHeight="141.0" prefWidth="702.0">
                <columns>
                   <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
-                  <TableColumn fx:id="beerName" prefWidth="141.0" resizable="false" text="Name" />
-                  <TableColumn fx:id="beerType" prefWidth="97.0" text="Type" />
-                  <TableColumn fx:id="beerOrigin" prefWidth="59.0" text="Origin" />
-                  <TableColumn fx:id="beerPercentage" prefWidth="82.0" text="Percentage" />
-                  <TableColumn fx:id="beerProducer" prefWidth="96.0" text="Producer" />
-                  <TableColumn fx:id="beerPackage" prefWidth="110.0" text="Package" />
-                  <TableColumn fx:id="avrageRank" prefWidth="58.0" text="avRank" />
+                  <TableColumn fx:id="beerName" prefWidth="106.0" resizable="false" text="Name" />
+                  <TableColumn fx:id="beerType" prefWidth="68.0" text="Type" />
+                  <TableColumn fx:id="beerOrigin" prefWidth="96.0" text="Origin" />
+                  <TableColumn fx:id="beerPercentage" prefWidth="51.0" text="\%" />
+                  <TableColumn fx:id="beerProducer" prefWidth="144.0" text="Producer" />
+                  <TableColumn fx:id="beerPackage" prefWidth="63.0" text="Package" />
+                  <TableColumn fx:id="avrageRank" prefWidth="63.0" text="avRank" />
+                  <TableColumn fx:id="beerInPubPrice" prefWidth="68.0" text="Price" />
                </columns>
             </TableView>
             <Pane layoutX="505.0" layoutY="144.0" prefHeight="141.0" prefWidth="211.0" style="-fx-border-image-width: 2px; -fx-border-color: blue;">
