@@ -1,4 +1,4 @@
-//package com.group8.controllers.Backup;
+//package com.group8.controllers;
 //import com.group8.*;
 //import com.group8.database.MysqlDriver;
 //import com.group8.database.tables.Beer;

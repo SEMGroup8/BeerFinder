@@ -94,6 +94,8 @@ public class PubInfo extends BaseController implements Initializable{
     @FXML
     public TableColumn<Beer,Image> beerImage;
     @FXML
+    public TableColumn<Beer,String> beerInPubPrice;
+    @FXML
     public PieChart showPie;
     @FXML
     public Label userName;
@@ -167,6 +169,7 @@ public class PubInfo extends BaseController implements Initializable{
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
         avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("AvRank"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
+        beerInPubPrice.setCellValueFactory(new PropertyValueFactory<Beer, String>("Price"));
 
 
         // Try loading the image, if there is none will use placeholder
