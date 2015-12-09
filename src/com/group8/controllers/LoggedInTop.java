@@ -40,6 +40,8 @@ public class LoggedInTop extends BaseController implements Initializable
         if(UserData.userInstance.get_isPub())
         {
             account.setText("Pub");
+            beerFavourite.setVisible(false);
+            pubFavourite.setVisible(false);
         }
 
         // Reset the BeerData Arraylist
