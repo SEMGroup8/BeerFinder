@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -288,6 +289,9 @@ public class PubInfo extends BaseController implements Initializable{
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
 		alert.showAndWait();
+
+		// Test border set red
+		//pubDescription.setStyle("-fx-border-color: red");
 
 	}
 

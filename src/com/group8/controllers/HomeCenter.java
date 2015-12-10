@@ -85,8 +85,10 @@ public class HomeCenter extends BaseController implements Initializable
 
         if(advanced.isSelected()){
             randomButton.setVisible(false);
+            showPubs.setVisible(false);
         }else{
             randomButton.setVisible(true);
+            showPubs.setVisible(true);
         }
 
 
@@ -280,6 +282,7 @@ public class HomeCenter extends BaseController implements Initializable
                         for(int i=0;i<BeerData.beer.size();i++){
                             System.out.println(BeerData.beer.get(i).getName());
                         }
+
                         return null;
                     }
                 };

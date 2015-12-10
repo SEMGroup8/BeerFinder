@@ -63,7 +63,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="emailError" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label fx:id="emailError" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>

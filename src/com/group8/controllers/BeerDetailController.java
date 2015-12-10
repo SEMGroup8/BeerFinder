@@ -285,6 +285,7 @@ public class BeerDetailController extends BaseController implements Initializabl
         if(UserData.userInstance!=null) {
             if (UserData.userInstance.get_isPub()) {
                 addToPub.setVisible(true);
+                favourite.setVisible(false);
             }
         }
         // test output

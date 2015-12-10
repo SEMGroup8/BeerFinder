@@ -58,6 +58,8 @@ public class RegisterUserController extends BaseController {
         {
             System.out.println("In username check");
             usernameError.setText("Username is in use.");
+            username.setStyle("-fx-border-color: red;");
+
 
             return;
         }
@@ -69,6 +71,7 @@ public class RegisterUserController extends BaseController {
             System.out.println("In email check");
 
             emailError.setText("Email is in use.");
+            email.setStyle("-fx-border-color: red;");
 
             return;
         }
@@ -88,6 +91,8 @@ public class RegisterUserController extends BaseController {
             else
             {
                 pubNameError.setText("Pub name is taken.");
+                pubName.setStyle("-fx-border-color: red;");
+
                 return;
             }
         }
@@ -109,36 +114,42 @@ public class RegisterUserController extends BaseController {
         if(username.getText().length()==0)
         {
             usernameError.setText("Username has to be filled in.");
+            username.setStyle("-fx-border-color: red;");
             canRegister = false;
         }
 
         if(fullName.getText().length()==0)
         {
             fullNameError.setText("Name has to be filled in.");
+            fullName.setStyle("-fx-border-color: red;");
             canRegister = false;
         }
 
         if(!email.getText().contains("@")||!email.getText().contains("."))
         {
             emailError.setText("Email is invalid.");
+            email.setStyle("-fx-border-color: red;");
             canRegister = false;
         }
 
         if(email.getText().length()==0)
         {
             emailError.setText("Email has to be filled in.");
+            email.setStyle("-fx-border-color: red;");
             canRegister = false;
         }
 
         if(password.getText().length()<8)
         {
             passwordError.setText("Password has to be at least 8 characters.");
+            password.setStyle("-fx-border-color: red;");
             canRegister = false;
         }
 
         if(password.getText().length()==0)
         {
             passwordError.setText("Password can't be empty.");
+            password.setStyle("-fx-border-color: red;");
             canRegister = false;
         }
 
@@ -147,6 +158,7 @@ public class RegisterUserController extends BaseController {
             if(pubName.getText().length() == 0)
             {
                 pubNameError.setText("Pub name can't be empty if you are a pub owner");
+                pubName.setStyle("-fx-border-color: red;");
                 canRegister = false;
             }
         }
