@@ -10,33 +10,6 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.UppdateBeerController">
    <children>
       <BorderPane layoutX="273.0" layoutY="127.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-           <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="600.0" BorderPane.alignment="CENTER_RIGHT">
-        	 <children>
-           		 <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="392.0" HBox.hgrow="ALWAYS">
-              		 <children>
-		                  <Label text="Logged in as: " />
-		                  <Label fx:id="userName" text="Label" />
-		                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-		                     <children>
-		                        <Button fx:id="favourites" mnemonicParsing="false" onAction="#onFavourites" text="Favourites" />
-		                     </children>
-	                     </HBox>
-               		</children>
-          		  </HBox>
-           		 <Button fx:id="account" mnemonicParsing="false" onAction="#onAccount" text="Pub Info" textAlignment="CENTER">
-	              	 <HBox.margin>
-                        <Insets right="10.0" />
-	              	 </HBox.margin>
-              	 </Button>
-           		 <Button fx:id="logout" layoutX="540.0" layoutY="20.0" mnemonicParsing="false" onAction="#onLogout" text="Logout" textAlignment="CENTER">
-	               	<HBox.margin>
-	                  <Insets right="10.0" />
-	               	</HBox.margin>
-            	</Button>
-		         </children>
-		      </HBox>
-         </top>
          <left>
             <AnchorPane prefHeight="500.0" prefWidth="403.0" BorderPane.alignment="CENTER">
                <children>
@@ -46,21 +19,22 @@
                      </image>
                   </ImageView>
                   <TextField fx:id="beerName" layoutX="107.0" layoutY="25.0" prefHeight="36.0" prefWidth="177.0" promptText="Beer name..." />
-                  <TextField fx:id="beerPercentage" layoutX="52.0" layoutY="474.0" prefHeight="28.0" prefWidth="49.0" promptText="per.." />
-                  <ChoiceBox fx:id="beerType" layoutX="191.0" layoutY="368.0" prefHeight="27.0" prefWidth="147.0" />
-                  <Label layoutX="229.0" layoutY="394.0" text="Producer" />
-                  <Label layoutX="77.0" layoutY="394.0" text="Origin" />
-                  <Label layoutX="70.0" layoutY="451.0" text="\%" />
-                  <Label layoutX="230.0" layoutY="451.0" text="Package" />
+                  <TextField fx:id="beerPercentage" layoutX="53.0" layoutY="449.0" prefHeight="28.0" prefWidth="49.0" promptText="per.." />
+                  <ChoiceBox fx:id="beerType" layoutX="191.0" layoutY="336.0" prefHeight="27.0" prefWidth="147.0" />
+                  <Label layoutX="239.0" layoutY="432.0" text="Producer" />
+                  <Label layoutX="86.0" layoutY="373.0" text="Origin" />
+                  <Label layoutX="70.0" layoutY="432.0" text="\%" />
+                  <Label layoutX="240.0" layoutY="373.0" text="Package" />
                   <Label layoutX="152.0" layoutY="6.0" text="Beer name" />
-                  <CheckBox fx:id="beerIsTap" layoutX="75.0" layoutY="372.0" mnemonicParsing="false" text="isTap" />
-                  <TextField fx:id="beerVolume" layoutX="111.0" layoutY="475.0" prefHeight="26.0" prefWidth="66.0" promptText="vol..." />
-                  <Label layoutX="122.0" layoutY="451.0" text="Volume" />
-                  <ChoiceBox fx:id="beerProducer" layoutX="189.0" layoutY="419.0" prefWidth="150.0" />
-                  <ChoiceBox fx:id="beerOrigin" layoutX="53.0" layoutY="419.0" prefHeight="26.0" prefWidth="100.0" />
-                  <ChoiceBox fx:id="beerPackageType" layoutX="189.0" layoutY="475.0" prefWidth="150.0" />
-                  <Label layoutX="241.0" layoutY="345.0" text="Type" />
+                  <CheckBox fx:id="beerIsTap" layoutX="75.0" layoutY="341.0" mnemonicParsing="false" text="isTap" />
+                  <TextField fx:id="beerVolume" layoutX="112.0" layoutY="449.0" prefHeight="26.0" prefWidth="66.0" promptText="vol..." />
+                  <Label layoutX="122.0" layoutY="432.0" text="Volume" />
+                  <ChoiceBox fx:id="beerProducer" layoutX="191.0" layoutY="449.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="beerOrigin" layoutX="54.0" layoutY="397.0" prefHeight="26.0" prefWidth="100.0" />
+                  <ChoiceBox fx:id="beerPackageType" layoutX="191.0" layoutY="397.0" prefWidth="150.0" />
+                  <Label layoutX="249.0" layoutY="312.0" text="Type" />
                   <Button fx:id="addBeerImageButton" layoutX="103.0" layoutY="294.0" mnemonicParsing="false" onAction="#addBeerImage" text="Add Image" />
+                  <Button fx:id="beerProducerButton" layoutX="347.0" layoutY="449.0" mnemonicParsing="false" onAction="#addBeerProducer" text="Add producer" />
                </children>
             </AnchorPane>
          </left>

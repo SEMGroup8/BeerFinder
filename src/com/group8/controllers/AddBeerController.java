@@ -26,9 +26,11 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -42,7 +44,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -92,6 +97,9 @@ public class AddBeerController extends BaseController implements Initializable{
 	public Button addBeerButton;
 	@FXML
 	public Button addBeerImageButton;
+	
+	@FXML
+	public Button addProducerButton;
 	@FXML
 	FileInputStream imageStream;
 	@FXML
@@ -307,9 +315,59 @@ public class AddBeerController extends BaseController implements Initializable{
 			backgroundThread.start();
 
 		}
- 
- 
+		
+		
+		public void addProducer(ActionEvent event) throws IOException {
+			
+			final Stage dialog = new Stage();
+			dialog.initModality(Modality.APPLICATION_MODAL);
+			dialog.initOwner(Navigation.primaryStage);
+			VBox dialogVbox = new VBox(20);
+			dialogVbox.setAlignment(Pos.CENTER);
+			dialogVbox.getChildren().add(new Text("Add the producer to the list!"));
+			TextField producer = new TextField("Type in producer name:");
+			Button addProducerToDB = new Button("Add producer");
 
- 
- 
-} // end of class
+			addProducerToDB.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+
+					String query = "INSERT INTO `producers`(`producerName`) VALUES ('"+ producer.getText() + "')";
+
+					MysqlDriver.insert(query);
+
+				//	System.out.println("Inserted beer to pub");
+					beerProducerList.clear();
+					String beerProducerInfo;
+					beerProducerInfo = "select distinct producerName from producers";
+
+					ArrayList<ArrayList<Object>> result3 = MysqlDriver.selectMany(beerProducerInfo);
+					for (int i = 0; i < result3.size(); i++) {
+						beerProducerList.add(result3.get(i).get(0).toString());
+					}
+					beerProducer.setItems(beerProducerList);
+					
+					
+					
+					dialog.close();
+					
+					
+				}
+			});
+
+			dialogVbox.getChildren().add(producer);
+			dialogVbox.getChildren().add(addProducerToDB);
+
+			Scene dialogScene = new Scene(dialogVbox, 300, 200);
+			dialog.setScene(dialogScene);
+			dialog.show();
+		}
+	
+
+
+
+
+
+
+
+}// end of class

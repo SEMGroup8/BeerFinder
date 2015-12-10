@@ -32,6 +32,7 @@
                         <ChoiceBox fx:id="beerPackageType" layoutX="176.0" layoutY="296.0" prefWidth="150.0" />
                         <Label layoutX="180.0" layoutY="328.0" text="Type" />
                         <Button fx:id="addBeerImageButton" layoutX="40.0" layoutY="291.0" mnemonicParsing="false" onAction="#addBeerImage" text="Add Image" />
+                        <Button fx:id="addProducerButton" layoutX="331.0" layoutY="406.0" mnemonicParsing="false" onAction="#addProducer" text="Add producer" />
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="392.0" minHeight="426.0" minWidth="382.0" prefHeight="426.0" prefWidth="382.0">

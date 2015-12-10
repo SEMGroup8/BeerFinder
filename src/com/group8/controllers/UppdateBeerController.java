@@ -14,13 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.group8.database.MysqlDriver;
+import com.group8.database.tables.Beer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,10 +36,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class UppdateBeerController implements Initializable {
+public class UppdateBeerController extends BaseController implements Initializable {
 
 	ObservableList<String> beerTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerPackageTypeList =FXCollections.observableArrayList();
@@ -59,8 +65,9 @@ public class UppdateBeerController implements Initializable {
 	    public Button logout, account, favourites;
 	 public Label userName;
 
-	public Button addBeerButton;
+	public Button updateBeerButton;
 	public Button addBeerImageButton;
+	public Button beerProducerButton;
 	FileInputStream imageStream;
 	File file;
 	
@@ -94,39 +101,7 @@ public void addBeerImage(ActionEvent event)throws IOException {
 	
 	
 	
-	 @FXML
-	    public void onLogout(javafx.event.ActionEvent event) throws IOException
-	    {
-	        UserData.userInstance = null;
-
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/homescreen.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
-
-	    @FXML
-	    public void onAccount(javafx.event.ActionEvent event) throws IOException
-	    {
-
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
-
-	    @FXML
-	    public void onFavourites(javafx.event.ActionEvent event) throws IOException
-	    {
-
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
+	  
 
 	    public void updateBeer(ActionEvent event) throws IOException {
 			
@@ -239,12 +214,17 @@ public void addBeerImage(ActionEvent event)throws IOException {
                 
                 
             }
-            Parent result3 = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/beerDetailsScreen.fxml"));
-	        Scene result_scene = new Scene(result3, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    
+            
+            String query2 = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag" +
+                    " from beers, beerType, origin, package where " +
+                    "beers.beerTypeID = beerType.beerTypeID " +
+                    "and beers.originID = origin.originID " +
+                    "and beers.package = package.packageID " +
+                    "and beerID ="+ BeerData.selectedBeer.getId() + "";
+            
+            System.out.println(query2);
+            BeerData.selectedBeer = new Beer(MysqlDriver.select(query2));
+            mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
 	    
 	    }// end of method
 	
@@ -257,7 +237,7 @@ public void addBeerImage(ActionEvent event)throws IOException {
 		
 		
 		
-		userName.setText(UserData.userInstance.get_name());
+	
     	beerName.setText(BeerData.selectedBeer.getName());
     	beerDescription.setText(BeerData.selectedBeer.getDescription());
         beerPercentage.setText("" + BeerData.selectedBeer.getPercentage());
@@ -320,6 +300,51 @@ public void addBeerImage(ActionEvent event)throws IOException {
     	
 	}
 
+	public void addBeerProducer(ActionEvent event) throws IOException {
+		
+		final Stage dialog = new Stage();
+		dialog.initModality(Modality.APPLICATION_MODAL);
+		dialog.initOwner(Navigation.primaryStage);
+		VBox dialogVbox = new VBox(20);
+		dialogVbox.setAlignment(Pos.CENTER);
+		dialogVbox.getChildren().add(new Text("Add the producer to the list!"));
+		TextField producer = new TextField("Type in producer name:");
+		Button addProducerToDB = new Button("Add producer");
+
+		addProducerToDB.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				String query = "INSERT INTO `producers`(`producerName`) VALUES ('"+ producer.getText() + "')";
+
+				MysqlDriver.insert(query);
+
+			//	System.out.println("Inserted beer to pub");
+				beerProducerList.clear();
+				String beerProducerInfo;
+				beerProducerInfo = "select distinct producerName from producers";
+
+				ArrayList<ArrayList<Object>> result3 = MysqlDriver.selectMany(beerProducerInfo);
+				for (int i = 0; i < result3.size(); i++) {
+					beerProducerList.add(result3.get(i).get(0).toString());
+				}
+				beerProducer.setItems(beerProducerList);
+				
+				
+				
+				dialog.close();
+				
+				
+			}
+		});
+
+		dialogVbox.getChildren().add(producer);
+		dialogVbox.getChildren().add(addProducerToDB);
+
+		Scene dialogScene = new Scene(dialogVbox, 300, 200);
+		dialog.setScene(dialogScene);
+		dialog.show();
+	}
 
 
 
