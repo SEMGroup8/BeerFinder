@@ -70,6 +70,8 @@ public class Scene4Controller extends BaseController implements Initializable{
     private Label priceR;
     @FXML
     private Text textLine;
+    @FXML
+    private Label countLabel;
 
 
 
@@ -189,10 +191,14 @@ public class Scene4Controller extends BaseController implements Initializable{
             this.arrayID[i] = beer.getId();
         }
 
+        countLabel.setText("Beers found: " + count);
+
         if (this.arrayID.length == 0){
-            textLine.setText("No beers found :|");
+            textLine.setVisible(true);
             HBoxButtons.setVisible(true);
             anotherButton.setVisible(false);
+            rankFavourite.setVisible(false);
+            countLabel.setVisible(false);
             return;
         }
         else {
