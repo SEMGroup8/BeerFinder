@@ -1,6 +1,8 @@
 package com.group8.controllers;
 
 
+import java.util.ArrayList;
+
 import com.group8.database.tables.User;
 
 /**
@@ -13,4 +15,12 @@ import com.group8.database.tables.User;
 public class UserData
 {
     public static User userInstance;
+    
+    public static ArrayList<User> users;
+    
+    public static User selected;
+    
+    public static ArrayList<User>following;
+    
+    
 }

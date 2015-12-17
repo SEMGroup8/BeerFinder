@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.UserProfile">
+   <children>
+      <ImageView fx:id="userImage" fitHeight="196.0" fitWidth="259.0" layoutX="48.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="uploadImageButton" layoutX="158.0" layoutY="317.0" mnemonicParsing="false" onAction="#loadImage" prefHeight="26.0" prefWidth="92.0" text="upload foto" />
+      <Text fill="#153386" layoutX="104.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Profile" wrappingWidth="314.6829261779785">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Text>
+      <TextField fx:id="age" layoutX="104.0" layoutY="76.0" onAction="#onUpdate" prefHeight="26.0" prefWidth="163.0" promptText="update age" />
+      <TableView fx:id="beerTable" layoutX="311.0" layoutY="368.0" onMouseClicked="#getRow" prefHeight="123.0" prefWidth="485.0">
+         <columns>
+            <TableColumn fx:id="beerImage" prefWidth="47.0" resizable="false" text="Image" />
+            <TableColumn fx:id="beerName" prefWidth="141.0" resizable="false" text="Name" />
+            <TableColumn fx:id="beerType" prefWidth="85.0" text="Type" />
+            <TableColumn fx:id="beerOrigin" prefWidth="60.0" text="Origin" />
+            <TableColumn fx:id="beerPercentage" prefWidth="40.0" text="\%" />
+            <TableColumn fx:id="beerProducer" prefWidth="149.0" text="Producer" />
+            <TableColumn fx:id="beerPackage" prefWidth="110.0" text="Package" />
+            <TableColumn fx:id="avrageRank" prefWidth="58.0" text="avRank" />
+         </columns>
+      </TableView>
+      <Text fill="#0f1fab" layoutX="313.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favourite Beer">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button fx:id="saveFotoButton" layoutX="250.0" layoutY="317.0" mnemonicParsing="false" onAction="#updateFoto" text="Save" />
+      <Label fx:id="followLabel" layoutX="623.0" layoutY="491.0" prefHeight="26.0" prefWidth="150.0" textFill="#830202">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="pubTable" layoutX="311.0" layoutY="213.0" onMouseClicked="#getRow" prefHeight="136.0" prefWidth="485.0">
+         <columns>
+            <TableColumn fx:id="image" prefWidth="69.0" resizable="false" text="Image" />
+            <TableColumn fx:id="pubName" prefWidth="119.0" resizable="false" text="Name" />
+            <TableColumn fx:id="pubAddress" prefWidth="97.0" text="Address" />
+            <TableColumn fx:id="pubPhoneNumber" prefWidth="110.0" text="Phone Number" />
+            <TableColumn fx:id="pubOffer" prefWidth="112.0" text="Offers" />
+            <TableColumn fx:id="pubDescription" prefWidth="120.0" text="Description" />
+            <TableColumn fx:id="pubEntranceFee" prefWidth="94.0" text="Entrance Fee" />
+         </columns>
+      </TableView>
+      <Text fill="#0f1fab" layoutX="313.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favourite Pub">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#0f1fab" layoutX="313.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Followed">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="fullName" layoutX="104.0" layoutY="45.0" onAction="#onUpdate" />
+      <PasswordField fx:id="password" layoutX="122.0" layoutY="355.0" onAction="#onUpdate" />
+      <TextField fx:id="email" layoutX="122.0" layoutY="391.0" onAction="#onUpdate" />
+      <Text fill="#0f1fab" layoutX="42.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#0f1fab" layoutX="42.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#0f1fab" layoutX="42.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fullname">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#0f1fab" layoutX="42.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button fx:id="update" layoutX="217.0" layoutY="430.0" mnemonicParsing="false" onAction="#onUpdate" text="Update Info" />
+      <TableView fx:id="userTable" layoutX="309.0" layoutY="58.0" minHeight="136.0" minWidth="485.0" onMouseClicked="#getRow" prefHeight="136.0" prefWidth="485.0">
+         <columns>
+            <TableColumn fx:id="userImage1" prefWidth="121.0" resizable="false" text="Image" />
+            <TableColumn fx:id="userName1" prefWidth="130.0" resizable="false" text="Name" />
+            <TableColumn fx:id="userEmail" prefWidth="115.0" text="Email" />
+            <TableColumn fx:id="userAge" prefWidth="141.0" text="Age" />
+         </columns>
+      </TableView>
+      <Label fx:id="numFollowersLabel" layoutX="398.0" layoutY="14.0" prefHeight="26.0" prefWidth="396.0" textFill="#a80c0c" />
+   </children>
+</AnchorPane>

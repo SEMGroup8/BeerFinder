@@ -23,7 +23,7 @@ public class LoggedInTop extends BaseController implements Initializable
 {
     // Declaration of elements
     @FXML
-    public Button logout, account, beerFavourite, pubFavourite;
+    public Button logout, account, beerFavourite, pubFavourite, profileButton, usersListButton;
     @FXML
     public Label userName;
     ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
@@ -71,11 +71,14 @@ public class LoggedInTop extends BaseController implements Initializable
     {
         if(UserData.userInstance.get_isPub())
         {
+        	
             mainScene.changeCenter("/com/group8/resources/views/pubInfo.fxml");
         }
         else
         {
-            mainScene.changeCenter("/com/group8/resources/views/accountSettings.fxml");
+        	UserData.userInstance.getFollowers();
+
+        	 mainScene.changeCenter("/com/group8/resources/views/MyProfile.fxml");
         }
     }
 
@@ -85,10 +88,25 @@ public class LoggedInTop extends BaseController implements Initializable
         mainScene.changeCenter("/com/group8/resources/views/favourites.fxml");
 
     }
+    public void onProfile(javafx.event.ActionEvent event) throws IOException
+    {
+        mainScene.changeCenter("/com/group8/resources/views/otherUsersProfile.fxml");
+
+    }
+    
+    public void usersList(javafx.event.ActionEvent event) throws IOException
+    {
+    	UserData.userInstance.getUsers();
+    	UserData.userInstance.getFollowers();
+    	
+        mainScene.changeCenter("/com/group8/resources/views/userList.fxml");
+
+    }
+    
     @FXML
     public void onPubFavourites(javafx.event.ActionEvent event) throws IOException
     {
-        if(!PubData.pubs.isEmpty()) {
+        if(!UserData.userInstance.pubFavouritesDetails.isEmpty()) {
             mainScene.changeCenter("/com/group8/resources/views/FavouritePub.fxml");
         }else{
             img.setFitWidth(60);
