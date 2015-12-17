@@ -3,7 +3,6 @@ package com.group8.database.tables;
 import com.group8.database.MysqlDriver;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

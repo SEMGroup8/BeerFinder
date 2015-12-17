@@ -2,15 +2,15 @@ package com.group8.controllers.RandomBeerControllers;
 
 import com.group8.controllers.BaseController;
 import com.group8.controllers.Navigation;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.controlsfx.control.RangeSlider;
@@ -36,6 +36,10 @@ public class Scene1Controller extends BaseController implements Initializable {
     private CheckBox noCheckbox;
     @FXML
     private Pane pane;
+    @FXML
+    private Label showLowLable;
+    @FXML
+    private Label showHighLable;
 
 
 
@@ -65,10 +69,14 @@ public class Scene1Controller extends BaseController implements Initializable {
             noCheckbox.setVisible(false);
             noCheckbox.setSelected(false);
             priceSlider.setVisible(true);
+            showLowLable.setVisible(true);
+            showHighLable.setVisible(true);
         }
         if (!yesCheckbox.isSelected()) {
             noCheckbox.setVisible(true);
             priceSlider.setVisible(false);
+            showHighLable.setVisible(false);
+            showLowLable.setVisible(false);
         }
     }
 
@@ -81,18 +89,39 @@ public class Scene1Controller extends BaseController implements Initializable {
         return pricePickedHigh;
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         pane.getChildren().add(priceSlider);
-        priceSlider.setShowTickMarks(true);
-        priceSlider.setShowTickLabels(true);
-        priceSlider.setBlockIncrement(10);
-        priceSlider.setLayoutX(85);
-        priceSlider.setLayoutY(320);
+        priceSlider.setBlockIncrement(100);
+        priceSlider.setLayoutX(95);
+        priceSlider.setLayoutY(220);
         priceSlider.setPrefHeight(32);
         priceSlider.setPrefWidth(500);
+        priceSlider.getStylesheets().add("/com/group8/resources/css/RangeSlider.css");
         priceSlider.setVisible(false);
+
+        priceSlider.lowValueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if(newValue == null){
+                    showLowLable.setText("0");
+                    return;
+                }
+                showLowLable.setText(String.valueOf(Math.round(newValue.intValue())));
+            }
+        });
+
+        priceSlider.highValueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if(newValue == null){
+                    showHighLable.setText("500");
+                    return;
+                }
+                showHighLable.setText(String.valueOf(Math.round(newValue.intValue())));
+            }
+        });
+
     }
 }

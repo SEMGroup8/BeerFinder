@@ -11,13 +11,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" styleClass="bg" stylesheets="@../Images/StyleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane prefHeight="100.0" prefWidth="232.0">
                <children>
-                  <Label layoutX="17.0" layoutY="36.0" text="Beer Details View">
+                  <Label layoutX="17.0" layoutY="36.0" text="Beer Details View" textFill="#010101">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -45,11 +45,26 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
+<<<<<<< HEAD
+                        <Label fx:id="showBeerName" layoutX="26.0" layoutY="-33.0" text="BeerName" textFill="#010101">
+=======
                         <Label fx:id="showBeerName" layoutX="32.0" layoutY="14.0" text="BeerName">
+>>>>>>> dce3ae70ee489b80df316849bf57b0116273cbd9
                            <font>
                               <Font size="36.0" />
                            </font>
                         </Label>
+<<<<<<< HEAD
+                        <Label fx:id="showOrigin" layoutX="32.0" layoutY="83.0" text="Origin" textFill="#010101" />
+                        <Label fx:id="showProducer" layoutX="32.0" layoutY="103.0" text="Producer" textFill="#010101" />
+                        <Label fx:id="showPercentage" layoutX="32.0" layoutY="120.0" text="Percentage" textFill="#010101" />
+                        <Label fx:id="showVolume" layoutX="33.0" layoutY="142.0" text="Volume" textFill="#010101" />
+                        <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" textFill="#010101" />
+                        <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" textFill="#010101" />
+                        <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" textFill="#010101" />
+                        <Button fx:id="favourite" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" textFill="#010101" />
+                        <HBox alignment="CENTER" layoutX="22.0" layoutY="10.0" prefHeight="36.0" prefWidth="374.0">
+=======
                         <HBox layoutX="32.0" layoutY="83.0" spacing="2.0">
                            <children>
                               <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
@@ -67,6 +82,7 @@
                         <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" />
                         <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" />
                         <HBox alignment="CENTER" layoutX="32.0" layoutY="-18.0" prefHeight="36.0" prefWidth="314.0">
+>>>>>>> dce3ae70ee489b80df316849bf57b0116273cbd9
                            <children>
                               <Label text="Rank:" />
                               <Label fx:id="rankShow">
@@ -135,17 +151,17 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <TextArea fx:id="showDescription" editable="false" layoutX="27.0" layoutY="35.0" prefHeight="165.0" prefWidth="477.0" wrapText="true" />
-                        <Label layoutX="27.0" layoutY="3.0" text="Description">
+                        <Label layoutX="27.0" layoutY="3.0" text="Description" textFill="#010101">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="380.0" layoutY="3.0" text="Price:">
+                        <Label layoutX="380.0" layoutY="3.0" text="Price:" textFill="#010101">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="showPrice" layoutX="436.0" layoutY="3.0" text="price">
+                        <Label fx:id="showPrice" layoutX="436.0" layoutY="3.0" text="price" textFill="#010101">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -162,17 +178,17 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="back" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#backAction" prefHeight="27.0" prefWidth="100.0" text="Back" />
+                  <Button fx:id="back" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#backAction" prefHeight="27.0" prefWidth="100.0" text="Back" textFill="WHITE" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="newSearch" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="27.0" prefWidth="100.0" text="Home" />
+                  <Button fx:id="newSearch" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="27.0" prefWidth="100.0" text="Home" textFill="WHITE" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="googleMaps" layoutX="25.0" layoutY="37.0" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="100.0" text="Google Maps" visible="true" />
+                  <Button fx:id="googleMaps" layoutX="25.0" layoutY="37.0" mnemonicParsing="false" onAction="#getMaps" prefHeight="27.0" prefWidth="100.0" text="Google Maps" textFill="WHITE" visible="true" />
                   <Label fx:id="gMapsError" layoutX="138.0" layoutY="42.0" prefHeight="17.0" prefWidth="218.0" text="This beer is not sold by any pubs!" textFill="RED" visible="false" />
                   <Button fx:id="updateBeerButton" layoutX="203.0" layoutY="38.0" mnemonicParsing="false" onAction="#updateBeer" prefHeight="26.0" prefWidth="91.0" text="Update Beer" visible="false" />
                </children>

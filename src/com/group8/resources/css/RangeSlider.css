@@ -1,0 +1,9 @@
+
+.range-slider .range-bar{
+-fx-background-color: #D8A557;
+}
+
+.range-slider .low-thumb,
+.range-slider .high-thumb{
+-fx-color: #50290a;
+}

@@ -3,7 +3,6 @@ package com.group8.database.tables;
 import com.group8.controllers.BeerData;
 import com.group8.controllers.UserData;
 import com.group8.database.MysqlDriver;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;

@@ -20,8 +20,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Email:" GridPane.rowIndex="2" />
-            <Label text="Password:" GridPane.rowIndex="1" />
+            <Label text="Email:" textFill="#ffffff" GridPane.rowIndex="2" />
+            <Label text="Password:" textFill="#ffffff" GridPane.rowIndex="1" />
             <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
@@ -32,28 +32,28 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </PasswordField>
-            <Label fx:id="passwordError" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="passwordError" textFill="#ffffff" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="emailError" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="emailError" textFill="#ffffff" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="isPubError" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label fx:id="isPubError" textFill="#ffffff" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Full Name:" />
+            <Label text="Full Name:" textFill="#ffffff" />
             <TextField fx:id="fullName" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <Label fx:id="fullNameError" GridPane.columnIndex="2">
+            <Label fx:id="fullNameError" textFill="#ffffff" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -62,11 +62,11 @@
       </GridPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="update" mnemonicParsing="false" onAction="#onUpdate" text="Update Info">
+            <Button fx:id="update" mnemonicParsing="false" onAction="#onUpdate" text="Update Info" textFill="#ffffff">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
-            <Button fx:id="back" mnemonicParsing="false" onAction="#onBack" text="Back">
+            <Button fx:id="back" mnemonicParsing="false" onAction="#onBack" text="Back" textFill="#ffffff">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
