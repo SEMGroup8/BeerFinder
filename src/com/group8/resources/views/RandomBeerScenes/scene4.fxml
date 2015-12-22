@@ -10,7 +10,7 @@
 
 <Pane minHeight="393.0" minWidth="800.0" prefHeight="420.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene4Controller">
    <children>
-      <HBox fx:id="HBoxButtons" layoutX="400.0" layoutY="375.0" spacing="10.0">
+      <HBox fx:id="HBoxButtons" layoutX="400.0" layoutY="375.0" spacing="10.0" visible="false">
          <children>
             <Button fx:id="anotherButton" layoutX="487.0" layoutY="500.0" mnemonicParsing="false" onAction="#onAnotherClick" prefHeight="30.0" prefWidth="160.0" text="Show another">
                <font>
@@ -24,10 +24,15 @@
             </Button>
          </children>
       </HBox>
-      <ImageView fx:id="imageView" fitHeight="360.0" fitWidth="180.0" layoutX="40.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../../Images/beerHasNoImage.png" />
-         </image></ImageView>
+      <HBox fx:id="imageViewHBox" layoutX="40.0" layoutY="29.0" visible="false">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="360.0" fitWidth="180.0" layoutX="40.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/beerHasNoImage.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
       <VBox fx:id="VBoxInfo" alignment="CENTER" layoutX="355.0" layoutY="66.0" prefHeight="240.0" prefWidth="395.0" spacing="10.0" visible="false">
          <children>
             <Label fx:id="nameR" alignment="CENTER" contentDisplay="CENTER" text="Name" textAlignment="CENTER" textFill="IVORY">
@@ -151,7 +156,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox fx:id="rankFavourite" alignment="CENTER" layoutX="297.0" layoutY="4.0" prefHeight="54.0" prefWidth="489.0">
+      <HBox fx:id="rankFavourite" alignment="CENTER" layoutX="297.0" layoutY="4.0" prefHeight="54.0" prefWidth="489.0" visible="false">
       <children>
          <Label text="Rank:" visible="false" />
          <Label fx:id="rankShow">
@@ -215,11 +220,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Label fx:id="countLabel" layoutX="266.0" layoutY="384.0" text="Beers found:" textFill="IVORY">
+      <Label fx:id="countLabel" layoutX="266.0" layoutY="384.0" text="Beers found:" textFill="IVORY" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <ProgressIndicator fx:id="Load" layoutX="409.0" layoutY="166.0" visible="false" />
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

@@ -70,6 +70,7 @@ public class MainScene implements Initializable {
         Navigation.homescreenFXML = "/com/group8/resources/views/home_center.fxml";
         Navigation.current_CenterFXML =  "/com/group8/resources/views/home_center.fxml";
 
+        Load.setStyle("-fx-accent: IVORY");
 
         try {
             center.getChildren().clear();

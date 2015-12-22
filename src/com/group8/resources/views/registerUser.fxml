@@ -31,19 +31,8 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </TextField>
-            <Label text="Pub owner:" GridPane.rowIndex="4" />
-            <CheckBox fx:id="isPub" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </CheckBox>
-            <Label text="Pub name:" GridPane.rowIndex="5" />
-            <TextField fx:id="pubName" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Label text="Full Name:" GridPane.rowIndex="1" />
+            <TextField fx:id="fullName" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -63,6 +52,23 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
+            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="Pub owner:" GridPane.rowIndex="4" />
+            <CheckBox fx:id="isPub" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </CheckBox>
+            <Label text="Pub name:" GridPane.rowIndex="5" />
+            <TextField fx:id="pubName" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
             <Label fx:id="emailError" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
@@ -78,12 +84,6 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Full Name:" GridPane.rowIndex="1" />
-            <TextField fx:id="fullName" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </TextField>
             <Label fx:id="fullNameError" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />

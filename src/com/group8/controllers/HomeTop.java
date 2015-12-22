@@ -52,6 +52,8 @@ public class HomeTop extends BaseController{
     @FXML
     public void onLogin(javafx.event.ActionEvent event) throws IOException{
 
+        Load.setStyle("-fx-accent: IVORY");
+
         // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
         backgroundThread = new Service<Void>() {
             @Override

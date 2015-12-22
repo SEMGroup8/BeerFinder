@@ -21,7 +21,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -79,6 +80,8 @@ public class BeerDetailController extends BaseController implements Initializabl
     public ImageView oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
+    @FXML
+    public HBox imageViewHBox;
 
 
     /**
@@ -280,7 +283,7 @@ public class BeerDetailController extends BaseController implements Initializabl
 
         Navigation.current_CenterFXML = "/com/group8/resources/views/beerDetails_center.fxml";
 
-
+        imageViewHBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#2A1806"), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(4))));
 
         if(UserData.userInstance!=null) {
             if (UserData.userInstance.get_isPub()) {
