@@ -42,7 +42,7 @@ public class RegisterUserController extends BaseController {
     public PasswordField password;
 
     @FXML
-    public Label usernameError, emailError, pubNameError, passwordError, isPubError, fullNameError;
+    public Label usernameError, emailError, pubNameError, passwordError, isPubError, fullNameError, pubNameLabel;
 
     @FXML
     public void onRegister(ActionEvent event) throws IOException
@@ -179,6 +179,22 @@ public class RegisterUserController extends BaseController {
 
         return canRegister;
     }
+
+    @FXML
+    void isPubSelected(ActionEvent event) {
+
+        if(isPub.isSelected()){
+            pubNameLabel.setVisible(true);
+            pubName.setVisible(true);
+        }
+        else{
+            pubNameLabel.setVisible(false);
+            pubName.setVisible(false);
+        }
+
+    }
+
+
 
     /*
     Back button pressed takes you back to "home screen"

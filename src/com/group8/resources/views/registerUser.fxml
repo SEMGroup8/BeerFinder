@@ -58,13 +58,13 @@
                </GridPane.margin>
             </TextField>
             <Label text="Pub owner:" GridPane.rowIndex="4" />
-            <CheckBox fx:id="isPub" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <CheckBox fx:id="isPub" mnemonicParsing="false" onAction="#isPubSelected" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </CheckBox>
-            <Label text="Pub name:" GridPane.rowIndex="5" />
-            <TextField fx:id="pubName" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Label fx:id="pubNameLabel" text="Pub name:" visible="false" GridPane.rowIndex="5" />
+            <TextField fx:id="pubName" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
