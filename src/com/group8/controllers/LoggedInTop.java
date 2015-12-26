@@ -37,7 +37,7 @@ public class LoggedInTop extends BaseController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        if(UserData.userInstance.get_isPub())
+        if(UserData.userInstance.getPub())
         {
             account.setText("Pub");
             beerFavourite.setVisible(false);
@@ -69,7 +69,7 @@ public class LoggedInTop extends BaseController implements Initializable
     @FXML
     public void onAccount(javafx.event.ActionEvent event) throws IOException
     {
-        if(UserData.userInstance.get_isPub())
+        if(UserData.userInstance.getPub())
         {
         	
             mainScene.changeCenter("/com/group8/resources/views/pubInfo.fxml");

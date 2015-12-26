@@ -10,28 +10,33 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
+ * Created by Linus Eiderström Swahn
  * Beer Table class
  */
 public class Beer extends MysqlDriver{
 
-    String from = "beers";
-   private String name, description, type, origin, producer, beerPackage;
-    int id;
+    private String from = "beers";
+    private String name, description, type, origin, producer, beerPackage;
+    private int id;
 
-    float avRank;
-    float percentage,price;
-    int volume;
-    Boolean isTap;
-    BufferedImage image = null;//Buffered image coming from database
-    BufferedImage countryFlag = null;
-    //InputStream tmpImg = null; //Inputstream
+    private float avRank;
+    private float percentage,price;
+    private int volume;
+    private Boolean isTap;
+
+    //Buffered image coming from database
+    private BufferedImage image = null;
+    private BufferedImage countryFlag = null;
 
 
 
 
     /**
-     * Constructor taking a String query
+     * Created by
+     *
+     * Constructor taking a String query that returns one beer from the database.
      * @param query
+     * Query that should select the beer we want from the database.
      */
     public Beer(String query)  {
         super();
@@ -39,14 +44,14 @@ public class Beer extends MysqlDriver{
         ArrayList<Object> sqlReturn = select(query);
         this.id = Integer.parseInt(sqlReturn.get(0).toString());
         this.name = sqlReturn.get(1).toString();
-     try {
+
+        try {
             InputStream tmpImg = (InputStream) sqlReturn.get(2);
             this.image = javax.imageio.ImageIO.read(tmpImg);
-       //  System.out.println("har bytes");
         }catch (IOException ex){
-        // System.out.println("NEJ");
             this.image = null;
         }
+
         this.description = sqlReturn.get(3).toString();
         this.type = sqlReturn.get(4).toString();
         this.origin = sqlReturn.get(5).toString();
@@ -66,7 +71,9 @@ public class Beer extends MysqlDriver{
     }
 
     /**
-     *  Constructor taking a Arraylist of Objects
+     * Created by
+     *
+     *  Constructor taking an Arraylist of Objects representing the columns of a row on the database.
      * @param sqlReturn
      */
     public Beer(ArrayList<Object> sqlReturn)  {
@@ -91,6 +98,7 @@ public class Beer extends MysqlDriver{
         this.beerPackage = sqlReturn.get(10).toString();
         this.price = Float.parseFloat(sqlReturn.get(11).toString());
         this.avRank = Float.parseFloat(sqlReturn.get(12).toString());
+
         try {
             InputStream tmpImg = (InputStream) sqlReturn.get(13);
             this.countryFlag = javax.imageio.ImageIO.read(tmpImg);
@@ -150,7 +158,6 @@ public class Beer extends MysqlDriver{
         return isTap;
     }
 
-
     public Image getImage() {
         Image image2;
         if(this.image == null){
@@ -195,9 +202,4 @@ public class Beer extends MysqlDriver{
 
         return result;
     }
-
-
-
-
-	
 }

@@ -1,7 +1,6 @@
 package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
-import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
 import javafx.concurrent.Service;
@@ -9,10 +8,6 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,9 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
  * Created by Shiratori on 24/11/15.
@@ -89,15 +82,15 @@ public class HomeTop extends BaseController{
 
                         UserData.userInstance = fetchedUser;
 
-                        if(fetchedUser.get_isPub())
+                        if(fetchedUser.getPub())
                         {
-                        	String sqlQuery2 = "select * from pubs where pubID=" + UserData.userInstance.get_pubId();
+                        	String sqlQuery2 = "select * from pubs where pubID=" + UserData.userInstance.getPubId();
                         	//ArrayList<Object> pubData = MysqlDriver.select(sqlQuery2);
                         	Pub fetchedPub = new Pub(sqlQuery2);
                             System.out.println(fetchedPub.toString2());
                             PubData.loggedInPub = fetchedPub;
                         }
-                        //System.out.println(fetchedUser.get_isPub());
+                        //System.out.println(fetchedUser.getPub());
 
                         return null;
                     }

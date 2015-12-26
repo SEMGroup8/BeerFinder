@@ -1,10 +1,8 @@
 package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
-import com.group8.database.tables.Beer;
 import com.group8.database.tables.BeerRank;
 
-import com.group8.database.tables.MapMarker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +28,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -90,7 +87,7 @@ public class BeerDetailController extends BaseController implements Initializabl
      */
     public void rankStar(int number){
     	if(UserData.userInstance!=null) {
-            BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
+            BeerRank beer = new BeerRank(UserData.userInstance.getId(), BeerData.selectedBeer.getId(), number);
 
             beer.insertRank();
 
@@ -196,7 +193,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     {
         if(UserData.userInstance!=null)
         {
-            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.get_id() + ");";
+            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ", 1);";
 
             System.out.println(sqlQuery);
 
@@ -217,7 +214,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     public void addToPub(ActionEvent event) throws IOException {
         if (UserData.userInstance != null)
         {
-            if (UserData.userInstance.get_isPub()) {
+            if (UserData.userInstance.getPub()) {
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
                 dialog.initOwner(Navigation.primaryStage);
@@ -233,7 +230,7 @@ public class BeerDetailController extends BaseController implements Initializabl
                         public void handle(ActionEvent event) {
 
                             String query = "Insert into beerInPub values("
-                                    + UserData.userInstance.get_pubId() + ", "
+                                    + UserData.userInstance.getPubId() + ", "
                                     + BeerData.selectedBeer.getId() + ", "
                                     + Float.parseFloat(price.getText()) + ", 1)";
 
@@ -274,7 +271,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     	
     	 if(UserData.userInstance != null){
        	  
-       	 // if(UserData.userInstance.get_isPub()){
+       	 // if(UserData.userInstance.getPub()){
        		//  updateBeerButton.setVisible(true);
        	  //}
          }
@@ -286,7 +283,7 @@ public class BeerDetailController extends BaseController implements Initializabl
         imageViewHBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#2A1806"), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(4))));
 
         if(UserData.userInstance!=null) {
-            if (UserData.userInstance.get_isPub()) {
+            if (UserData.userInstance.getPub()) {
                 addToPub.setVisible(true);
                 favourite.setVisible(false);
             }
@@ -396,7 +393,7 @@ public class BeerDetailController extends BaseController implements Initializabl
      * @return
      */
     public boolean notRankedYet(){
-    	String selectQuery = "Select * from beerRank where userID = '" +UserData.userInstance.get_id()+"' and beerID = '"+BeerData.selectedBeer.getId() + "';";
+    	String selectQuery = "Select * from beerRank where userID = '" +UserData.userInstance.getId()+"' and beerID = '"+BeerData.selectedBeer.getId() + "';";
     	if(RegisterUserController.checkAvailability(selectQuery)){
     		return true;
     	}else{

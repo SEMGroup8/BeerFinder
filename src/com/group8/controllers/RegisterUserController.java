@@ -5,15 +5,10 @@ import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.scene.control.CheckBox;
 
 import java.io.IOException;
@@ -82,11 +77,11 @@ public class RegisterUserController extends BaseController {
         {
             Pub newPub = new Pub();
 
-            newPub.set_name(pubName.getText());
+            newPub.setName(pubName.getText());
 
             if(newPub.insertPub())
             {
-                pubId = newPub.get_pubId();
+                pubId = newPub.getPubId();
             }
             else
             {

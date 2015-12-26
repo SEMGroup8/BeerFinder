@@ -276,14 +276,14 @@
 //    @Override
 //    public void initialize(URL location, ResourceBundle resources)
 //    {
-//        if(UserData.userInstance.get_isPub())
+//        if(UserData.userInstance.getPub())
 //        {
 //            account.setText("Pub");
 //        }
 //
 //        // Reset the BeerData Arraylist
 //        BeerData.beer = new ArrayList<Beer>();
-//        userName.setText(UserData.userInstance.get_name());
+//        userName.setText(UserData.userInstance.getName());
 //
 //        Navigation.homescreenFXML = "/com/group8/resources/views/Backup/loggedInHomescreen.fxml";
 //        Navigation.resultviewFXML = "/com/group8/resources/views/result_center.fxml";
@@ -305,7 +305,7 @@
 //    @FXML
 //    public void onAccount(javafx.event.ActionEvent event) throws IOException
 //    {
-//        if(UserData.userInstance.get_isPub())
+//        if(UserData.userInstance.getPub())
 //        {
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
 //            Scene result_scene = new Scene(result, 800, 600);

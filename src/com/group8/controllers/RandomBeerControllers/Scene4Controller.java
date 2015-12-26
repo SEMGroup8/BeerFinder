@@ -137,7 +137,7 @@ public class Scene4Controller extends BaseController implements Initializable{
     {
         if(UserData.userInstance!=null)
         {
-            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.get_id() + ");";
+            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ");";
 
             System.out.println(sqlQuery);
 
@@ -149,7 +149,7 @@ public class Scene4Controller extends BaseController implements Initializable{
 
     public void rankStar(int number){
         if(UserData.userInstance!=null) {
-            BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
+            BeerRank beer = new BeerRank(UserData.userInstance.getId(), BeerData.selectedBeer.getId(), number);
 
             beer.insertRank();
 

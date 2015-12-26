@@ -1,6 +1,5 @@
 package com.group8.database.tables;
 
-import com.group8.controllers.BeerData;
 import com.group8.controllers.UserData;
 import com.group8.database.MysqlDriver;
 
@@ -20,48 +19,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Class for constructing Users of different kinds.
- * --> Used by the RegisterUserController.
+ * Created by Linus Eiderström Swahn.
+ *
+ * Class for constructing Users.
  */
 public class User extends MysqlDriver
 {
     // User Data
-    private int _id;
-    private String _username;
-    private String _fullName;
-    private String _password;
-    private String _email;
-    private boolean _isPub;
-    private int _pubId;
-    private Pub _pub;
+    private int id;
+    private String username;
+    private String fullName;
+    private String password;
+    private String email;
+    private boolean isPub;
+    private int pubId;
+    private Pub pub;
     private int age;
     private int numFollowers;
-    // User Specific Extra Data
+
     public ArrayList<Beer> favourites;
     public ArrayList<Pub> pubFavouritesDetails;
     public ArrayList<Pub> pubListDetails;
     public ArrayList<User>allUsers;
     public ArrayList<User>followedUsers;
-    BufferedImage userImage;
+    private BufferedImage userImage;
     private InputStream tmpImg;
-    
-    FileInputStream imageStream ;
-	File file;
-
-    /**
-     * Default User constructor.
-     */
-    public User()
-    {
-
-    }
 
     /**
      * User constructor.
      * --> Calls diffrent functions inside the User constructor class to construct a User
      *     from specifications.
      * --> Takes a SQL query and constructs a User or Pubowner User depending
-     *     on if _isPub is 'true' or not.
+     *     on if isPub is 'true' or not.
      * @param query
      */
     public User(String query)
@@ -75,11 +64,11 @@ public class User extends MysqlDriver
             return;
         }
 
-        this._id = Integer.parseInt(sqlReturn.get(0).toString());
-        this._username = sqlReturn.get(1).toString();
-        this._fullName = sqlReturn.get(2).toString();
-        this._password = sqlReturn.get(3).toString();
-        this._email = sqlReturn.get(4).toString();
+        this.id = Integer.parseInt(sqlReturn.get(0).toString());
+        this.username = sqlReturn.get(1).toString();
+        this.fullName = sqlReturn.get(2).toString();
+        this.password = sqlReturn.get(3).toString();
+        this.email = sqlReturn.get(4).toString();
         this.age =Integer.parseInt(sqlReturn.get(7).toString());
         try {
             tmpImg = (InputStream) sqlReturn.get(8);
@@ -99,22 +88,22 @@ public class User extends MysqlDriver
         {
 
         }
-        this._isPub = Boolean.parseBoolean(sqlReturn.get(5).toString());
+        this.isPub = Boolean.parseBoolean(sqlReturn.get(5).toString());
 
-        System.out.println(_isPub);
+        System.out.println(isPub);
         
-        if(_isPub)
+        if(isPub)
         {
-        	this._pubId = Integer.parseInt(sqlReturn.get(6).toString());
+        	this.pubId = Integer.parseInt(sqlReturn.get(6).toString());
         }
-        System.out.println(this._pubId+"  iiiii");
+        System.out.println(this.pubId +"  iiiii");
 
-        if(this._isPub)
+        if(this.isPub)
         {
-            this._pub = new Pub("Select * from pubs where pubID = '" + this._pubId + "';");
+            this.pub = new Pub("Select * from pubs where pubID = '" + this.pubId + "';");
         }
 
-        if(_isPub)
+        if(isPub)
         {
             getBeers();
            // getFavourites();
@@ -135,12 +124,12 @@ public class User extends MysqlDriver
      * --> Calls diffrent functions inside the User constructor class to construct a User
      *     from specifications.
      * --> Takes a Arraylist of the type Object and constructs a User or Pub owner User depending
-     *     on if _isPub is 'true' or not.
+     *     on if isPub is 'true' or not.
      * @param sqlData
      */
     public User(ArrayList<Object> sqlData)
     {
-        _id = Integer.parseInt(sqlData.get(0).toString());
+        id = Integer.parseInt(sqlData.get(0).toString());
         this.age=Integer.parseInt(sqlData.get(7).toString());
         try {
             tmpImg = (InputStream) sqlData.get(8);
@@ -165,7 +154,7 @@ public class User extends MysqlDriver
 
         }
 
-        if(_isPub)
+        if(isPub)
         {
             getBeers();
            // getFavourites();
@@ -192,11 +181,11 @@ public class User extends MysqlDriver
      */
     public void setUser(String name, String fullName, String password, String email, boolean isPub)
     {
-        this._username = name;
-        this._fullName = fullName;
-        this._password = password;
-        this._email = email;
-        this._isPub = isPub;
+        this.username = name;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.isPub = isPub;
     }
 
     /**
@@ -211,15 +200,15 @@ public class User extends MysqlDriver
      */
     public void setUser(String name, String fullName, String password, String email, boolean isPub, int pubId)
     {
-        this._username = name;
-        this._fullName = fullName;
-        this._password = password;
-        this._email = email;
+        this.username = name;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
 
-        this._isPub = isPub;
-        if(this._isPub)
+        this.isPub = isPub;
+        if(this.isPub)
         {
-            this._pubId = pubId;
+            this.pubId = pubId;
         }
     }
 
@@ -238,7 +227,7 @@ public class User extends MysqlDriver
 			// Add a new Beer to the beer arraylist
 			Pub pub = new Pub(SQLData4.get(i));
 			// Testoutput
-			System.out.println(pub.get_name() + "  which pub???");
+			System.out.println(pub.getName() + "  which pub???");
 			this.pubListDetails.add(pub);
 
 		}
@@ -262,8 +251,8 @@ public class User extends MysqlDriver
    }
     
     public void getFollowers(){
-    	//String sqlQuery="select followUser.id, username,image, password, fullname, email, age  from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.get_id() ;
-    	String sqlQuery="select * from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.get_id();
+    	//String sqlQuery="select followUser.id, username,image, password, fullname, email, age  from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId() ;
+    	String sqlQuery="select * from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId();
     	System.out.println(sqlQuery);
     	ArrayList<ArrayList<Object>>follower;
     	follower=MysqlDriver.selectMany(sqlQuery);
@@ -285,8 +274,8 @@ public class User extends MysqlDriver
      * --> Gets an array of pubs from the server and stores them in the UserInstance.
      */
 	public void getPubFavourites() {
-		System.out.println("get userId" + _id);
-		String selFavPub = "select pubs.pubID,`name`, image,`phoneNumber`, `description`, `offers`, `entrenceFee` FROM `pubs`,`favouritePub` WHERE pubs.pubID=favouritePub.pubId AND favouritePub.userId = "	+ _id;
+		System.out.println("get userId" + id);
+		String selFavPub = "select pubs.pubID,`name`, image,`phoneNumber`, `description`, `offers`, `entrenceFee` FROM `pubs`,`favouritePub` WHERE pubs.pubID=favouritePub.pubId AND favouritePub.userId = "	+ id;
 		ArrayList<ArrayList<Object>> sqlData3;
 
 		sqlData3 = MysqlDriver.selectMany(selFavPub);
@@ -298,7 +287,7 @@ public class User extends MysqlDriver
 			
 			Pub pubFavouritesDetails1 = new Pub(sqlData3.get(i));
 			// Testoutput
-			System.out.print(pubFavouritesDetails1.get_name() + "  again\n");
+			System.out.print(pubFavouritesDetails1.getName() + "  again\n");
 			this.pubFavouritesDetails.add(pubFavouritesDetails1);
 		}
 	}
@@ -310,7 +299,7 @@ public class User extends MysqlDriver
     public void getFavourites()
     {
         String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
-                "from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = " + _id + ";";
+                "from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = " + id + ";";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;
@@ -334,7 +323,7 @@ public class User extends MysqlDriver
     public void getBeers()
     {
         String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars, countryFlag " +
-                "from beers, beerInPub, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = beerInPub.beerID and beerInPub.pubID = " + _pubId + ";";
+                "from beers, beerInPub, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = beerInPub.beerID and beerInPub.pubID = " + pubId + ";";
 
         // Execute user query
         ArrayList<ArrayList<Object>> sqlData;
@@ -379,8 +368,8 @@ public class User extends MysqlDriver
 
             String selectQuery =
                     "INSERT INTO `beerfinder`.`users` (`userId`, `username`, `fullName`, `password`, `email`, `isPub`, `pubID`, `image`)" +
-                    "VALUES (NULL, '" + _username + "', '" + _fullName + "', '" + _password + "', '" + _email + "', '" +
-                            (this._isPub ? 1 : 0) + "', " + (this._isPub ? this._pubId : "NULL") + ", ?);";
+                    "VALUES (NULL, '" + username + "', '" + fullName + "', '" + this.password + "', '" + email + "', '" +
+                            (this.isPub ? 1 : 0) + "', " + (this.isPub ? this.pubId : "NULL") + ", ?);";
             st = con.prepareStatement(selectQuery);
             // Add the image bytestream
             st.setBinaryStream(1, imageStream, (int) file.length());
@@ -398,8 +387,8 @@ public class User extends MysqlDriver
      */
     public void updateUser()
     {
-        String query = "UPDATE `users` SET `fullName` = '" + _fullName + "', `password` = '" + _password +
-                "', `email` = '" + _email + "' WHERE `users`.`userId` = " + _id + ";";
+        String query = "UPDATE `users` SET `fullName` = '" + fullName + "', `password` = '" + password +
+                "', `email` = '" + email + "' WHERE `users`.`userId` = " + id + ";";
 
         System.out.println(query);
 
@@ -409,40 +398,40 @@ public class User extends MysqlDriver
     }
 
     // Getters and setters.
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
     }
 
     public String get_name() {
-        return _username;
+        return username;
     }
 
-    public boolean get_isPub() {
-        return _isPub;
+    public boolean getPub() {
+        return isPub;
     }
 
-    public String get_fullName() {
-        return _fullName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public String get_password() {
-        return _password;
+    public String getPassword() {
+        return password;
     }
 
-    public String get_email() {
-        return _email;
+    public String getEmail() {
+        return email;
     }
 
     public boolean is_isPub() {
-        return _isPub;
+        return isPub;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int get_pubId() {
-        return _pubId;
+    public int getPubId() {
+        return pubId;
     }
     public int getAge() {
         return age;

@@ -4,22 +4,16 @@ import com.group8.database.tables.Pub;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.File;
@@ -69,7 +63,7 @@ public class PubList extends BaseController implements Initializable
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
                     System.out.println("clicked on " + pubTable.getSelectionModel().getSelectedItem());
-                    int id = pubTable.getSelectionModel().getSelectedItem().get_pubId();
+                    int id = pubTable.getSelectionModel().getSelectedItem().getPubId();
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 
                     Pub selectedPub = new Pub("select * from pubs where pubID =" + id);

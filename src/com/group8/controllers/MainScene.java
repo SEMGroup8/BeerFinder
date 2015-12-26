@@ -340,7 +340,7 @@ public class MainScene implements Initializable {
         System.out.println(sqlQuery);
         // Execute user query to get markers
         ArrayList<ArrayList<Object>> sqlData;
-        sqlData = MysqlDriver.selectManyOther(sqlQuery);
+        sqlData = MysqlDriver.selectMany(sqlQuery);
 
         for (int i = 0; i < sqlData.size(); i++) {
             // Add a new marker to the beer arraylist
@@ -358,7 +358,7 @@ public class MainScene implements Initializable {
         } else {
             // Testoutput
             System.out.println(sqlQuery);
-            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectManyOther(sqlQuery);
+            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectMany(sqlQuery);
             System.out.println(geoData.size());
             System.out.println("No Pubs selling this beer");
             gmapsError.setVisible(true);

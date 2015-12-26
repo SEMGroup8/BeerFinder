@@ -134,9 +134,9 @@ public class UserProfile extends BaseController implements Initializable  {
 		userImage.setImage(UserData.userInstance.getImage());
 		followLabel.setText(UserData.userInstance.get_name());
 		age.setText(""+UserData.userInstance.getAge());
-		fullName.setText(UserData.userInstance.get_fullName());
-	    password.setText(UserData.userInstance.get_password());
-	    email.setText(UserData.userInstance.get_email());
+		fullName.setText(UserData.userInstance.getFullName());
+	    password.setText(UserData.userInstance.getPassword());
+	    email.setText(UserData.userInstance.getEmail());
 		
 		
         Navigation.current_CenterFXML =  "/com/group8/resources/views/favourites.fxml";
@@ -350,7 +350,7 @@ public class UserProfile extends BaseController implements Initializable  {
 		            return;
 		        }
 
-		        String updateUser=("UPDATE `users` SET `fullname`='"+fullName.getText()+"',  `email`='"+email.getText()+"',  `age`='"+age.getText()+"'  where userId=" + UserData.userInstance.get_id());
+		        String updateUser="UPDATE `users` SET `fullname`='"+fullName.getText()+"',  `email`='"+email.getText()+"',  `age`='"+age.getText()+"'  where userId=" + UserData.userInstance.getId();
 				statement =con.prepareStatement(updateUser);
 				statement.executeUpdate();
 
@@ -360,15 +360,13 @@ public class UserProfile extends BaseController implements Initializable  {
 		        {
 		            System.out.println("In email check");
 
-		            emailError.setText("Email is in use.");
-
 		            return;
 		        }
 
 		        User newUser = new User();
 
-		        //newUser.setUser(UserData.userInstance.get_name(), fullName.getText(), password.getText(), email.getText(), UserData.userInstance.get_isPub(), UserData.userInstance.get_pubId());
-		        newUser.set_id(UserData.userInstance.get_id());
+		        //newUser.setUser(UserData.userInstance.getName(), fullName.getText(), password.getText(), email.getText(), UserData.userInstance.getPub(), UserData.userInstance.getPubId());
+		        newUser.setId(UserData.userInstance.getId());
 
 		        UserData.userInstance = newUser;
 
@@ -485,7 +483,7 @@ public class UserProfile extends BaseController implements Initializable  {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			Connection con = DriverManager.getConnection(url, user, password);
 			
-			String updateFoto="UPDATE `users` SET `image` =? where userId=" + UserData.userInstance.get_id();
+			String updateFoto="UPDATE `users` SET `image` =? where userId=" + UserData.userInstance.getId();
 			statement =con.prepareStatement(updateFoto);
 			statement.setBinaryStream(1, imageStream, (int) file.length());
 			statement.executeUpdate();
@@ -567,8 +565,8 @@ public class UserProfile extends BaseController implements Initializable  {
 	            public void handle(MouseEvent event) {
 	                if (event.getClickCount() == 2) {
 	                    // Show that we can select items and print it
-	                    System.out.println("clicked on " + userTable.getSelectionModel().getSelectedItem().get_id());
-	                    int id = userTable.getSelectionModel().getSelectedItem().get_id();
+	                    System.out.println("clicked on " + userTable.getSelectionModel().getSelectedItem().getId());
+	                    int id = userTable.getSelectionModel().getSelectedItem().getId();
 	                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 	                    
 	                    System.out.println(id+"  usssseriiiid");

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
 
 import javafx.collections.FXCollections;
@@ -58,8 +57,8 @@ public class UserList extends BaseController implements Initializable {
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
-                    System.out.println("clicked on " + userTable.getSelectionModel().getSelectedItem().get_id());
-                    int id = userTable.getSelectionModel().getSelectedItem().get_id();
+                    System.out.println("clicked on " + userTable.getSelectionModel().getSelectedItem().getId());
+                    int id = userTable.getSelectionModel().getSelectedItem().getId();
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     
                     System.out.println(id+"  usssseriiiid");

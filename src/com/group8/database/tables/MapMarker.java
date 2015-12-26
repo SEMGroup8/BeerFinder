@@ -1,14 +1,10 @@
 package com.group8.database.tables;
 
 import com.group8.database.MysqlDriver;
-import com.mysql.fabric.jdbc.FabricMySQLDriver;
-
-
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 
 /**
- * Created by Shiratori on 12/11/15.
+ * Created by Linus Eiderström Swahn
  *
  * Class for constructing Google Maps Markers.
  *
@@ -32,18 +28,18 @@ public class MapMarker extends MysqlDriver
 
     /**
      * Marker Constructor that takes an arraylist of markerdata to produce a number of markers.
-     * --> Used when placeing out markers after fetching data from the database.
-     * @param arrayList
+     * --> Used when placing out markers after fetching data from the database.
+     * @param markerData
      */
-    public MapMarker(ArrayList<Object> arrayList)
+    public MapMarker(ArrayList<Object> markerData)
     {
-        this.pubID = Integer.parseInt(arrayList.get(0).toString());
-        this.pubName = arrayList.get(1).toString();
-        this.address = arrayList.get(2).toString();
-        this.price = Double.parseDouble(arrayList.get(3).toString());
-        this.latitude = Double.parseDouble(arrayList.get(4).toString());
-        this.longitude = Double.parseDouble(arrayList.get(5).toString());
-        this.inStock = Boolean.parseBoolean(arrayList.get(6).toString());
+        this.pubID = Integer.parseInt(markerData.get(0).toString());
+        this.pubName = markerData.get(1).toString();
+        this.address = markerData.get(2).toString();
+        this.price = Double.parseDouble(markerData.get(3).toString());
+        this.latitude = Double.parseDouble(markerData.get(4).toString());
+        this.longitude = Double.parseDouble(markerData.get(5).toString());
+        this.inStock = Boolean.parseBoolean(markerData.get(6).toString());
     }
 
 
@@ -84,8 +80,4 @@ public class MapMarker extends MysqlDriver
     public int getPubID(){
     	return pubID;
     }
-    
-    
-    
-    
 }
