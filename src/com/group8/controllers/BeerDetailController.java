@@ -199,7 +199,7 @@ public class BeerDetailController extends BaseController implements Initializabl
 
             MysqlDriver.insert(sqlQuery);
 
-            UserData.userInstance.getFavourites();
+            UserData.userInstance.getFavouriteBeers();
 
             added.setVisible(true);
         }
@@ -214,7 +214,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     public void addToPub(ActionEvent event) throws IOException {
         if (UserData.userInstance != null)
         {
-            if (UserData.userInstance.getPub()) {
+            if (UserData.userInstance.getIsPub()) {
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
                 dialog.initOwner(Navigation.primaryStage);
@@ -271,7 +271,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     	
     	 if(UserData.userInstance != null){
        	  
-       	 // if(UserData.userInstance.getPub()){
+       	 // if(UserData.userInstance.getIsPub()){
        		//  updateBeerButton.setVisible(true);
        	  //}
          }
@@ -283,7 +283,7 @@ public class BeerDetailController extends BaseController implements Initializabl
         imageViewHBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#2A1806"), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(4))));
 
         if(UserData.userInstance!=null) {
-            if (UserData.userInstance.getPub()) {
+            if (UserData.userInstance.getIsPub()) {
                 addToPub.setVisible(true);
                 favourite.setVisible(false);
             }

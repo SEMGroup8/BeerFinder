@@ -143,7 +143,7 @@ public class Scene4Controller extends BaseController implements Initializable{
 
             MysqlDriver.insert(sqlQuery);
 
-            UserData.userInstance.getFavourites();
+            UserData.userInstance.getFavouriteBeers();
         }
     }
 
@@ -153,7 +153,7 @@ public class Scene4Controller extends BaseController implements Initializable{
 
             beer.insertRank();
 
-            UserData.userInstance.getFavourites();
+            UserData.userInstance.getFavouriteBeers();
         }
     }
     @FXML

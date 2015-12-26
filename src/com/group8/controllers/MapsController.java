@@ -1,53 +1,32 @@
 package com.group8.controllers;
 
-import com.group8.database.tables.Beer;
 import com.group8.database.tables.MapMarker;
 import com.group8.database.tables.Pub;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
-import com.lynden.gmapsfx.javascript.event.UIEventHandler;
-import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableSelectionModel;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-
-import javax.swing.*;
-import javax.swing.plaf.IconUIResource;
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-10-24.
- *
- * TODO learn the googlefx API and implement it
- *
+ * Created by Linus Eiderström Swahn and Andreas Fransson.
+ **
  * The Google maps scene originateing from the BeerDetail scene
  * When a beer is sold by a pub this will display a google maps window with markers of those pubs
  * locations, and a tableview sorted by the price of the beer you previously selected.
- *
  */
 public class MapsController extends BaseController implements Initializable,MapComponentInitializedListener {
-
 
     @FXML
     public GoogleMapView mapView;
@@ -61,19 +40,18 @@ public class MapsController extends BaseController implements Initializable,MapC
     public TableView showPubs;
 
     private ArrayList<Marker> markers = new ArrayList<>();
+    public ObservableList<MapMarker> mapMarkerList = FXCollections.observableArrayList(BeerData.markers);
 
-    public ObservableList<MapMarker> masterData = FXCollections.observableArrayList(BeerData.markers);
-
-
+    /**
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         // Set current FXML
         Navigation.current_CenterFXML = "/com/group8/resources/views/googleMaps.fxml";
-
-
-        // Test output
-        System.out.println("Initialized google maps!");
 
         // Add seconday initialize
         mapView.addMapInializedListener(this);
@@ -81,12 +59,9 @@ public class MapsController extends BaseController implements Initializable,MapC
         // Populate the tableview
         pubsColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("PubName"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<MapMarker, String>("Price"));
-        showPubs.setItems(masterData);
-       // showPubs.getSelectionModel().select(0);
+        showPubs.setItems(mapMarkerList);
+
         showPubs.getSelectionModel().selectFirst();
-
-
-
     }
 
     /**
@@ -106,12 +81,11 @@ public class MapsController extends BaseController implements Initializable,MapC
             @Override
             public void handle(MouseEvent event) {
 
-                // TODO take away the looping that misplaces ids
+                // Single click switches the view over to that pub.
                 if (event.getClickCount() == 1) {
 
                     // Set the selectedMarker instance of beer we have to selected item
                     int z = showPubs.getSelectionModel().getSelectedIndex();
-
 
                     for (int i = 0; i < markers.size(); i++) {
                         // Remove existing markers
@@ -122,7 +96,6 @@ public class MapsController extends BaseController implements Initializable,MapC
                         map.setZoom(15);
                         if(i == z) {
                             // Add the selected marker back to the map
-
 
                             map.addMarker(markers.get(z));
                             // make the infowindow for the selected marker
@@ -141,8 +114,7 @@ public class MapsController extends BaseController implements Initializable,MapC
                         }
 
                     }
-
-
+                    // If we double click, we enter the pub details.
                 }else if(event.getClickCount() == 2){
                     int z = showPubs.getSelectionModel().getSelectedIndex();
                     Pub selectedPub = new Pub("select * from pubs where pubID =" + BeerData.markers.get(z).getPubID());
@@ -159,7 +131,6 @@ public class MapsController extends BaseController implements Initializable,MapC
         });
     }
 
-
     /**
      * Secondary Initalizer
      *
@@ -170,14 +141,6 @@ public class MapsController extends BaseController implements Initializable,MapC
      */
         @Override
     public void mapInitialized() {
-
-
-        // TODO add the geoPosition column to the pub table ( string double,double ( maybe have secure input method in addpub?))
-        // TODO make string -> double double converter
-        // TODO set coordinates to BeerData.selectedBeerPubs.geoPosition(1 result)
-        // TODO set propertyValueFactory of the showPubs column to populate with all the pubs that have the beer
-        // TODO set markers of all the pubs on map, and add dubbleClick listener so when u click a beer in the column the view is transported to that marker
-        // TODO able to "follow" pubs marked by markers
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
@@ -192,25 +155,20 @@ public class MapsController extends BaseController implements Initializable,MapC
                 .zoomControl(true)
                 .zoom(15);
 
-
         map = mapView.createMap(mapOptions);
 
         for(int i = 0; i < BeerData.markers.size(); i++) {
 
             LatLong markerLocation = new LatLong(BeerData.markers.get(i).getLatitude(), BeerData.markers.get(i).getLongitude());
-            System.out.println("Loaded: " + BeerData.markers.get(i).getLatitude() + " " + BeerData.markers.get(i).getLongitude());
 
             //Add markers to the map
-            MarkerOptions markerOptions1 = new MarkerOptions();
-            markerOptions1.position(markerLocation);
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(markerLocation);
 
-           // markerOptions1.icon("html/mymarker.png");
-            markerOptions1.visible(true);
+            markerOptions.visible(true);
 
-
-            Marker marker = new Marker(markerOptions1);
+            Marker marker = new Marker(markerOptions);
             markers.add(marker);
-
 
             if(i == 0) {
                 map.addMarker(markers.get(i));
@@ -226,10 +184,6 @@ public class MapsController extends BaseController implements Initializable,MapC
             }else {
                 map.addMarker(markers.get(i));
             }
-
-
-
-            System.out.println(BeerData.markers.get(i).getAddress());
-            }
         }
+    }
 }

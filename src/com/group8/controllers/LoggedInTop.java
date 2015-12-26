@@ -17,11 +17,18 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Created by Shiratori on 24/11/15.
+ * Created by Created by Linus Eiderström Swahn.
+ *
+ * Controller for the logged in top part of the ui.
+ *
+ * Controller for the top top ui element when the user is logged out.
+ *
+ * Inherits BaseController for some UI-functionality.
+ *
+ * Implements Initializable so that we can tale advantage of the initialize() function.
  */
 public class LoggedInTop extends BaseController implements Initializable
 {
-    // Declaration of elements
     @FXML
     public Button logout, account, beerFavourite, pubFavourite, profileButton, usersListButton;
     @FXML
@@ -29,6 +36,8 @@ public class LoggedInTop extends BaseController implements Initializable
     ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
 
     /**
+     * Created by Linus Eiderström Swahn.
+     *
      * Initialize Main controller
      *
      * @param location
@@ -37,7 +46,8 @@ public class LoggedInTop extends BaseController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        if(UserData.userInstance.getPub())
+        // Hides certain elements if we are a pub.
+        if(UserData.userInstance.getIsPub())
         {
             account.setText("Pub");
             beerFavourite.setVisible(false);
@@ -49,14 +59,16 @@ public class LoggedInTop extends BaseController implements Initializable
         userName.setText(UserData.userInstance.get_name());
 
         PubData.pubs = new ArrayList<Pub>();
-
     }
 
-    // Resets guide text if no input was made
-    public void exitField() {
-
-    }
-
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the logout button.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onLogout(javafx.event.ActionEvent event) throws IOException
     {
@@ -66,19 +78,29 @@ public class LoggedInTop extends BaseController implements Initializable
         mainScene.changeCenter("/com/group8/resources/views/home_center.fxml");
     }
 
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the account button.
+     *
+     * Depending on if the user is a pub owner or not different scenes get called.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onAccount(javafx.event.ActionEvent event) throws IOException
     {
-        if(UserData.userInstance.getPub())
+        if(UserData.userInstance.getIsPub())
         {
         	
             mainScene.changeCenter("/com/group8/resources/views/pubInfo.fxml");
         }
         else
         {
-        	UserData.userInstance.getFollowers();
+            UserData.userInstance.getFollowers();
 
-        	 mainScene.changeCenter("/com/group8/resources/views/MyProfile.fxml");
+            mainScene.changeCenter("/com/group8/resources/views/MyProfile.fxml");
         }
     }
 

@@ -276,7 +276,7 @@
 //    @Override
 //    public void initialize(URL location, ResourceBundle resources)
 //    {
-//        if(UserData.userInstance.getPub())
+//        if(UserData.userInstance.getIsPub())
 //        {
 //            account.setText("Pub");
 //        }
@@ -305,7 +305,7 @@
 //    @FXML
 //    public void onAccount(javafx.event.ActionEvent event) throws IOException
 //    {
-//        if(UserData.userInstance.getPub())
+//        if(UserData.userInstance.getIsPub())
 //        {
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
 //            Scene result_scene = new Scene(result, 800, 600);

@@ -38,6 +38,11 @@ public class Pub extends MysqlDriver{
     private InputStream tmpImg;
 
     /**
+     * Default Constructor.
+     */
+    public Pub() {}
+
+    /**
      * Pub constructor.
      * @param query
      */

@@ -104,7 +104,7 @@ public class PubInfo extends BaseController implements Initializable{
 	FileInputStream imageStream ;
 	File file;
 	boolean loadAnImage = false;
-	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
+	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.beersInPub);
 	
 	
 	 public void getRow(){

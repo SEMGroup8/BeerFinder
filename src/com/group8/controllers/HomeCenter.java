@@ -31,9 +31,11 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
- * Created by Shiratori on 24/11/15.
- * Default Home_Center FXML
- * -->
+ * Controller for the center home scene.
+ *
+ * Inherits BaseController for some UI-functionality.
+ *
+ * Implements Initializable so that we can tale advantage of the initialize() function.
  */
 public class HomeCenter extends BaseController implements Initializable
 {
@@ -65,7 +67,7 @@ public class HomeCenter extends BaseController implements Initializable
     public TextField searchText;
     @FXML
     public ProgressIndicator Load;
-    // Threading service
+
     private SwingNode webCam;
     private BorderPane pane;
     private Stage webcamStage;
@@ -76,7 +78,9 @@ public class HomeCenter extends BaseController implements Initializable
 
     Service<Void> backgroundThread;
 
-    // Checkbox that when checked shows advanced checkboxes
+    /**
+     * Created by Andreas Fransson.
+     */
     public void showAdvanced()
     {
         error.setText("");
@@ -116,7 +120,10 @@ public class HomeCenter extends BaseController implements Initializable
             advancedName.setSelected(true);
         }
     }
-    // Checkbox to check all the advanced boxes
+
+    /**
+     * Created by Andreas Fransson.
+     */
     public void checkAll()
     {
         if ( !advancedType.isSelected() || !advancedProducer.isSelected() || !advancedDescription.isSelected()) {
@@ -136,7 +143,10 @@ public class HomeCenter extends BaseController implements Initializable
 
     }
 
-    // Resets guide text if no input was made
+    /**
+     * Created by Andreas Fransson.
+     *
+     */
     public void exitField()
     {
         if (searchText.getText().isEmpty()){
@@ -145,6 +155,8 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     * Created by Andreas Fransson.
+     *
      * On clicking the Search button execute query through MySqlDriver
      * @param event
      * @throws IOException
@@ -152,7 +164,7 @@ public class HomeCenter extends BaseController implements Initializable
     @FXML
     public void onSearch(javafx.event.ActionEvent event) throws IOException {
 
-        // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+        // Set background service different from the UI fx thread to run stuff on
         backgroundThread = new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -176,88 +188,76 @@ public class HomeCenter extends BaseController implements Initializable
                          * Construct a query as a String dependent on user specifications
                          */
 
-                        {
-                            // name search is defualt
-                            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag" +
+                        //If request comes from the barcode scanner
+                        if(((Node)event.getSource()).getId() == beerScanSearchButton.getId()){
+
+                            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag, barcode" +
                                     " from beers, beerType, origin, package where " +
                                     "beers.beerTypeID = beerType.beerTypeID " +
                                     "and beers.originID = origin.originID " +
                                     "and beers.package = package.packageID " +
+                                    "and (beers.barcode = " + barcode;
+                        }
+                        else
+                        {
+                            // name search is defualt
+                            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
+                                    "from beers, beerType, origin, package " +
+                                    "where beers.beerTypeID = beerType.beerTypeID " +
+                                    "and beers.originID = origin.originID " +
+                                    "and beers.package = package.packageID " +
                                     "and (";
 
-                            if(advancedName.isSelected()){
+                            if (advancedName.isSelected()) {
                                 BeerData.searchInput += "name like '%" + searchText.getText() + "%'";
                             }
 
-                            //Mantas doesnt know what hes doing
-
-                            System.out.println("Source 1: "+ ((Node)event.getSource()).getId());
-                            System.out.println("Source 2: "+ beerScanSearchButton.getId());
-
-                            //If request comes from the barcode scanner
-
-                            if(((Node)event.getSource()).getId() == beerScanSearchButton.getId()){
-
-                                BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag, barcode" +
-                                        " from beers, beerType, origin, package where " +
-                                        "beers.beerTypeID = beerType.beerTypeID " +
-                                        "and beers.originID = origin.originID " +
-                                        "and beers.package = package.packageID " +
-                                        "and (beers.barcode = " + barcode;
-
-                                System.out.println(BeerData.searchInput);
-                            }
-
                             // Advanced
-                            if(advanced.isSelected())
-                            {
+                            if (advanced.isSelected()) {
                                 // For reasons
-                                int selectedIteams=0;
+                                int selectedIteams = 0;
 
                                 if (advancedCountry.isSelected()) {
-                                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
+                                    if (advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
                                         BeerData.searchInput += " or countryName like '%" + searchText.getText() + "%'";
                                         selectedIteams++;
-                                    }else{
+                                    } else {
                                         BeerData.searchInput += "countryName like '%" + searchText.getText() + "%'";
                                     }
                                 }
 
                                 if (advancedType.isSelected()) {
-                                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
+                                    if (advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
                                         BeerData.searchInput += " or beerTypeEN like '%" + searchText.getText() + "%'";
                                         selectedIteams++;
-                                    } else{
+                                    } else {
                                         BeerData.searchInput += "beerTypeEN like '%" + searchText.getText() + "%'";
                                     }
                                 }
                                 if (advancedProducer.isSelected()) {
-                                    if(advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() ||advancedCountry.isSelected()) {
+                                    if (advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
                                         BeerData.searchInput += " or producerName like '%" + searchText.getText() + "%'";
                                         selectedIteams++;
-                                    }else{
+                                    } else {
                                         BeerData.searchInput += "producerName like '%" + searchText.getText() + "%'";
                                     }
                                 }
                                 if (advancedDescription.isSelected()) {
-                                    if(advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedCountry.isSelected()) {
+                                    if (advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedCountry.isSelected()) {
                                         BeerData.searchInput += " or description like '%" + searchText.getText() + "%'";
                                         selectedIteams++;
-                                    }else{
+                                    } else {
                                         BeerData.searchInput += "description like '%" + searchText.getText() + "%'";
                                     }
                                 }
 
-                                if (!advancedName.isSelected() && selectedIteams > 1){
-                                    // Test Output
-                                    //System.out.println(BeerData.searchInput.substring(260, 262));
+                                if (!advancedName.isSelected() && selectedIteams > 1) {
 
-                                    BeerData.searchInput = BeerData.searchInput.substring(0,260) + BeerData.searchInput.substring(262);
-                                    // Test Output
-                                    //System.out.println(BeerData.searchInput);
+                                    BeerData.searchInput = BeerData.searchInput.substring(0, 260) + BeerData.searchInput.substring(262);
                                 }
                             }
                         }
+
                         // Added a 100 beer limit as a safety for now / maybe have pages also?
                         BeerData.searchInput +=") limit 100 ";
 
@@ -286,8 +286,6 @@ public class HomeCenter extends BaseController implements Initializable
             }
         };
 
-
-
         // When the thread is done try to go to next stage.
         backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
@@ -298,7 +296,6 @@ public class HomeCenter extends BaseController implements Initializable
                     try {
 
                         closeWebcam();
-
 
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -317,7 +314,6 @@ public class HomeCenter extends BaseController implements Initializable
                 }
 
                 if ((BeerData.beer.size()>1)) {
-
 
                     // Load the result stage
                     try {
@@ -344,7 +340,6 @@ public class HomeCenter extends BaseController implements Initializable
 
         // Start thread
         backgroundThread.start();
-
     }
 
     /**
@@ -399,27 +394,26 @@ public class HomeCenter extends BaseController implements Initializable
                 };
             }
         };
-                        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                            @Override
-                            public void handle(WorkerStateEvent event) {
-                                Load.setVisible(false);
+
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                Load.setVisible(false);
 
 
-                                // Load the result stage
-                                try {
-                                    mainScene.changeCenter("/com/group8/resources/views/pubList.fxml");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                // Load the result stage
+                try {
+                    mainScene.changeCenter("/com/group8/resources/views/pubList.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
-                            }
-                        });
+            }
+        });
 
-                        // Start thread
-                        backgroundThread.start();
-
-
+        // Start thread
+        backgroundThread.start();
     }
 
     /**
@@ -471,8 +465,6 @@ public class HomeCenter extends BaseController implements Initializable
         pane.setTop(webcamClose);
         pane.setBorder(new Border(new BorderStroke(Paint.valueOf("orange"), BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(3))));
         pane.setBackground(new Background(new BackgroundFill(Paint.valueOf("black"), new CornerRadii(8), null)));
-
-        System.out.println("Inside onBeerScan " + barcode);
 
         webcamStage.show();
 

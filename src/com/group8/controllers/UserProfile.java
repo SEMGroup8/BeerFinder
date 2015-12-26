@@ -365,7 +365,7 @@ public class UserProfile extends BaseController implements Initializable  {
 
 		        User newUser = new User();
 
-		        //newUser.setUser(UserData.userInstance.getName(), fullName.getText(), password.getText(), email.getText(), UserData.userInstance.getPub(), UserData.userInstance.getPubId());
+		        //newUser.setUser(UserData.userInstance.getName(), fullName.getText(), password.getText(), email.getText(), UserData.userInstance.getIsPub(), UserData.userInstance.getPubId());
 		        newUser.setId(UserData.userInstance.getId());
 
 		        UserData.userInstance = newUser;

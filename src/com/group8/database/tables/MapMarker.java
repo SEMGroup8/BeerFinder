@@ -7,7 +7,6 @@ import java.util.ArrayList;
  * Created by Linus Eiderström Swahn
  *
  * Class for constructing Google Maps Markers.
- *
  */
 public class MapMarker extends MysqlDriver
 {
@@ -27,8 +26,10 @@ public class MapMarker extends MysqlDriver
     private String address;
 
     /**
-     * Marker Constructor that takes an arraylist of markerdata to produce a number of markers.
-     * --> Used when placing out markers after fetching data from the database.
+     * Created by Linus Eiderström Swahn.
+     *
+     * Constructor creating an instance out of an ArrayList of objects representing a row in the database.
+     *
      * @param markerData
      */
     public MapMarker(ArrayList<Object> markerData)
@@ -41,8 +42,6 @@ public class MapMarker extends MysqlDriver
         this.longitude = Double.parseDouble(markerData.get(5).toString());
         this.inStock = Boolean.parseBoolean(markerData.get(6).toString());
     }
-
-
 
     public double getLatitude() {
         return latitude;

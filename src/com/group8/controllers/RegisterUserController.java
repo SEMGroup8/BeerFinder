@@ -15,11 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by Shiratori on 26/10/15.
+ * Created by Linus Eiderström Swahn.
  *
  * Controller for the register user scene.
- *
- * TODO: Layout and style.
  */
 public class RegisterUserController extends BaseController {
 
@@ -30,14 +28,14 @@ public class RegisterUserController extends BaseController {
     @FXML
     public TextField username, fullName;
     @FXML
-    public TextField email, pubName;
+    public TextField email, pubName, age;
     @FXML
     public CheckBox isPub;
     @FXML
     public PasswordField password;
 
     @FXML
-    public Label usernameError, emailError, pubNameError, passwordError, isPubError, fullNameError, pubNameLabel;
+    public Label usernameError, emailError, pubNameError, passwordError, isPubError, fullNameError, pubNameLabel, ageError;
 
     @FXML
     public void onRegister(ActionEvent event) throws IOException
@@ -54,7 +52,6 @@ public class RegisterUserController extends BaseController {
             System.out.println("In username check");
             usernameError.setText("Username is in use.");
             username.setStyle("-fx-border-color: red;");
-
 
             return;
         }
@@ -92,9 +89,7 @@ public class RegisterUserController extends BaseController {
             }
         }
 
-        User newUser = new User();
-
-        newUser.setUser(username.getText(), fullName.getText(), password.getText(), email.getText(), isPub.isSelected(), pubId);
+        User newUser = new User(username.getText(), fullName.getText(), password.getText(), email.getText(), isPub.isSelected(), pubId, Integer.parseInt(age.getText()));
 
         newUser.insert();
 
@@ -148,6 +143,25 @@ public class RegisterUserController extends BaseController {
             canRegister = false;
         }
 
+        if(age.getText().length()==0)
+        {
+            ageError.setText("Age has to be filled in.");
+            age.setStyle("-fx-border-color: red;");
+            canRegister = false;
+        }
+        else
+        {
+            for(int i = 0; i<age.getText().length(); i++)
+            {
+                if(!age.getText().matches("[0-9]+"))
+                {
+                    ageError.setText("Age can only be numerical.");
+                    age.setStyle("-fx-border-color: red;");
+                    canRegister = false;
+                }
+            }
+        }
+
         if(isPub.isSelected())
         {
             if(pubName.getText().length() == 0)
@@ -186,16 +200,5 @@ public class RegisterUserController extends BaseController {
             pubNameLabel.setVisible(false);
             pubName.setVisible(false);
         }
-
-    }
-
-
-
-    /*
-    Back button pressed takes you back to "home screen"
-    */
-    @FXML
-    public void onBack(ActionEvent event) throws IOException {
-        mainScene.changeCenter(Navigation.homescreenFXML);
     }
 }

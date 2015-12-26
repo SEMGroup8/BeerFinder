@@ -12,16 +12,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Created by Linus Eiderström Swahn.
  *
- * Class for constructing Users.
+ * User class representing a user in the application.
+ *
+ * Subclass of MysqlDriver, inherits database functionality.
  */
 public class User extends MysqlDriver
 {
@@ -38,6 +37,7 @@ public class User extends MysqlDriver
     private int numFollowers;
 
     public ArrayList<Beer> favourites;
+    public ArrayList<Beer> beersInPub;
     public ArrayList<Pub> pubFavouritesDetails;
     public ArrayList<Pub> pubListDetails;
     public ArrayList<User>allUsers;
@@ -46,12 +46,42 @@ public class User extends MysqlDriver
     private InputStream tmpImg;
 
     /**
-     * User constructor.
-     * --> Calls diffrent functions inside the User constructor class to construct a User
-     *     from specifications.
-     * --> Takes a SQL query and constructs a User or Pubowner User depending
-     *     on if isPub is 'true' or not.
+     * Default constructor.
+     */
+    public User(){}
+
+    /**
+     * Created by Linus Eiderström Swahn.
+     * Constructor with parameters for all fields of the user.
+     * @param name
+     * @param fullName
+     * @param password
+     * @param email
+     * @param isPub
+     * @param pubId
+     * @param age
+     */
+    public User(String name, String fullName, String password, String email, boolean isPub, int pubId, int age)
+    {
+        this.username = name;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+        this.isPub = isPub;
+        if(this.isPub)
+        {
+            this.pubId = pubId;
+        }
+    }
+
+    /**
+     * Created by Linus Eiderström SWAHN.
+     * Constructor.
+     * Constructs a user from a sql-query, selecting one user.
+     *
      * @param query
+     * String containing the sql-query for selecting a user.
      */
     public User(String query)
     {
@@ -73,10 +103,6 @@ public class User extends MysqlDriver
         try {
             tmpImg = (InputStream) sqlReturn.get(8);
             this.userImage = javax.imageio.ImageIO.read(tmpImg);
-            System.out.println("->"+tmpImg.toString());
-
-
-
 
        }catch (IOException ex){
            this.userImage = null;
@@ -96,7 +122,6 @@ public class User extends MysqlDriver
         {
         	this.pubId = Integer.parseInt(sqlReturn.get(6).toString());
         }
-        System.out.println(this.pubId +"  iiiii");
 
         if(this.isPub)
         {
@@ -105,45 +130,40 @@ public class User extends MysqlDriver
 
         if(isPub)
         {
-            getBeers();
-           // getFavourites();
+            getBeersInPub();
         }
         else
         {
-            getFavourites();
+            getFavouriteBeers();
             getPubFavourites();
            // getFollowers();
-            
-		
-			
-       }
+        }
     }
 
     /**
-     * User constructor.
-     * --> Calls diffrent functions inside the User constructor class to construct a User
-     *     from specifications.
-     * --> Takes a Arraylist of the type Object and constructs a User or Pub owner User depending
-     *     on if isPub is 'true' or not.
+     * Created by Linus Eiderström Swahn.
+     *
+     * Constructor.
+     * Constructs a User from an ArrayList of objects.
+     *
      * @param sqlData
+     * ArrayList of objects.
      */
     public User(ArrayList<Object> sqlData)
     {
-        id = Integer.parseInt(sqlData.get(0).toString());
+        this.id = Integer.parseInt(sqlData.get(0).toString());
         this.age=Integer.parseInt(sqlData.get(7).toString());
+
+        // Load the Image.
         try {
             tmpImg = (InputStream) sqlData.get(8);
-           this.userImage = javax.imageio.ImageIO.read(tmpImg);
-           System.out.println("->"+tmpImg.toString());
+            this.userImage = javax.imageio.ImageIO.read(tmpImg);
 
+        }catch (IOException ex){
+            this.userImage = null;
+        }
 
-
-
-       }catch (IOException ex){
-           this.userImage = null;
-       }
-
-
+        // Is a pub owner or not
         if(Boolean.parseBoolean(sqlData.get(5).toString()))
         {
             setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), sqlData.get(4).toString(), Boolean.parseBoolean(sqlData.get(5).toString()), Integer.parseInt(sqlData.get(6).toString()));
@@ -156,12 +176,12 @@ public class User extends MysqlDriver
 
         if(isPub)
         {
-            getBeers();
-           // getFavourites();
+            getBeersInPub();
+           // getFavouriteBeers();
         }
         else
         {
-            getFavourites();
+            getFavouriteBeers();
             getPubFavourites();
            // getFollowers();
             
@@ -213,7 +233,7 @@ public class User extends MysqlDriver
     }
 
     /**
-     * TODO ??
+     * Created by Collins
      */
     public void getPubs() throws IOException {
 		String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
@@ -232,24 +252,29 @@ public class User extends MysqlDriver
 
 		}
 	}
-    
+
+    /**
+     * Created by Collins
+     */
     public void getUsers(){
     	//String userList="Select users.userId, username, fullname, password, email, isPub from users where isPub="+0;
     	String userList="select * from users where isPub="+0;
     	ArrayList<ArrayList<Object>> users;
-    		users=	MysqlDriver.selectMany(userList);
+        users=	MysqlDriver.selectMany(userList);
     	allUsers = new ArrayList<User>();
     	
     	for (int i = 0; i < users.size(); i++) {
-    		
-    		User user1 = new User(users.get(i));
-    		
-    		this.allUsers.add(user1);
-    		
-    	}
-    	
-   }
-    
+
+            User user1 = new User(users.get(i));
+
+            this.allUsers.add(user1);
+
+        }
+    }
+
+    /**
+     * Created by
+     */
     public void getFollowers(){
     	//String sqlQuery="select followUser.id, username,image, password, fullname, email, age  from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId() ;
     	String sqlQuery="select * from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId();
@@ -264,11 +289,11 @@ public class User extends MysqlDriver
     		User fol = new User(follower.get(i));
     		
     		this.followedUsers.add(fol);
-}
-    	
+        }
     }
 
     /**
+     * Created by Collins
      * Gets normal users Favourites list of pubs.
      * --> Used when pushing the "Favourite pubs" button.
      * --> Gets an array of pubs from the server and stores them in the UserInstance.
@@ -292,61 +317,74 @@ public class User extends MysqlDriver
 		}
 	}
     /**
-     * Gets normal users Favourites list of beers.
-     * --> Used when pushing the "Favourite beers" button.
-     * --> Gets an array of beers from the server and stores them in the UserInstance.
-     */
-    public void getFavourites()
-    {
-        String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
-                "from beers, favourites, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = favourites.beerID and favourites.userId = " + id + ";";
-
-        // Execute user query
-        ArrayList<ArrayList<Object>> sqlData;
-
-        sqlData = MysqlDriver.selectMany(sqlQuery);
-
-        favourites = new ArrayList<Beer>();
-
-        for (int i = 0; i < sqlData.size(); i++) {
-            // Add a new Beer to the beer arraylist
-            Beer beer = new Beer(sqlData.get(i));
-            // Testoutput
-            System.out.print(beer.getName()+"\n");
-            this.favourites.add(beer);
-        }
-    }
-
-    /**
+     * Created by Linus Eiderström Swahn.
      *
+     * Selects all beers the user has as a favourite and stores it as an array.
      */
-    public void getBeers()
+    public void getFavouriteBeers()
     {
-        String sqlQuery = "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars, countryFlag " +
-                "from beers, beerInPub, beerType, origin, package where beers.package = package.packageID and beers.beerTypeID = beerType.beerTypeID and beers.originID = origin.OriginID and beers.beerID = beerInPub.beerID and beerInPub.pubID = " + pubId + ";";
+        String sqlQuery =
+                "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
+                "from beers, favourites, beerType, origin, package " +
+                "where beers.package = package.packageID " +
+                "and beers.beerTypeID = beerType.beerTypeID " +
+                "and beers.originID = origin.OriginID " +
+                "and beers.beerID = favourites.beerID " +
+                "and favourites.userId = " + id + ";";
 
-        // Execute user query
         ArrayList<ArrayList<Object>> sqlData;
 
-        sqlData = MysqlDriver.selectMany(sqlQuery);
+        sqlData = selectMany(sqlQuery);
 
-        favourites = new ArrayList<Beer>();
+        this.favourites = new ArrayList<Beer>();
 
         for (int i = 0; i < sqlData.size(); i++) {
             // Add a new Beer to the beer arraylist
             Beer beer = new Beer(sqlData.get(i));
-            // Testoutput
-            System.out.print(beer.getName()+"\n");
+
             this.favourites.add(beer);
         }
     }
 
     /**
-     * User insert fucntion.
+     * Created by Linus Eiderström Swahn.
+     *
+     * Get all the beers the pub is selling.
+     */
+    public void getBeersInPub()
+    {
+        String sqlQuery =
+                "select beers.beerID, name, image, description, beerTypeEN, countryName, percentage, producerName, volume, isTap, packageTypeEN, beerInPub.price, avStars, countryFlag " +
+                "from beers, beerInPub, beerType, origin, package " +
+                "where beers.package = package.packageID " +
+                        "and beers.beerTypeID = beerType.beerTypeID " +
+                        "and beers.originID = origin.OriginID " +
+                        "and beers.beerID = beerInPub.beerID " +
+                        "and beerInPub.pubID = " + pubId + ";";
+
+        ArrayList<ArrayList<Object>> sqlData;
+
+        sqlData = MysqlDriver.selectMany(sqlQuery);
+
+        beersInPub = new ArrayList<Beer>();
+
+        for (int i = 0; i < sqlData.size(); i++) {
+            // Add a new Beer to the beer arraylist
+            Beer beer = new Beer(sqlData.get(i));
+
+            this.beersInPub.add(beer);
+        }
+    }
+
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Specialized insert function for the user.
+     * Inserts the user into the database.
      */
     public void insert()
     {
-    	// Loads a default image for users pub when regestering
+    	// Loads a default image for users pub when registering
         File file = new File("src/com/group8/resources/Images/home.jpg");
         FileInputStream imageStream = null;
         try {
@@ -362,14 +400,14 @@ public class User extends MysqlDriver
         String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
         String user = "Gr8";
         String password = "group8";
-        // Try to insert a pub and a address
+
         try {
             con = DriverManager.getConnection(url, user, password);
 
             String selectQuery =
-                    "INSERT INTO `beerfinder`.`users` (`userId`, `username`, `fullName`, `password`, `email`, `isPub`, `pubID`, `image`)" +
-                    "VALUES (NULL, '" + username + "', '" + fullName + "', '" + this.password + "', '" + email + "', '" +
-                            (this.isPub ? 1 : 0) + "', " + (this.isPub ? this.pubId : "NULL") + ", ?);";
+                    "INSERT INTO `beerfinder`.`users` (`userId`, `username`, `fullName`, `password`, `email`, `isPub`, `pubID`, `image`, `age`)" +
+                    "VALUES (NULL, '" + this.username + "', '" + this.fullName + "', '" + this.password + "', '" + this.email + "', '" +
+                            (this.isPub ? 1 : 0) + "', " + (this.isPub ? this.pubId : "NULL") + ", ?, " + this.age + ");";
             st = con.prepareStatement(selectQuery);
             // Add the image bytestream
             st.setBinaryStream(1, imageStream, (int) file.length());
@@ -378,23 +416,19 @@ public class User extends MysqlDriver
             // in case of SQL error print error msg
             ex.printStackTrace();
         }
-        
-        System.out.println("Inserted");
     }
 
     /**
-     * User update function.
+     * Created by Linus Eiderström Swahn.
+     *
+     * Updates the user on the database.
      */
     public void updateUser()
     {
-        String query = "UPDATE `users` SET `fullName` = '" + fullName + "', `password` = '" + password +
-                "', `email` = '" + email + "' WHERE `users`.`userId` = " + id + ";";
-
-        System.out.println(query);
+        String query = "UPDATE `users` SET `fullName` = '" + this.fullName + "', `password` = '" + this.password +
+                "', `email` = '" + this.email + "' WHERE `users`.`userId` = " + this.id + ";";
 
         update(query);
-
-        getFavourites();
     }
 
     // Getters and setters.
@@ -406,7 +440,7 @@ public class User extends MysqlDriver
         return username;
     }
 
-    public boolean getPub() {
+    public boolean getIsPub() {
         return isPub;
     }
 
@@ -420,10 +454,6 @@ public class User extends MysqlDriver
 
     public String getEmail() {
         return email;
-    }
-
-    public boolean is_isPub() {
-        return isPub;
     }
 
     public void setId(int id) {
@@ -448,11 +478,4 @@ public class User extends MysqlDriver
 	        }
 	        return image2;
 	    }
-
-	    public InputStream getTmpImg() {
-	        return tmpImg;
-
-	}
-
-
 }

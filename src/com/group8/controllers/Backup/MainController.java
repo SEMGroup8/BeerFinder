@@ -376,9 +376,9 @@
 //
 //        UserData.userInstance = fetchedUser;
 //
-//        //System.out.println(fetchedUser.getPub());
+//        //System.out.println(fetchedUser.getIsPub());
 //
-//        if(fetchedUser.getPub())
+//        if(fetchedUser.getIsPub())
 //        {
 //            // Load the pub stage
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/loggedInHomescreen.fxml"));

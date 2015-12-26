@@ -19,7 +19,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by Shiratori on 24/11/15.
+ * Created by Linus Eiderström Swahn
+ *
+ * Controller for the top top ui element when the user is logged out.
+ *
+ * Inherits BaseController for some UI-functionality.
  */
 public class HomeTop extends BaseController{
 
@@ -32,12 +36,19 @@ public class HomeTop extends BaseController{
     @FXML
     public ProgressIndicator Load;
 
-    Service<Void> backgroundThread;
+    private Service<Void> backgroundThread;
 
     ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
 
-
     /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the login button.
+     *
+     * Checks the credentials the user provided with the database.
+     * If the user info is correct, the user gets stored and the user is logged in.
+     * The top element changes to the logged in version instead.
+     *
      * Login Button event
      * @param event
      * @throws IOException
@@ -47,7 +58,7 @@ public class HomeTop extends BaseController{
 
         Load.setStyle("-fx-accent: IVORY");
 
-        // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+        // Thread the login so that the whole program doesn't hang while we wait for the server.
         backgroundThread = new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -55,8 +66,7 @@ public class HomeTop extends BaseController{
                     @Override
                     protected Void call() throws Exception {
 
-
-                        // Load wheel until task is finished//
+                        // Loading wheel until task is finished
                         Load.setVisible(true);
 
                         String username = loginText.getText();
@@ -64,33 +74,33 @@ public class HomeTop extends BaseController{
 
                         String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
 
-                        System.out.println(sqlQuery);
                         ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
 
+                        // No user found.
                         if (userData == null) {
-                            System.out.println("Is empty");
                             return null;
                         }
 
+                        // Create new user instance with the fetched data.
                         User fetchedUser = new User(userData);
 
+                        // Safety checks so the correct user has been found.
                         if (!fetchedUser.get_name().equals(username)) {
-                            System.out.println(username);
-                            System.out.println(fetchedUser.get_name());
+
                             return null;
                         }
 
+                        // Load the static user instance with the logged in user data.
                         UserData.userInstance = fetchedUser;
 
-                        if(fetchedUser.getPub())
+                        // If the user is a pub owner.
+                        if(fetchedUser.getIsPub())
                         {
+                            // Get the pub of the user.
                         	String sqlQuery2 = "select * from pubs where pubID=" + UserData.userInstance.getPubId();
-                        	//ArrayList<Object> pubData = MysqlDriver.select(sqlQuery2);
                         	Pub fetchedPub = new Pub(sqlQuery2);
-                            System.out.println(fetchedPub.toString2());
                             PubData.loggedInPub = fetchedPub;
                         }
-                        //System.out.println(fetchedUser.getPub());
 
                         return null;
                     }
@@ -98,18 +108,19 @@ public class HomeTop extends BaseController{
             }
         };
 
-
-        // When the thread is done try to go to next stage.
+        /**
+         * Created by Andreas Fransson.
+         *
+         * When the thread is done try to go to next stage.
+         */
         backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
                 Load.setVisible(false);
 
-                /**
-                 * Error checking if userinstance is null, then dont try to load the loggedintop
-                 */
+                //Error checking if userinstance is null, then dont try to load the loggedintop
+
                 if (UserData.userInstance == null) {
-                    //System.out.println("no userdata");
                     // Show user password / username error
                     img.setFitWidth(60);
                     img.setFitHeight(60);
@@ -130,8 +141,6 @@ public class HomeTop extends BaseController{
                         e.printStackTrace();
                     }
                 }
-
-
             }
         });
 
@@ -139,7 +148,11 @@ public class HomeTop extends BaseController{
     }
 
 
-    // Resets guide text if no input was made
+    /**
+     * Created by Andreas Fransson.
+     *
+     * Resets guide text if no input was made
+     */
     public void exitField()
     {
         if (loginText.getText().isEmpty()){
@@ -151,7 +164,11 @@ public class HomeTop extends BaseController{
         }
     }
 
-    // Clear the Login field
+    /**
+     * Created by Andreas Fransson.
+     *
+     * Clear the Login field
+     */
     public void clearFieldLogin()
     {
         exitField();
@@ -159,7 +176,12 @@ public class HomeTop extends BaseController{
             loginText.setText("");
         }
     }
-    // Clear the password field
+
+    /**
+     * Created by Andreas Fransson
+     *
+     * Clear the password field
+     */
     public void clearFieldPassword()
     {
         exitField();
@@ -170,7 +192,9 @@ public class HomeTop extends BaseController{
     }
 
     /**
-     * On Register
+     * Created by Linus Eiderström Swahn.
+     *
+     * When the user presses the register button, load the Register user scene.
      * @param event
      * @throws IOException
      */
@@ -181,8 +205,12 @@ public class HomeTop extends BaseController{
         mainScene.changeCenter("/com/group8/resources/views/registerUser.fxml");
     }
 
+    /**
+     * Created by Mantas?
+     *
+     * When the user presses enter, press the login button.
+     */
     @FXML
-    // Execute login button on pressing "Enter"
     public void passwordEnterPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             login.setDefaultButton(true);
