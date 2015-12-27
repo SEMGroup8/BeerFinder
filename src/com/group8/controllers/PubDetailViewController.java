@@ -46,12 +46,12 @@ public class PubDetailViewController extends BaseController implements Initializ
 		Navigation.current_CenterFXML = "/com/group8/resources/views/pubDetailView.fxml";
 
 	  	pubImage.setImage(PubData.selectedPub.getImage());
-		pubNameLabel.setText(PubData.selectedPub.get_name());
+		pubNameLabel.setText(PubData.selectedPub.getName());
 		pubAddressLabel.setText(PubData.selectedPub.get_address());
-		pubOffersLabel.setText(PubData.selectedPub.get_offer());
+		pubOffersLabel.setText(PubData.selectedPub.getOffer());
 		pubEntranceFeeLabel.setText("" +PubData.selectedPub.get_entranceFee());
-		phoneNumberLabel.setText(PubData.selectedPub.get_phoneNumber());
-		descriptionArea.setText(PubData.selectedPub.get_description());
+		phoneNumberLabel.setText(PubData.selectedPub.getPhoneNumber());
+		descriptionArea.setText(PubData.selectedPub.getDescription());
 	  
 	}
 

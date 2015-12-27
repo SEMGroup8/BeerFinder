@@ -2,26 +2,26 @@ package com.group8.controllers.RandomBeerControllers;
 
 import com.group8.controllers.BaseController;
 import com.group8.controllers.BeerData;
-import com.group8.controllers.Navigation;
 import com.group8.controllers.UserData;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.BeerRank;
 import com.group8.database.tables.RandomBeerQuery;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,18 +32,19 @@ import java.util.ResourceBundle;
 
 public class Scene4Controller extends BaseController implements Initializable{
 
-   private int count;
-   private Beer randomBeer;
-   private int[] arrayID;
-   private RandomBeerQuery randomBeerQuery;
+    private int count;
+    private Beer randomBeer;
+    private int[] arrayID;
+    private RandomBeerQuery randomBeerQuery;
+    private ArrayList<ArrayList<Object>> list;
+
+    Service<Void> backgroundThread;
 
 
     @FXML
     private Button anotherButton;
     @FXML
     private Label typeR;
-    @FXML
-    private Button checkButton;
     @FXML
     private Label percentageR;
     @FXML
@@ -72,6 +73,10 @@ public class Scene4Controller extends BaseController implements Initializable{
     private Text textLine;
     @FXML
     private Label countLabel;
+    @FXML
+    private HBox imageViewHBox;
+    @FXML
+    public ProgressIndicator Load;
 
 
 
@@ -120,7 +125,6 @@ public class Scene4Controller extends BaseController implements Initializable{
 
             System.out.println("Array length: " + array.length);
             System.out.println("Random number: " + random);
-            System.out.println("Random result: " + array[random]);
 
         } else {
             System.out.println("Array is empty");
@@ -133,23 +137,23 @@ public class Scene4Controller extends BaseController implements Initializable{
     {
         if(UserData.userInstance!=null)
         {
-            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.get_id() + ");";
+            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ");";
 
             System.out.println(sqlQuery);
 
             MysqlDriver.insert(sqlQuery);
 
-            UserData.userInstance.getFavourites();
+            UserData.userInstance.getFavouriteBeers();
         }
     }
 
     public void rankStar(int number){
         if(UserData.userInstance!=null) {
-            BeerRank beer = new BeerRank(UserData.userInstance.get_id(), BeerData.selectedBeer.getId(), number);
+            BeerRank beer = new BeerRank(UserData.userInstance.getId(), BeerData.selectedBeer.getId(), number);
 
             beer.insertRank();
 
-            UserData.userInstance.getFavourites();
+            UserData.userInstance.getFavouriteBeers();
         }
     }
     @FXML
@@ -175,67 +179,95 @@ public class Scene4Controller extends BaseController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Getting query with user choices
-        RandomBeerQuery randomBeerQuery = new RandomBeerQuery();
-        this.randomBeerQuery = randomBeerQuery;
 
-        // Getting the results from database with query
-        ArrayList<ArrayList<Object>> list = MysqlDriver.selectMany(this.randomBeerQuery.resultQuery());
-        this.arrayID = new int[list.size()];
+        backgroundThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
 
-        // Making the array of beer IDs from query results
-        for (int i = 0; i < list.size(); i++) {
-            Beer beer = new Beer(list.get(i));
-            // Counting results
-            count++;
-            this.arrayID[i] = beer.getId();
-        }
+                        Load.setStyle("-fx-accent: IVORY");
+                        Load.setVisible(true);
 
-        countLabel.setText("Beers found: " + count);
+                        // Getting query with user choices
+                        randomBeerQuery = new RandomBeerQuery();
 
-        if (this.arrayID.length == 0){
-            textLine.setVisible(true);
-            HBoxButtons.setVisible(true);
-            anotherButton.setVisible(false);
-            rankFavourite.setVisible(false);
-            countLabel.setVisible(false);
-            return;
-        }
-        else {
+                        // Getting the results from database with query
+                        list = MysqlDriver.selectMany(randomBeerQuery.resultQuery());
+                        arrayID = new int[list.size()];
 
-            // Getting one beer entry chosen randomly from the list of IDs
-            ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(this.arrayID)));
+                        // Making the array of beer IDs from query results
+                        for (int i = 0; i < list.size(); i++) {
+                            Beer beer = new Beer(list.get(i));
+                            // Counting results
+                            count++;
+                            arrayID[i] = beer.getId();
+                        }
 
-            Beer randomBeer = new Beer(list2.get(0));
-            this.randomBeer = randomBeer;
-
-            // Populating beer info into scene
-            this.typeR.setText(randomBeer.getType());
-            this.originR.setText(randomBeer.getOrigin());
-            this.percentageR.setText("" + randomBeer.getPercentage() + " %");
-            this.nameR.setText(randomBeer.getName());
-            this.packageR.setText(randomBeer.getBeerPackage());
-            this.producerR.setText(randomBeer.getProducer());
-            this.priceR.setText("" + randomBeer.getPrice() + " kr");
-            if(randomBeer.getImage() != null) {
-                this.imageView.setImage(randomBeer.getImage());
+                        return null;
+                    }
+                };
             }
-            else {
-                this.imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+        };
+
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+
+                Load.setVisible(false);
+
+                countLabel.setText("Beers found: " + count);
+
+                if (arrayID.length == 0){
+                    textLine.setVisible(true);
+                    HBoxButtons.setVisible(true);
+                    anotherButton.setVisible(false);
+                    rankFavourite.setVisible(false);
+                    countLabel.setVisible(false);
+                    return;
+                }
+                else {
+
+                    // Getting one beer entry chosen randomly from the list of IDs
+                    ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(arrayID)));
+
+                    Beer randomBeer = new Beer(list2.get(0));
+
+                    // Populating beer info into scene
+                    typeR.setText(randomBeer.getType());
+                    originR.setText(randomBeer.getOrigin());
+                    percentageR.setText("" + randomBeer.getPercentage() + " %");
+                    nameR.setText(randomBeer.getName());
+                    packageR.setText(randomBeer.getBeerPackage());
+                    producerR.setText(randomBeer.getProducer());
+                    priceR.setText("" + randomBeer.getPrice() + " kr");
+                    if(randomBeer.getImage() != null) {
+                        imageView.setImage(randomBeer.getImage());
+                    }
+                    else {
+                        imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+                    }
+                    countryFlagR.setImage(randomBeer.getCountryFlag());
+
+                    // Changing visibility of elements on scene
+
+                    if (UserData.userInstance == null) {
+                        rankFavourite.setVisible(false);
+                    } else {
+                        rankFavourite.setVisible(true);
+                    }
+
+                    VBoxInfo.setVisible(true);
+                    HBoxButtons.setVisible(true);
+                    imageViewHBox.setVisible(true);
+                    countLabel.setVisible(true);
+                    imageViewHBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#2A1806"), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(4))));
+                }
+
             }
-            this.countryFlagR.setImage(randomBeer.getCountryFlag());
+        });
 
-            // Changing visibility of elements on scene
-
-            if (UserData.userInstance == null) {
-                rankFavourite.setVisible(false);
-            } else {
-                rankFavourite.setVisible(true);
-            }
-
-            VBoxInfo.setVisible(true);
-            HBoxButtons.setVisible(true);
-            imageView.setVisible(true);
-        }
+        backgroundThread.start();
     }
     }

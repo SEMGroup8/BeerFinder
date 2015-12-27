@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * Created by Shiratori on 04/11/15.
+ * Created by Linus Eiderström Swahn.
  *
  * Class for the Advanced Navigation system
  * --> Used to Navigate both Center FXML content and top FXML content (User input / login)
@@ -18,9 +18,6 @@ public class Navigation
      * --> Used by the "Home" button to allways return to this FXML
      */
     public static String homescreenFXML;
-
-    public static String resultviewFXML;
-    public static String backFXML;
 
     /**
      * Temporary storage of Current FXML, is set in the initialization method at every center FXML alt "scene"

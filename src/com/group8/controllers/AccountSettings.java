@@ -1,18 +1,11 @@
 package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
-import com.group8.database.tables.Beer;
-import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +39,7 @@ public class AccountSettings extends BaseController implements Initializable
         }
 
         String selectQuery = "Select * from users where email = '" + email.getText() + "' and "
-                + UserData.userInstance.get_id() + " not in (select userId from users);";
+                + UserData.userInstance.getId() + " not in (select userId from users);";
 
         System.out.println(selectQuery);
 
@@ -61,8 +54,8 @@ public class AccountSettings extends BaseController implements Initializable
 
         User newUser = new User();
 
-        newUser.setUser(UserData.userInstance.get_name(), fullName.getText(), password.getText(), email.getText(), UserData.userInstance.get_isPub(), UserData.userInstance.get_pubId());
-        newUser.set_id(UserData.userInstance.get_id());
+        newUser.setUser(UserData.userInstance.get_name(), fullName.getText(), password.getText(), email.getText(), UserData.userInstance.getIsPub(), UserData.userInstance.getPubId());
+        newUser.setId(UserData.userInstance.getId());
 
         UserData.userInstance = newUser;
 
@@ -131,8 +124,8 @@ public class AccountSettings extends BaseController implements Initializable
 
     public void initialize(URL location, ResourceBundle resources) {
 
-        fullName.setText(UserData.userInstance.get_fullName());
-        password.setText(UserData.userInstance.get_password());
-        email.setText(UserData.userInstance.get_email());
+        fullName.setText(UserData.userInstance.getFullName());
+        password.setText(UserData.userInstance.getPassword());
+        email.setText(UserData.userInstance.getEmail());
     }
 }

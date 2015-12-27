@@ -24,26 +24,15 @@
         </rowConstraints>
          <children>
             <Label text="Username:" />
-            <Label text="Email:" GridPane.rowIndex="3" />
+            <Label text="Full name:" GridPane.rowIndex="1" />
             <Label text="Password:" GridPane.rowIndex="2" />
             <TextField fx:id="username" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </TextField>
-            <Label text="Pub owner:" GridPane.rowIndex="4" />
-            <CheckBox fx:id="isPub" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </CheckBox>
-            <Label text="Pub name:" GridPane.rowIndex="5" />
-            <TextField fx:id="pubName" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Label text="Email:" GridPane.rowIndex="3" />
+            <TextField fx:id="fullName" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -63,28 +52,53 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
+            <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="Pub owner:" GridPane.rowIndex="5" />
+            <CheckBox fx:id="isPub" mnemonicParsing="false" onAction="#isPubSelected" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </CheckBox>
+            <Label fx:id="pubNameLabel" text="Pub name:" visible="false" GridPane.rowIndex="6" />
+            <TextField fx:id="pubName" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
             <Label fx:id="emailError" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="isPubError" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label fx:id="isPubError" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="pubNameError" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label fx:id="pubNameError" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Full Name:" GridPane.rowIndex="1" />
-            <TextField fx:id="fullName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="fullNameError" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Age:" GridPane.rowIndex="4" />
+            <TextField fx:id="age" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <Label fx:id="fullNameError" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="ageError" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -97,11 +111,6 @@
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
-            <Button fx:id="back" mnemonicParsing="false" onAction="#onBack" text="Back">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
    </children>

@@ -5,11 +5,7 @@ import com.group8.database.MysqlDriver;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
-import javax.imageio.stream.ImageInputStream;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.Connection;
@@ -19,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by Shiratori on 12/10/15.
+ * Created by
  *
  * Class to represent Pubs.
  *
@@ -29,25 +25,22 @@ import java.util.ArrayList;
 public class Pub extends MysqlDriver{
 
     // Pub fields
-    private int _pubId, _adressId;
-    private String _name;
-    private String _description;
-    private String _adress;
-    private String _phoneNumber;
-    private String _offer;
-    private double _geoLong;
-    private double _geoLat;
-    float _entranceFee;
-    BufferedImage pubImage;
+    private int pubId, adressId;
+    private String name;
+    private String description;
+    private String adress;
+    private String phoneNumber;
+    private String offer;
+    private double geoLong;
+    private double geoLat;
+    private float entranceFeee;
+    private BufferedImage pubImage;
     private InputStream tmpImg;
 
     /**
-     * TODO Do we need this??
+     * Default Constructor.
      */
-    public Pub()
-    {
-
-    }
+    public Pub() {}
 
     /**
      * Pub constructor.
@@ -59,34 +52,28 @@ public class Pub extends MysqlDriver{
 
         ArrayList<Object> sqlReturn = select(query);
 
-        this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
-        this._name = sqlReturn.get(1).toString();
-        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());
-        this._phoneNumber = sqlReturn.get(3).toString();
-        this._description = sqlReturn.get(5).toString();
-        this._offer = sqlReturn.get(6).toString();
-        this._entranceFee = Float.parseFloat(sqlReturn.get(7).toString());
+        this.pubId = Integer.parseInt(sqlReturn.get(0).toString());
+        this.name = sqlReturn.get(1).toString();
+        this.adressId = Integer.parseInt(sqlReturn.get(2).toString());
+        this.phoneNumber = sqlReturn.get(3).toString();
+        this.description = sqlReturn.get(5).toString();
+        this.offer = sqlReturn.get(6).toString();
+        this.entranceFeee = Float.parseFloat(sqlReturn.get(7).toString());
 
         try {
              tmpImg = (InputStream) sqlReturn.get(4);
             this.pubImage = javax.imageio.ImageIO.read(tmpImg);
             System.out.println("->"+tmpImg.toString());
 
-
-
-
         }catch (IOException ex){
             this.pubImage = null;
         }
-
 
         String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
 
         ArrayList<Object> addressReturn = select(adressQuery);
 
-        this._adress = addressReturn.get(0).toString();
-
-
+        this.adress = addressReturn.get(0).toString();
     }
 
     /**
@@ -95,13 +82,13 @@ public class Pub extends MysqlDriver{
      */
     public Pub(ArrayList<Object> sqlReturn)
     {
-        this._pubId = Integer.parseInt(sqlReturn.get(0).toString());
-        this._name = sqlReturn.get(1).toString();
-        this._description = sqlReturn.get(4).toString();
-//        this._adressId = Integer.parseInt(sqlReturn.get(2).toString());System.out.println(_adressId + "adddressss");
+        this.pubId = Integer.parseInt(sqlReturn.get(0).toString());
+        this.name = sqlReturn.get(1).toString();
+        this.description = sqlReturn.get(4).toString();
+//        this.adressId = Integer.parseInt(sqlReturn.get(2).toString());System.out.println(adressId + "adddressss");
 //        String adressQuery = "Select address from pubAddress where addressID = " + Integer.parseInt(sqlReturn.get(2).toString());
 //        ArrayList<Object> addressReturn = select(adressQuery);
- //       this._adress = addressReturn.get(0).toString();
+ //       this.adress = addressReturn.get(0).toString();
         try {
             tmpImg = (InputStream) sqlReturn.get(2);
             this.pubImage = javax.imageio.ImageIO.read(tmpImg);
@@ -110,9 +97,9 @@ public class Pub extends MysqlDriver{
         }catch (IOException ex){
             this.pubImage = null;
         }
-        this._phoneNumber = sqlReturn.get(3).toString();
-       this._offer = sqlReturn.get(5).toString();
-        this._entranceFee = Float.parseFloat(sqlReturn.get(6).toString());
+        this.phoneNumber = sqlReturn.get(3).toString();
+       this.offer = sqlReturn.get(5).toString();
+        this.entranceFeee = Float.parseFloat(sqlReturn.get(6).toString());
     }
 
 
@@ -130,7 +117,7 @@ public class Pub extends MysqlDriver{
         FileInputStream imageStream;
         imageStream = new FileInputStream(file);
         //
-        String query = "Select * from pubs where name = '" + this._name + "';";
+        String query = "Select * from pubs where name = '" + this.name + "';";
 
 
         ArrayList<Object> mysqlData = select(query);
@@ -153,7 +140,7 @@ public class Pub extends MysqlDriver{
             st = con.prepareStatement(query);
             st.executeUpdate();
 
-        query = "Insert into pubs(addressID, name, pubID, image) values(LAST_INSERT_ID(), '" + this._name + "',NULL, ?);";
+        query = "Insert into pubs(addressID, name, pubID, image) values(LAST_INSERT_ID(), '" + this.name + "',NULL, ?);";
 
 
             st = con.prepareStatement(query);
@@ -166,87 +153,87 @@ public class Pub extends MysqlDriver{
         }
 
         // Debug outputs to test if the pub was inserted
-        query = "Select * from pubs where name = '" + this._name + "';";
+        query = "Select * from pubs where name = '" + this.name + "';";
         mysqlData = select(query);
-        this._pubId = Integer.parseInt(mysqlData.get(0).toString());
-        //System.out.println(_pubId);
+        this.pubId = Integer.parseInt(mysqlData.get(0).toString());
+        //System.out.println(pubId);
 
         return true;
     }
 
 
-    public int get_pubId() {
-        return _pubId;
+    public int getPubId() {
+        return pubId;
     }
 
-    public String get_name() {
-        return _name;
+    public String getName() {
+        return name;
     }
 
-    public void set_name(String _name) {
-        this._name = _name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double get_geoLat() {
-        return _geoLat;
+    public double getGeoLat() {
+        return geoLat;
     }
 
-    public void set_geoLat(double _geoLat) {
-        this._geoLat = _geoLat;
+    public void setGeoLat(double geoLat) {
+        this.geoLat = geoLat;
     }
 
-    public double get_geoLong() {
-        return _geoLong;
+    public double getGeoLong() {
+        return geoLong;
     }
 
-    public void set_geoLong(double _geoLong) {
-        this._geoLong = _geoLong;
+    public void setGeoLong(double geoLong) {
+        this.geoLong = geoLong;
     }
 
     public String get_address() {
-        return _adress;
+        return adress;
     }
 
-    public void set_phoneNumber(String _phoneNumber){
-	this._phoneNumber = _phoneNumber;
+    public void setPhoneNumber(String phoneNumber){
+	this.phoneNumber = phoneNumber;
 	
 }
-    public String get_phoneNumber(){
+    public String getPhoneNumber(){
     	
-    	return _phoneNumber;
+    	return phoneNumber;
     }
     
-    public void set_offer(String _offer){
-    	this._offer = _offer;
+    public void setOffer(String offer){
+    	this.offer = offer;
     	
     }
     
-    public String get_offer(){
+    public String getOffer(){
     	
-    	return _offer;
+    	return offer;
     }
     
     public void set_entranceFee(float _entranceFee){
     	
-    	this._entranceFee = _entranceFee;
+    	this.entranceFeee = _entranceFee;
     }
     
     public float get_entranceFee(){
     	
-    	return _entranceFee;
+    	return entranceFeee;
     }
     
-    public void set_description(String _description){
+    public void setDescription(String description){
     	
-    	this._description = _description;
+    	this.description = description;
     }
 
-    public int get_adressId() {
-        return _adressId;
+    public int getAdressId() {
+        return adressId;
     }
 
-    public String get_description(){
-    	return _description;
+    public String getDescription(){
+    	return description;
     }
 
     /**
@@ -275,7 +262,7 @@ public class Pub extends MysqlDriver{
     {
         String result;
 
-       result = this.get_pubId() + " " +  this._name + " " + this._description + " " + this._offer + " " + this._entranceFee + " " + this._adress + " " + this._phoneNumber + " " + this._geoLong + " " + this._geoLat +"" +this.getImage();
+       result = this.getPubId() + " " +  this.name + " " + this.description + " " + this.offer + " " + this.entranceFeee + " " + this.adress + " " + this.phoneNumber + " " + this.geoLong + " " + this.geoLat +"" +this.getImage();
 
         return result;
     }

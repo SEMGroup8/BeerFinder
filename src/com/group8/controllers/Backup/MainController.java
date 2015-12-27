@@ -367,18 +367,18 @@
 //
 //        User fetchedUser = new User(userData);
 //
-//        if(!fetchedUser.get_name().equals(username))
+//        if(!fetchedUser.getName().equals(username))
 //        {
 //            System.out.println(username);
-//            System.out.println(fetchedUser.get_name());
+//            System.out.println(fetchedUser.getName());
 //            return;
 //        }
 //
 //        UserData.userInstance = fetchedUser;
 //
-//        //System.out.println(fetchedUser.get_isPub());
+//        //System.out.println(fetchedUser.getIsPub());
 //
-//        if(fetchedUser.get_isPub())
+//        if(fetchedUser.getIsPub())
 //        {
 //            // Load the pub stage
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/loggedInHomescreen.fxml"));

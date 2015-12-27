@@ -27,8 +27,8 @@ public class RandomBeerQuery extends MysqlDriver {
                     " AND percentage > " + scene2.getPercentagePickedLow() +
                     " AND beers.beerTypeID = beerType.beerTypeID " +
                     " AND beers.originID = origin.originID " +
-                    " AND beers.package = package.packageID "+
-                    ") order by rand() limit 0, 100";
+                    " AND beers.package = package.packageID "+ ")";
+                    //") order by rand() limit 0, 100";
         }
         else {
             query = "SELECT beerID,name,image,description,beerTypeEN,countryName,percentage,producerName,volume,isTap,packageTypeEN,price,avStars,countryFlag" +
@@ -40,12 +40,9 @@ public class RandomBeerQuery extends MysqlDriver {
                     " AND beers.beerTypeID = beerType.beerTypeID " +
                     " AND beers.originID = origin.originID " +
                     " AND beers.package = package.packageID "+
-                    " AND beerTypeID IN " + scene3.getTypesPicked() +
-                    ") order by rand() limit 0, 100";
+                    " AND beerTypeID IN " + scene3.getTypesPicked() + ")";
+                    //") order by rand() limit 0, 100";
         }
-
-        //Test print
-        System.out.println(query);
 
        return query;
     }
@@ -58,11 +55,7 @@ public class RandomBeerQuery extends MysqlDriver {
                 " WHERE beerID = "+ integer +
                 " AND beers.beerTypeID = beerType.beerTypeID " +
                 " AND beers.originID = origin.originID " +
-                " AND beers.package = package.packageID "+
-                " order by rand() limit 0, 100";
-
-        //Test print
-        System.out.println(query2);
+                " AND beers.package = package.packageID ";
 
         return query2;
     }

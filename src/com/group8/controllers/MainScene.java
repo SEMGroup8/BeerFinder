@@ -12,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +19,6 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -30,19 +28,18 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Created by Shiratori on 24/11/15.
+ * Created by Linus Eiderström Swahn
  *
- * Main Graphical Controller aka root
- * --> Used as a canvas to paint content on ex changeing the top and center FXML's
- *     to navigate the user around the program functions.
+ * The controller for the main root scene of the application.
+ *
+ * Contains a top, center and bottom element which the content is switched out of depending where the user is.
+ *
+ * Implements Initializable so that we can tale advantage of the initialize() function.
  */
-
 
 public class MainScene implements Initializable {
     @FXML
     private HBox center, top;
-    @FXML
-    private Node root;
     @FXML
     public Button backButton;
     @FXML
@@ -58,9 +55,13 @@ public class MainScene implements Initializable {
     Service<Void> backgroundThread;
 
     /**
-     * Initialize function
-     * --> Sets the default Home screen FXML's ( Home_top and Home_center )
-     *     to current FXML's and loads their controllers.
+     * Created by Linus Eiderström Swahn.
+     *
+     * initialize is defined in the Initializable interface.
+     * It runs once when the controller loads when the fxml is called.
+     *
+     * Sets the default location in the application, the home screen and the logged out top screen.
+     *
      * @param location
      * @param resources
      */
@@ -70,7 +71,9 @@ public class MainScene implements Initializable {
         Navigation.homescreenFXML = "/com/group8/resources/views/home_center.fxml";
         Navigation.current_CenterFXML =  "/com/group8/resources/views/home_center.fxml";
 
+        Load.setStyle("-fx-accent: IVORY");
 
+        // Sets the center and top fxml-documents.
         try {
             center.getChildren().clear();
             top.getChildren().clear();
@@ -83,7 +86,6 @@ public class MainScene implements Initializable {
 
             centerController.init(this);
 
-            //
             loader = new FXMLLoader(getClass().getResource("/com/group8/resources/views/home_top.fxml"));
             top.getChildren().add(loader.load());
 
@@ -91,23 +93,19 @@ public class MainScene implements Initializable {
 
             topController.init(this);
 
-
-            System.out.println("test");
-
-
-
-
         } catch (IOException e) {
 
-            System.out.println("test2");
             e.printStackTrace();
         }
     }
 
     /**
-     * Change the center FXML
-     * --> Used to change the center FXML to the supplied URL FXML and load its controller
+     * Created by Linus Eiderström Swahn.
+     *
+     * Change the center FXML-document.
+     *
      * @param url
+     * The path to the new fxml-document.
      * @throws IOException
      */
     public void changeCenter(String url) throws IOException
@@ -115,21 +113,16 @@ public class MainScene implements Initializable {
         // Remember my past
         Navigation.breadcrubs.add(Navigation.current_CenterFXML);
 
-
-        for(int i = 0; i < Navigation.breadcrubs.size();i++){
-            System.out.println(" Nav " + i +" ->" + Navigation.breadcrubs.get(i));
-        }
-
         center.getChildren().clear();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
 
         center.getChildren().add(loader.load());
 
-        BaseController topController = (BaseController)loader.getController();
+        // All controllers inherit from BaseController, so this is generic.
+        BaseController centerController = (BaseController)loader.getController();
 
-
-        topController.init(this);
+        centerController.init(this);
         if (url.equals("/com/group8/resources/views/beerDetails_center.fxml"))
         {
             mapsButton.setVisible(true);
@@ -150,6 +143,8 @@ public class MainScene implements Initializable {
     }
 
     /**
+     * Created by Andreas Fransson.
+     *
      * Change center FXML back to last visited center FXML
      * --> Used by the "Back" button to load last entry in the Navigation.breadcrubs Array.
      * @param url
@@ -195,9 +190,12 @@ public class MainScene implements Initializable {
     }
 
     /**
-     * Change the top FXML
-     * --> Used by the Login & Logout function to change the top FXML to supplied URL FXML.
+     * Created by Linus Eiderström Swahn.
+     *
+     * Change the top FXML-document
+     *
      * @param url
+     * Path to the new fxml-document.
      * @throws IOException
      */
     public void changeTop(String url) throws IOException
@@ -208,29 +206,29 @@ public class MainScene implements Initializable {
 
         top.getChildren().add(loader.load());
 
+        // All controllers inherit from BaseController, so this i generic.
         BaseController topController = (BaseController)loader.getController();
 
         topController.init(this);
 
-
-
     }
 
     /**
+     * Created by Andreas Fransson.
+     *
      * Change the center FXML to Home_center
      * --> Used by the "Home" button to allways return to default Home_center.
      * @throws IOException
      */
     public void goHome() throws IOException
     {
-
         changeCenter(Navigation.homescreenFXML);
         Navigation.breadcrubs = new ArrayList<String>();
-
-
     }
 
     /**
+     * Created by Andreas Fransson.
+     *
      * Change the current center FXML to the last visited. (not duplicate)
      * --> Used by the "Back" button to change current FXML to last visited
      *     last entry in Navigation.breadcrubs Array, and if the last visited
@@ -239,17 +237,16 @@ public class MainScene implements Initializable {
      */
     public void goBack() throws IOException {
 
-
+        // We need to make a new search since we went back to the result screen.
         if (Navigation.breadcrubs.get(Navigation.breadcrubs.size()-1).equals("/com/group8/resources/views/result_center.fxml")) {
 
-            // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+            // Set background service different from the UI fx thread to run stuff on
             backgroundThread = new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
                     return new Task<Void>() {
                         @Override
                         protected Void call() throws Exception {
-
 
                             // Load wheel until task is finished//
                             Load.setVisible(true);
@@ -283,7 +280,6 @@ public class MainScene implements Initializable {
                     Load.setVisible(false);
                     if ((BeerData.beer.size()>0)) {
 
-
                         // Load the result stage
                         try {
                             changeCenterBack(Navigation.breadcrubs.get(Navigation.breadcrubs.size()-1));
@@ -299,7 +295,6 @@ public class MainScene implements Initializable {
             // Start thread
             backgroundThread.start();
 
-
         }else{
             // Load the result stage
             try {
@@ -308,16 +303,15 @@ public class MainScene implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
-
     /**
-     * Changes the center FXML to the googleMaps.FXML
-     * --> Used by the "google maps" button for when in the beerdetail view
-     *     and want to see where the beer is in stock.
+     * Created by Andreas Fransson and Linus Eiderström Swahn.
+     *
+     * Gets all pubs who has this beer.
+     * Creates MapMarkers for each and then loads the map view.
+     *
      * @param event
      * @throws IOException
      */
@@ -325,45 +319,41 @@ public class MainScene implements Initializable {
 
         BeerData.markers = new ArrayList<MapMarker>();
 
-        // TODO SQL query for getting Pubs that have the BeerData.selectedBeer
-
-        // populate the tableView with those pubs
-
         String sqlQuery = "SELECT beerInPub.pubID, name, address, price, latitude, longitude, inStock " +
-                "from pubs, pubAddress, beerInPub where " +
-                "pubs.pubID = beerInPub.pubID " +
+                "from pubs, pubAddress, beerInPub " +
+                "where pubs.pubID = beerInPub.pubID " +
                 "and pubs.addressID = pubAddress.addressID " +
                 "and beerInPub.beerID = " + BeerData.selectedBeer.getId() + " " +
                 "order by price asc";
 
-        System.out.println(sqlQuery);
         // Execute user query to get markers
         ArrayList<ArrayList<Object>> sqlData;
-        sqlData = MysqlDriver.selectManyOther(sqlQuery);
+        sqlData = MysqlDriver.selectMany(sqlQuery);
 
         for (int i = 0; i < sqlData.size(); i++) {
+
             // Add a new marker to the beer arraylist
             MapMarker marker = new MapMarker(sqlData.get(i));
             BeerData.markers.add(marker);
-            System.out.println(marker.isInStock());
-
-            System.out.println(marker.getPrice());
         }
 
+        // Does any pub have this beer in it's inventory?
         if ((BeerData.markers.size() > 0)) {
 
             // Load the result stage
             changeCenter("/com/group8/resources/views/googleMaps.fxml");
         } else {
             // Testoutput
-            System.out.println(sqlQuery);
-            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectManyOther(sqlQuery);
-            System.out.println(geoData.size());
-            System.out.println("No Pubs selling this beer");
+            ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectMany(sqlQuery);
             gmapsError.setVisible(true);
         }
     }
 
+    /**
+     * Created by Andreas Fransson.
+     *
+     * @throws IOException
+     */
     public void help() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/help.fxml"));

@@ -25,11 +25,9 @@ import javafx.geometry.Pos;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -132,9 +130,9 @@ public class OtherUsers extends BaseController implements Initializable {
 			userImage.setImage(UserData.selected.getImage());System.out.println(UserData.userInstance.getImage()+"   geniussss!!");
 			followLabel.setText(UserData.selected.get_name());
 			age.setText(""+UserData.selected.getAge());
-			fullname.setText(UserData.selected.get_fullName());
-		    password.setText(UserData.selected.get_password());
-		    email.setText(UserData.selected.get_email());
+			fullname.setText(UserData.selected.getFullName());
+		    password.setText(UserData.selected.getPassword());
+		    email.setText(UserData.selected.getEmail());
 			
 			
 	        Navigation.current_CenterFXML =  "/com/group8/resources/views/favourites.fxml";
@@ -402,8 +400,8 @@ public class OtherUsers extends BaseController implements Initializable {
 		            public void handle(MouseEvent event) {
 		                if (event.getClickCount() == 2) {
 		                    // Show that we can select items and print it
-		                    System.out.println("clicked on " + userTable.getSelectionModel().getSelectedItem().get_id());
-		                    int id = userTable.getSelectionModel().getSelectedItem().get_id();
+		                    System.out.println("clicked on " + userTable.getSelectionModel().getSelectedItem().getId());
+		                    int id = userTable.getSelectionModel().getSelectedItem().getId();
 		                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 		                    
 		                    System.out.println(id+"  usssseriiiid");
@@ -431,9 +429,9 @@ public class OtherUsers extends BaseController implements Initializable {
 	        
 			Class.forName("com.mysql.jdbc.Driver"); 
 			Connection con = DriverManager.getConnection(url, user, password);
-			System.out.println(UserData.userInstance.get_id()+"  uuu  "+ UserData.selected.get_id());
-			int 	myId=UserData.userInstance.get_id();
-			int followerID=UserData.selected.get_id();
+			System.out.println(UserData.userInstance.getId()+"  uuu  "+ UserData.selected.getId());
+			int 	myId=UserData.userInstance.getId();
+			int followerID=UserData.selected.getId();
 			
 			//if (myId=null){
 			String followUser="INSERT INTO `followUser`(`userId`, `id`) VALUES ("+myId+", "+followerID+")";

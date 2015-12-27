@@ -14,11 +14,15 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="showImage" fitHeight="404.0" fitWidth="202.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/com/group8/resources/Images/beerHasNoImage.png" />
-               </image>
-            </ImageView>
+            <HBox fx:id="imageViewHBox" layoutY="2.0">
+               <children>
+                  <ImageView fx:id="showImage" fitHeight="404.0" fitWidth="202.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/com/group8/resources/Images/beerHasNoImage.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </left>

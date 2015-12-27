@@ -1,7 +1,10 @@
 package com.group8.controllers;
 
 /**
- * Created by Shiratori on 24/11/15.
+ * Created by Linus Eiderström Swahn
+ *
+ * Super class for all controllers.
+ * Contains method and field for using the UI.
  */
 public class BaseController
 {
