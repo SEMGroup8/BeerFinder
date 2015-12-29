@@ -526,8 +526,6 @@ public class HomeCenter extends BaseController implements Initializable
         Navigation.current_CenterFXML = "/com/group8/resources/views/home_center.fxml";
         beerScanSearchButton.setVisible(false);
         Load.setStyle("-fx-accent: IVORY");
-
-        System.out.println("Threads on start: " + Arrays.toString(com.group8.resources.Tools.ThreadUtilities.getAllDaemonThreads()));
     }
 
 }

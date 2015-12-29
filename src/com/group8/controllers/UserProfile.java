@@ -41,69 +41,66 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class UserProfile extends BaseController implements Initializable  {
-	 @FXML
-	    public Button logout, account;
-	    @FXML
-	    public Button Back;
-	    
-	    @FXML
-		public TableView<Pub> pubTable;
-	    @FXML
-	    public TableColumn<Pub, String> pubName;
-	    @FXML
-	    public TableColumn<Pub, String> pubAddress;
-	    @FXML
-	    public TableColumn<Pub, String> pubPhoneNumber;
-	    @FXML
-	    public TableColumn<Pub, String> pubOffer;
-	    @FXML
-	    public TableColumn<Pub, String> pubDescription;
-	    @FXML
-	    public TableColumn<Pub, String> pubEntranceFee;
-	    @FXML
-	    public TableColumn<Pub, Image> image;
-	    public Label emailError, passwordError, isPubError, fullNameError;
-	    
-	    @FXML
-	    public TableView<User> userTable;
-	    @FXML
-	    public TableColumn<User, String> userName1;
-	    @FXML
-	    public TableColumn<User, String> userAge;
-	    @FXML
-	    public TableColumn<User,String> userEmail;
-	    @FXML
-	    public TableColumn<User, Image> userImage1;
 
 	    
-	    
-	    @FXML
-	    public TableView<Beer> beerTable;
-	    @FXML
-	    public TableColumn<Beer, String> beerName;
-	    @FXML
-	    public TableColumn<Beer, String> beerType;
-	    @FXML
-	    public TableColumn<Beer, String> beerOrigin;
-	    @FXML
-	    public TableColumn<Beer, String> beerProducer;
-	    @FXML
-	    public TableColumn<Beer, String> beerPackage;
-	    @FXML
-	    public TableColumn<Beer, String> beerPercentage;
-	    @FXML
-	    public TableColumn<Beer, String> avrageRank;
-	    @FXML
-	    public TableColumn<Beer,Image> beerImage;
-	    @FXML
-	    public PieChart showPie;
-	    @FXML
-	    public Label userName;
+	@FXML
+	public TableView<Pub> pubTable;
+	@FXML
+	public TableColumn<Pub, String> pubName;
+	@FXML
+	public TableColumn<Pub, String> pubAddress;
+	@FXML
+	public TableColumn<Pub, String> pubPhoneNumber;
+	@FXML
+	public TableColumn<Pub, String> pubOffer;
+	@FXML
+	public TableColumn<Pub, String> pubDescription;
+	@FXML
+	public TableColumn<Pub, String> pubEntranceFee;
+	@FXML
+	public TableColumn<Pub, Image> image;
+	public Label emailError, passwordError, isPubError, fullNameError;
 
-	    public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
-	    public ObservableList<Pub> masterData1 = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
-	    public ObservableList<User> masterData2 = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
-	
+	@FXML
+	public TableView<User> userTable;
+	@FXML
+	public TableColumn<User, String> userName1;
+	@FXML
+	public TableColumn<User, String> userAge;
+	@FXML
+	public TableColumn<User,String> userEmail;
+	@FXML
+	public TableColumn<User, Image> userImage1;
+
+
+
+	@FXML
+	public TableView<Beer> beerTable;
+	@FXML
+	public TableColumn<Beer, String> beerName;
+	@FXML
+	public TableColumn<Beer, String> beerType;
+	@FXML
+	public TableColumn<Beer, String> beerOrigin;
+	@FXML
+	public TableColumn<Beer, String> beerProducer;
+	@FXML
+	public TableColumn<Beer, String> beerPackage;
+	@FXML
+	public TableColumn<Beer, String> beerPercentage;
+	@FXML
+	public TableColumn<Beer, String> avrageRank;
+	@FXML
+	public TableColumn<Beer,Image> beerImage;
+	@FXML
+	public PieChart showPie;
+	@FXML
+	public Label userName;
+
+	public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
+	public ObservableList<Pub> masterData1 = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
+	public ObservableList<User> masterData2 = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
+
 	
 	public Label showGreetings;
 	public Label emailLabel;
@@ -113,13 +110,13 @@ public class UserProfile extends BaseController implements Initializable  {
 	public Button saveFotoButton;
 	
 	public TextField age;
-	 public Button update;
-	    @FXML
-	    public TextField fullName;
-	    @FXML
-	    public TextField email;
-	    @FXML
-	    public PasswordField password;
+	public Button update;
+	@FXML
+	public TextField fullName;
+	@FXML
+	public TextField email;
+	@FXML
+	public PasswordField password;
 	
 	public ImageView userImage;
 	PreparedStatement statement;
