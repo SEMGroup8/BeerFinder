@@ -74,8 +74,6 @@ public class HomeTop extends BaseController{
 
                         String sqlQuery = "Select * from users where lower(username) = '" + username.toLowerCase() + "' and password = '" + password + "';";
 
-                        System.out.println(sqlQuery);
-
                         ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
 
                         // No user found.
