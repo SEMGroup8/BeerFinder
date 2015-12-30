@@ -184,7 +184,7 @@ public class BeerDetailController extends BaseController implements Initializabl
 
 
     /**
-     * Lets the User add a beer to its favourites list.
+     * Lets the User add a beer to its beerFavourites list.
      * @param event
      * @throws IOException
      */
@@ -193,7 +193,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     {
         if(UserData.userInstance!=null)
         {
-            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ", 1);";
+            String sqlQuery = "insert into beerFavourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ", 1);";
 
             System.out.println(sqlQuery);
 
@@ -268,15 +268,6 @@ public class BeerDetailController extends BaseController implements Initializabl
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	
-    	 if(UserData.userInstance != null){
-       	  
-       	 // if(UserData.userInstance.getIsPub()){
-       		//  updateBeerButton.setVisible(true);
-       	  //}
-         }
-
-
 
         Navigation.current_CenterFXML = "/com/group8/resources/views/beerDetails_center.fxml";
 
@@ -288,8 +279,11 @@ public class BeerDetailController extends BaseController implements Initializabl
                 favourite.setVisible(false);
             }
         }
-        // test output
-        System.out.println("beerDetails accsessed and initializeing!");
+        else
+        {
+            favourite.setVisible(false);
+        }
+
         // Display Name of beer
         showBeerName.setText(BeerData.selectedBeer.getName());
         // Display Origin
@@ -324,12 +318,6 @@ public class BeerDetailController extends BaseController implements Initializabl
         showProducer.setText(BeerData.selectedBeer.getProducer());
         // Display beer price
         showPrice.setText(BeerData.selectedBeer.getPrice()+":-");
-        
-
-        // Test the data in our beer instance
-        System.out.println(BeerData.selectedBeer.toString());
-        
-        
     }
 
     public void noState(){
@@ -416,15 +404,4 @@ public class BeerDetailController extends BaseController implements Initializabl
 
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

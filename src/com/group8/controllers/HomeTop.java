@@ -72,7 +72,9 @@ public class HomeTop extends BaseController{
                         String username = loginText.getText();
                         String password = pswrdField.getText();
 
-                        String sqlQuery = "Select * from users where username = '" + username + "' and password = '" + password + "';";
+                        String sqlQuery = "Select * from users where lower(username) = '" + username.toLowerCase() + "' and password = '" + password + "';";
+
+                        System.out.println(sqlQuery);
 
                         ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
 
@@ -85,12 +87,12 @@ public class HomeTop extends BaseController{
                         User fetchedUser = new User(userData);
 
                         // Safety checks so the correct user has been found.
-                        if (!fetchedUser.get_name().equals(username)) {
+                        if (!fetchedUser.get_name().toLowerCase().equals(username.toLowerCase())) {
 
                             return null;
                         }
 
-                        // Load the static user instance with the logged in user data.
+                        // load the static user instance with the logged in user data.
                         UserData.userInstance = fetchedUser;
 
                         // If the user is a pub owner.
@@ -133,7 +135,7 @@ public class HomeTop extends BaseController{
                     stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
                     alert.showAndWait();
                 }else{
-                    // Load the loggedinTOP
+                    // load the loggedinTOP
                     try {
                         mainScene.changeTop("/com/group8/resources/views/loggedInTop.fxml");
 
@@ -201,7 +203,7 @@ public class HomeTop extends BaseController{
     @FXML
     public void onRegister(javafx.event.ActionEvent event) throws IOException
     {
-        // Load the Register stage
+        // load the Register stage
         mainScene.changeCenter("/com/group8/resources/views/registerUser.fxml");
     }
 

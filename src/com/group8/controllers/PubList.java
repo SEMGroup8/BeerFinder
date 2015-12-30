@@ -62,7 +62,6 @@ public class PubList extends BaseController implements Initializable
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
-                    System.out.println("clicked on " + pubTable.getSelectionModel().getSelectedItem());
                     int id = pubTable.getSelectionModel().getSelectedItem().getPubId();
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 
@@ -93,13 +92,12 @@ public class PubList extends BaseController implements Initializable
           Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
-            pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("_name"));
-	        pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("_address"));
-	        pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("_phoneNumber"));
-	        pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("_offers"));
-	        pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("_description"));
-	        pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("_entranceFee"));
-            System.out.println(pubName +"doki doki");
+        pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("name"));
+        pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("address"));
+        pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("phoneNumber"));
+        pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("offers"));
+        pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("description"));
+        pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("entranceFee"));
 
 
         // Try loading the image, if there is none will use placeholder

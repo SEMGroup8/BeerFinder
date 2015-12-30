@@ -88,7 +88,7 @@ public class ResultController extends BaseController implements Initializable {
                         //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
                         // Set the selectedBeer instance of beer we have to selected item
                         BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
-                        // Load the details scene
+                        // load the details scene
                         // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                         try {
                             // TODO have to fix nameing

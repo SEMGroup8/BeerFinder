@@ -34,5 +34,7 @@
             </Label>
          </children>
       </HBox>
+      <Button fx:id="addToFavourites" layoutX="134.0" layoutY="348.0" mnemonicParsing="false" onAction="#onFavourites" text="Add to Favourites" visible="false" />
+      <Label fx:id="added" layoutX="136.0" layoutY="324.0" text="Added to Favourites" textAlignment="CENTER" visible="false" />
    </children>
 </AnchorPane>

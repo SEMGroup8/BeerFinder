@@ -72,7 +72,7 @@ public class FavouritesController extends BaseController implements Initializabl
 
                     // Set the selectedBeer instance of beer we have to the selected item
                     BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
-                    // Load the details scene
+                    // load the details scene
 
                     try {
 

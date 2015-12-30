@@ -18,19 +18,15 @@ import com.group8.database.tables.User;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,7 +55,8 @@ public class UserProfile extends BaseController implements Initializable  {
 	public TableColumn<Pub, String> pubEntranceFee;
 	@FXML
 	public TableColumn<Pub, Image> image;
-	public Label emailError, passwordError, isPubError, fullNameError;
+	@FXML
+	public Label emailError, passwordError, fullNameError, ageError;
 
 	@FXML
 	public TableView<User> userTable;
@@ -71,8 +68,6 @@ public class UserProfile extends BaseController implements Initializable  {
 	public TableColumn<User,String> userEmail;
 	@FXML
 	public TableColumn<User, Image> userImage1;
-
-
 
 	@FXML
 	public TableView<Beer> beerTable;
@@ -92,21 +87,15 @@ public class UserProfile extends BaseController implements Initializable  {
 	public TableColumn<Beer, String> avrageRank;
 	@FXML
 	public TableColumn<Beer,Image> beerImage;
-	@FXML
-	public PieChart showPie;
+
 	@FXML
 	public Label userName;
 
-	public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
-	public ObservableList<Pub> masterData1 = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
-	public ObservableList<User> masterData2 = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
+	public ObservableList<Beer> beerFavourites = FXCollections.observableArrayList(UserData.userInstance.favourites);
+	public ObservableList<Pub> pubFavourites = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
+	public ObservableList<User> followedUsers = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
 
-	
-	public Label showGreetings;
-	public Label emailLabel;
 	public Label followLabel, numFollowersLabel;
-	public Button userImageButton;
-	public Button loadImage;
 	public Button saveFotoButton;
 	
 	public TextField age;
@@ -123,10 +112,10 @@ public class UserProfile extends BaseController implements Initializable  {
 	FileInputStream imageStream ;
 	File file;
 	boolean loadAnImage = false;
+	private Service<Void> backgroundThread;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println(UserData.userInstance.followedUsers.size());
 		numFollowersLabel.setText("Welcome " +UserData.userInstance.get_name()+ "! You are now being followed by: " +UserData.userInstance.getNumFollowers()+" people");
 		userImage.setImage(UserData.userInstance.getImage());
 		followLabel.setText(UserData.userInstance.get_name());
@@ -136,20 +125,19 @@ public class UserProfile extends BaseController implements Initializable  {
 	    email.setText(UserData.userInstance.getEmail());
 		
 		
-        Navigation.current_CenterFXML =  "/com/group8/resources/views/favourites.fxml";
+        Navigation.current_CenterFXML =  "/com/group8/resources/views/MyProfile.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
-        beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("Name"));
-        beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("Type"));
-        beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("Origin"));
-        beerProducer.setCellValueFactory(new PropertyValueFactory<Beer, String>("Producer"));
-        beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
-        avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("AvRank"));
-        beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
-
+        beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("name"));
+        beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("type"));
+        beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("origin"));
+        beerProducer.setCellValueFactory(new PropertyValueFactory<Beer, String>("producer"));
+        beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("beerPackage"));
+        avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("avRank"));
+        beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("percentage"));
 
         // Try loading the image, if there is none will use placeholder
-        beerImage.setCellValueFactory(new PropertyValueFactory<Beer, Image>("Image"));
+        beerImage.setCellValueFactory(new PropertyValueFactory<Beer, Image>("image"));
         /**
          * Set the Cellfactory
          */
@@ -199,20 +187,15 @@ public class UserProfile extends BaseController implements Initializable  {
         });
 
         //Populate the Tableview
-        beerTable.setItems(masterData);
-	
-        
-        Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
+        beerTable.setItems(beerFavourites);
 
         // You have to have a get function that is named get +" type" for it to work sets values.
-            pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("_name"));
-	        pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("_adressId"));
-	        pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("_phoneNumber"));
-	        pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("_offer"));
-	        pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("_description"));
-	        pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("_entranceFee"));
-          
-
+		pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("name"));
+		pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("adressId"));
+		pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("phoneNumber"));
+		pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("offer"));
+		pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("description"));
+		pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("entranceFee"));
 
         // Try loading the image, if there is none will use placeholder
         image.setCellValueFactory(new PropertyValueFactory<Pub, Image>("image"));
@@ -252,28 +235,21 @@ public class UserProfile extends BaseController implements Initializable  {
                                 imgVw.setFitHeight(40);
                                 vb.getChildren().addAll(imgVw);
                                 setGraphic(vb);
-
                             }
                         }
                     }
                 };
                 return cell;
             }
-
         });
 
-
         //Populate the Tableview
-        pubTable.setItems(masterData1);
-        
-        Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
+        pubTable.setItems(pubFavourites);
 
         // You have to have a get function that is named get +" type" for it to work sets values.
-            userName1.setCellValueFactory(new PropertyValueFactory<User, String>("_fullName"));
-	        userEmail.setCellValueFactory(new PropertyValueFactory<User, String>("_email"));
-	        userAge.setCellValueFactory(new PropertyValueFactory<User, String>("age"));
-	      
-
+		userName1.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
+		userEmail.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
+		userAge.setCellValueFactory(new PropertyValueFactory<User, String>("age"));
 
         // Try loading the image, if there is none will use placeholder
         userImage1.setCellValueFactory(new PropertyValueFactory<User, Image>("image"));
@@ -323,104 +299,131 @@ public class UserProfile extends BaseController implements Initializable  {
 
         });
 
-
         //Populate the Tableview
-        userTable.setItems(masterData2);
+        userTable.setItems(followedUsers);
 
     }
 
-    
-    
+	/**
+	 * Created by Linus Eiderström Swahn
+	 *
+	 * Updates the user when the user has changed any value.
+	 *
+	 * @param event
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void onUpdate(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
 	
 	// Setup the mysel connection
-			String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-	        String user = "Gr8";
-	        String password = "group8";
-	        
-			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con = DriverManager.getConnection(url, user, password);
-		    
-		        if(!checkInput())
-		        {
-		            System.out.println("in check input");
-		            return;
-		        }
+	String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+	String user = "Gr8";
+	String password = "group8";
 
-		        String updateUser="UPDATE `users` SET `fullname`='"+fullName.getText()+"',  `email`='"+email.getText()+"',  `age`='"+age.getText()+"'  where userId=" + UserData.userInstance.getId();
-				statement =con.prepareStatement(updateUser);
-				statement.executeUpdate();
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con = DriverManager.getConnection(url, user, password);
 
-		        
+		if(!checkInput())
+		{
+			return;
+		}
 
-		        if (!checkAvailability(updateUser))
-		        {
-		            System.out.println("In email check");
+		String selectQuery = "Select * from users where email = '" + email.getText() + "';";
 
-		            return;
-		        }
+		if (!checkAvailability(selectQuery))
+		{
+			System.out.println("In email check");
 
-		        User newUser = new User();
+			emailError.setText("Email is in use.");
+			email.setStyle("-fx-border-color: red;");
 
-		        //newUser.setUser(UserData.userInstance.getName(), fullName.getText(), password.getText(), email.getText(), UserData.userInstance.getIsPub(), UserData.userInstance.getPubId());
-		        newUser.setId(UserData.userInstance.getId());
+			return;
+		}
 
-		        UserData.userInstance = newUser;
+		String updateUser="UPDATE `users` SET `fullname`='"+fullName.getText()+"',  `email`='"+email.getText()+"',  `age`='"+age.getText()+"'  where userId=" + UserData.userInstance.getId();
+		statement = con.prepareStatement(updateUser);
+		statement.executeUpdate();
 
-		        newUser.updateUser();
-		    }
+		User newUser = new User();
 
-		    //Checks if the input is correct.
-		    private boolean checkInput()
-		    {
-		        boolean canUpdate = true;
+		newUser.setId(UserData.userInstance.getId());
 
-		        if(fullName.getText().length()==0)
-		        {
-		            fullNameError.setText("Name has to be filled in.");
-		            canUpdate = false;
-		        }
+		UserData.userInstance = newUser;
 
-		        if(!email.getText().contains("@")||!email.getText().contains("."))
-		        {
-		            emailError.setText("Email is invalid.");
-		            canUpdate = false;
-		        }
+		newUser.updateUser();
+	}
 
-		        if(email.getText().length()==0)
-		        {
-		            emailError.setText("Email has to be filled in.");
-		            canUpdate = false;
-		        }
+	//Checks if the input is correct.
+	private boolean checkInput()
+	{
+		boolean canUpdate = true;
 
-		        if(password.getText().length()<8)
-		        {
-		            passwordError.setText("Password has to be at least 8 characters.");
-		            canUpdate = false;
-		        }
+		if(fullName.getText().length()==0)
+		{
+			fullNameError.setText("Name has to be filled in.");
+			canUpdate = false;
+		}
 
-		        if(password.getText().length()==0)
-		        {
-		            passwordError.setText("Password can't be empty.");
-		            canUpdate = false;
-		        }
+		if(!email.getText().contains("@")||!email.getText().contains("."))
+		{
+			emailError.setText("Email is invalid.");
+			canUpdate = false;
+		}
 
-		        return canUpdate;
-		    }
+		if(email.getText().length()==0)
+		{
+			emailError.setText("Email has to be filled in.");
+			canUpdate = false;
+		}
 
-		    public boolean checkAvailability(String query)
-		    {
-		        ArrayList<Object> returnedUser = MysqlDriver.select(query);
+		if(password.getText().length()<8)
+		{
+			passwordError.setText("Password has to be at least 8 characters.");
+			canUpdate = false;
+		}
 
-		        boolean canUpdate = true;
+		if(password.getText().length()==0)
+		{
+			passwordError.setText("Password can't be empty.");
+			canUpdate = false;
+		}
 
-		        if(returnedUser!=null)
-		        {
-		            canUpdate =  false;
-		        }
+		if(age.getText().length()==0)
+		{
+			ageError.setText("Age has to be filled in.");
+			age.setStyle("-fx-border-color: red;");
+			canUpdate = false;
+		}
+		else
+		{
+			for(int i = 0; i<age.getText().length(); i++)
+			{
+				if(!age.getText().matches("[0-9]+"))
+				{
+					ageError.setText("Age can only be numerical.");
+					age.setStyle("-fx-border-color: red;");
+					canUpdate = false;
+				}
+			}
+		}
 
-		        return canUpdate;
-		    }
+		return canUpdate;
+	}
+
+	public boolean checkAvailability(String query)
+	{
+		ArrayList<Object> returnedUser = MysqlDriver.select(query);
+
+		boolean canUpdate = true;
+
+		if(returnedUser!=null)
+		{
+			canUpdate =  false;
+		}
+
+		return canUpdate;
+	}
 
 	
 	public void loadImage(ActionEvent event)throws IOException, ClassNotFoundException, SQLException {
@@ -450,139 +453,157 @@ public class UserProfile extends BaseController implements Initializable  {
 		// Supported formats include JPEG , PNG, JPG
 		if (file.isFile() && (file.getName().contains(".jpg")
 				||file.getName().contains(".png")
-				||file.getName().contains(".jpeg")
-		)) {
-
-
+				||file.getName().contains(".jpeg")))
+		{
 			String thumbURL = file.toURI().toURL().toString();
 			//	System.out.println(thumbURL);
 			Image imgLoad = new Image(thumbURL);
 			userImage.setImage(imgLoad);
+			}
+		}catch(NullPointerException ex){
+			// If the user cancels the imageload the loadAnImage is set to false
+			// curently allso prints debug msg to console in form of boolean and file ( will be null )
+			//ex.printStackTrace();
+			System.out.println(file);
+			loadAnImage = false;
+			System.out.println(loadAnImage);
 		}
-	}catch(NullPointerException ex){
-		// If the user cancels the imageload the loadAnImage is set to false
-		// curently allso prints debug msg to console in form of boolean and file ( will be null )
-		//ex.printStackTrace();
-		System.out.println(file);
-		loadAnImage = false;
-		System.out.println(loadAnImage);
-	}
-} // end of method
+}
 		
 		
-		public void updateFoto(ActionEvent even) throws ClassNotFoundException, SQLException{
-			
-			
-			String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-	        String user = "Gr8";
-	        String password = "group8";
-	        
-			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con = DriverManager.getConnection(url, user, password);
-			
-			String updateFoto="UPDATE `users` SET `image` =? where userId=" + UserData.userInstance.getId();
-			statement =con.prepareStatement(updateFoto);
-			statement.setBinaryStream(1, imageStream, (int) file.length());
-			statement.executeUpdate();
+	public void updateFoto(ActionEvent even) throws ClassNotFoundException, SQLException{
 
-		}
-	
-	
+		String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+		String user = "Gr8";
+		String password = "group8";
+
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection(url, user, password);
+
+		String updateFoto="UPDATE `users` SET `image` =? where userId=" + UserData.userInstance.getId();
+		statement =con.prepareStatement(updateFoto);
+		statement.setBinaryStream(1, imageStream, (int) file.length());
+		statement.executeUpdate();
+	}
+
 	public void getRow(){
-        beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            // Select item will only be displayed when dubbleclicked
 
-            /**
-             * Dubleclick event
-             * @param event
-             */
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.getClickCount() == 2) {
-                    // Show that we can select items and print it
-                    // Set the selectedBeer instance of beer we have to selected item
-                    BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
+		//Beer table
+		beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		// Select item will only be displayed when dubbleclicked
 
-                    // Load the details scene
-                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
-                    try {
-                        // TODO have to fix nameing
-                        mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
-                        
+		/**
+		 * Dubleclick event
+		 * @param event
+		 */
+		@Override
+		public void handle(MouseEvent event) {
+			if (event.getClickCount() == 2) {
+				// Show that we can select items and print it
+				// Set the selectedBeer instance of beer we have to selected item
+				BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-
-        });
-    
-	        pubTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	            // Select item will only be displayed when dubbleclicked
-
-	            /**
-	             * Dubleclick event
-	             * @param event
-	             */
-	            @Override
-	            public void handle(MouseEvent event) {
-	                if (event.getClickCount() == 2) {
-	                        // Show that we can select items and print it
-	                       
-	                       PubData.selectedPub = pubTable.getSelectionModel().getSelectedItem();
-	                        // Load the details scene
-	                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
-	                        try {
-								mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");
-	                        } catch (IOException e) {
-	                            // Print error msg
-	                            e.printStackTrace();
-	                        }
+				// load the details scene
+				// Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+				try {
+					// TODO have to fix nameing
+					mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
 
 
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
+			}
+		}
 
-	                }
-	            }
+	});
 
-	        });
-	        
-	        userTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	            // Select item will only be displayed when dubbleclicked
+		//Pub table
+		pubTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			// Select item will only be displayed when dubbleclicked
 
-	            private User selected;
+			/**
+			 * Dubleclick event
+			 * @param event
+			 */
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getClickCount() == 2) {
+						// Show that we can select items and print it
 
-				/**
-	             * Dubleclick event
-	             * @param event
-	             */
-	            @Override
-	            public void handle(MouseEvent event) {
-	                if (event.getClickCount() == 2) {
-	                    // Show that we can select items and print it
-	                    System.out.println("clicked on " + userTable.getSelectionModel().getSelectedItem().getId());
-	                    int id = userTable.getSelectionModel().getSelectedItem().getId();
-	                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
-	                    
-	                    System.out.println(id+"  usssseriiiid");
-
-	                    User selected = new User("select * from users where userId =" +id);
-	                    UserData.selected = selected;
-
-	                    try {
-	                        mainScene.changeCenter("/com/group8/resources/views/otherUsersProfile.fxml");
-	                    } catch (IOException e) {
-	                        e.printStackTrace();
-	                    }
-
-	                }
-	            }
-
-	        });
-	    }
+					   PubData.selectedPub = pubTable.getSelectionModel().getSelectedItem();
+						// load the details scene
+						// Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+						try {
+							mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");
+						} catch (IOException e) {
+							// Print error msg
+							e.printStackTrace();
+						}
 
 
 
+
+				}
+			}
+
+		});
+
+		//User table
+		userTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			// Select item will only be displayed when dubbleclicked
+
+			private User selected;
+
+			/**
+			 * Dubleclick event
+			 * @param event
+			 */
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getClickCount() == 2) {
+
+					backgroundThread = new Service<Void>() {
+						@Override
+						protected Task<Void> createTask() {
+							return new Task<Void>() {
+								@Override
+								protected Void call() throws Exception {
+
+									// Show that we can select items and print it
+									int id = userTable.getSelectionModel().getSelectedItem().getId();
+									// Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+
+									User selected = new User("select * from users where userId =" +id);
+									UserData.selected = selected;
+									UserData.selected.getFavouriteBeers();
+									UserData.selected.getPubFavourites();
+									UserData.selected.getFollowers();
+
+									return null;
+								}
+							};
+						}
+					};
+
+					backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+						@Override
+						public void handle(WorkerStateEvent event) {
+
+							try {
+								mainScene.changeCenter("/com/group8/resources/views/otherUsersProfile.fxml");
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+					});
+
+					// Start thread
+					backgroundThread.start();
+
+				}
+			}
+		});
 	}
+}
