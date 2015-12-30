@@ -9,6 +9,9 @@ import com.group8.database.tables.User;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,40 +41,59 @@ public class UserList extends BaseController implements Initializable {
 
 
     public ObservableList<User> masterData = FXCollections.observableArrayList(UserData.userInstance.allUsers);
+    private Service<Void> backgroundThread;
 
 
     /**
-     * Select a beer row and proceed to the beerDetail scene
-     */
+     * Created by Linus Eiderrström Swahn.
+     *
+     * Select the user the user double clicked on.
+     * Load all info and switch scenes. Multithreaded.
+     **/
     public void getRow(){
         userTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked
 
-            private User selected;
-
-			/**
-             * Dubleclick event
-             * @param event
-             */
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    // Show that we can select items and print it
-                    System.out.println("clicked on " + userTable.getSelectionModel().getSelectedItem().getId());
-                    int id = userTable.getSelectionModel().getSelectedItem().getId();
-                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
-                    
-                    System.out.println(id+"  usssseriiiid");
+                    backgroundThread = new Service<Void>() {
+                        @Override
+                        protected Task<Void> createTask() {
+                            return new Task<Void>() {
+                                @Override
+                                protected Void call() throws Exception {
 
-                    User selected = new User("select * from users where userId =" +id);
-                    UserData.selected = selected;
-                    UserData.selected.getFollowers();
-                    try {
-                        mainScene.changeCenter("/com/group8/resources/views/otherUsersProfile.fxml");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                                    // Show that we can select items and print it
+                                    int id = userTable.getSelectionModel().getSelectedItem().getId();
+                                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 
+                                    User selected = new User("select * from users where userId =" +id);
+                                    UserData.selected = selected;
+                                    UserData.selected.getFavouriteBeers();
+                                    UserData.selected.getPubFavourites();
+                                    UserData.selected.getFollowers();
+
+                                    return null;
+                                }
+                            };
+                        }
+                    };
+
+                    backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                        @Override
+                        public void handle(WorkerStateEvent event) {
+
+                            try {
+                                mainScene.changeCenter("/com/group8/resources/views/otherUsersProfile.fxml");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    // Start thread
+                    backgroundThread.start();
                 }
             }
 
@@ -90,8 +112,8 @@ public class UserList extends BaseController implements Initializable {
           Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
-            userName.setCellValueFactory(new PropertyValueFactory<User, String>("_fullName"));
-	        userEmail.setCellValueFactory(new PropertyValueFactory<User, String>("_email"));
+            userName.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
+	        userEmail.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
 	        userAge.setCellValueFactory(new PropertyValueFactory<User, String>("age"));
 	      
 

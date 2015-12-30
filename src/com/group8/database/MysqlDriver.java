@@ -1,15 +1,8 @@
 package com.group8.database;
 
-import com.group8.controllers.BeerData;
-import com.mysql.jdbc.MysqlParameterMetadata;
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
