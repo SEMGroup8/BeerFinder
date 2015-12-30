@@ -26,7 +26,7 @@
 //public class LoggedInHomeScreenController extends MainController {
 //    // Declaration of elements
 //    @FXML
-//    public Button logout, account, favourites, randomButton;
+//    public Button logout, account, beerFavourites, randomButton;
 //    @FXML
 //    public Label userName;
 //
@@ -140,7 +140,7 @@
 //    @FXML
 //    public void onSearch(javafx.event.ActionEvent event) throws IOException {
 //
-//        // Load wheel until task is finished//
+//        // load wheel until task is finished//
 //        // load.setVisible(true);
 //// Fetch the user input
 //        BeerData.searchInput="";
@@ -236,7 +236,7 @@
 //
 //        if ((BeerData.beer.size() > 0)) {
 //
-//            // Load the result stage
+//            // load the result stage
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/result_center.fxml"));
 //            Scene result_scene = new Scene(result, 800, 600);
 //            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -338,7 +338,7 @@
 //    @FXML
 //    public void onFavourites(javafx.event.ActionEvent event) throws IOException
 //    {
-//        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
+//        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerFavourites.fxml"));
 //        Scene result_scene = new Scene(result, 800, 600);
 //        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //        main_stage.setScene(result_scene);

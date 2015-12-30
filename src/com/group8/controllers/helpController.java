@@ -51,7 +51,7 @@ public class helpController extends BaseController implements Initializable{
                     System.out.println(active);
 
 
-                    // Load the details scene
+                    // load the details scene
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     // try {
                     // TODO have to fix nameing

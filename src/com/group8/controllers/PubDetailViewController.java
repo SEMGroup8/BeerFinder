@@ -1,7 +1,10 @@
 package com.group8.controllers;
 
+import com.group8.database.MysqlDriver;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -33,7 +36,10 @@ public class PubDetailViewController extends BaseController implements Initializ
 	public Label pubEntranceFeeLabel;
 	@FXML
 	public Label phoneNumberLabel;
-
+	@FXML
+	public Button addToFavourites;
+	@FXML
+	public Label added;
 
 	/**
 	 *	Place out all information about selectedPub in respective fields
@@ -52,9 +58,23 @@ public class PubDetailViewController extends BaseController implements Initializ
 		pubEntranceFeeLabel.setText("" +PubData.selectedPub.get_entranceFee());
 		phoneNumberLabel.setText(PubData.selectedPub.getPhoneNumber());
 		descriptionArea.setText(PubData.selectedPub.getDescription());
-	  
+
+		if(UserData.userInstance!=null) {
+			if (!UserData.userInstance.getIsPub()) {
+				addToFavourites.setVisible(true);
+			}
+		}
 	}
 
-	
+	public void onFavourites(ActionEvent event) throws Exception
+	{
+		if(UserData.userInstance!=null)
+		{
+			String sqlQuery = "insert into favouritePub values(" + PubData.selectedPub.getPubId() + ", " + UserData.userInstance.getId() + ", 1);";
 
+			MysqlDriver.insert(sqlQuery);
+
+			added.setVisible(true);
+		}
+	}
 }

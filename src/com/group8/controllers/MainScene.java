@@ -248,7 +248,7 @@ public class MainScene implements Initializable {
                         @Override
                         protected Void call() throws Exception {
 
-                            // Load wheel until task is finished//
+                            // load wheel until task is finished//
                             Load.setVisible(true);
 
                             // Update the beer list for changes
@@ -280,7 +280,7 @@ public class MainScene implements Initializable {
                     Load.setVisible(false);
                     if ((BeerData.beer.size()>0)) {
 
-                        // Load the result stage
+                        // load the result stage
                         try {
                             changeCenterBack(Navigation.breadcrubs.get(Navigation.breadcrubs.size()-1));
 
@@ -296,7 +296,7 @@ public class MainScene implements Initializable {
             backgroundThread.start();
 
         }else{
-            // Load the result stage
+            // load the result stage
             try {
                 changeCenterBack(Navigation.breadcrubs.get(Navigation.breadcrubs.size() - 1));
 
@@ -340,7 +340,7 @@ public class MainScene implements Initializable {
         // Does any pub have this beer in it's inventory?
         if ((BeerData.markers.size() > 0)) {
 
-            // Load the result stage
+            // load the result stage
             changeCenter("/com/group8/resources/views/googleMaps.fxml");
         } else {
             // Testoutput

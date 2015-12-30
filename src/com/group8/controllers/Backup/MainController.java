@@ -201,7 +201,7 @@
 //    @FXML
 //    public void onSearch(javafx.event.ActionEvent event) throws IOException {
 //
-//        // Load wheel until task is finished//
+//        // load wheel until task is finished//
 //        // load.setVisible(true);
 //
 //        // Fetch the user input
@@ -301,7 +301,7 @@
 //        if ((BeerData.beer.size()>0)) {
 //
 //
-//            // Load the result stage
+//            // load the result stage
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/resultScreen.fxml"));
 //            Scene result_scene = new Scene(result,800,600);
 //            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -380,7 +380,7 @@
 //
 //        if(fetchedUser.getIsPub())
 //        {
-//            // Load the pub stage
+//            // load the pub stage
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/loggedInHomescreen.fxml"));
 //            Scene result_scene = new Scene(result,800,600);
 //            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -389,7 +389,7 @@
 //        }
 //        else
 //        {
-//            // Load the pub stage
+//            // load the pub stage
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/loggedInHomescreen.fxml"));
 //            Scene result_scene = new Scene(result,800,600);
 //            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -406,7 +406,7 @@
 //    @FXML
 //    public void onRegister(javafx.event.ActionEvent event) throws IOException
 //    {
-//        // Load the Register stage
+//        // load the Register stage
 //        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/registerUser.fxml"));
 //        Scene result_scene = new Scene(result,800,600);
 //        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

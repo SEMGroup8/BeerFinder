@@ -122,7 +122,7 @@ public class PubInfo extends BaseController implements Initializable{
 	                        //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
 	                        // Set the selectedBeer instance of beer we have to selected item
 	                        BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
-	                        // Load the details scene
+	                        // load the details scene
 	                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 	                        try {
 	  							mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
@@ -333,7 +333,7 @@ public class PubInfo extends BaseController implements Initializable{
 	} // end of method
 
 	/**
-	 * Load the addBeer scene
+	 * load the addBeer scene
 	 * --> Used to change the center FXML to the addBeer FXML alt "scene"
 	 * @param event
 	 * @throws IOException

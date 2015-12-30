@@ -127,17 +127,6 @@ public class User extends MysqlDriver
         {
             this.pub = new Pub("Select * from pubs where pubID = '" + this.pubId + "';");
         }
-
-        if(isPub)
-        {
-            getBeersInPub();
-        }
-        else
-        {
-            getFavouriteBeers();
-            getPubFavourites();
-           // getFollowers();
-        }
     }
 
     /**
@@ -154,7 +143,7 @@ public class User extends MysqlDriver
         this.id = Integer.parseInt(sqlData.get(0).toString());
         this.age=Integer.parseInt(sqlData.get(7).toString());
 
-        // Load the Image.
+        // load the Image.
         try {
             tmpImg = (InputStream) sqlData.get(8);
             this.userImage = javax.imageio.ImageIO.read(tmpImg);
@@ -173,21 +162,6 @@ public class User extends MysqlDriver
             setUser(sqlData.get(1).toString(), sqlData.get(2).toString(), sqlData.get(3).toString(), sqlData.get(4).toString(), Boolean.parseBoolean(sqlData.get(5).toString()));
 
         }
-
-        if(isPub)
-        {
-            getBeersInPub();
-           // getFavouriteBeers();
-        }
-        else
-        {
-            getFavouriteBeers();
-            getPubFavourites();
-           // getFollowers();
-            
-			//getUsers();
-			
-       }
     }
 
     /**
@@ -278,7 +252,6 @@ public class User extends MysqlDriver
     public void getFollowers(){
     	//String sqlQuery="select followUser.id, username,image, password, fullname, email, age  from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId() ;
     	String sqlQuery="select * from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId();
-    	System.out.println(sqlQuery);
     	ArrayList<ArrayList<Object>>follower;
     	follower=MysqlDriver.selectMany(sqlQuery);
     	
@@ -299,20 +272,16 @@ public class User extends MysqlDriver
      * --> Gets an array of pubs from the server and stores them in the UserInstance.
      */
 	public void getPubFavourites() {
-		System.out.println("get userId" + id);
 		String selFavPub = "select pubs.pubID,`name`, image,`phoneNumber`, `description`, `offers`, `entrenceFee` FROM `pubs`,`favouritePub` WHERE pubs.pubID=favouritePub.pubId AND favouritePub.userId = "	+ id;
 		ArrayList<ArrayList<Object>> sqlData3;
 
 		sqlData3 = MysqlDriver.selectMany(selFavPub);
-		System.out.println(sqlData3 +" \n trrrryyyyyfavpub");
 		pubFavouritesDetails = new ArrayList<Pub>();
-		System.out.println(pubFavouritesDetails+"....ok");
 
 		for (int i = 0; i < sqlData3.size(); i++) {
 			
 			Pub pubFavouritesDetails1 = new Pub(sqlData3.get(i));
 			// Testoutput
-			System.out.print(pubFavouritesDetails1.getName() + "  again\n");
 			this.pubFavouritesDetails.add(pubFavouritesDetails1);
 		}
 	}

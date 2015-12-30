@@ -67,7 +67,7 @@ public class FavouritePub extends BaseController implements Initializable {
 		                        // Show that we can select items and print it
 		                        System.out.println("clicked on " + pubTable.getSelectionModel().getSelectedItem());
 		                       PubData.selectedPub = pubTable.getSelectionModel().getSelectedItem();
-		                        // Load the details scene
+		                        // load the details scene
 		                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 		                        try {
 									mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");

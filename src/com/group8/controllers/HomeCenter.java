@@ -76,7 +76,7 @@ public class HomeCenter extends BaseController implements Initializable
     private static Button workaroundButton;
     boolean cameraOpen= false;
 
-    Service<Void> backgroundThread;
+    private Service<Void> backgroundThread;
 
     /**
      * Created by Andreas Fransson.
@@ -175,7 +175,7 @@ public class HomeCenter extends BaseController implements Initializable
                         //Get source of pressed button
                         Object source = event.getSource();
 
-                        // Load wheel until task is finished//
+                        // load wheel until task is finished//
                         Load.setVisible(true);
 
                         // Fetch the user input
@@ -315,7 +315,7 @@ public class HomeCenter extends BaseController implements Initializable
 
                 if ((BeerData.beer.size()>1)) {
 
-                    // Load the result stage
+                    // load the result stage
                     try {
                         mainScene.changeCenter("/com/group8/resources/views/result_center.fxml");
                     } catch (IOException e) {
@@ -369,7 +369,7 @@ public class HomeCenter extends BaseController implements Initializable
                     protected Void call() throws Exception {
 
 
-                        // Load wheel until task is finished//
+                        // load wheel until task is finished//
                         Load.setVisible(true);
 
                         // TODO use same as other to get all fields right...
@@ -401,7 +401,7 @@ public class HomeCenter extends BaseController implements Initializable
                 Load.setVisible(false);
 
 
-                // Load the result stage
+                // load the result stage
                 try {
                     mainScene.changeCenter("/com/group8/resources/views/pubList.fxml");
                 } catch (IOException e) {
@@ -526,8 +526,6 @@ public class HomeCenter extends BaseController implements Initializable
         Navigation.current_CenterFXML = "/com/group8/resources/views/home_center.fxml";
         beerScanSearchButton.setVisible(false);
         Load.setStyle("-fx-accent: IVORY");
-
-        System.out.println("Threads on start: " + Arrays.toString(com.group8.resources.Tools.ThreadUtilities.getAllDaemonThreads()));
     }
 
 }

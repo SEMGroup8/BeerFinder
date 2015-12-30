@@ -7,7 +7,7 @@
 
 <HBox alignment="TOP_CENTER" prefHeight="33.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInTop">
    <children>
-      <HBox prefHeight="36.0" prefWidth="392.0" HBox.hgrow="ALWAYS">
+      <HBox prefHeight="33.0" prefWidth="323.0" HBox.hgrow="ALWAYS">
          <children>
             <Label text="Logged in as: ">
                <HBox.margin>
@@ -17,14 +17,8 @@
                <HBox.margin>
                   <Insets top="8.0" />
                </HBox.margin></Label>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="beerFavourite" mnemonicParsing="false" onAction="#onBeerFavourites" prefHeight="26.0" prefWidth="119.0" text="Favourite Beers">
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin></Button>
-                  <Button fx:id="pubFavourite" layoutX="133.0" layoutY="10.0" mnemonicParsing="false" onAction="#onPubFavourites" prefHeight="26.0" prefWidth="105.0" text="Favourite Pubs" />
-                  <Button fx:id="profileButton" mnemonicParsing="false" onAction="#onProfile" prefHeight="26.0" prefWidth="57.0" text="Profile" />
                   <Button fx:id="usersListButton" mnemonicParsing="false" onAction="#usersList" text="users" />
                </children>
                <HBox.margin>
@@ -33,12 +27,13 @@
             </HBox>
          </children>
       </HBox>
-      <Button fx:id="account" mnemonicParsing="false" onAction="#onAccount" onMousePressed="#exitField" text="Acc" textAlignment="CENTER">
+      <ProgressIndicator fx:id="load" visible="false" />
+      <Button fx:id="account" mnemonicParsing="false" onAction="#onAccount" prefHeight="26.0" prefWidth="82.0" text="Account" textAlignment="CENTER">
          <HBox.margin>
             <Insets right="10.0" top="3.0" />
          </HBox.margin>
       </Button>
-      <Button fx:id="logout" layoutX="540.0" layoutY="20.0" mnemonicParsing="false" onAction="#onLogout" onMousePressed="#exitField" text="Logout" textAlignment="CENTER">
+      <Button fx:id="logout" layoutX="540.0" layoutY="20.0" mnemonicParsing="false" onAction="#onLogout" text="Logout" textAlignment="CENTER">
          <HBox.margin>
             <Insets right="10.0" top="3.0" />
          </HBox.margin>
