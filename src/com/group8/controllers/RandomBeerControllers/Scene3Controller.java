@@ -1,16 +1,12 @@
 package com.group8.controllers.RandomBeerControllers;
 
 import com.group8.controllers.BaseController;
-import com.group8.controllers.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class Scene3Controller extends BaseController {
@@ -42,8 +38,15 @@ public class Scene3Controller extends BaseController {
     @FXML
     private CheckBox FermentedCheck;
 
+    /**
+     * Created by Mantas Namgaudis
+     *
+     * Third step of Random beer generator getting users preferences for beer types.
+     */
 
-    @FXML // Clicking button "Continue"
+
+    @FXML
+        // Clicking button "Continue"
     void onContinueClick3(ActionEvent event) throws IOException {
 
         mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene4.fxml");
@@ -52,37 +55,38 @@ public class Scene3Controller extends BaseController {
 
         // Checking checkboxes and initializing typesPicked
 
-        if (AleCheck.isSelected()){
+        if (AleCheck.isSelected()) {
             typesPicked = typesPicked + "1,";
         }
-        if (WheatCheck.isSelected()){
+        if (WheatCheck.isSelected()) {
             typesPicked = typesPicked + "9,";
         }
-        if (LagerCheck.isSelected()){
+        if (LagerCheck.isSelected()) {
             typesPicked = typesPicked + "4,";
         }
-        if (PorterCheck.isSelected()){
+        if (PorterCheck.isSelected()) {
             typesPicked = typesPicked + "6,";
         }
-        if (DarkLagerCheck.isSelected()){
+        if (DarkLagerCheck.isSelected()) {
             typesPicked = typesPicked + "5,";
         }
-        if (OtherChecked.isSelected()){
+        if (OtherChecked.isSelected()) {
             typesPicked = typesPicked + "2,";
         }
-        if (SpecialCheck.isSelected()){
+        if (SpecialCheck.isSelected()) {
             typesPicked = typesPicked + "7,";
         }
-        if (FermentedCheck.isSelected()){
+        if (FermentedCheck.isSelected()) {
             typesPicked = typesPicked + "8,";
         }
 
-        typesPicked = typesPicked.substring(0, typesPicked.length()-1) + ")";
-        System.out.println("Types picked:" + typesPicked);
+        typesPicked = typesPicked.substring(0, typesPicked.length() - 1) + ")";
+        //System.out.println("Types picked:" + typesPicked);
 
     }
 
-    @FXML //Checking box "Yes"
+    @FXML
+        //Checking box "Yes"
     void yesSelected3(ActionEvent event) {
         if (yesCheckbox.isSelected()) {
             noCheckbox.setVisible(false);
@@ -104,8 +108,7 @@ public class Scene3Controller extends BaseController {
     }
 
 
-
-    public String getTypesPicked(){
+    public String getTypesPicked() {
         return typesPicked;
     }
 }

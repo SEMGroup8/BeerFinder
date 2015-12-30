@@ -429,20 +429,28 @@ public class HomeCenter extends BaseController implements Initializable
         }
     }
 
+    /**
+     * Execute search on pressing "Enter" key.
+     */
     @FXML
-    // Execute search button on pressing "Enter"
     public void searchEnterPressed(KeyEvent event){
         if (event.getCode() == KeyCode.ENTER) {
             search.setDefaultButton(true);
         }
     }
 
+    /**
+     * Created by Mantas Namgaudis
+     *
+     * Opens and sets properties for the beer scanner window.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     public void onBeerScan (ActionEvent event) throws Exception {
 
         cameraOpen = true;
         webCam = new SwingNode();
-        SwingNode barcode = new SwingNode();
         pane = new BorderPane();
         workaroundButton = new Button();
         workaroundButton.setOnAction(e -> beerScanSearchButton.fire());
@@ -471,6 +479,10 @@ public class HomeCenter extends BaseController implements Initializable
         getWebcam(webCam);
     }
 
+    /**
+     * Runs swing component as javafx node.
+     * @param webcam
+     */
     private void getWebcam(final SwingNode webcam) {
 
         SwingUtilities.invokeLater(new Runnable() {

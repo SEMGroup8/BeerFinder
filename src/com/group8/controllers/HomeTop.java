@@ -208,7 +208,7 @@ public class HomeTop extends BaseController{
     }
 
     /**
-     * Created by Mantas?
+     * Created by Mantas Namgaudis
      *
      * When the user presses enter, press the login button.
      */

@@ -30,17 +30,16 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class Scene4Controller extends BaseController implements Initializable{
+public class Scene4Controller extends BaseController implements Initializable {
 
+    @FXML
+    public ProgressIndicator Load;
+    Service<Void> backgroundThread;
     private int count;
     private Beer randomBeer;
     private int[] arrayID;
     private RandomBeerQuery randomBeerQuery;
     private ArrayList<ArrayList<Object>> list;
-
-    Service<Void> backgroundThread;
-
-
     @FXML
     private Button anotherButton;
     @FXML
@@ -75,12 +74,18 @@ public class Scene4Controller extends BaseController implements Initializable{
     private Label countLabel;
     @FXML
     private HBox imageViewHBox;
+
+    /**
+     * Created by Mantas Namgaudis
+     *
+     * Showing the result of a random beer generator according to the user
+     * preferences. User may repeat all the steps again or shuffle through
+     * already given results. Also if logged in user may rank or add beer
+     * to favourites.
+     */
+
     @FXML
-    public ProgressIndicator Load;
-
-
-
-    @FXML // Showing another random result from already chosen parameters
+        // Showing another random result from already chosen parameters
     void onAnotherClick(ActionEvent event) {
 
         // Getting one beer entry chosen randomly from the list of IDs
@@ -97,10 +102,9 @@ public class Scene4Controller extends BaseController implements Initializable{
         this.packageR.setText(randomBeer.getBeerPackage());
         this.producerR.setText(randomBeer.getProducer());
         this.priceR.setText("" + randomBeer.getPrice() + " kr");
-        if(randomBeer.getImage() != null) {
+        if (randomBeer.getImage() != null) {
             this.imageView.setImage(randomBeer.getImage());
-        }
-        else {
+        } else {
             this.imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
         }
         this.countryFlagR.setImage(randomBeer.getCountryFlag());
@@ -108,38 +112,43 @@ public class Scene4Controller extends BaseController implements Initializable{
     }
 
 
-    @FXML // Repeat the RandomBeer program from start
+    @FXML
+        // Repeat the RandomBeer program from start
     void onRepeatClick(ActionEvent event) throws Exception {
 
-       mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
+        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
 
 
     }
 
-    // Process the array of integers, returns one random integer
+
+    /**
+     * Return one random result from array of ints.
+     *
+     * @param array
+     * @return int
+     */
     public int generateRandom(int[] array) {
         int result = 0;
         if (array.length > 0) {
             int random = (int) Math.floor(Math.random() * array.length);
             result = array[random];
 
-            System.out.println("Array length: " + array.length);
-            System.out.println("Random number: " + random);
+            //System.out.println("Array length: " + array.length);
+            //System.out.println("Random number: " + random);
 
         } else {
-            System.out.println("Array is empty");
+            //System.out.println("Array is empty");
         }
         return result;
     }
 
     @FXML
-    public void addToFavourite(ActionEvent event) throws IOException
-    {
-        if(UserData.userInstance!=null)
-        {
+    public void addToFavourite(ActionEvent event) throws IOException {
+        if (UserData.userInstance != null) {
             String sqlQuery = "insert into beerFavourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ");";
 
-            System.out.println(sqlQuery);
+            //System.out.println(sqlQuery);
 
             MysqlDriver.insert(sqlQuery);
 
@@ -147,8 +156,8 @@ public class Scene4Controller extends BaseController implements Initializable{
         }
     }
 
-    public void rankStar(int number){
-        if(UserData.userInstance!=null) {
+    public void rankStar(int number) {
+        if (UserData.userInstance != null) {
             BeerRank beer = new BeerRank(UserData.userInstance.getId(), BeerData.selectedBeer.getId(), number);
 
             beer.insertRank();
@@ -156,22 +165,27 @@ public class Scene4Controller extends BaseController implements Initializable{
             UserData.userInstance.getFavouriteBeers();
         }
     }
+
     @FXML
     public void onRankOneStar(ActionEvent event) throws IOException {
         rankStar(1);
     }
+
     @FXML
     public void onRankTwoStar(ActionEvent event) throws IOException {
         rankStar(2);
     }
+
     @FXML
     public void onRankThreeStar(ActionEvent event) throws IOException {
         rankStar(3);
     }
+
     @FXML
     public void onRankFourStar(ActionEvent event) throws IOException {
         rankStar(4);
     }
+
     @FXML
     public void onRankFiveStar(ActionEvent event) throws IOException {
         rankStar(5);
@@ -219,15 +233,14 @@ public class Scene4Controller extends BaseController implements Initializable{
 
                 countLabel.setText("Beers found: " + count);
 
-                if (arrayID.length == 0){
+                if (arrayID.length == 0) {
                     textLine.setVisible(true);
                     HBoxButtons.setVisible(true);
                     anotherButton.setVisible(false);
                     rankFavourite.setVisible(false);
                     countLabel.setVisible(false);
                     return;
-                }
-                else {
+                } else {
 
                     // Getting one beer entry chosen randomly from the list of IDs
                     ArrayList<ArrayList<Object>> list2 = MysqlDriver.selectMany(randomBeerQuery.randomQuery(generateRandom(arrayID)));
@@ -242,10 +255,9 @@ public class Scene4Controller extends BaseController implements Initializable{
                     packageR.setText(randomBeer.getBeerPackage());
                     producerR.setText(randomBeer.getProducer());
                     priceR.setText("" + randomBeer.getPrice() + " kr");
-                    if(randomBeer.getImage() != null) {
+                    if (randomBeer.getImage() != null) {
                         imageView.setImage(randomBeer.getImage());
-                    }
-                    else {
+                    } else {
                         imageView.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
                     }
                     countryFlagR.setImage(randomBeer.getCountryFlag());
@@ -270,4 +282,4 @@ public class Scene4Controller extends BaseController implements Initializable{
 
         backgroundThread.start();
     }
-    }
+}

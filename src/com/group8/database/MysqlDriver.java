@@ -170,7 +170,7 @@ public class MysqlDriver {
                 }
 
                 result.add(row);
-                System.out.println(row.toString());
+                //System.out.println(row.toString());
             }
 
 
@@ -197,7 +197,7 @@ public class MysqlDriver {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
-        System.out.println(result);
+        //System.out.println(result);
 
         return result;
     }
