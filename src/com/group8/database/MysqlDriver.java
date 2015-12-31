@@ -1,15 +1,8 @@
 package com.group8.database;
 
-import com.group8.controllers.BeerData;
-import com.mysql.jdbc.MysqlParameterMetadata;
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -170,7 +163,7 @@ public class MysqlDriver {
                 }
 
                 result.add(row);
-                System.out.println(row.toString());
+                //System.out.println(row.toString());
             }
 
 
@@ -197,7 +190,7 @@ public class MysqlDriver {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
-        System.out.println(result);
+        //System.out.println(result);
 
         return result;
     }

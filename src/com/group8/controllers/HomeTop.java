@@ -74,8 +74,6 @@ public class HomeTop extends BaseController{
 
                         String sqlQuery = "Select * from users where lower(username) = '" + username.toLowerCase() + "' and password = '" + password + "';";
 
-                        System.out.println(sqlQuery);
-
                         ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
 
                         // No user found.
@@ -208,7 +206,7 @@ public class HomeTop extends BaseController{
     }
 
     /**
-     * Created by Mantas?
+     * Created by Mantas Namgaudis
      *
      * When the user presses enter, press the login button.
      */

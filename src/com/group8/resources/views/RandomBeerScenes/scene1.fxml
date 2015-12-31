@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.effect.*?>
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<Pane fx:id="pane" minHeight="400.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.RandomBeerControllers.Scene1Controller">
-   <children>
-      <Label layoutX="255.0" layoutY="25.0" text="Random beer generator ." textAlignment="CENTER" textFill="IVORY">
-         <font>
-            <Font name="System Bold" size="26.0" />
-         </font>
-      </Label>
-      <Text fill="IVORY" layoutX="80.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Is there a price range you prefer? ">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <VBox layoutX="80.0" layoutY="160.0" spacing="20.0">
-         <children>
-            <CheckBox fx:id="yesCheckbox" mnemonicParsing="false" onAction="#yesSelected1" text="Yes" textFill="IVORY">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="noCheckbox" mnemonicParsing="false" text="No, I don't care..." textFill="IVORY">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </CheckBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <Button fx:id="continueButton1" layoutX="320.0" layoutY="350.0" mnemonicParsing="false" onAction="#onContinueClick1" prefHeight="40.0" prefWidth="200.0" text="Continue">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Label fx:id="showLowLable" layoutX="95.0" layoutY="240.0" text="0" textFill="IVORY" visible="false">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="showHighLable" layoutX="595.0" layoutY="240.0" text="500" textFill="IVORY" visible="false">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-   </children>
-   <padding>
-      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-   </padding>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<Pane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" minHeight="400.0" minWidth="800.0"
+      xmlns="http://javafx.com/javafx/8" fx:controller="com.group8.controllers.RandomBeerControllers.Scene1Controller">
+    <children>
+        <Label layoutX="255.0" layoutY="25.0" text="Random beer generator ." textAlignment="CENTER" textFill="IVORY">
+            <font>
+                <Font name="System Bold" size="26.0"/>
+            </font>
+        </Label>
+        <Text fill="IVORY" layoutX="80.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Is there a price range you prefer? ">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Text>
+        <VBox layoutX="80.0" layoutY="160.0" spacing="20.0">
+            <children>
+                <CheckBox fx:id="yesCheckbox" mnemonicParsing="false" onAction="#yesSelected1" text="Yes"
+                          textFill="IVORY">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </CheckBox>
+                <CheckBox fx:id="noCheckbox" mnemonicParsing="false" text="No, I don't care..." textFill="IVORY">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </CheckBox>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </VBox>
+        <Button fx:id="continueButton1" layoutX="320.0" layoutY="350.0" mnemonicParsing="false"
+                onAction="#onContinueClick1" prefHeight="40.0" prefWidth="200.0" text="Continue">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Label fx:id="showLowLable" layoutX="95.0" layoutY="240.0" text="0" textFill="IVORY" visible="false">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Label>
+        <Label fx:id="showHighLable" layoutX="595.0" layoutY="240.0" text="500" textFill="IVORY" visible="false">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Label>
+    </children>
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+    </padding>
 </Pane>

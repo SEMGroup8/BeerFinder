@@ -96,8 +96,8 @@ public class UserProfile extends BaseController implements Initializable  {
 	public ObservableList<User> followedUsers = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
 
 	public Label followLabel, numFollowersLabel;
-	public Button saveFotoButton;
-	
+
+	@FXML
 	public TextField age;
 	public Button update;
 	@FXML
@@ -123,8 +123,7 @@ public class UserProfile extends BaseController implements Initializable  {
 		fullName.setText(UserData.userInstance.getFullName());
 	    password.setText(UserData.userInstance.getPassword());
 	    email.setText(UserData.userInstance.getEmail());
-		
-		
+
         Navigation.current_CenterFXML =  "/com/group8/resources/views/MyProfile.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
@@ -333,8 +332,6 @@ public class UserProfile extends BaseController implements Initializable  {
 
 		if (!checkAvailability(selectQuery))
 		{
-			System.out.println("In email check");
-
 			emailError.setText("Email is in use.");
 			email.setStyle("-fx-border-color: red;");
 
@@ -345,13 +342,18 @@ public class UserProfile extends BaseController implements Initializable  {
 		statement = con.prepareStatement(updateUser);
 		statement.executeUpdate();
 
-		User newUser = new User();
+		if(imageStream!=null)
+		{
+			updateFoto();
+		}
 
-		newUser.setId(UserData.userInstance.getId());
+		String sqlQuery = "Select * from users where lower(username) = '" + UserData.userInstance.get_name().toLowerCase() + "';";
 
-		UserData.userInstance = newUser;
+		ArrayList<Object> userData = MysqlDriver.select(sqlQuery);
 
-		newUser.updateUser();
+		User fetchedUser = new User(userData);
+
+		UserData.userInstance = fetchedUser;
 	}
 
 	//Checks if the input is correct.
@@ -413,13 +415,21 @@ public class UserProfile extends BaseController implements Initializable  {
 
 	public boolean checkAvailability(String query)
 	{
-		ArrayList<Object> returnedUser = MysqlDriver.select(query);
+		ArrayList<Object> sqlData = MysqlDriver.select(query);
 
 		boolean canUpdate = true;
 
-		if(returnedUser!=null)
+		if(sqlData!=null)
 		{
-			canUpdate =  false;
+			User user = new User(sqlData);
+
+			if(user.get_name().equals(UserData.userInstance.get_name()))
+			{
+				canUpdate = true;
+			}
+			else {
+				canUpdate = false;
+			}
 		}
 
 		return canUpdate;
@@ -445,7 +455,7 @@ public class UserProfile extends BaseController implements Initializable  {
 
 		Stage primaryStage=new Stage();
 
-		file= fileChooser.showOpenDialog(primaryStage);
+		file = fileChooser.showOpenDialog(primaryStage);
 
 
 		imageStream = new FileInputStream(file);
@@ -466,12 +476,11 @@ public class UserProfile extends BaseController implements Initializable  {
 			//ex.printStackTrace();
 			System.out.println(file);
 			loadAnImage = false;
-			System.out.println(loadAnImage);
 		}
 }
 		
 		
-	public void updateFoto(ActionEvent even) throws ClassNotFoundException, SQLException{
+	public void updateFoto() throws ClassNotFoundException, SQLException{
 
 		String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
 		String user = "Gr8";
@@ -481,7 +490,7 @@ public class UserProfile extends BaseController implements Initializable  {
 		Connection con = DriverManager.getConnection(url, user, password);
 
 		String updateFoto="UPDATE `users` SET `image` =? where userId=" + UserData.userInstance.getId();
-		statement =con.prepareStatement(updateFoto);
+		statement = con.prepareStatement(updateFoto);
 		statement.setBinaryStream(1, imageStream, (int) file.length());
 		statement.executeUpdate();
 	}

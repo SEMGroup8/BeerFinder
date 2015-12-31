@@ -1,21 +1,15 @@
 package com.group8.controllers.RandomBeerControllers;
 
 import com.group8.controllers.BaseController;
-import com.group8.controllers.Navigation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import org.controlsfx.control.RangeSlider;
 
 import java.io.IOException;
@@ -24,11 +18,9 @@ import java.util.ResourceBundle;
 
 public class Scene2Controller extends BaseController implements Initializable {
 
-    private RangeSlider percentageSlider = new RangeSlider(0, 15, 0, 15);
-
     static double percentagePickedLow = 0;
     static double percentagePickedHigh = 20;
-
+    private RangeSlider percentageSlider = new RangeSlider(0, 15, 0, 15);
     @FXML
     private Button continueButton2;
     @FXML
@@ -42,6 +34,12 @@ public class Scene2Controller extends BaseController implements Initializable {
     @FXML
     private Label showHighLable;
 
+    /**
+     * Created by Mantas Namgaudis
+     *
+     * Second step of Random beer generator getting users preferences for alcohol percentage.
+     */
+
 
     @FXML
         // Clicking button "Continue"
@@ -51,15 +49,14 @@ public class Scene2Controller extends BaseController implements Initializable {
 
 
         // Slider value setter
-        if (noCheckbox.isSelected() || (!noCheckbox.isSelected() && !yesCheckbox.isSelected())){
+        if (noCheckbox.isSelected() || (!noCheckbox.isSelected() && !yesCheckbox.isSelected())) {
             percentagePickedLow = 0;
             percentagePickedHigh = 20;
-        }
-        else {
+        } else {
             percentagePickedLow = percentageSlider.getLowValue();
             percentagePickedHigh = percentageSlider.getHighValue();
         }
-        System.out.println("Percentage picked:" + percentagePickedLow + " and " + percentagePickedHigh);
+        //System.out.println("Percentage picked:" + percentagePickedLow + " and " + percentagePickedHigh);
 
     }
 
@@ -81,12 +78,12 @@ public class Scene2Controller extends BaseController implements Initializable {
         }
     }
 
-// Getters
-    public double getPercentagePickedLow(){
+    // Getters
+    public double getPercentagePickedLow() {
         return percentagePickedLow;
     }
 
-    public double getPercentagePickedHigh(){
+    public double getPercentagePickedHigh() {
         return percentagePickedHigh;
     }
 
@@ -106,7 +103,7 @@ public class Scene2Controller extends BaseController implements Initializable {
         percentageSlider.lowValueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if(newValue == null){
+                if (newValue == null) {
                     showLowLable.setText("0");
                     return;
                 }
@@ -117,7 +114,7 @@ public class Scene2Controller extends BaseController implements Initializable {
         percentageSlider.highValueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if(newValue == null){
+                if (newValue == null) {
                     showHighLable.setText("20");
                     return;
                 }
