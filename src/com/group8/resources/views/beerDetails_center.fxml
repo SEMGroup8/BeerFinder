@@ -39,7 +39,7 @@
                                  <children>
                                     <ImageView fx:id="oneStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankOneStar" onMouseEntered="#hoverOne" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -47,7 +47,7 @@
                                     </ImageView>
                                     <ImageView fx:id="twoStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankTwoStar" onMouseEntered="#hoverTwo" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -55,7 +55,7 @@
                                     </ImageView>
                                     <ImageView fx:id="threeStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankThreeStar" onMouseEntered="#hoverThree" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -63,7 +63,7 @@
                                     </ImageView>
                                     <ImageView fx:id="fourStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankFourStar" onMouseEntered="#hoverFour" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -71,7 +71,7 @@
                                     </ImageView>
                                     <ImageView fx:id="fiveStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankFiveStar" onMouseEntered="#hoverFive" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />

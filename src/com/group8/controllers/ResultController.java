@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-10-22.
+ * Created by Andreas Fransson on 15-10-22.
  *
  * TODO Visual upgrade + presentation of objects + additional options
  * Show results from a beer search.

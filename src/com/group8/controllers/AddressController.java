@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
 /**
- * Created by AnkanX on 15-11-18.
+ * Created by Andreas Fransson on 15-11-18.
  *
  * The address popup window that originates from the PubInfo window
  * When a Pub owner wants to add an address.

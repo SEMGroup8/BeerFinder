@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import com.group8.database.*;
 
 /**
+ *
  * AddBeerController to let Pub Users add new beers to the Databse.
  * -->
  * TODO error handling, field highlightning etc

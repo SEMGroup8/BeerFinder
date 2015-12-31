@@ -6,7 +6,7 @@
 }
 
 .root{
-     -fx-background-image: url("../Images/BG.png");
+     -fx-background-image: url("../Images/background.png");
      -fx-background-color: rgb(152, 152, 152);
      -fx-background-size:  stretch;
 }

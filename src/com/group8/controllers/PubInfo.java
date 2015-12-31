@@ -343,6 +343,11 @@ public class PubInfo extends BaseController implements Initializable{
          
 	}
 
+	/**
+	 * Created by Andreas Fransson.
+	 * @param event
+	 * @throws IOException
+	 */
 	public void getMap(javafx.event.ActionEvent event) throws IOException{
 
 			FXMLLoader loader = new FXMLLoader();

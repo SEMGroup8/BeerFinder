@@ -417,6 +417,7 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     * Created by Andreas Fransson.
      * Auto clear fields when selected
      * Clear the Search field
      */
@@ -527,6 +528,7 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     * Created by Andreas Fransson.
      *  Initialize Main controller
      * @param location
      * @param resources

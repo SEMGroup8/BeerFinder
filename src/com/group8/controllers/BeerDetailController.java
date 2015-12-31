@@ -31,7 +31,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-10-27.
+ * Created by Andreas Fransson on 15-10-27.
  * TODO fix nice detail layout and images
  */
 public class BeerDetailController extends BaseController implements Initializable{
