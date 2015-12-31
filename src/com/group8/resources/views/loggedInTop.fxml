@@ -27,7 +27,10 @@
             </HBox>
          </children>
       </HBox>
-      <ProgressIndicator fx:id="load" visible="false" />
+      <ProgressIndicator fx:id="load" maxHeight="25.0" maxWidth="25.0" visible="false">
+         <HBox.margin>
+            <Insets right="10.0" top="3.0" />
+         </HBox.margin></ProgressIndicator>
       <Button fx:id="account" mnemonicParsing="false" onAction="#onAccount" prefHeight="26.0" prefWidth="82.0" text="Account" textAlignment="CENTER">
          <HBox.margin>
             <Insets right="10.0" top="3.0" />

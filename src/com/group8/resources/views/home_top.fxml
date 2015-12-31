@@ -43,7 +43,10 @@
             <Insets right="10.0" />
          </HBox.margin>
       </Button>
-      <ProgressIndicator fx:id="Load" prefHeight="25.0" prefWidth="52.0" visible="false" />
+      <ProgressIndicator fx:id="Load" prefHeight="25.0" prefWidth="25.0" visible="false">
+         <HBox.margin>
+            <Insets bottom="3.0" />
+         </HBox.margin></ProgressIndicator>
    </children>
    <padding>
       <Insets top="4.0" />

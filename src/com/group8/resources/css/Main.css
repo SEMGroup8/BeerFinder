@@ -1,7 +1,6 @@
 #helpButton {
     -fx-background-image: url("../Images/helpButton.png");
     -fx-background-repeat: no-repeat;
-    -fx-background-color: white;
     -fx-background-position: left top;
 }
 

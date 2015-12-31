@@ -110,6 +110,7 @@ public class LoggedInTop extends BaseController implements Initializable
                     protected Void call() throws Exception {
 
                         // load wheel until task is finished
+                        load.setStyle("-fx-accent: IVORY");
                         load.setVisible(true);
 
                         if(UserData.userInstance.getIsPub())
