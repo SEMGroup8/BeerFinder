@@ -10,7 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="433.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -94,8 +94,8 @@
                         <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" textFill="WHITE" />
                         <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" textFill="WHITE" />
                         <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" textFill="WHITE" />
-                        <Button fx:id="addToPub" layoutX="315.0" layoutY="129.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
-                        <Label fx:id="added" layoutX="451.0" layoutY="160.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
+                        <Button fx:id="addToPub" layoutX="316.0" layoutY="98.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
+                        <Label fx:id="added" layoutX="408.0" layoutY="100.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
@@ -124,7 +124,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="favourite" layoutX="150.0" layoutY="4.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" textFill="#ffffff" />
+                        <Button fx:id="favourite" layoutX="150.0" layoutY="4.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" textFill="#ffffff" visible="false" />
                      </children>
                   </AnchorPane>
                </children>
@@ -132,4 +132,7 @@
          </children>
       </HBox>
    </center>
+   <padding>
+      <Insets top="33.0" />
+   </padding>
 </BorderPane>

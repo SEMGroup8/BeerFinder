@@ -135,7 +135,7 @@ public class Pub extends MysqlDriver{
         // Try to insert a pub and a address
         try {
             con = DriverManager.getConnection(url, user, password);
-        query = "Insert into pubAddress(addressID, address, latitude, longitude) values(NULL, 'no address', 0,0);";
+        query = "Insert into pubAddress(addressID, address, latitude, longitude) values(NULL, 'no address', 57.7070392,11.932165);";
 
             st = con.prepareStatement(query);
             st.executeUpdate();

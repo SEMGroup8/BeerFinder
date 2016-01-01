@@ -70,10 +70,14 @@ public class BeerDetailController extends BaseController implements Initializabl
     public ImageView showCountryFlag;
     @FXML
     public Label cantRank;
+
     boolean justRanked=false; //I'm using this to keep the rank as the user just ranked the beer so he can know he ranked the beer
+
+    @FXML
     public Label added;
     @FXML
     public Button updateBeerButton;
+    @FXML
     public ImageView oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
@@ -274,6 +278,7 @@ public class BeerDetailController extends BaseController implements Initializabl
         imageViewHBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#2A1806"), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(4))));
 
         if(UserData.userInstance!=null) {
+            favourite.setVisible(true);
             if (UserData.userInstance.getIsPub()) {
                 addToPub.setVisible(true);
                 favourite.setVisible(false);
