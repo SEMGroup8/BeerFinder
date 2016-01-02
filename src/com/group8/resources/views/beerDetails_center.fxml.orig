@@ -47,8 +47,12 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" layoutX="33.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
+<<<<<<< HEAD
+                        <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" layoutX="115.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
                         <Button fx:id="updateBeerButton" layoutX="451.0" layoutY="158.0" mnemonicParsing="false" onAction="#updateBeer" text="Update Beer" />
+=======
+                        <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" layoutX="33.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
+>>>>>>> 61f3dc6b51f87fde7fb7af7b504772b5b99e6efd
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">

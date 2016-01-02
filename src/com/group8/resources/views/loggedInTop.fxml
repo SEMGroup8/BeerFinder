@@ -23,7 +23,7 @@
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin></Button>
-                  <Button fx:id="PubFavourite" layoutX="133.0" layoutY="10.0" mnemonicParsing="false" onAction="#onPubFavourites" text="Favourite Pubs" />
+                  <Button fx:id="pubFavourite" layoutX="133.0" layoutY="10.0" mnemonicParsing="false" onAction="#onPubFavourites" text="Favourite Pubs" />
                </children>
                <HBox.margin>
                   <Insets top="3.0" />

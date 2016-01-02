@@ -50,7 +50,7 @@ public class FavouritePub extends BaseController implements Initializable {
 	    @FXML
 	    public TableColumn<Pub, String> pubEntranceFee;
 	
-//	    public ObservableList<Pub> masterData = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
+	   // public ObservableList<Pub> masterData = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
 	    int userId=UserData.userInstance.get_id();
 		int pubID = UserData.userInstance.get_pubId();
 		

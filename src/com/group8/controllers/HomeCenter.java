@@ -7,17 +7,29 @@ import com.group8.database.tables.Pub;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -48,10 +60,22 @@ public class HomeCenter extends BaseController implements Initializable
     @FXML
     public CheckBox advancedCountry;
     @FXML
+    public Button beerScanButton;
+    @FXML
+    private Button beerScanSearchButton;
+
     public TextField searchText;
     @FXML
     public ProgressIndicator Load;
     // Threading service
+    private SwingNode webCam;
+    private BorderPane pane;
+    private Stage webcamStage;
+    private Scene webcamScene;
+    private static String barcode = null;
+    private static Button workaroundButton;
+    boolean cameraOpen= false;
+
     Service<Void> backgroundThread;
 
     // Checkbox that when checked shows advanced checkboxes
@@ -61,8 +85,10 @@ public class HomeCenter extends BaseController implements Initializable
 
         if(advanced.isSelected()){
             randomButton.setVisible(false);
+            showPubs.setVisible(false);
         }else{
             randomButton.setVisible(true);
+            showPubs.setVisible(true);
         }
 
 
@@ -136,6 +162,8 @@ public class HomeCenter extends BaseController implements Initializable
                     @Override
                     protected Void call() throws Exception {
 
+                        //Get source of pressed button
+                        Object source = event.getSource();
 
                         // Load wheel until task is finished//
                         Load.setVisible(true);
@@ -164,6 +192,24 @@ public class HomeCenter extends BaseController implements Initializable
                                 BeerData.searchInput += "name like '%" + searchText.getText() + "%'";
                             }
 
+                            //Mantas doesnt know what hes doing
+
+                            System.out.println("Source 1: "+ ((Node)event.getSource()).getId());
+                            System.out.println("Source 2: "+ beerScanSearchButton.getId());
+
+                            //If request comes from the barcode scanner
+
+                            if(((Node)event.getSource()).getId() == beerScanSearchButton.getId()){
+
+                                BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag, barcode" +
+                                        " from beers, beerType, origin, package where " +
+                                        "beers.beerTypeID = beerType.beerTypeID " +
+                                        "and beers.originID = origin.originID " +
+                                        "and beers.package = package.packageID " +
+                                        "and (beers.barcode = " + barcode;
+
+                                System.out.println(BeerData.searchInput);
+                            }
 
                             // Advanced
                             if(advanced.isSelected())
@@ -236,6 +282,7 @@ public class HomeCenter extends BaseController implements Initializable
                         for(int i=0;i<BeerData.beer.size();i++){
                             System.out.println(BeerData.beer.get(i).getName());
                         }
+
                         return null;
                     }
                 };
@@ -248,8 +295,31 @@ public class HomeCenter extends BaseController implements Initializable
         backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
+
                 Load.setVisible(false);
-                if ((BeerData.beer.size()>0)) {
+                if(cameraOpen) {
+                    try {
+
+                        closeWebcam();
+
+
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // If only one result for a search, go straight to beer profile
+                if ((BeerData.beer.size()==1)) {
+
+                    BeerData.selectedBeer = BeerData.beer.get(0);
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if ((BeerData.beer.size()>1)) {
 
 
                     // Load the result stage
@@ -376,6 +446,85 @@ public class HomeCenter extends BaseController implements Initializable
         }
     }
 
+    @FXML
+    public void onBeerScan (ActionEvent event) throws Exception {
+
+        cameraOpen = true;
+        webCam = new SwingNode();
+        SwingNode barcode = new SwingNode();
+        pane = new BorderPane();
+        workaroundButton = new Button();
+        workaroundButton.setOnAction(e -> beerScanSearchButton.fire());
+        Button webcamClose = new Button("X");
+        webcamClose.setOnAction(e -> closeWebcam());
+
+
+        //Dim background
+        Navigation.primaryStage.setOpacity(0);
+
+
+        // Webcam window settings
+        webcamStage = new Stage();
+        webcamScene = new Scene(pane, 400, 250);
+        webcamStage.setScene(webcamScene);
+        webcamStage.initStyle(StageStyle.TRANSPARENT);
+        webcamStage.setAlwaysOnTop(true);
+        webcamScene.setFill(Color.TRANSPARENT);
+        pane.setCenter(webCam);
+        pane.setTop(webcamClose);
+        pane.setBorder(new Border(new BorderStroke(Paint.valueOf("orange"), BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(3))));
+        pane.setBackground(new Background(new BackgroundFill(Paint.valueOf("black"), new CornerRadii(8), null)));
+
+        System.out.println("Inside onBeerScan " + barcode);
+
+        webcamStage.show();
+
+        getWebcam(webCam);
+    }
+
+    private void getWebcam(final SwingNode webcam) {
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+
+                BeerScanner scanner = new BeerScanner();
+                webcam.setContent(scanner.panel);
+            }
+        });
+    }
+
+    public static void setBarcode(String string){
+        barcode = string;
+    }
+
+    public static void checkIfbarcodeIsSet(){
+
+        boolean running = true;
+        do {
+            if(barcode == null){
+                continue;
+            }
+            else{
+                try {
+                    workaroundButton.fire();
+                    running = false;
+                }
+                catch (NullPointerException e){
+                }
+            }
+        }
+        while (running);
+    }
+
+    public void closeWebcam() {
+        webcamStage.close();
+        Navigation.primaryStage.setOpacity(1);
+        BeerScanner.disconnectWebcam();
+        //System.exit(0);
+
+    }
+
     /**
      *  Initialize Main controller
      * @param location
@@ -386,7 +535,9 @@ public class HomeCenter extends BaseController implements Initializable
         // Reset the BeerData Arraylist
         BeerData.beer = new ArrayList<Beer>();
         Navigation.current_CenterFXML = "/com/group8/resources/views/home_center.fxml";
+        beerScanSearchButton.setVisible(false);
 
-
+        System.out.println("Threads on start: " + Arrays.toString(com.group8.resources.Tools.ThreadUtilities.getAllDaemonThreads()));
     }
+
 }

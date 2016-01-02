@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -93,6 +94,8 @@ public class PubInfo extends BaseController implements Initializable{
     public TableColumn<Beer, String> avrageRank;
     @FXML
     public TableColumn<Beer,Image> beerImage;
+    @FXML
+    public TableColumn<Beer,String> beerInPubPrice;
     @FXML
     public PieChart showPie;
     @FXML
@@ -167,6 +170,7 @@ public class PubInfo extends BaseController implements Initializable{
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
         avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("AvRank"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
+        beerInPubPrice.setCellValueFactory(new PropertyValueFactory<Beer, String>("Price"));
 
 
         // Try loading the image, if there is none will use placeholder
@@ -285,6 +289,9 @@ public class PubInfo extends BaseController implements Initializable{
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
 		alert.showAndWait();
+
+		// Test border set red
+		//pubDescription.setStyle("-fx-border-color: red");
 
 	}
 
