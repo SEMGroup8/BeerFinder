@@ -5,9 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox alignment="TOP_CENTER" prefHeight="33.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInTop">
+<HBox alignment="TOP_CENTER" minHeight="33.0" minWidth="600.0" prefHeight="33.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.LoggedInTop">
    <children>
-      <HBox prefHeight="33.0" prefWidth="323.0" HBox.hgrow="ALWAYS">
+      <HBox minHeight="33.0" minWidth="323.0" prefHeight="33.0" prefWidth="323.0" HBox.hgrow="ALWAYS">
          <children>
             <Label text="Logged in as: ">
                <HBox.margin>

@@ -5,6 +5,7 @@ import com.group8.database.tables.Pub;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -78,7 +79,7 @@ public class LoggedInTop extends BaseController implements Initializable
      * @throws IOException
      */
     @FXML
-    public void onLogout(javafx.event.ActionEvent event) throws IOException
+    public void onLogout(ActionEvent event) throws IOException
     {
         UserData.userInstance = null;
 
@@ -99,7 +100,7 @@ public class LoggedInTop extends BaseController implements Initializable
      * @throws IOException
      */
     @FXML
-    public void onAccount(javafx.event.ActionEvent event) throws IOException
+    public void onAccount(ActionEvent event) throws IOException
     {
         //Make a new Service
         backgroundThread = new Service<Void>() {
@@ -168,7 +169,8 @@ public class LoggedInTop extends BaseController implements Initializable
      * @param event
      * @throws IOException
      */
-    public void usersList(javafx.event.ActionEvent event) throws IOException
+    @FXML
+    public void usersList(ActionEvent event) throws IOException
     {
     	UserData.userInstance.getUsers();
     	UserData.userInstance.getFollowers();
