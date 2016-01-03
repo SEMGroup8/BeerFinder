@@ -37,7 +37,7 @@ public class PubDetailViewController extends BaseController implements Initializ
 	@FXML
 	public Label phoneNumberLabel;
 	@FXML
-	public Button addToFavourites;
+	public Button addToFavouritesButton, removeFromFavourites;
 	@FXML
 	public Label added;
 
@@ -61,7 +61,14 @@ public class PubDetailViewController extends BaseController implements Initializ
 
 		if(UserData.userInstance!=null) {
 			if (!UserData.userInstance.getIsPub()) {
-				addToFavourites.setVisible(true);
+				if(notAddedToFavourites())
+				{
+					addToFavouritesButton.setVisible(true);
+				}
+				else
+				{
+					removeFromFavourites.setVisible(true);
+				}
 			}
 		}
 	}
@@ -74,7 +81,43 @@ public class PubDetailViewController extends BaseController implements Initializ
 
 			MysqlDriver.insert(sqlQuery);
 
+			added.setText("Added to favourites!");
 			added.setVisible(true);
+
+			addToFavouritesButton.setVisible(false);
+			removeFromFavourites.setVisible(true);
+		}
+	}
+
+	public void removeFromFavourites(ActionEvent event) throws Exception
+	{
+		if(UserData.userInstance!=null)
+		{
+			String sqlQuery = "delete from favouritePub where pubID = " + PubData.selectedPub.getPubId() + " and userId = " + UserData.userInstance.getId() + ";";
+
+			MysqlDriver.update(sqlQuery);
+
+			added.setText("Removed from favourites!");
+			added.setVisible(true);
+
+			removeFromFavourites.setVisible(false);
+
+			addToFavouritesButton.setVisible(true);
+		}
+	}
+
+	/**
+	 * Created by Linus Eiderström Swahn.
+	 *
+	 * Checks if the pub is all ready in the users favourite list.
+	 * @return
+	 */
+	public boolean notAddedToFavourites(){
+		String selectQuery = "Select * from favouritePub where userID = '" +UserData.userInstance.getId()+"' and pubID = '"+PubData.selectedPub.getPubId() + "';";
+		if(RegisterUserController.checkAvailability(selectQuery)){
+			return true;
+		}else{
+			return false;
 		}
 	}
 }
