@@ -95,6 +95,10 @@
                         <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" textFill="WHITE" />
                         <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" textFill="WHITE" />
                         <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" layoutX="115.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="added" layoutX="152.0" layoutY="203.0" prefHeight="23.0" prefWidth="175.0" text="Added!" textFill="#00ff37" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
                         </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -105,10 +109,6 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="added" layoutX="271.0" layoutY="4.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Label>
                         <Label layoutX="380.0" layoutY="3.0" text="Price:" textFill="#ffffff">
                            <font>
                               <Font size="18.0" />
@@ -121,7 +121,9 @@
                         </Label>
                         <Button fx:id="favourite" layoutX="150.0" layoutY="4.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" textFill="#ffffff" visible="false" />
                         <Button fx:id="addToPub" layoutX="168.0" layoutY="4.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
-                        <Button fx:id="updateBeerButton" layoutX="291.0" layoutY="4.0" mnemonicParsing="false" onAction="#updateBeer" text="Update Beer" visible="false" />
+                        <Button fx:id="updateBeerButton" layoutX="292.0" layoutY="4.0" mnemonicParsing="false" onAction="#updateBeer" text="Update Beer" visible="false" />
+                        <Button fx:id="removeFromFavouritesButton" layoutX="129.0" layoutY="4.0" mnemonicParsing="false" onAction="#removeFromFavourites" text="Remove from Favourites" visible="false" />
+                        <Button fx:id="removeFromPubButton" layoutX="148.0" layoutY="4.0" mnemonicParsing="false" onAction="#removeFromPub" text="Remove from Pub" visible="false" />
                      </children>
                   </AnchorPane>
                </children>

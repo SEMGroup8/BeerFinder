@@ -42,7 +42,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     @FXML
     public Label gMapsError;
     @FXML
-    public Button back, favourite, addToPub;
+    public Button back, favourite, addToPub, removeFromFavouritesButton, removeFromPubButton;
     @FXML
     public Button newSearch;
     @FXML
@@ -224,15 +224,86 @@ public class BeerDetailController extends BaseController implements Initializabl
         if(UserData.userInstance!=null)
         {
 			// Has the user all ready added the beer to the favourites?
-			if(notAddedToFavourites()) {
+			if(notAddedToFavourites())
+            {
 				String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ", 1);";
 
 				MysqlDriver.insert(sqlQuery);
 
 				UserData.userInstance.getFavouriteBeers();
 
+                added.setText("Added to favourites!");
 				added.setVisible(true);
+
+                favourite.setVisible(false);
+                removeFromFavouritesButton.setVisible(true);
 			}
+        }
+    }
+
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the "remove form favourites" button.
+     *
+     * Removes the beer from the users favourite list.
+     *
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void removeFromFavourites(ActionEvent event) throws IOException
+    {
+        if(UserData.userInstance!=null)
+        {
+            // Is the beer a favourite?
+            if (!notAddedToFavourites())
+            {
+                String sqlQuery = "delete from favourites where beerID = " + BeerData.selectedBeer.getId() + " and userId = " + UserData.userInstance.getId() + ";";
+
+                MysqlDriver.update(sqlQuery);
+
+                added.setText("Removed from favourites!");
+                added.setVisible(true);
+
+                removeFromFavouritesButton.setVisible(false);
+
+                favourite.setVisible(true);
+            }
+        }
+    }
+
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the "remove form pub" button.
+     *
+     * Removes the beer from the pubs inventory.
+     *
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void removeFromPub(ActionEvent event) throws IOException
+    {
+        if(UserData.userInstance!=null)
+        {
+            // Is the beer in the pub?
+            if (!notInPub())
+            {
+                cantRank.setVisible(false);
+                
+                String sqlQuery = "delete from beerInPub where beerId = " + BeerData.selectedBeer.getId() + " and pubID = " + UserData.userInstance.getPubId() + ";";
+
+                MysqlDriver.update(sqlQuery);
+
+                added.setText("Removed from Pub!");
+                added.setVisible(true);
+
+                addToPub.setVisible(true);
+
+                removeFromPubButton.setVisible(false);
+            }
         }
     }
 
@@ -276,6 +347,13 @@ public class BeerDetailController extends BaseController implements Initializabl
 									MysqlDriver.insert(query);
 
 									dialog.close();
+
+                                    added.setText("Added to Pub!");
+                                    added.setVisible(true);
+
+                                    addToPub.setVisible(false);
+
+                                    removeFromPubButton.setVisible(true);
 								}
 							});
 
@@ -286,6 +364,12 @@ public class BeerDetailController extends BaseController implements Initializabl
 					dialog.setScene(dialogScene);
 					dialog.show();
 				}
+                else
+                {
+                    added.setText("All ready in pub!");
+
+                    added.setVisible(true);
+                }
             }
         }
     }
@@ -303,16 +387,29 @@ public class BeerDetailController extends BaseController implements Initializabl
         imageViewHBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#2A1806"), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(4))));
 
         if(UserData.userInstance!=null) {
-            favourite.setVisible(true);
+
             if (UserData.userInstance.getIsPub()) {
-                addToPub.setVisible(true);
+
+                if(notInPub())
+                {
+                    addToPub.setVisible(true);
+                }
+                else
+                {
+                    removeFromPubButton.setVisible(true);
+                }
 				updateBeerButton.setVisible(true);
-                favourite.setVisible(false);
             }
-        }
-        else
-        {
-            favourite.setVisible(false);
+            else
+            {
+                if(notAddedToFavourites()) {
+                    favourite.setVisible(true);
+                }
+                else
+                {
+                    removeFromFavouritesButton.setVisible(true);
+                }
+            }
         }
 
         // Display Name of beer
