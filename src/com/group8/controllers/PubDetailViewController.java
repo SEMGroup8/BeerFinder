@@ -1,5 +1,6 @@
 package com.group8.controllers;
 
+import com.group8.database.MysqlDriver;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,11 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.group8.database.MysqlDriver;
 
 /**
  * Pub Detail View
@@ -39,8 +37,9 @@ public class PubDetailViewController extends BaseController implements Initializ
 	@FXML
 	public Label phoneNumberLabel;
 	@FXML
-	public Button addToFavouritesButton;
-
+	public Button addToFavourites;
+	@FXML
+	public Label added;
 
 	/**
 	 *	Place out all information about selectedPub in respective fields
@@ -53,29 +52,29 @@ public class PubDetailViewController extends BaseController implements Initializ
 		Navigation.current_CenterFXML = "/com/group8/resources/views/pubDetailView.fxml";
 
 	  	pubImage.setImage(PubData.selectedPub.getImage());
-		pubNameLabel.setText(PubData.selectedPub.get_name());
+		pubNameLabel.setText(PubData.selectedPub.getName());
 		pubAddressLabel.setText(PubData.selectedPub.get_address());
-		pubOffersLabel.setText(PubData.selectedPub.get_offer());
+		pubOffersLabel.setText(PubData.selectedPub.getOffer());
 		pubEntranceFeeLabel.setText("" +PubData.selectedPub.get_entranceFee());
-		phoneNumberLabel.setText(PubData.selectedPub.get_phoneNumber());
-		descriptionArea.setText(PubData.selectedPub.get_description());
-	  
-	}
-   public void addToFavourites(ActionEvent event)throws IOException {
-	   if (UserData.userInstance != null) {
-			String sqlQuery = "insert into favouritePub (pubId, userId)  values(" + PubData.selectedPub.get_pubId()+ ", "
-					+ UserData.userInstance.get_id() + ");";
+		phoneNumberLabel.setText(PubData.selectedPub.getPhoneNumber());
+		descriptionArea.setText(PubData.selectedPub.getDescription());
 
-			System.out.println(sqlQuery);
+		if(UserData.userInstance!=null) {
+			if (!UserData.userInstance.getIsPub()) {
+				addToFavourites.setVisible(true);
+			}
+		}
+	}
+
+	public void onFavourites(ActionEvent event) throws Exception
+	{
+		if(UserData.userInstance!=null)
+		{
+			String sqlQuery = "insert into favouritePub values(" + PubData.selectedPub.getPubId() + ", " + UserData.userInstance.getId() + ", 1);";
 
 			MysqlDriver.insert(sqlQuery);
 
-			UserData.userInstance.getPubFavourites();
-
-			addToFavouritesButton.setVisible(true);
+			added.setVisible(true);
 		}
-	   
-   }
-	
-
+	}
 }

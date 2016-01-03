@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by AnkanX on 15-10-26.
+ * Created by Andreas Fransson on 15-10-26.
  *
  * TODO make a better holding class contained inside a directory for holding classes for better structure.
  *

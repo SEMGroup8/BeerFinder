@@ -3,7 +3,6 @@ package com.group8.controllers;
 import java.io.*;
 import java.net.URL;
 import java.sql.*;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
@@ -11,7 +10,6 @@ import java.util.ResourceBundle;
 import com.group8.database.tables.Beer;
 import com.lynden.gmapsfx.MainApp;
 
-import com.mysql.jdbc.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,8 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -102,14 +98,14 @@ public class PubInfo extends BaseController implements Initializable{
     public Label userName;
 
 	// Latlong
-	double latitude = PubData.loggedInPub.get_geoLat();
-	double longitude = PubData.loggedInPub.get_geoLong();
+	double latitude = PubData.loggedInPub.getGeoLat();
+	double longitude = PubData.loggedInPub.getGeoLong();
 	
 	Image imgLoad;
 	FileInputStream imageStream ;
 	File file;
 	boolean loadAnImage = false;
-	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
+	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.beersInPub);
 	
 	
 	 public void getRow(){
@@ -127,7 +123,7 @@ public class PubInfo extends BaseController implements Initializable{
 	                        //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
 	                        // Set the selectedBeer instance of beer we have to selected item
 	                        BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
-	                        // Load the details scene
+	                        // load the details scene
 	                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 	                        try {
 	  							mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
@@ -146,11 +142,11 @@ public class PubInfo extends BaseController implements Initializable{
 
 	public void initialize(URL location, ResourceBundle resources) {
 				
-		pubName.setText(PubData.loggedInPub.get_name());
-		pubPhoneNumber.setText(PubData.loggedInPub.get_phoneNumber());
+		pubName.setText(PubData.loggedInPub.getName());
+		pubPhoneNumber.setText(PubData.loggedInPub.getPhoneNumber());
 		pubAddress.setText(PubData.loggedInPub.get_address());
-		pubDescription.setText(PubData.loggedInPub.get_description());
-		pubOffer.setText(PubData.loggedInPub.get_offer());
+		pubDescription.setText(PubData.loggedInPub.getDescription());
+		pubOffer.setText(PubData.loggedInPub.getOffer());
 		pubEntranceFee.setText(""+PubData.loggedInPub.get_entranceFee());
 		pubImage.setImage(PubData.loggedInPub.getImage());
 
@@ -240,7 +236,7 @@ public class PubInfo extends BaseController implements Initializable{
 		
 		Byte[] emptyImage = new Byte[0];
 		String pubInfo = "";
-		int pubID = UserData.userInstance.get_pubId();
+		int pubID = UserData.userInstance.getPubId();
 
 		// Setup the mysel connection
 		String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
@@ -263,7 +259,7 @@ public class PubInfo extends BaseController implements Initializable{
 		// rest of the fields
 		statmnt +=",`description`='"+ pubDescription.getText()+"',`offers`='"+
 				pubOffer.getText()+"',`entrenceFee`="+entrance+" WHERE pubID='"+
-				UserData.userInstance.get_pubId()+"';";
+				UserData.userInstance.getPubId()+"';";
 
 		// Set the statement to the prepared statement
 		PreparedStatement statement = con.prepareStatement(statmnt);
@@ -275,7 +271,7 @@ public class PubInfo extends BaseController implements Initializable{
 		}
 
 		statement.executeUpdate();
-		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + PubData.loggedInPub.get_adressId());
+		statement = con.prepareStatement("UPDATE `pubAddress` SET `address`='"+pubAddress.getText()+"',`longitude`='" + longitude + "',`latitude`='" + latitude +"' where addressID=" + PubData.loggedInPub.getAdressId());
 		statement.executeUpdate();
 
 		// Show confirmation
@@ -338,7 +334,7 @@ public class PubInfo extends BaseController implements Initializable{
 	} // end of method
 
 	/**
-	 * Load the addBeer scene
+	 * load the addBeer scene
 	 * --> Used to change the center FXML to the addBeer FXML alt "scene"
 	 * @param event
 	 * @throws IOException
@@ -348,6 +344,11 @@ public class PubInfo extends BaseController implements Initializable{
          
 	}
 
+	/**
+	 * Created by Andreas Fransson.
+	 * @param event
+	 * @throws IOException
+	 */
 	public void getMap(javafx.event.ActionEvent event) throws IOException{
 
 			FXMLLoader loader = new FXMLLoader();

@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-12-07.
+ * Created by Andreas Fransson on 15-12-07.
  */
 public class helpController extends BaseController implements Initializable{
 
@@ -51,7 +51,7 @@ public class helpController extends BaseController implements Initializable{
                     System.out.println(active);
 
 
-                    // Load the details scene
+                    // load the details scene
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     // try {
                     // TODO have to fix nameing
@@ -202,6 +202,17 @@ public class helpController extends BaseController implements Initializable{
         TreeItem<String> subChild_Pub = new TreeItem<>("Pub Object");
         TreeItem<String> subChild_Marker = new TreeItem<>("Marker Object");
         TreeItem<String> subChild_User = new TreeItem<>("User Object");
+        TreeItem<String> subChild_MySqlDriver = new TreeItem<>("MySqlDriver");
+        TreeItem<String> subChild_Beer_Tableview = new TreeItem<>("Beer Tableview");
+        TreeItem<String> subChild_Queries = new TreeItem<>("Queries");
+        TreeItem<String> subChild_Google_Maps = new TreeItem<>("Google Maps");
+        TreeItem<String> subChild_Barcode_scanner = new TreeItem<>("Barcode scanner");
+        TreeItem<String> subChild_User_Instance = new TreeItem<>("User instance");
+        TreeItem<String> subChild_Threading = new TreeItem<>("Threading");
+        TreeItem<String> subChild_FXML = new TreeItem<>("FXML");
+        TreeItem<String> subChild_CSS = new TreeItem<>("CSS");
+        TreeItem<String> subChild_Images = new TreeItem<>("Images");
+
         // Set root item
         helpTree.setRoot(treeRoot);
 
@@ -220,6 +231,16 @@ public class helpController extends BaseController implements Initializable{
         subChild_Objects.getChildren().add(subChild_Pub);
         subChild_Objects.getChildren().add(subChild_User);
         subChild_Objects.getChildren().add(subChild_Marker);
+        child_Programmer.getChildren().add(subChild_Beer_Tableview);
+        child_Programmer.getChildren().add(subChild_FXML);
+        child_Programmer.getChildren().add(subChild_Images);
+        child_Programmer.getChildren().add(subChild_CSS);
+        child_Programmer.getChildren().add(subChild_MySqlDriver);
+        subChild_MySqlDriver.getChildren().add(subChild_Queries);
+        child_Programmer.getChildren().add(subChild_Barcode_scanner);
+        child_Programmer.getChildren().add(subChild_Threading);
+        child_Programmer.getChildren().add(subChild_User_Instance);
+
 
 
 

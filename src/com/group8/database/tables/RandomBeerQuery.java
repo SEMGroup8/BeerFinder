@@ -15,10 +15,16 @@ public class RandomBeerQuery extends MysqlDriver {
     Scene3Controller scene3 = new Scene3Controller();
 
 
-// Search string for the user choice
-    public String resultQuery(){
+    /**
+     * Created by Mantas Namgaudis
+     *
+     * Creates a query according to user preferences for a random beer.
+     *
+     * @return query
+     */
+    public String resultQuery() {
 
-        if (scene3.getTypesPicked().equals("(") || scene3.getTypesPicked().equals(")")){
+        if (scene3.getTypesPicked().equals("(") || scene3.getTypesPicked().equals(")")) {
             query = "SELECT beerID,name,image,description,beerTypeEN,countryName,percentage,producerName,volume,isTap,packageTypeEN,price,avStars,countryFlag" +
                     " FROM beers, beerType, origin, package" +
                     " WHERE (price < " + scene1.getPricePickedHigh() +
@@ -27,10 +33,9 @@ public class RandomBeerQuery extends MysqlDriver {
                     " AND percentage > " + scene2.getPercentagePickedLow() +
                     " AND beers.beerTypeID = beerType.beerTypeID " +
                     " AND beers.originID = origin.originID " +
-                    " AND beers.package = package.packageID "+
-                    ") order by rand() limit 0, 100";
-        }
-        else {
+                    " AND beers.package = package.packageID " + ")";
+            //") order by rand() limit 0, 100";
+        } else {
             query = "SELECT beerID,name,image,description,beerTypeEN,countryName,percentage,producerName,volume,isTap,packageTypeEN,price,avStars,countryFlag" +
                     " FROM beers, beerType, origin, package" +
                     " WHERE (price < " + scene1.getPricePickedHigh() +
@@ -39,30 +44,29 @@ public class RandomBeerQuery extends MysqlDriver {
                     " AND percentage > " + scene2.getPercentagePickedLow() +
                     " AND beers.beerTypeID = beerType.beerTypeID " +
                     " AND beers.originID = origin.originID " +
-                    " AND beers.package = package.packageID "+
-                    " AND beerTypeID IN " + scene3.getTypesPicked() +
-                    ") order by rand() limit 0, 100";
+                    " AND beers.package = package.packageID " +
+                    " AND beerTypeID IN " + scene3.getTypesPicked() + ")";
+            //") order by rand() limit 0, 100";
         }
 
-        //Test print
-        System.out.println(query);
-
-       return query;
+        return query;
     }
 
-    // Search string for the random beer
-    public String randomQuery(int integer){
+    /**
+     * Created by Mantas Namgaudis
+     *
+     * Creates a query for getting a beer by its ID.
+     * @param integer
+     * @return
+     */
+    public String randomQuery(int integer) {
 
         query2 = "SELECT beerID,name,image,description,beerTypeEN,countryName,percentage,producerName,volume,isTap,packageTypeEN,price,avStars,countryFlag" +
                 " FROM beers, beerType, origin, package" +
-                " WHERE beerID = "+ integer +
+                " WHERE beerID = " + integer +
                 " AND beers.beerTypeID = beerType.beerTypeID " +
                 " AND beers.originID = origin.originID " +
-                " AND beers.package = package.packageID "+
-                " order by rand() limit 0, 100";
-
-        //Test print
-        System.out.println(query2);
+                " AND beers.package = package.packageID ";
 
         return query2;
     }

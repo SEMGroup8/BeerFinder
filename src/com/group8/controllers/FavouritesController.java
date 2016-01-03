@@ -7,7 +7,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -15,15 +14,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import sun.rmi.runtime.Log;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Shiratori on 04/11/15.
+ * Created by Linus Eiderström Swahn.
+ *
+ * Controller for the favourite beer scene where the user can see his favourite beers.
+ *
+ * Inherits BaseController for some UI-funcitonality.
+ *
+ * Implements Initializable so that we can tale advantage of the initialize() function.
  */
 public class FavouritesController extends BaseController implements Initializable
 {
@@ -50,36 +53,30 @@ public class FavouritesController extends BaseController implements Initializabl
     @FXML
     public TableColumn<Beer,Image> beerImage;
     @FXML
-    public PieChart showPie;
-    @FXML
     public Label userName;
 
-    public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.favourites);
+    public ObservableList<Beer> beerList = FXCollections.observableArrayList(UserData.userInstance.favourites);
 
     /**
+     * Created by Linus Eiderström Swahn.
+     *
      * Select a beer row and proceed to the beerDetail scene
      */
     public void getRow(){
         beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            // Select item will only be displayed when dubbleclicked
 
-            /**
-             * Dubleclick event
-             * @param event
-             */
+            // If the user double clicks.
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    // Show that we can select items and print it
-                    //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
-                    // Set the selectedBeer instance of beer we have to selected item
+
+                    // Set the selectedBeer instance of beer we have to the selected item
                     BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
-                    // Load the details scene
-                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+                    // load the details scene
+
                     try {
-                        // TODO have to fix nameing
+
                         mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
-                        
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -87,19 +84,22 @@ public class FavouritesController extends BaseController implements Initializabl
 
                 }
             }
-
         });
     }
 
     /**
-     * initialize result controller
+     * Created by Linus Eiderström Swahn.
+     *
+     * initialize is defined in the Initializable interface.
+     * It runs once when the controller loads when the fxml is called.
+     *
+     * Sets the data in the tableview.
+     *
      * @param location
      * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
 
         Navigation.current_CenterFXML =  "/com/group8/resources/views/favourites.fxml";
 
@@ -111,7 +111,6 @@ public class FavouritesController extends BaseController implements Initializabl
         beerPackage.setCellValueFactory(new PropertyValueFactory<Beer, String>("BeerPackage"));
         avrageRank.setCellValueFactory(new PropertyValueFactory<Beer, String>("AvRank"));
         beerPercentage.setCellValueFactory(new PropertyValueFactory<Beer, String>("Percentage"));
-
 
         // Try loading the image, if there is none will use placeholder
         beerImage.setCellValueFactory(new PropertyValueFactory<Beer, Image>("Image"));
@@ -149,8 +148,6 @@ public class FavouritesController extends BaseController implements Initializabl
                                 imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
                                 imgVw.setFitWidth(20);
                                 imgVw.setFitHeight(40);
-                                // Test Output
-                                //System.out.println(imgVw.getImage().toString());
                                 vb.getChildren().addAll(imgVw);
                                 setGraphic(vb);
 
@@ -164,6 +161,6 @@ public class FavouritesController extends BaseController implements Initializabl
         });
 
         //Populate the Tableview
-        beerTable.setItems(masterData);
+        beerTable.setItems(beerList);
     }
 }

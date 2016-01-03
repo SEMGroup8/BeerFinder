@@ -2,11 +2,17 @@ package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -17,18 +23,32 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Created by Shiratori on 24/11/15.
+ * Created by Created by Linus Eiderström Swahn.
+ *
+ * Controller for the logged in top part of the ui.
+ *
+ * Controller for the top top ui element when the user is logged out.
+ *
+ * Inherits BaseController for some UI-functionality.
+ *
+ * Implements Initializable so that we can tale advantage of the initialize() function.
  */
 public class LoggedInTop extends BaseController implements Initializable
 {
-    // Declaration of elements
     @FXML
-    public Button logout, account, beerFavourite, pubFavourite;
+    public Button logout, account, beerFavourite, pubFavourite, profileButton, usersListButton;
     @FXML
     public Label userName;
-    ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
+    @FXML
+    public ProgressIndicator load;
+
+    public ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
+
+    private Service<Void> backgroundThread;
 
     /**
+     * Created by Linus Eiderström Swahn.
+     *
      * Initialize Main controller
      *
      * @param location
@@ -37,11 +57,10 @@ public class LoggedInTop extends BaseController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        if(UserData.userInstance.get_isPub())
+        // Hides certain elements if we are a pub.
+        if(UserData.userInstance.getIsPub())
         {
             account.setText("Pub");
-            beerFavourite.setVisible(false);
-            pubFavourite.setVisible(false);
         }
 
         // Reset the BeerData Arraylist
@@ -49,16 +68,18 @@ public class LoggedInTop extends BaseController implements Initializable
         userName.setText(UserData.userInstance.get_name());
 
         PubData.pubs = new ArrayList<Pub>();
-
     }
 
-    // Resets guide text if no input was made
-    public void exitField() {
-
-    }
-
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the logout button.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    public void onLogout(javafx.event.ActionEvent event) throws IOException
+    public void onLogout(ActionEvent event) throws IOException
     {
         UserData.userInstance = null;
 
@@ -66,42 +87,95 @@ public class LoggedInTop extends BaseController implements Initializable
         mainScene.changeCenter("/com/group8/resources/views/home_center.fxml");
     }
 
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the account button.
+     *
+     * Depending on if the user is a pub owner or not different scenes get called.
+     *
+     * Threaded.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    public void onAccount(javafx.event.ActionEvent event) throws IOException
+    public void onAccount(ActionEvent event) throws IOException
     {
-        if(UserData.userInstance.get_isPub())
-        {
-            mainScene.changeCenter("/com/group8/resources/views/pubInfo.fxml");
-        }
-        else
-        {
-            mainScene.changeCenter("/com/group8/resources/views/accountSettings.fxml");
-        }
+        //Make a new Service
+        backgroundThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+
+                        // load wheel until task is finished
+                        load.setStyle("-fx-accent: IVORY");
+                        load.setVisible(true);
+
+                        if(UserData.userInstance.getIsPub())
+                        {
+
+                            //Makes the selected pub owner load the beers it has in it's inventory.
+                            UserData.userInstance.getBeersInPub();
+                        }
+                        else {
+
+                            //Load the followers, beers and pubs the user has.
+                            UserData.userInstance.getFollowers();
+                            UserData.userInstance.getFavouriteBeers();
+                            UserData.userInstance.getPubFavourites();
+                        }
+                        return null;
+                    }
+                };
+            }
+        };
+
+        //When the service has completed succesfully.
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                load.setVisible(false);
+
+
+                if(UserData.userInstance.getIsPub())
+                {
+
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/pubInfo.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/MyProfile.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        // Start the service.
+        backgroundThread.start();
+
     }
 
+    /**
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
-    public void onBeerFavourites(javafx.event.ActionEvent event) throws IOException
+    public void usersList(ActionEvent event) throws IOException
     {
-        mainScene.changeCenter("/com/group8/resources/views/favourites.fxml");
+    	UserData.userInstance.getUsers();
+    	UserData.userInstance.getFollowers();
+    	
+        mainScene.changeCenter("/com/group8/resources/views/userList.fxml");
 
-    }
-    @FXML
-    public void onPubFavourites(javafx.event.ActionEvent event) throws IOException
-    {
-        if(!PubData.pubs.isEmpty()) {
-            mainScene.changeCenter("/com/group8/resources/views/FavouritePub.fxml");
-        }else{
-            img.setFitWidth(60);
-            img.setFitHeight(60);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Favourites Error");
-            alert.setHeaderText("Cant't Show Favourite Pubs :/");
-            alert.setContentText("You don't have any Favourite Pubs.");
-            alert.setGraphic(img);
-            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
-            alert.showAndWait();
-
-        }
     }
 }

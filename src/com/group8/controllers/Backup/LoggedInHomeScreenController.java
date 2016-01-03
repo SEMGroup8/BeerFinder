@@ -26,7 +26,7 @@
 //public class LoggedInHomeScreenController extends MainController {
 //    // Declaration of elements
 //    @FXML
-//    public Button logout, account, favourites, randomButton;
+//    public Button logout, account, beerFavourites, randomButton;
 //    @FXML
 //    public Label userName;
 //
@@ -140,7 +140,7 @@
 //    @FXML
 //    public void onSearch(javafx.event.ActionEvent event) throws IOException {
 //
-//        // Load wheel until task is finished//
+//        // load wheel until task is finished//
 //        // load.setVisible(true);
 //// Fetch the user input
 //        BeerData.searchInput="";
@@ -236,7 +236,7 @@
 //
 //        if ((BeerData.beer.size() > 0)) {
 //
-//            // Load the result stage
+//            // load the result stage
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/result_center.fxml"));
 //            Scene result_scene = new Scene(result, 800, 600);
 //            Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -276,14 +276,14 @@
 //    @Override
 //    public void initialize(URL location, ResourceBundle resources)
 //    {
-//        if(UserData.userInstance.get_isPub())
+//        if(UserData.userInstance.getIsPub())
 //        {
 //            account.setText("Pub");
 //        }
 //
 //        // Reset the BeerData Arraylist
 //        BeerData.beer = new ArrayList<Beer>();
-//        userName.setText(UserData.userInstance.get_name());
+//        userName.setText(UserData.userInstance.getName());
 //
 //        Navigation.homescreenFXML = "/com/group8/resources/views/Backup/loggedInHomescreen.fxml";
 //        Navigation.resultviewFXML = "/com/group8/resources/views/result_center.fxml";
@@ -305,7 +305,7 @@
 //    @FXML
 //    public void onAccount(javafx.event.ActionEvent event) throws IOException
 //    {
-//        if(UserData.userInstance.get_isPub())
+//        if(UserData.userInstance.getIsPub())
 //        {
 //            Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
 //            Scene result_scene = new Scene(result, 800, 600);
@@ -338,7 +338,7 @@
 //    @FXML
 //    public void onFavourites(javafx.event.ActionEvent event) throws IOException
 //    {
-//        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
+//        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/beerFavourites.fxml"));
 //        Scene result_scene = new Scene(result, 800, 600);
 //        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //        main_stage.setScene(result_scene);

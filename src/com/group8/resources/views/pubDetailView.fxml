@@ -15,10 +15,10 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label fx:id="pubAddressLabel" layoutX="499.0" layoutY="135.0" prefHeight="24.0" prefWidth="212.0" text="address" />
-      <Label fx:id="pubOffersLabel" layoutX="505.0" layoutY="68.0" prefHeight="40.0" prefWidth="212.0" text="offers" />
-      <Label fx:id="pubEntranceFeeLabel" layoutX="489.0" layoutY="96.0" prefHeight="24.0" prefWidth="149.0" text="entrance fee" />
-      <Label fx:id="phoneNumberLabel" layoutX="499.0" layoutY="119.0" prefHeight="16.0" prefWidth="149.0" text="phone number" />
+      <Label fx:id="pubAddressLabel" layoutX="393.0" layoutY="166.0" prefHeight="24.0" prefWidth="212.0" text="address" />
+      <Label fx:id="pubOffersLabel" layoutX="400.0" layoutY="74.0" prefHeight="40.0" prefWidth="212.0" text="offers" />
+      <Label fx:id="pubEntranceFeeLabel" layoutX="393.0" layoutY="126.0" prefHeight="24.0" prefWidth="149.0" text="entrance fee" />
+      <Label fx:id="phoneNumberLabel" layoutX="393.0" layoutY="150.0" prefHeight="16.0" prefWidth="149.0" text="phone number" />
       <ImageView fx:id="pubImage" fitHeight="220.0" fitWidth="309.0" layoutX="41.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" />
       <HBox alignment="CENTER" layoutX="2.0" prefHeight="53.0" prefWidth="800.0">
          <children>
@@ -34,10 +34,7 @@
             </Label>
          </children>
       </HBox>
-      <Label layoutX="402.0" layoutY="80.0" text="Offers:" />
-      <Label layoutX="403.0" layoutY="100.0" text="Entrance fee:" />
-      <Label layoutX="403.0" layoutY="119.0" text="Phone number:" />
-      <Label layoutX="406.0" layoutY="139.0" text="Address:" />
-      <Button fx:id="addToFavouritesButton" layoutX="666.0" layoutY="304.0" mnemonicParsing="false" onAction="#addToFavourites" text="Add to favourites" />
+      <Button fx:id="addToFavourites" layoutX="134.0" layoutY="348.0" mnemonicParsing="false" onAction="#onFavourites" text="Add to Favourites" visible="false" />
+      <Label fx:id="added" layoutX="136.0" layoutY="324.0" text="Added to Favourites" textAlignment="CENTER" visible="false" />
    </children>
 </AnchorPane>

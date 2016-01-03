@@ -7,11 +7,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.FavouritePub">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.FavouritePub">
    <center>
       <TableView fx:id="pubTable" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="TOP_CENTER">
         <columns>
-          <TableColumn prefWidth="47.0" resizable="false" text="Image" />
+          <TableColumn fx:id="image" prefWidth="47.0" resizable="false" text="Image" />
           <TableColumn fx:id="pubName" prefWidth="141.0" resizable="false" text="Name" />
             <TableColumn fx:id="pubAddress" prefWidth="97.0" text="Address" />
             <TableColumn fx:id="pubPhoneNumber" prefWidth="110.0" text="Phone Number" />

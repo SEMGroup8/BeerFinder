@@ -4,22 +4,16 @@ import com.group8.database.tables.Pub;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.File;
@@ -54,7 +48,7 @@ public class PubList extends BaseController implements Initializable
     public ObservableList<Pub> masterData = FXCollections.observableArrayList(PubData.pubs);
 
     /**
-     * Select a beer row and proceed to the beerDetail scene
+     * Select a pub row and proceed to the beerDetail scene
      */
     public void getRow(){
         pubTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -68,8 +62,7 @@ public class PubList extends BaseController implements Initializable
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
-                    System.out.println("clicked on " + pubTable.getSelectionModel().getSelectedItem());
-                    int id = pubTable.getSelectionModel().getSelectedItem().get_pubId();
+                    int id = pubTable.getSelectionModel().getSelectedItem().getPubId();
                     // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
 
                     Pub selectedPub = new Pub("select * from pubs where pubID =" + id);
@@ -99,13 +92,12 @@ public class PubList extends BaseController implements Initializable
           Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
-            pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("_name"));
-	        pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("_address"));
-	        pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("_phoneNumber"));
-	        pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("_offers"));
-	        pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("_description"));
-	        pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("_entranceFee"));
-            System.out.println(pubName +"doki doki");
+        pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("name"));
+        pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("address"));
+        pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("phoneNumber"));
+        pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("offers"));
+        pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("description"));
+        pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("entranceFee"));
 
 
         // Try loading the image, if there is none will use placeholder
