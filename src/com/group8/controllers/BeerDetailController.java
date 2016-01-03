@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
  *
  * Controller for the beer details scene.
  *
- * Has functionality for ranking the beer, adding it to your favourites, or adding it to your pubs inventory
+ * Has functionality for ranking the beer, adding it to your favourites, or adding it to your searchForPubsCheckbox inventory
  * if you are a pub user.
  */
 public class BeerDetailController extends BaseController implements Initializable{
@@ -278,7 +278,7 @@ public class BeerDetailController extends BaseController implements Initializabl
      *
      * Gets called when the user presses the "remove form pub" button.
      *
-     * Removes the beer from the pubs inventory.
+     * Removes the beer from the searchForPubsCheckbox inventory.
      *
      * @param event
      * @throws IOException
@@ -322,7 +322,7 @@ public class BeerDetailController extends BaseController implements Initializabl
         {
             if (UserData.userInstance.getIsPub()) {
 
-				// Is the beer all ready added to the pubs inventory?
+				// Is the beer all ready added to the searchForPubsCheckbox inventory?
 				if(notInPub()) {
 					// Open a dialog window.
 					final Stage dialog = new Stage();
@@ -539,7 +539,7 @@ public class BeerDetailController extends BaseController implements Initializabl
 	/**
 	 * Created by Linus Eiderström Swahn.
 	 *
-	 * Checks if the current beer has allready been added to the pubs inventory.
+	 * Checks if the current beer has allready been added to the searchForPubsCheckbox inventory.
 	 * @return
 	 */
 	public boolean notInPub()

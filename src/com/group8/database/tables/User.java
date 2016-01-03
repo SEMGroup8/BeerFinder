@@ -39,8 +39,6 @@ public class User extends MysqlDriver
     public ArrayList<Beer> favourites;
     public ArrayList<Beer> beersInPub;
     public ArrayList<Pub> pubFavouritesDetails;
-    public ArrayList<Pub> pubListDetails;
-    public ArrayList<User>allUsers;
     public ArrayList<User>followedUsers;
     private BufferedImage userImage;
     private InputStream tmpImg;
@@ -207,46 +205,6 @@ public class User extends MysqlDriver
     }
 
     /**
-     * Created by Collins
-     */
-    public void getPubs() throws IOException {
-		String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
-		ArrayList<ArrayList<Object>> SQLData4;
-
-		SQLData4 = MysqlDriver.selectMany(listOfPub);
-		System.out.println(SQLData4 + " meeeee");
-		pubListDetails = new ArrayList<Pub>();
-
-		for (int i = 0; i < SQLData4.size(); i++) {
-			// Add a new Beer to the beer arraylist
-			Pub pub = new Pub(SQLData4.get(i));
-			// Testoutput
-			System.out.println(pub.getName() + "  which pub???");
-			this.pubListDetails.add(pub);
-
-		}
-	}
-
-    /**
-     * Created by Collins
-     */
-    public void getUsers(){
-    	//String userList="Select users.userId, username, fullname, password, email, isPub from users where isPub="+0;
-    	String userList="select * from users where isPub="+0;
-    	ArrayList<ArrayList<Object>> users;
-        users=	MysqlDriver.selectMany(userList);
-    	allUsers = new ArrayList<User>();
-    	
-    	for (int i = 0; i < users.size(); i++) {
-
-            User user1 = new User(users.get(i));
-
-            this.allUsers.add(user1);
-
-        }
-    }
-
-    /**
      * Created by
      */
     public void getFollowers(){
@@ -267,12 +225,12 @@ public class User extends MysqlDriver
 
     /**
      * Created by Collins
-     * Gets normal users Favourites list of pubs.
-     * --> Used when pushing the "Favourite pubs" button.
-     * --> Gets an array of pubs from the server and stores them in the UserInstance.
+     * Gets normal users Favourites list of searchForPubsCheckbox.
+     * --> Used when pushing the "Favourite searchForPubsCheckbox" button.
+     * --> Gets an array of searchForPubsCheckbox from the server and stores them in the UserInstance.
      */
 	public void getPubFavourites() {
-		String selFavPub = "select pubs.pubID,`name`, image,`phoneNumber`, `description`, `offers`, `entrenceFee` FROM `pubs`,`favouritePub` WHERE pubs.pubID=favouritePub.pubId AND favouritePub.userId = "	+ id;
+		String selFavPub = "select pubs.pubID,`name`, image,`phoneNumber`, `description`, `offers`, `entrenceFee` FROM `pubs`,`favouritePub` WHERE pubs.pubID = favouritePub.pubId AND favouritePub.userId = "	+ id;
 		ArrayList<ArrayList<Object>> sqlData3;
 
 		sqlData3 = MysqlDriver.selectMany(selFavPub);

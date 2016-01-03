@@ -17,14 +17,6 @@
                <HBox.margin>
                   <Insets top="8.0" />
                </HBox.margin></Label>
-            <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button fx:id="usersListButton" mnemonicParsing="false" onAction="#usersList" text="users" />
-               </children>
-               <HBox.margin>
-                  <Insets top="3.0" />
-               </HBox.margin>
-            </HBox>
          </children>
       </HBox>
       <ProgressIndicator fx:id="load" maxHeight="25.0" maxWidth="25.0" visible="false">

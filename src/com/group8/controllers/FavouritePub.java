@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 /**
- * Show users favourite pubs.
+ * Show users favourite searchForPubsCheckbox.
  * --> Follow function
  */
 public class FavouritePub extends BaseController implements Initializable {

@@ -122,7 +122,7 @@ public class LoggedInTop extends BaseController implements Initializable
                         }
                         else {
 
-                            //Load the followers, beers and pubs the user has.
+                            //Load the followers, beers and searchForPubsCheckbox the user has.
                             UserData.userInstance.getFollowers();
                             UserData.userInstance.getFavouriteBeers();
                             UserData.userInstance.getPubFavourites();
@@ -164,18 +164,4 @@ public class LoggedInTop extends BaseController implements Initializable
 
     }
 
-    /**
-     *
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void usersList(ActionEvent event) throws IOException
-    {
-    	UserData.userInstance.getUsers();
-    	UserData.userInstance.getFollowers();
-    	
-        mainScene.changeCenter("/com/group8/resources/views/userList.fxml");
-
-    }
 }

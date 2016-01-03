@@ -309,7 +309,7 @@ public class MainScene implements Initializable {
     /**
      * Created by Andreas Fransson and Linus Eiderström Swahn.
      *
-     * Gets all pubs who has this beer.
+     * Gets all searchForPubsCheckbox who has this beer.
      * Creates MapMarkers for each and then loads the map view.
      *
      * @param event
@@ -320,9 +320,9 @@ public class MainScene implements Initializable {
         BeerData.markers = new ArrayList<MapMarker>();
 
         String sqlQuery = "SELECT beerInPub.pubID, name, address, price, latitude, longitude, inStock " +
-                "from pubs, pubAddress, beerInPub " +
-                "where pubs.pubID = beerInPub.pubID " +
-                "and pubs.addressID = pubAddress.addressID " +
+                "from searchForPubsCheckbox, pubAddress, beerInPub " +
+                "where searchForPubsCheckbox.pubID = beerInPub.pubID " +
+                "and searchForPubsCheckbox.addressID = pubAddress.addressID " +
                 "and beerInPub.beerID = " + BeerData.selectedBeer.getId() + " " +
                 "order by price asc";
 

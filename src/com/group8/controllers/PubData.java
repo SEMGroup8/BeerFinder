@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Used to store data on pubs.
+ * Used to store data on searchForPubsCheckbox.
  * --> Used by the Pubdetail view to store data before showing selected data to the user.
  */
 public class PubData {
@@ -26,7 +26,7 @@ public class PubData {
     // The SQL query
     public static String searchInput;
 
-    // The pubs that have a certain beer
+    // The searchForPubsCheckbox that have a certain beer
     public static ArrayList<MapMarker> markers;
 
     public static LatLong Address = null;

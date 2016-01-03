@@ -40,7 +40,7 @@ public class UserList extends BaseController implements Initializable {
     public TableColumn<User, Image> userImage;
 
 
-    public ObservableList<User> masterData = FXCollections.observableArrayList(UserData.userInstance.allUsers);
+    public ObservableList<User> masterData = FXCollections.observableArrayList(UserData.users);
     private Service<Void> backgroundThread;
 
 
