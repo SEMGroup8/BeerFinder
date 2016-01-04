@@ -321,9 +321,9 @@ public class MainScene implements Initializable {
         BeerData.markers = new ArrayList<MapMarker>();
 
         String sqlQuery = "SELECT beerInPub.pubID, name, address, price, latitude, longitude, inStock " +
-                "from searchForPubsCheckbox, pubAddress, beerInPub " +
-                "where searchForPubsCheckbox.pubID = beerInPub.pubID " +
-                "and searchForPubsCheckbox.addressID = pubAddress.addressID " +
+                "from pubs, pubAddress, beerInPub " +
+                "where pubs.pubID = beerInPub.pubID " +
+                "and pubs.addressID = pubAddress.addressID " +
                 "and beerInPub.beerID = " + BeerData.selectedBeer.getId() + " " +
                 "order by price asc";
 

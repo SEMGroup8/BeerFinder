@@ -664,12 +664,26 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     * Created by Mantas Namgaudis
+     *
      * Execute search on pressing "Enter" key.
      */
     @FXML
     public void searchEnterPressed(KeyEvent event){
         if (event.getCode() == KeyCode.ENTER) {
-            search.setDefaultButton(true);
+
+            if(searchForUsersCheckbox.isSelected())
+            {
+                userSearchButton.setDefaultButton(true);
+            }
+            else if(searchForPubsCheckbox.isSelected())
+            {
+                pubSearchButton.setDefaultButton(true);
+            }
+            else
+            {
+                search.setDefaultButton(true);
+            }
         }
     }
 
