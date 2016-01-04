@@ -22,8 +22,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.collections.*;
 
 import javax.swing.*;
+
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -67,6 +70,14 @@ public class HomeCenter extends BaseController implements Initializable
     public TextField searchText;
     @FXML
     public ProgressIndicator Load;
+    @FXML
+    public ToggleButton notButton;
+    @FXML
+    public ListView<String> notList;
+    @FXML
+    public SplitPane notWindow;
+    @FXML
+    public Label notifications;
 
     private SwingNode webCam;
     private BorderPane pane;
@@ -75,9 +86,43 @@ public class HomeCenter extends BaseController implements Initializable
     private static String barcode = null;
     private static Button workaroundButton;
     boolean cameraOpen= false;
+    
+    int notNum=0;
 
     private Service<Void> backgroundThread;
 
+    public void getRow(){
+        notList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            // Select item will only be displayed when dubbleclicked
+
+            /**
+             * Dubleclick event
+             * @param event
+             */
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getClickCount() == 2) {
+                        // Show that we can select items and print it
+                        //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
+                        // Set the selectedBeer instance of beer we have to selected item
+                        String notification = notList.getSelectionModel().getSelectedItem();
+                        // load the details scene
+                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+                }
+            }
+
+        });
+    }
+    
+    public void onNot(){
+    	if(notButton.isSelected()){
+    		notWindow.setVisible(true);
+    	}
+    	else{
+    		notWindow.setVisible(false);
+    	}
+    }
+    
     /**
      * Created by Andreas Fransson.
      */
@@ -525,7 +570,24 @@ public class HomeCenter extends BaseController implements Initializable
         BeerData.beer = new ArrayList<Beer>();
         Navigation.current_CenterFXML = "/com/group8/resources/views/home_center.fxml";
         beerScanSearchButton.setVisible(false);
+       if(UserData.userInstance != null){
+    	   notButton.setDisable(false);
+           String sqlSt = "Select notification from notifications where userId = "+ UserData.userInstance.getId() +";";
+           ArrayList<ArrayList<Object>> notSql = MysqlDriver.selectMany(sqlSt);
+           notNum = notSql.size();
+           notButton.setText(notNum+"");
+           notifications.setText("You have "+notNum+" Notifications");
+           ObservableList<String> notMessage = FXCollections.observableArrayList();
+           for(int i=0; i<notNum;i++){
+        	   notMessage.add(notSql.get(i).get(0).toString());
+           }
+           notList.setItems(notMessage);
+       }else{
+    	   notButton.setDisable(true);
+           notWindow.setVisible(false);
+       }
         Load.setStyle("-fx-accent: IVORY");
+        
     }
 
 }

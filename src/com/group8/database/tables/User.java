@@ -203,6 +203,7 @@ public class User extends MysqlDriver
         if(this.isPub)
         {
             this.pubId = pubId;
+            this.pub = new Pub("Select * from pubs where pubID = '" + this.pubId + "';");
         }
     }
 
@@ -419,6 +420,9 @@ public class User extends MysqlDriver
 
     public String getPassword() {
         return password;
+    }
+    public Pub getPub(){
+    	return pub;
     }
 
     public String getEmail() {

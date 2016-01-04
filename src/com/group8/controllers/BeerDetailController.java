@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.Glow;
@@ -28,6 +29,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -42,6 +44,8 @@ public class BeerDetailController extends BaseController implements Initializabl
     public Label gMapsError;
     @FXML
     public Button back, favourite, addToPub;
+    @FXML
+    public CheckBox follow;
     @FXML
     public Button newSearch;
     @FXML
@@ -193,14 +197,16 @@ public class BeerDetailController extends BaseController implements Initializabl
     {
         if(UserData.userInstance!=null)
         {
-            String sqlQuery = "insert into beerFavourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ", 1);";
-
+            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ", 1);";
+            
             System.out.println(sqlQuery);
 
             MysqlDriver.insert(sqlQuery);
 
             UserData.userInstance.getFavouriteBeers();
-
+            
+            follow.setDisable(false);
+            
             added.setVisible(true);
         }
     }
@@ -236,10 +242,22 @@ public class BeerDetailController extends BaseController implements Initializabl
 
                             MysqlDriver.insert(query);
 
+                            query = "Select userId from favourites where beerID = "+ BeerData.selectedBeer.getId()+" and added = 1;";
+                            ArrayList<ArrayList<Object>> getUserId = MysqlDriver.selectMany(query);
+                            for(int i=0; i<getUserId.size();i++){
+                            	int ready = Integer.parseInt(getUserId.get(i).get(0).toString());
+                            	String notification = BeerData.selectedBeer.getName()+
+                            			" has been added to "+ 
+                            			UserData.userInstance.getPub().getName();              
+                            	String update = "Insert into notifications values (null, "+ready+", '"+notification+"');";
+                            	MysqlDriver.insert(update);
+                            }
+                            
                             System.out.println("Inserted beer to pub");
                             dialog.close();
                         }
                     });
+                
 
                 dialogVbox.getChildren().add(price);
                 dialogVbox.getChildren().add(addBeerToPub);
@@ -277,11 +295,13 @@ public class BeerDetailController extends BaseController implements Initializabl
             if (UserData.userInstance.getIsPub()) {
                 addToPub.setVisible(true);
                 favourite.setVisible(false);
+                follow.setVisible(false);
             }
         }
         else
         {
             favourite.setVisible(false);
+            follow.setVisible(false);
         }
 
         // Display Name of beer

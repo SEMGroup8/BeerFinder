@@ -13,7 +13,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,8 +29,6 @@ import javafx.util.Callback;
  */
 public class FavouritePub extends BaseController implements Initializable {
 
-		@FXML
-		public Button Add;
 		@FXML
 		public TableView<Pub> pubTable;
 	    @FXML

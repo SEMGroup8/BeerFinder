@@ -32,7 +32,7 @@ public class BeerRank extends MysqlDriver{
 	 * @param beerID
 	 * @param stars
 	 */
-	public BeerRank (int userId, int beerID, int stars){
+public BeerRank (int userId, int beerID, int stars){
 		this.Stars = stars;
 		this.userId = userId;
 		this.beerID = beerID;

@@ -40,7 +40,7 @@ public class LoggedInTop extends BaseController implements Initializable
     public Label userName;
     @FXML
     public ProgressIndicator load;
-
+    
     public ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
 
     private Service<Void> backgroundThread;
@@ -68,7 +68,7 @@ public class LoggedInTop extends BaseController implements Initializable
 
         PubData.pubs = new ArrayList<Pub>();
     }
-
+    
     /**
      * Created by Linus Eiderström Swahn.
      *

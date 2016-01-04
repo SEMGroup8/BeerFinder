@@ -18,6 +18,10 @@
      -fx-padding: 4 10 4 10;
      -fx-text-fill: white;
 }
+/*TODO make the notification button(not) to only have its own hover effect*/
+.not:hover{
+	-fx-effect: dropshadow( three-pass-box, rgba(82,131,255,1) ,10 ,0.5 ,0 ,1 );
+}
 .button:hover {
     -fx-background-image:url("../Images/buttonH.png");
      -fx-text-fill: gold;
@@ -32,3 +36,11 @@
 #helpButton:hover {
     -fx-background-image: url("../Images/helpButtonHover.png");
 } 
+
+.not{
+	-fx-background-image:url("../Images/notification.png");
+    -fx-background-color: transparent ;
+    -fx-background-size:  stretch;
+    -fx-text-fill: white;
+}
+
