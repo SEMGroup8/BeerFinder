@@ -17,7 +17,7 @@
                   </ImageView>
                   <TextField fx:id="beerName" layoutX="107.0" layoutY="25.0" prefHeight="36.0" prefWidth="177.0" promptText="Beer name..." />
                   <TextField fx:id="beerPercentage" layoutX="52.0" layoutY="474.0" prefHeight="28.0" prefWidth="49.0" promptText="per.." />
-                  <ChoiceBox fx:id="beerType" layoutX="191.0" layoutY="368.0" prefHeight="27.0" prefWidth="147.0" />
+                  <ChoiceBox fx:id="beerType" id="choisebox" layoutX="191.0" layoutY="368.0" prefHeight="27.0" prefWidth="147.0" />
                   <Label layoutX="229.0" layoutY="394.0" text="Producer" textFill="#ffffff" />
                   <Label layoutX="77.0" layoutY="394.0" text="Origin" textFill="#ffffff" />
                   <Label layoutX="70.0" layoutY="451.0" text="\%" textFill="#ffffff" />
@@ -26,9 +26,9 @@
                   <CheckBox fx:id="beerIsTap" layoutX="75.0" layoutY="372.0" mnemonicParsing="false" text="isTap" textFill="#ffffff" />
                   <TextField fx:id="beerVolume" layoutX="111.0" layoutY="475.0" prefHeight="26.0" prefWidth="66.0" promptText="vol..." />
                   <Label layoutX="122.0" layoutY="451.0" text="Volume" textFill="#ffffff" />
-                  <ChoiceBox fx:id="beerProducer" layoutX="189.0" layoutY="419.0" prefWidth="150.0" />
-                  <ChoiceBox fx:id="beerOrigin" layoutX="53.0" layoutY="419.0" prefHeight="26.0" prefWidth="100.0" />
-                  <ChoiceBox fx:id="beerPackageType" layoutX="189.0" layoutY="475.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="beerProducer" id="choisebox" layoutX="189.0" layoutY="419.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="beerOrigin" id="choisebox" layoutX="53.0" layoutY="419.0" prefHeight="26.0" prefWidth="100.0" />
+                  <ChoiceBox fx:id="beerPackageType" id="choisebox" layoutX="189.0" layoutY="475.0" prefWidth="150.0" />
                   <Label layoutX="241.0" layoutY="345.0" text="Type" textFill="#ffffff" />
                   <Button fx:id="addBeerImageButton" layoutX="103.0" layoutY="294.0" mnemonicParsing="false" onAction="#addBeerImage" text="Add Image" textFill="#ffffff" />
                </children>
