@@ -27,7 +27,7 @@
             <Text fill="WHITE" layoutX="417.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrance Fee" />
             <Button fx:id="pubSaveNew" layoutX="510.0" layoutY="371.0" mnemonicParsing="false" onAction="#updatePub" prefHeight="26.0" prefWidth="102.0" text="Update" />
             <Button fx:id="loadImg" layoutX="640.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadPubImage" text="Set Image" />
-            <Button fx:id="addBeer" layoutX="620.0" layoutY="371.0" mnemonicParsing="false" onAction="#onAddBeer" prefHeight="27.0" prefWidth="102.0" text="Create a Beer" />
+            <Button fx:id="addBeer" layoutX="620.0" layoutY="371.0" mnemonicParsing="false" onAction="#onAddBeer" prefHeight="27.0" prefWidth="102.0" text="Add a Beer" />
             <Button fx:id="getMap" layoutX="284.0" layoutY="178.0" mnemonicParsing="false" onAction="#getMap" text="Map" />
             <Label fx:id="testtLabel" layoutX="3.0" layoutY="88.0" onDragDetected="#updatePub" prefHeight="53.0" prefWidth="122.0" />
             <TableView fx:id="beerTable" layoutX="72.0" layoutY="-1.0" onMouseClicked="#getRow" prefHeight="141.0" prefWidth="702.0">

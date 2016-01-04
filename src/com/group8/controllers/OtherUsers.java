@@ -155,6 +155,7 @@ public class OtherUsers extends BaseController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 
+		Navigation.current_CenterFXML =  "/com/group8/resources/views/otherUsersProfile.fxml";
 		/**
 		 * Created by Andreas Fransson
 		 */
@@ -164,14 +165,17 @@ public class OtherUsers extends BaseController implements Initializable {
 			userImage.setImage(UserData.selected.getImage());
 		}
 
+		if(UserData.userInstance==null) {
+
+			followButton.setVisible(false);
+
+		}
 
 		age.setText(""+UserData.selected.getAge());
 		fullname.setText(UserData.selected.getFullName());
 		password.setText(UserData.selected.getPassword());
 		email.setText(UserData.selected.getEmail());
 
-
-		Navigation.current_CenterFXML =  "/com/group8/resources/views/otherUsersProfile.fxml";
 
 		// You have to have a get function that is named get +" type" for it to work sets values.
 		beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("name"));
@@ -236,7 +240,6 @@ public class OtherUsers extends BaseController implements Initializable {
 		beerTable.setItems(masterData);
 
 
-		Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
 
 		//You have to have a get function that is named get +" type" for it to work sets values.
 		pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("name"));
@@ -299,7 +302,6 @@ public class OtherUsers extends BaseController implements Initializable {
 		//Populate the Tableview
 		pubTable.setItems(masterData1);
 
-		Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
 
 		// You have to have a get function that is named get +" type" for it to work sets values.
 		userName1.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));

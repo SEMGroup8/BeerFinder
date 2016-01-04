@@ -27,10 +27,10 @@
       <Button fx:id="removeFromFavourites" layoutX="619.0" layoutY="191.0" mnemonicParsing="false" onAction="#removeFromFavourites" text="Remove From Favourites" visible="false" />
       <Label fx:id="added" layoutX="619.0" layoutY="168.0" prefHeight="16.0" prefWidth="167.0" text="Label" visible="false" />
       <Label fx:id="pubNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="101.0" prefHeight="53.0" prefWidth="233.0">
-      <CheckBox fx:id="follow" disable="false" layoutX="113.0" layoutY="352.0" mnemonicParsing="false" onAction="#toggleA" selected="true" visible="false" />
          <font>
             <Font size="33.0" />
          </font>
       </Label>
+      <CheckBox fx:id="follow" disable="false" layoutX="619.0" layoutY="146.0" mnemonicParsing="false" onAction="#toggleA" selected="true" text="Subscribed" />
    </children>
 </AnchorPane>

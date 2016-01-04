@@ -81,7 +81,7 @@ public class Scene3Controller extends BaseController {
         }
 
         typesPicked = typesPicked.substring(0, typesPicked.length() - 1) + ")";
-        System.out.println("Types picked:" + typesPicked);
+
         mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene4.fxml");
 
     }

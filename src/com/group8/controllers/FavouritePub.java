@@ -123,6 +123,7 @@ public class FavouritePub extends BaseController implements Initializable {
 	                TableCell<Pub, Image> cell = new TableCell<Pub, Image>() {
 
 	                    /**
+						 * Created by Andreas Fransson
 	                     * Override the updateItem method to set a imageView
 	                     * @param item
 	                     * @param empty
