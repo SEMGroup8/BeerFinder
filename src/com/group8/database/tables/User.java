@@ -201,10 +201,13 @@ public class User extends MysqlDriver
     }
 
     /**
-     * Created by
+     * Created by Collins
      */
     public void getFollowers(){
     	//String sqlQuery="select followUser.id, username,image, password, fullname, email, age  from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId() ;
+    	/**
+    	 * followers other users
+    	 */
     	String sqlQuery="select * from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId();
     	ArrayList<ArrayList<Object>>follower;
     	follower=MysqlDriver.selectMany(sqlQuery);

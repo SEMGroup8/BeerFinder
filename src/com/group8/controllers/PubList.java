@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Shiratori on 04/11/15.
+ * Created by Collins on 04/11/15.
  */
 public class PubList extends BaseController implements Initializable
 {
@@ -46,7 +46,9 @@ public class PubList extends BaseController implements Initializable
     @FXML
     public TableColumn<Pub, Image> image;
 
-
+    /**
+     * converts array to observable ArrayList
+     */
     public ObservableList<Pub> masterData = FXCollections.observableArrayList(PubData.pubs);
 
     /**

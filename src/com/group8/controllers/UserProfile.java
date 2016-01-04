@@ -39,10 +39,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
+/**
+ * Created by Collins
+ * @author chiefcorlyns
+ *
+ */
 public class UserProfile extends BaseController implements Initializable  {
 
-	    
+	  /**
+	   * list of favorite pubs of the logged in user  
+	   */
 	@FXML
 	public TableView<Pub> pubTable;
 	@FXML
@@ -61,7 +67,10 @@ public class UserProfile extends BaseController implements Initializable  {
 	public TableColumn<Pub, Image> image;
 	@FXML
 	public Label emailError, passwordError, fullNameError, ageError;
-
+	
+	/**
+	 * table of other users being followed by the logged in user
+	 */
 	@FXML
 	public TableView<User> userTable;
 	@FXML
@@ -72,7 +81,10 @@ public class UserProfile extends BaseController implements Initializable  {
 	public TableColumn<User,String> userEmail;
 	@FXML
 	public TableColumn<User, Image> userImage1;
-
+	
+	/**
+	 * list of favorite beer of the logged in user
+	 */
 	@FXML
 	public TableView<Beer> beerTable;
 	@FXML
@@ -94,6 +106,10 @@ public class UserProfile extends BaseController implements Initializable  {
 
 	@FXML
 	public Label userName;
+	
+	/**
+	 * converts array to observable arrayList
+	 */
 
 	public ObservableList<Beer> beerFavourites = FXCollections.observableArrayList(UserData.userInstance.favourites);
 	public ObservableList<Pub> pubFavourites = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
@@ -130,7 +146,9 @@ public class UserProfile extends BaseController implements Initializable  {
 
         Navigation.current_CenterFXML =  "/com/group8/resources/views/MyProfile.fxml";
 
-        // You have to have a get function that is named get +" type" for it to work sets values.
+        /**
+         * automatically beer information
+         */
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("name"));
         beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("type"));
         beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("origin"));
@@ -192,7 +210,9 @@ public class UserProfile extends BaseController implements Initializable  {
         //Populate the Tableview
         beerTable.setItems(beerFavourites);
 
-        // You have to have a get function that is named get +" type" for it to work sets values.
+        /**
+         * automatically favorite pub information
+         */
 		pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("name"));
 		pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("adressId"));
 		pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("phoneNumber"));

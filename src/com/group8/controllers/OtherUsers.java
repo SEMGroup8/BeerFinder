@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.group8.database.MysqlDriver;
@@ -28,6 +29,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -38,7 +40,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
+/**
+ * Created by Collins
+ * Users information scene
+ * --> Used to show a list of users in the database
+ * --> Gives the logged in user the opportunity to see other users and follow them
+ *
+ */
 
 public class OtherUsers extends BaseController implements Initializable {
 
@@ -66,7 +76,10 @@ public class OtherUsers extends BaseController implements Initializable {
 	@FXML
 	public TableColumn<Pub, Image> image;
 	public Label emailError, passwordError, isPubError, fullNameError;
-
+	
+	/**
+	 * table to display all followed users
+	 */
 	@FXML
 	public TableView<User> userTable;
 	@FXML
@@ -78,7 +91,9 @@ public class OtherUsers extends BaseController implements Initializable {
 	@FXML
 	public TableColumn<User, Image> userImage1;
 
-
+	/**
+	 * table to display all favorite beers
+	 */
 	@FXML
 	public TableView<Beer> beerTable;
 	@FXML
@@ -101,10 +116,15 @@ public class OtherUsers extends BaseController implements Initializable {
 	public PieChart showPie;
 	@FXML
 	public Label userName;
-
+	
+	/**
+	 * converts arrays into observable arrayList
+	 */
 	public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.selected.favourites);
 	public ObservableList<Pub> masterData1 = FXCollections.observableArrayList(UserData.selected.pubFavouritesDetails);
 	public ObservableList<User> masterData2 = FXCollections.observableArrayList(UserData.selected.followedUsers);
+    ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
+
 		
 		
 	public Label showGreetings;
@@ -132,7 +152,9 @@ public class OtherUsers extends BaseController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		/**
+		 * automatically loads the information of the logged in user 
+		 */
 		userImage.setImage(UserData.selected.getImage());
 		followLabel.setText(UserData.selected.get_name());
 		age.setText(""+UserData.selected.getAge());
@@ -409,7 +431,7 @@ public class OtherUsers extends BaseController implements Initializable {
 
 									// Show that we can select items and print it
 									int id = userTable.getSelectionModel().getSelectedItem().getId();
-									// Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+									// Has to be in a tr / catch because of the event miss match, ouseevent cant throw IOexceptions
 
 									User selected = new User("select * from users where userId =" +id);
 									UserData.selected = selected;
@@ -447,9 +469,27 @@ public class OtherUsers extends BaseController implements Initializable {
 
 		int myId=UserData.userInstance.getId();
 		int followerID=UserData.selected.getId();
-
+		/**
+		 * checking to see whether user is already following selected user
+		 * if not, it does insertion into the database base else sends an error message
+		 */
+		String checkStatus="select `userId`, `id` from `followUser` where userId"+myId+ "AND id="+followerID;
+		ArrayList<Object> isIn = MysqlDriver.select(checkStatus);
+		if(!isIn.isEmpty()){
 		String followUser="INSERT INTO `followUser`(`userId`, `id`) VALUES ("+myId+", "+followerID+")";
 		MysqlDriver.insert(followUser);
+		}else{
+			img.setFitWidth(60);
+            img.setFitHeight(60);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Follow Error");
+            alert.setContentText("You already following this person!");
+            alert.setGraphic(img);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+            alert.showAndWait();
+		}
 	}
 }
 		
