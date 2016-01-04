@@ -6,6 +6,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.group8.database.tables.Pub;
+import com.group8.singletons.Navigation;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

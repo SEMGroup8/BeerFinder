@@ -27,7 +27,7 @@
 }
 .label {
     -fx-text-fill: white;
-
+}
 
 #helpButton:hover {
     -fx-background-image: url("../Images/helpButtonHover.png");
