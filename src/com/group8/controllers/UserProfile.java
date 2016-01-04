@@ -115,7 +115,7 @@ public class UserProfile extends BaseController implements Initializable  {
 	public ObservableList<Pub> pubFavourites = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
 	public ObservableList<User> followedUsers = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
 
-	public Label followLabel, numFollowersLabel;
+
 
 	@FXML
 	public TextField age;
@@ -136,9 +136,7 @@ public class UserProfile extends BaseController implements Initializable  {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		numFollowersLabel.setText("Welcome " +UserData.userInstance.get_name()+ "! You are now being followed by: " +UserData.userInstance.getNumFollowers()+" people");
 		userImage.setImage(UserData.userInstance.getImage());
-		followLabel.setText(UserData.userInstance.get_name());
 		age.setText(""+UserData.userInstance.getAge());
 		fullName.setText(UserData.userInstance.getFullName());
 	    password.setText(UserData.userInstance.getPassword());

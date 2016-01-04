@@ -129,7 +129,6 @@ public class OtherUsers extends BaseController implements Initializable {
 		
 	public Label showGreetings;
 	public Label emailLabel;
-	public Label followLabel;
 	public Button userImageButton;
 	public Button loadImage;
 	public Button followButton;
@@ -156,7 +155,7 @@ public class OtherUsers extends BaseController implements Initializable {
 		 * automatically loads the information of the logged in user 
 		 */
 		userImage.setImage(UserData.selected.getImage());
-		followLabel.setText(UserData.selected.get_name());
+
 		age.setText(""+UserData.selected.getAge());
 		fullname.setText(UserData.selected.getFullName());
 		password.setText(UserData.selected.getPassword());
