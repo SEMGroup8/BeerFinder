@@ -322,7 +322,6 @@ public class UserProfile extends BaseController implements Initializable  {
 
         //Populate the Tableview
         userTable.setItems(followedUsers);
-
     }
 
 	/**
@@ -337,32 +336,13 @@ public class UserProfile extends BaseController implements Initializable  {
 	 */
 	public void onUpdate(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
 
-		final ListView<String> listView = new ListView<>();
-		ObservableList<String> list =FXCollections.observableArrayList (
-				"Sunday",
-				"Monday",
-				"Tuesday",
-				"Wednesday",
-				"Thursday",
-				"Friday",
-				"Saturday");
-		listView.setItems(list);
+		// Setup the mysel connection
+		String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+		String user = "Gr8";
+		String password = "group8";
 
-		listView.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				
-			}
-
-		});
-	// Setup the mysel connection
-	String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-	String user = "Gr8";
-	String password = "group8";
-
-	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection(url, user, password);
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection(url, user, password);
 
 		if(!checkInput())
 		{
@@ -398,7 +378,12 @@ public class UserProfile extends BaseController implements Initializable  {
 		UserData.userInstance = fetchedUser;
 	}
 
-	//Checks if the input is correct.
+	/**
+	 * Created by Linus Eiderström Swahn.
+	 *
+	 * Checks so that the user has all input made correctly.
+ 	 * @return
+	 */
 	private boolean checkInput()
 	{
 		boolean canUpdate = true;
@@ -518,7 +503,7 @@ public class UserProfile extends BaseController implements Initializable  {
 
 			loadAnImage = false;
 		}
-}
+	}
 		
 		
 	public void updateFoto() throws ClassNotFoundException, SQLException{

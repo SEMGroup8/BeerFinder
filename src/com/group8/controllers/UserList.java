@@ -52,7 +52,7 @@ public class UserList extends BaseController implements Initializable {
 
 
     /**
-     * Created by Linus Eiderrström Swahn.
+     * Created by Linus Eiderström Swahn.
      *
      * Select the user the user double clicked on.
      * Load all info and switch scenes. Multithreaded.
@@ -118,15 +118,13 @@ public class UserList extends BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-          Navigation.current_CenterFXML = "/com/group8/resources/views/UserList.fxml";
-          	/**
-          	 * automatically loads the information of the pubs
-          	 */
-            userName.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
-	        userEmail.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
-	        userAge.setCellValueFactory(new PropertyValueFactory<User, String>("age"));
-	      
-
+        Navigation.current_CenterFXML = "/com/group8/resources/views/UserList.fxml";
+        /**
+        * automatically loads the information of the pubs
+        */
+        userName.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
+        userEmail.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
+        userAge.setCellValueFactory(new PropertyValueFactory<User, String>("age"));
 
         // Try loading the image, if there is none will use placeholder
         userImage.setCellValueFactory(new PropertyValueFactory<User, Image>("image"));
