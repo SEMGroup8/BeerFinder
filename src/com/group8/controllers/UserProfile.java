@@ -115,6 +115,7 @@ public class UserProfile extends BaseController implements Initializable  {
 	public ObservableList<Pub> pubFavourites = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
 	public ObservableList<User> followedUsers = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
 
+	ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
 
 
 	@FXML
@@ -322,7 +323,6 @@ public class UserProfile extends BaseController implements Initializable  {
 
         //Populate the Tableview
         userTable.setItems(followedUsers);
-
     }
 
 	/**
@@ -337,32 +337,13 @@ public class UserProfile extends BaseController implements Initializable  {
 	 */
 	public void onUpdate(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
 
-		final ListView<String> listView = new ListView<>();
-		ObservableList<String> list =FXCollections.observableArrayList (
-				"Sunday",
-				"Monday",
-				"Tuesday",
-				"Wednesday",
-				"Thursday",
-				"Friday",
-				"Saturday");
-		listView.setItems(list);
+		// Setup the mysel connection
+		String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+		String user = "Gr8";
+		String password = "group8";
 
-		listView.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				
-			}
-
-		});
-	// Setup the mysel connection
-	String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-	String user = "Gr8";
-	String password = "group8";
-
-	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection(url, user, password);
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection(url, user, password);
 
 		if(!checkInput())
 		{
@@ -396,9 +377,26 @@ public class UserProfile extends BaseController implements Initializable  {
 		User fetchedUser = new User(userData);
 
 		UserData.userInstance = fetchedUser;
+
+		// Show user password / username error
+		img.setFitWidth(60);
+		img.setFitHeight(60);
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Update");
+		alert.setHeaderText("Update");
+		alert.setContentText("Updated profile!");
+		alert.setGraphic(img);
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+		alert.showAndWait();
 	}
 
-	//Checks if the input is correct.
+	/**
+	 * Created by Linus Eiderström Swahn.
+	 *
+	 * Checks so that the user has all input made correctly.
+ 	 * @return
+	 */
 	private boolean checkInput()
 	{
 		boolean canUpdate = true;
@@ -518,7 +516,7 @@ public class UserProfile extends BaseController implements Initializable  {
 
 			loadAnImage = false;
 		}
-}
+	}
 		
 		
 	public void updateFoto() throws ClassNotFoundException, SQLException{

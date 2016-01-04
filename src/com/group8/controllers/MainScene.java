@@ -5,7 +5,6 @@ import com.group8.database.tables.Beer;
 import com.group8.database.tables.MapMarker;
 import com.group8.singletons.BeerData;
 import com.group8.singletons.Navigation;
-import com.lynden.gmapsfx.MainApp;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -14,15 +13,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -259,7 +253,6 @@ public class MainScene implements Initializable {
                                 BeerData.beer.add(beer);
                             }
 
-
                             return null;
                         }
                     };
@@ -341,26 +334,5 @@ public class MainScene implements Initializable {
             ArrayList<ArrayList<Object>> geoData = MysqlDriver.selectMany(sqlQuery);
             gmapsError.setVisible(true);
         }
-    }
-
-    /**
-     * Created by Andreas Fransson.
-     *
-     * @throws IOException
-     */
-    public void help() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/help.fxml"));
-        BorderPane page = loader.load();
-        // Create the dialog Stage.
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Help");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(Navigation.primaryStage);
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
-        dialogStage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
-        // Show the dialog and wait until the user closes it
-        dialogStage.show();
     }
 }
