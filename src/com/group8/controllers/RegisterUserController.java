@@ -3,6 +3,7 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
+import com.group8.singletons.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,19 +38,26 @@ public class RegisterUserController extends BaseController {
     @FXML
     public Label usernameError, emailError, pubNameError, passwordError, isPubError, fullNameError, pubNameLabel, ageError;
 
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * This function gets called when the user presses the register user button.
+     *
+     * It first performs checks to see if the input is correct, then inserts a new user into the database.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onRegister(ActionEvent event) throws IOException
     {
         if(!checkInput())
         {
-            System.out.println("in check input");
             return;
         }
 
         String selectQuery = "Select * from users where username = '" + username.getText().toLowerCase() + "';";
         if (!checkAvailability(selectQuery))
         {
-            System.out.println("In username check");
             usernameError.setText("Username is in use.");
             username.setStyle("-fx-border-color: red;");
 
@@ -60,8 +68,6 @@ public class RegisterUserController extends BaseController {
 
         if (!checkAvailability(selectQuery))
         {
-            System.out.println("In email check");
-
             emailError.setText("Email is in use.");
             email.setStyle("-fx-border-color: red;");
 
@@ -96,7 +102,14 @@ public class RegisterUserController extends BaseController {
         mainScene.changeCenter(Navigation.homescreenFXML);
     }
 
-    //Checks if the input is correct.
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Checks the input of each field so that it is correct.
+     *
+      * @return
+     * returns true if the user has inputed everything correctly, false otherwise.
+     */
     private boolean checkInput()
     {
         boolean canRegister = true;
@@ -175,6 +188,16 @@ public class RegisterUserController extends BaseController {
         return canRegister;
     }
 
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * performs a check to see if the data we want to insert into the database all ready exists.
+     *
+     * @param query
+     * The string containing a sql-query for selecting the data we want to check from the database.
+     * @return
+     * true if the data doesn't exist onthe database, false otherwise.
+     */
     public static boolean checkAvailability(String query)
     {
         ArrayList<Object> returnedUser = MysqlDriver.select(query);
@@ -189,6 +212,12 @@ public class RegisterUserController extends BaseController {
         return canRegister;
     }
 
+    /**
+     * Created by Linus eiderström Swahn.
+     *
+     * If the user wants to register a pub user this changes the layout of the form.
+     * @param event
+     */
     @FXML
     void isPubSelected(ActionEvent event) {
 

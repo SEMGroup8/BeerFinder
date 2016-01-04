@@ -10,20 +10,26 @@
          <children>
             <AnchorPane minHeight="400.0" minWidth="800.0">
                <children>
-                  <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutX="282.0" layoutY="194.0" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" text="Search..." />
-                  <Button fx:id="search" layoutX="449.0" layoutY="194.0" mnemonicParsing="false" onAction="#onSearch" prefHeight="27.0" prefWidth="81.0" text="Search" />
+                  <TextField fx:id="searchText" alignment="BOTTOM_LEFT" layoutX="259.0" layoutY="195.0" onKeyPressed="#searchEnterPressed" onMouseClicked="#clearFieldSearch" prefHeight="26.0" prefWidth="207.0" text="Search..." />
+                  <Button fx:id="search" layoutX="474.0" layoutY="195.0" mnemonicParsing="false" onAction="#onSearch" prefHeight="27.0" prefWidth="81.0" text="Search" />
                   <Label fx:id="error" layoutX="298.0" layoutY="231.0" prefHeight="14.0" prefWidth="135.0" />
                   <CheckBox fx:id="advancedType" layoutX="281.0" layoutY="257.0" mnemonicParsing="false" text="beerType" visible="false" />
                   <CheckBox fx:id="advancedProducer" layoutX="382.0" layoutY="229.0" mnemonicParsing="false" text="Producer" visible="false" />
                   <CheckBox fx:id="advancedDescription" layoutX="382.0" layoutY="257.0" mnemonicParsing="false" text="Description" visible="false" />
-                  <CheckBox fx:id="advanced" layoutX="281.0" layoutY="167.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
+                  <CheckBox fx:id="advanced" layoutX="259.0" layoutY="168.0" mnemonicParsing="false" onAction="#showAdvanced" text="Advanced" />
                   <CheckBox fx:id="all" layoutX="281.0" layoutY="285.0" mnemonicParsing="false" onAction="#checkAll" text="All" visible="false" />
                   <CheckBox fx:id="advancedName" layoutX="281.0" layoutY="229.0" mnemonicParsing="false" selected="true" text="Name" visible="false" />
                   <CheckBox fx:id="advancedCountry" layoutX="382.0" layoutY="285.0" mnemonicParsing="false" text="Origin" visible="false" />
-                  <Button fx:id="randomButton" layoutX="449.0" layoutY="225.0" mnemonicParsing="false" onAction="#onRandom" prefHeight="27.0" prefWidth="81.0" text="Random" />
-                  <ProgressIndicator fx:id="Load" layoutX="373.0" layoutY="97.0" visible="false" /><Button fx:id="showPubs" layoutX="450.0" layoutY="256.0" mnemonicParsing="false" onAction="#onShowPubs" prefHeight="27.0" prefWidth="105.0" text="Show all pubs" />
-                  <Button fx:id="beerScanButton" layoutX="449.0" layoutY="163.0" mnemonicParsing="false" onAction="#onBeerScan" prefHeight="27.0" prefWidth="81.0" text="Beer scan" />
+                  <Button fx:id="randomButton" layoutX="474.0" layoutY="226.0" mnemonicParsing="false" onAction="#onRandom" prefHeight="27.0" prefWidth="81.0" text="Random" />
+                  <ProgressIndicator fx:id="Load" layoutX="373.0" layoutY="97.0" visible="false" />
+                  <Button fx:id="beerScanButton" layoutX="474.0" layoutY="164.0" mnemonicParsing="false" onAction="#onBeerScan" prefHeight="27.0" prefWidth="81.0" text="Beer scan" />
                   <Button fx:id="beerScanSearchButton" layoutX="163.0" layoutY="97.0" mnemonicParsing="false" onAction="#onSearch" text="Search barcode" />
+                  <CheckBox fx:id="searchForPubsCheckbox" layoutX="347.0" layoutY="168.0" mnemonicParsing="false" onAction="#pubsChecked" text="Search for Pubs" />
+                  <CheckBox fx:id="searchForUsersCheckbox" layoutX="347.0" layoutY="141.0" mnemonicParsing="false" onAction="#userChecked" text="Search for Users" />
+                  <Button fx:id="pubSearchButton" layoutX="474.0" layoutY="195.0" mnemonicParsing="false" onAction="#pubSearch" prefHeight="27.0" prefWidth="120.0" text="Search for Pubs" visible="false" />
+                  <Button fx:id="userSearchButton" layoutX="474.0" layoutY="195.0" mnemonicParsing="false" onAction="#userSearch" prefHeight="27.0" prefWidth="120.0" text="Search for Users" visible="false" />
+                  <Button fx:id="showAllPubs" layoutX="602.0" layoutY="196.0" mnemonicParsing="false" onAction="#showAllPubs" text="Show All Pubs" visible="false" />
+                  <Button fx:id="showAllUsers" layoutX="602.0" layoutY="195.0" mnemonicParsing="false" onAction="#showAllUsers" text="Show all users" visible="false" />
                   <SplitPane fx:id="notWindow" dividerPositions="0.10101010101010101" layoutX="14.0" layoutY="185.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                      <items>
                         <Label fx:id="notifications" text="Label" />

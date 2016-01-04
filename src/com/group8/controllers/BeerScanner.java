@@ -11,6 +11,7 @@ import com.google.zxing.common.HybridBinarizer;
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -25,6 +26,16 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 	protected JTextArea textarea = new JTextArea();
 	private static Result result;
 	private Thread t;
+
+	/**
+	 * Created by Mantas Namgaudis.
+	 *
+	 * Gets called when the user presses the "Beer scan" button
+	 * in Home window.
+	 *
+	 * This class uses external libraries to open the webcam on
+	 * users computer, scan and read provided barcode.
+	 */
 
 	public BeerScanner() {
 		super();
@@ -72,16 +83,16 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 				textarea.setText(result.getText());
 				HomeCenter.setBarcode(result.getText());
 				//HomeCenter.webcamLabel.setText(result.getText().toString());
-				System.out.println("This is from BeerScan: " + result.getText());
+
 
 				HomeCenter.checkIfbarcodeIsSet();
 
 
 
 
-				// Stopped the thread !!! but something's still running
+				// Stop the thread
 				if(t != null){
-					System.out.println("Thread 31 before: " + t.isAlive());
+
 					try {
 						running = false;
 						t.join();
@@ -89,7 +100,7 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 					catch (InterruptedException e){
 					}
 				}
-				System.out.println("Thread 31 after: " + t.isAlive());
+
 
 
 			}
@@ -101,20 +112,26 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 	public Thread newThread(Runnable r) {
 		t = new Thread(r, "BeerScanner-thread");
 		t.setDaemon(false); // originally was set to true
-		//System.out.println("BeerScanner thread name " + Thread.currentThread().getName());
-		//System.out.println("BeerScanner thread ID " + Thread.currentThread().getId());
 		return t;
 	}
 
+	/**
+	 * Adds a gray filter on webcam for better picture contrast.
+	 *
+	 * @param bufferedImage
+	 * @return
+     */
 	@Override
 	public BufferedImage transform(BufferedImage bufferedImage) {
 		return GRAY.filter(bufferedImage, null);
 	}
 
+	/**
+	 * Closes the webcam in a way depending on users OS.
+	 */
 	public static void disconnectWebcam(){
 		if(System.getProperty("os.name").equals("Mac OS X")) {
 			webcam.getDevice().close();
-			System.out.println("u run shitty OS");
 		}
 		// Close the webcam service
 		webcam.close();

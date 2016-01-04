@@ -1,4 +1,4 @@
-import com.group8.controllers.Navigation;
+import com.group8.singletons.Navigation;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +44,6 @@ public class Main extends Application {
                 System.exit(0);
             }
         });
-
     }
 }
 

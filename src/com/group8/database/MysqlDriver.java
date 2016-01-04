@@ -13,10 +13,13 @@ import java.util.logging.Logger;
  *
  * Contains methods for selecting and inserting into the database.
  */
-
 public class MysqlDriver {
 
     public void MysqlDriver() {}
+
+    private static String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+    private static String user = "Gr8";
+    private static String password = "group8";
 
     /**
      * Created By Linus Eiderström Swahn
@@ -34,10 +37,6 @@ public class MysqlDriver {
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;
-
-        String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-        String user = "Gr8";
-        String password = "group8";
 
         try {
             con = DriverManager.getConnection(url, user, password);
@@ -126,10 +125,6 @@ public class MysqlDriver {
         Statement st = null;
         ResultSet rs = null;
 
-        String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-        String user = "Gr8";
-        String password = "group8";
-
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
@@ -159,20 +154,12 @@ public class MysqlDriver {
 
                         row.set(i-1,rs.getObject(i));
                     }
-
                 }
-
                 result.add(row);
-                System.out.println(row.toString());
             }
-
-
-
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
-
-
         } finally {
             try {
                 if (rs != null) {
@@ -190,7 +177,6 @@ public class MysqlDriver {
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
-        System.out.println(result);
 
         return result;
     }
@@ -206,10 +192,6 @@ public class MysqlDriver {
     public static void insert(String query) {
         Connection con = null;
         Statement st = null;
-
-        String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-        String user = "Gr8";
-        String password = "group8";
 
         try {
             con = DriverManager.getConnection(url, user, password);
@@ -247,10 +229,6 @@ public class MysqlDriver {
     public static void update(String query) {
         Connection con = null;
         Statement st = null;
-
-        String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-        String user = "Gr8";
-        String password = "group8";
 
         try {
             con = DriverManager.getConnection(url, user, password);

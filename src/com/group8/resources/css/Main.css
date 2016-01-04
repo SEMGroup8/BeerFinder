@@ -1,12 +1,11 @@
 #helpButton {
     -fx-background-image: url("../Images/helpButton.png");
     -fx-background-repeat: no-repeat;
-    -fx-background-color: white;
     -fx-background-position: left top;
 }
 
 .root{
-     -fx-background-image: url("../Images/BG.png");
+     -fx-background-image: url("../Images/background.png");
      -fx-background-color: rgb(152, 152, 152);
      -fx-background-size:  stretch;
 }
@@ -25,20 +24,29 @@
 .button:hover {
     -fx-background-image:url("../Images/buttonH.png");
      -fx-text-fill: gold;
+
 }
 .button:onclick {
     -fx-background-image:url("../Images/buttonC.png");
 }
-/*.label {
+.label {
     -fx-text-fill: white;
-}*/
+}
 
 #helpButton:hover {
     -fx-background-image: url("../Images/helpButtonHover.png");
 } 
 
+.check-box{
+    -fx-text-fill: white;
+}
+
+.choice-box .label {
+    -fx-text-fill: black;
+}
+
 .not{
-	-fx-background-image:url("../Images/notification.png");
+    -fx-background-image:url("../Images/notification.png");
     -fx-background-color: transparent ;
     -fx-background-size:  stretch;
     -fx-text-fill: white;

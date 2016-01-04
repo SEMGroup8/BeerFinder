@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-12-07.
+ * Created by Andreas Fransson on 15-12-07.
  */
 public class helpController extends BaseController implements Initializable{
 
@@ -30,7 +30,9 @@ public class helpController extends BaseController implements Initializable{
     @FXML
     public ImageView helpImage;
 
-
+    /**
+     * Created by Andreas Fransson
+     */
     public void getRow(){
         helpTree.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked
@@ -43,12 +45,9 @@ public class helpController extends BaseController implements Initializable{
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
-                    //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
                     // Set the selectedBeer instance of beer we have to selected item
                     String active = helpTree.getSelectionModel().getSelectedItem().toString();
-                    System.out.println(active);
                      active = helpTree.getSelectionModel().getSelectedItem().getValue();
-                    System.out.println(active);
 
 
                     // load the details scene
@@ -177,9 +176,11 @@ public class helpController extends BaseController implements Initializable{
     }
 
 
-
-
-
+    /**
+     * Created by Andreas Fransson
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -202,6 +203,17 @@ public class helpController extends BaseController implements Initializable{
         TreeItem<String> subChild_Pub = new TreeItem<>("Pub Object");
         TreeItem<String> subChild_Marker = new TreeItem<>("Marker Object");
         TreeItem<String> subChild_User = new TreeItem<>("User Object");
+        TreeItem<String> subChild_MySqlDriver = new TreeItem<>("MySqlDriver");
+        TreeItem<String> subChild_Beer_Tableview = new TreeItem<>("Beer Tableview");
+        TreeItem<String> subChild_Queries = new TreeItem<>("Queries");
+        TreeItem<String> subChild_Google_Maps = new TreeItem<>("Google Maps");
+        TreeItem<String> subChild_Barcode_scanner = new TreeItem<>("Barcode scanner");
+        TreeItem<String> subChild_User_Instance = new TreeItem<>("User instance");
+        TreeItem<String> subChild_Threading = new TreeItem<>("Threading");
+        TreeItem<String> subChild_FXML = new TreeItem<>("FXML");
+        TreeItem<String> subChild_CSS = new TreeItem<>("CSS");
+        TreeItem<String> subChild_Images = new TreeItem<>("Images");
+
         // Set root item
         helpTree.setRoot(treeRoot);
 
@@ -220,6 +232,16 @@ public class helpController extends BaseController implements Initializable{
         subChild_Objects.getChildren().add(subChild_Pub);
         subChild_Objects.getChildren().add(subChild_User);
         subChild_Objects.getChildren().add(subChild_Marker);
+        child_Programmer.getChildren().add(subChild_Beer_Tableview);
+        child_Programmer.getChildren().add(subChild_FXML);
+        child_Programmer.getChildren().add(subChild_Images);
+        child_Programmer.getChildren().add(subChild_CSS);
+        child_Programmer.getChildren().add(subChild_MySqlDriver);
+        subChild_MySqlDriver.getChildren().add(subChild_Queries);
+        child_Programmer.getChildren().add(subChild_Barcode_scanner);
+        child_Programmer.getChildren().add(subChild_Threading);
+        child_Programmer.getChildren().add(subChild_User_Instance);
+
 
 
 

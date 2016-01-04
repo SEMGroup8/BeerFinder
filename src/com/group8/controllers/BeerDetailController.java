@@ -3,11 +3,11 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.BeerRank;
 
+import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
+import com.group8.singletons.UserData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
@@ -33,8 +33,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-10-27.
- * TODO fix nice detail layout and images
+ * Created by Andreas Fransson
+ *
+ * Controller for the beer details scene.
+ *
+ * Has functionality for ranking the beer, adding it to your favourites, or adding it to your searchForPubsCheckbox inventory
+ * if you are a pub user.
  */
 public class BeerDetailController extends BaseController implements Initializable{
 
@@ -43,7 +47,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     @FXML
     public Label gMapsError;
     @FXML
-    public Button back, favourite, addToPub;
+    public Button back, favourite, addToPub, removeFromFavouritesButton, removeFromPubButton;
     @FXML
     public CheckBox follow;
     @FXML
@@ -74,10 +78,14 @@ public class BeerDetailController extends BaseController implements Initializabl
     public ImageView showCountryFlag;
     @FXML
     public Label cantRank;
+
     boolean justRanked=false; //I'm using this to keep the rank as the user just ranked the beer so he can know he ranked the beer
+
+    @FXML
     public Label added;
     @FXML
     public Button updateBeerButton;
+    @FXML
     public ImageView oneStar, twoStar, threeStar, fourStar, fiveStar;
     @FXML
     public Label rankShow;
@@ -86,7 +94,10 @@ public class BeerDetailController extends BaseController implements Initializabl
 
 
     /**
-     * Lets the User Rank a beer
+	 * Created by Joseph Roberto Delatolas.
+	 *
+     * The function for that each button calls in the end.
+	 *
      * @param number
      */
     public void rankStar(int number){
@@ -94,11 +105,18 @@ public class BeerDetailController extends BaseController implements Initializabl
             BeerRank beer = new BeerRank(UserData.userInstance.getId(), BeerData.selectedBeer.getId(), number);
 
             beer.insertRank();
-
         }
     }
 
-
+	/**
+	 * Created by Joseph Roberto Delatolas.
+	 *
+	 * Series of functions that gets called when the user presses the appropriate rank star button.
+	 * Only works when logged in.
+	 *
+	 * @param event
+	 * @throws IOException
+	 */
     @FXML
     public void onRankOneStar(MouseEvent event) throws IOException {
     	if (logState() == true){
@@ -109,6 +127,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     		}
     	}
     }
+
     @FXML
     public void onRankTwoStar(MouseEvent event) throws IOException {
     	if (logState() == true){
@@ -149,6 +168,16 @@ public class BeerDetailController extends BaseController implements Initializabl
     		}
     	}
     }
+
+	/**
+	 * Created by Joseph Roberto Delatolas.
+	 *
+	 * Series of funcitons that gets called when the user hovers over each rank star button.
+	 *
+	 * Only works when logged in.
+	 * @param event
+	 * @throws IOException
+	 */
     @FXML
     public void hoverOne(MouseEvent event) throws IOException {
     	if (logState() == true){ if (justRanked==false){
@@ -188,7 +217,11 @@ public class BeerDetailController extends BaseController implements Initializabl
 
 
     /**
-     * Lets the User add a beer to its beerFavourites list.
+	 * Created by Linus Eiderström Swahn.
+	 *
+     * Gets called when the user presses the "add to favourites" button.
+	 *
+	 * Adds the beer to the users favourite list.
      * @param event
      * @throws IOException
      */
@@ -197,22 +230,98 @@ public class BeerDetailController extends BaseController implements Initializabl
     {
         if(UserData.userInstance!=null)
         {
-            String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ", 1);";
-            
-            System.out.println(sqlQuery);
+			// Has the user all ready added the beer to the favourites?
+			if(notAddedToFavourites())
+            {
+				String sqlQuery = "insert into favourites values(" + BeerData.selectedBeer.getId() + ", " + UserData.userInstance.getId() + ", 1);";
 
-            MysqlDriver.insert(sqlQuery);
+				MysqlDriver.insert(sqlQuery);
 
-            UserData.userInstance.getFavouriteBeers();
+				UserData.userInstance.getFavouriteBeers();
             
-            follow.setDisable(false);
+                added.setText("Added to favourites!");
             
-            added.setVisible(true);
+				added.setVisible(true);
+
+                favourite.setVisible(false);
+
+                removeFromFavouritesButton.setVisible(true);
+			}
         }
     }
 
     /**
-     * Lets a Pub_User add a beer to his current beer selection.
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the "remove form favourites" button.
+     *
+     * Removes the beer from the users favourite list.
+     *
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void removeFromFavourites(ActionEvent event) throws IOException
+    {
+        if(UserData.userInstance!=null)
+        {
+            // Is the beer a favourite?
+            if (!notAddedToFavourites())
+            {
+                String sqlQuery = "delete from favourites where beerID = " + BeerData.selectedBeer.getId() + " and userId = " + UserData.userInstance.getId() + ";";
+
+                MysqlDriver.update(sqlQuery);
+
+                added.setText("Removed from favourites!");
+                added.setVisible(true);
+
+                removeFromFavouritesButton.setVisible(false);
+
+                favourite.setVisible(true);
+            }
+        }
+    }
+
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the "remove form pub" button.
+     *
+     * Removes the beer from the searchForPubsCheckbox inventory.
+     *
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void removeFromPub(ActionEvent event) throws IOException
+    {
+        if(UserData.userInstance!=null)
+        {
+            // Is the beer in the pub?
+            if (!notInPub())
+            {
+                cantRank.setVisible(false);
+                
+                String sqlQuery = "delete from beerInPub where beerId = " + BeerData.selectedBeer.getId() + " and pubID = " + UserData.userInstance.getPubId() + ";";
+
+                MysqlDriver.update(sqlQuery);
+
+                added.setText("Removed from Pub!");
+                added.setVisible(true);
+
+                addToPub.setVisible(true);
+
+                removeFromPubButton.setVisible(false);
+            }
+        }
+    }
+
+    /**
+	 * Created by Linus Eiderström Swahn.
+	 *
+	 * Gets called when the pub user presses the "add to pub" button.
+	 *
+     * Lets a pub user add a beer to his current beer selection.
      * @param event
      * @throws IOException
      */
@@ -221,26 +330,30 @@ public class BeerDetailController extends BaseController implements Initializabl
         if (UserData.userInstance != null)
         {
             if (UserData.userInstance.getIsPub()) {
-                final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.initOwner(Navigation.primaryStage);
-                VBox dialogVbox = new VBox(20);
-                dialogVbox.setAlignment(Pos.CENTER);
-                dialogVbox.getChildren().add(new Text("Add a beer to your pub!"));
-                TextField price = new TextField("Type in price:");
-                Button addBeerToPub = new Button("Add to pub");
 
-                addBeerToPub.setOnAction(
-                    new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
+				// Is the beer all ready added to the searchForPubsCheckbox inventory?
+				if(notInPub()) {
+					// Open a dialog window.
+					final Stage dialog = new Stage();
+					dialog.initModality(Modality.APPLICATION_MODAL);
+					dialog.initOwner(Navigation.primaryStage);
+					VBox dialogVbox = new VBox(20);
+					dialogVbox.setAlignment(Pos.CENTER);
+					dialogVbox.getChildren().add(new Text("Add a beer to your pub!"));
+					TextField price = new TextField("Type in price:");
+					Button addBeerToPub = new Button("Add to pub");
 
-                            String query = "Insert into beerInPub values("
-                                    + UserData.userInstance.getPubId() + ", "
-                                    + BeerData.selectedBeer.getId() + ", "
-                                    + Float.parseFloat(price.getText()) + ", 1)";
+					addBeerToPub.setOnAction(
+							new EventHandler<ActionEvent>() {
+								@Override
+								public void handle(ActionEvent event) {
 
-                            MysqlDriver.insert(query);
+									String query = "Insert into beerInPub values("
+											+ UserData.userInstance.getPubId() + ", "
+											+ BeerData.selectedBeer.getId() + ", "
+											+ Float.parseFloat(price.getText()) + ", 1)";
+
+									MysqlDriver.insert(query);
 
                             query = "Select userId from favourites where beerID = "+ BeerData.selectedBeer.getId()+" and added = 1;";
                             ArrayList<ArrayList<Object>> getUserId = MysqlDriver.selectMany(query);
@@ -253,33 +366,37 @@ public class BeerDetailController extends BaseController implements Initializabl
                             	MysqlDriver.insert(update);
                             }
                             
-                            System.out.println("Inserted beer to pub");
-                            dialog.close();
-                        }
-                    });
+									dialog.close();
+
+                                    added.setText("Added to Pub!");
+                                    added.setVisible(true);
+
+                                    addToPub.setVisible(false);
+
+                                    removeFromPubButton.setVisible(true);
+								}
+							});
                 
 
-                dialogVbox.getChildren().add(price);
-                dialogVbox.getChildren().add(addBeerToPub);
+					dialogVbox.getChildren().add(price);
+					dialogVbox.getChildren().add(addBeerToPub);
 
-                Scene dialogScene = new Scene(dialogVbox, 300, 200);
-                dialog.setScene(dialogScene);
-                dialog.show();
+					Scene dialogScene = new Scene(dialogVbox, 300, 200);
+					dialog.setScene(dialogScene);
+					dialog.show();
+				}
+                else
+                {
+                    added.setText("All ready in pub!");
+
+                    added.setVisible(true);
+                }
             }
         }
     }
 
     /**
-     * Home Button
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    public void returnHome(ActionEvent event) throws IOException {
-        mainScene.changeCenter(Navigation.homescreenFXML);
-    }
-
-    /**
+     * Created by Andreas Fransson
      * Initialize beerDetail controller
      * @param location
      * @param resources
@@ -292,16 +409,30 @@ public class BeerDetailController extends BaseController implements Initializabl
         imageViewHBox.setBorder(new Border(new BorderStroke(Paint.valueOf("#2A1806"), BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(4))));
 
         if(UserData.userInstance!=null) {
+
             if (UserData.userInstance.getIsPub()) {
-                addToPub.setVisible(true);
-                favourite.setVisible(false);
+
+                if(notInPub())
+                {
+                    addToPub.setVisible(true);
                 follow.setVisible(false);
+                }
+                else
+                {
+                    removeFromPubButton.setVisible(true);
+                }
+				updateBeerButton.setVisible(true);
             }
-        }
-        else
-        {
-            favourite.setVisible(false);
-            follow.setVisible(false);
+            else
+            {
+                if(notAddedToFavourites()) {
+                    favourite.setVisible(true);
+                }
+                else
+                {
+                    removeFromFavouritesButton.setVisible(true);
+                }
+            }
         }
 
         // Display Name of beer
@@ -324,7 +455,7 @@ public class BeerDetailController extends BaseController implements Initializabl
         }
         // Try loading the image, if there is none will use placeholder
         if (BeerData.selectedBeer.getImage() == null) {
-            System.out.println("No image! Will use Placeholder Image!");
+
         } else{
             showImage.setImage(BeerData.selectedBeer.getImage());
         }
@@ -405,10 +536,46 @@ public class BeerDetailController extends BaseController implements Initializabl
     	if(RegisterUserController.checkAvailability(selectQuery)){
     		return true;
     	}else{
+			cantRank.setText("All ready ranked this beer.");
     		cantRank.setVisible(true);
     		return false;
     	}
     }
+
+	/**
+	 * Created by Linus Eiderström Swahn.
+	 *
+	 * Checks if the beer is all ready in the users favourite list.
+	 * @return
+	 */
+	public boolean notAddedToFavourites(){
+		String selectQuery = "Select * from favourites where userID = '" +UserData.userInstance.getId()+"' and beerID = '"+BeerData.selectedBeer.getId() + "';";
+		if(RegisterUserController.checkAvailability(selectQuery)){
+			return true;
+		}else{
+			cantRank.setText("This beer is all ready a favourite.");
+			cantRank.setVisible(true);
+			return false;
+		}
+	}
+
+	/**
+	 * Created by Linus Eiderström Swahn.
+	 *
+	 * Checks if the current beer has allready been added to the searchForPubsCheckbox inventory.
+	 * @return
+	 */
+	public boolean notInPub()
+	{
+		String selectQuery = "Select * from beerInPub where pubID = '" +UserData.userInstance.getPubId()+"' and beerID = '"+BeerData.selectedBeer.getId() + "';";
+		if(RegisterUserController.checkAvailability(selectQuery)){
+			return true;
+		}else{
+			cantRank.setText("All ready in pub.");
+			cantRank.setVisible(true);
+			return false;
+		}
+	}
 
     /**
      * Lets a Pub_User update a beer he has inserted into the system.
@@ -416,12 +583,7 @@ public class BeerDetailController extends BaseController implements Initializabl
      * @throws IOException
      */
     public void updateBeer(ActionEvent event) throws IOException {
-        Parent homescreen = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/updateBeer.fxml"));
-        Scene result_scene = new Scene(homescreen, 800, 600);
-        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        main_stage.setScene(result_scene);
-        main_stage.show();
 
-
+        mainScene.changeCenter("/com/group8/resources/views/updateBeer.fxml");
     }
 }

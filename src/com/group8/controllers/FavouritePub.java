@@ -6,7 +6,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.group8.database.tables.Pub;
+import com.group8.singletons.*;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 
+import com.group8.singletons.Navigation;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -24,12 +30,16 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 /**
- * Show users favourite pubs.
+ * Created by Collins
+ * Show users favorite searchForPubsCheckbox.
  * --> Follow function
  */
 public class FavouritePub extends BaseController implements Initializable {
 
 		@FXML
+		/**
+		 * table for favorite pubs
+		 */
 		public TableView<Pub> pubTable;
 	    @FXML
 	    public TableColumn<Pub, String> pubName;
@@ -45,7 +55,10 @@ public class FavouritePub extends BaseController implements Initializable {
 	    public TableColumn<Pub, String> pubEntranceFee;
 	    @FXML
 	    public TableColumn<Pub, Image> image;
-	
+	    
+	    /**
+	     * convert array to arrayList
+	     */
 	    public ObservableList<Pub> masterData1 = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
 	    int userId=UserData.userInstance.getId();
 		int pubID = UserData.userInstance.getPubId();
@@ -62,7 +75,7 @@ public class FavouritePub extends BaseController implements Initializable {
 		            public void handle(MouseEvent event) {
 		                if (event.getClickCount() == 2) {
 		                        // Show that we can select items and print it
-		                        System.out.println("clicked on " + pubTable.getSelectionModel().getSelectedItem());
+
 		                       PubData.selectedPub = pubTable.getSelectionModel().getSelectedItem();
 		                        // load the details scene
 		                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
@@ -96,7 +109,7 @@ public class FavouritePub extends BaseController implements Initializable {
 		        pubOffer.setCellValueFactory(new PropertyValueFactory<Pub, String>("_offer"));
 		        pubDescription.setCellValueFactory(new PropertyValueFactory<Pub, String>("_description"));
 		        pubEntranceFee.setCellValueFactory(new PropertyValueFactory<Pub, String>("_entranceFee"));
-	            System.out.println(pubName +"doki doki");
+
 
 
 	        // Try loading the image, if there is none will use placeholder

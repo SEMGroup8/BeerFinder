@@ -16,6 +16,10 @@ import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
 
+import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -35,10 +39,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
+/**
+ * Created by Collins
+ * @author chiefcorlyns
+ *
+ */
 public class UserProfile extends BaseController implements Initializable  {
 
-	    
+	  /**
+	   * list of favorite pubs of the logged in user  
+	   */
 	@FXML
 	public TableView<Pub> pubTable;
 	@FXML
@@ -57,7 +67,10 @@ public class UserProfile extends BaseController implements Initializable  {
 	public TableColumn<Pub, Image> image;
 	@FXML
 	public Label emailError, passwordError, fullNameError, ageError;
-
+	
+	/**
+	 * table of other users being followed by the logged in user
+	 */
 	@FXML
 	public TableView<User> userTable;
 	@FXML
@@ -68,7 +81,10 @@ public class UserProfile extends BaseController implements Initializable  {
 	public TableColumn<User,String> userEmail;
 	@FXML
 	public TableColumn<User, Image> userImage1;
-
+	
+	/**
+	 * list of favorite beer of the logged in user
+	 */
 	@FXML
 	public TableView<Beer> beerTable;
 	@FXML
@@ -90,12 +106,16 @@ public class UserProfile extends BaseController implements Initializable  {
 
 	@FXML
 	public Label userName;
+	
+	/**
+	 * converts array to observable arrayList
+	 */
 
 	public ObservableList<Beer> beerFavourites = FXCollections.observableArrayList(UserData.userInstance.favourites);
 	public ObservableList<Pub> pubFavourites = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
 	public ObservableList<User> followedUsers = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
 
-	public Label followLabel, numFollowersLabel;
+
 
 	@FXML
 	public TextField age;
@@ -116,9 +136,7 @@ public class UserProfile extends BaseController implements Initializable  {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		numFollowersLabel.setText("Welcome " +UserData.userInstance.get_name()+ "! You are now being followed by: " +UserData.userInstance.getNumFollowers()+" people");
 		userImage.setImage(UserData.userInstance.getImage());
-		followLabel.setText(UserData.userInstance.get_name());
 		age.setText(""+UserData.userInstance.getAge());
 		fullName.setText(UserData.userInstance.getFullName());
 	    password.setText(UserData.userInstance.getPassword());
@@ -126,7 +144,9 @@ public class UserProfile extends BaseController implements Initializable  {
 
         Navigation.current_CenterFXML =  "/com/group8/resources/views/MyProfile.fxml";
 
-        // You have to have a get function that is named get +" type" for it to work sets values.
+        /**
+         * automatically beer information
+         */
         beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("name"));
         beerType.setCellValueFactory(new PropertyValueFactory<Beer, String>("type"));
         beerOrigin.setCellValueFactory(new PropertyValueFactory<Beer, String>("origin"));
@@ -172,7 +192,7 @@ public class UserProfile extends BaseController implements Initializable  {
                                 imgVw.setFitWidth(20);
                                 imgVw.setFitHeight(40);
                                 // Test Output
-                                //System.out.println(imgVw.getImage().toString());
+
                                 vb.getChildren().addAll(imgVw);
                                 setGraphic(vb);
 
@@ -188,7 +208,9 @@ public class UserProfile extends BaseController implements Initializable  {
         //Populate the Tableview
         beerTable.setItems(beerFavourites);
 
-        // You have to have a get function that is named get +" type" for it to work sets values.
+        /**
+         * automatically favorite pub information
+         */
 		pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("name"));
 		pubAddress.setCellValueFactory(new PropertyValueFactory<Pub, String>("adressId"));
 		pubPhoneNumber.setCellValueFactory(new PropertyValueFactory<Pub, String>("phoneNumber"));
@@ -314,7 +336,26 @@ public class UserProfile extends BaseController implements Initializable  {
 	 * @throws SQLException
 	 */
 	public void onUpdate(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
-	
+
+		final ListView<String> listView = new ListView<>();
+		ObservableList<String> list =FXCollections.observableArrayList (
+				"Sunday",
+				"Monday",
+				"Tuesday",
+				"Wednesday",
+				"Thursday",
+				"Friday",
+				"Saturday");
+		listView.setItems(list);
+
+		listView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+			}
+
+		});
 	// Setup the mysel connection
 	String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
 	String user = "Gr8";
@@ -345,6 +386,7 @@ public class UserProfile extends BaseController implements Initializable  {
 		if(imageStream!=null)
 		{
 			updateFoto();
+
 		}
 
 		String sqlQuery = "Select * from users where lower(username) = '" + UserData.userInstance.get_name().toLowerCase() + "';";
@@ -466,7 +508,6 @@ public class UserProfile extends BaseController implements Initializable  {
 				||file.getName().contains(".jpeg")))
 		{
 			String thumbURL = file.toURI().toURL().toString();
-			//	System.out.println(thumbURL);
 			Image imgLoad = new Image(thumbURL);
 			userImage.setImage(imgLoad);
 			}
@@ -474,7 +515,7 @@ public class UserProfile extends BaseController implements Initializable  {
 			// If the user cancels the imageload the loadAnImage is set to false
 			// curently allso prints debug msg to console in form of boolean and file ( will be null )
 			//ex.printStackTrace();
-			System.out.println(file);
+
 			loadAnImage = false;
 		}
 }
@@ -496,6 +537,8 @@ public class UserProfile extends BaseController implements Initializable  {
 	}
 
 	public void getRow(){
+
+		ObservableList<String> test = FXCollections.observableArrayList();
 
 		//Beer table
 		beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -529,6 +572,7 @@ public class UserProfile extends BaseController implements Initializable  {
 	});
 
 		//Pub table
+
 		pubTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			// Select item will only be displayed when dubbleclicked
 

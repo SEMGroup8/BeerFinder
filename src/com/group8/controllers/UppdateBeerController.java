@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -14,15 +15,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.group8.database.MysqlDriver;
+import com.group8.database.tables.Beer;
 
+import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -33,11 +35,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class UppdateBeerController implements Initializable {
 
+
+/**
+ * Created by Felipe Benjamin
+ * UpdateBeerController to let Pub Users to update beers stored in the databse.
+ * @author felipebenjamin
+ *
+ */
+
+public class UppdateBeerController extends BaseController implements Initializable {
+	
+	// Make Observeble Lists out of our ArrayLists
 	ObservableList<String> beerTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerPackageTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerProducerList=FXCollections.observableArrayList();
@@ -54,147 +69,111 @@ public class UppdateBeerController implements Initializable {
 	public CheckBox beerIsTap;
 	public ImageView beerImage;
 	public Label addConfirmation;
-	
-	 @FXML
-	    public Button logout, account, favourites;
-	 public Label userName;
 
-	public Button addBeerButton;
+	public Button updateBeerButton;
 	public Button addBeerImageButton;
+	public Button beerProducerButton;
 	FileInputStream imageStream;
 	File file;
+
+	
+	/**
+	 * Created by Felipe Benjamin
+	 * Pressing the add beer image button will make a filechooser popup
+	 * --> requests a image of the JPG,PNG,JPEG types to load into
+	 *	   the imageview and upload to Database.
+	 * @param event
+	 * @throws IOException
+	 */
 	
 public void addBeerImage(ActionEvent event)throws IOException {
-		
-		
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("open image file");
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-            Stage primaryStage=new Stage();
-			file= fileChooser.showOpenDialog(primaryStage);
-			imageStream = new FileInputStream(file);
-			
-			
-				if (file.isFile() && (file.getName().contains("jpg")||file.getName().contains(".png")
-						||file.getName().contains(".jpeg")
-						)){
-				
-				String thumbURL = file.toURI().toURL().toString();
-			//	System.out.println(thumbURL);
-				Image imgLoad = new Image(thumbURL);
-				beerImage.setImage(imgLoad);
-				}
-				} // end of method
-	
-	
-	
-	
-	
-	
-	
-	
-	 @FXML
-	    public void onLogout(javafx.event.ActionEvent event) throws IOException
-	    {
-	        UserData.userInstance = null;
+	FileChooser fileChooser = new FileChooser();
+	fileChooser.setTitle("open image file");
+	fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/homescreen.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
+		Stage primaryStage=new Stage();
+		file= fileChooser.showOpenDialog(primaryStage);
+		imageStream = new FileInputStream(file);
 
-	    @FXML
-	    public void onAccount(javafx.event.ActionEvent event) throws IOException
-	    {
 
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/pubInfo.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
+		if (file.isFile() && (file.getName().contains("jpg")||file.getName().contains(".png")
+				||file.getName().contains(".jpeg")
+		)){
 
-	    @FXML
-	    public void onFavourites(javafx.event.ActionEvent event) throws IOException
-	    {
+		String thumbURL = file.toURI().toURL().toString();
+		Image imgLoad = new Image(thumbURL);
+		beerImage.setImage(imgLoad);
+		}
+	} // end of method
 
-	        Parent result = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/favourites.fxml"));
-	        Scene result_scene = new Scene(result, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    }
-
-	    public void updateBeer(ActionEvent event) throws IOException {
-			
-			String sqlQuery = "select beerTypeID from beerType where beerTypeEN = '" + beerType.getValue() + "'";
-			
-			ArrayList<Object> result = MysqlDriver.select(sqlQuery);
-			
-			int typeID = Integer.parseInt(result.get(0).toString());
-			
-			
-	       String sqlQuery2 = "select distinct packageID from package where packageTypeEN = '"+ beerPackageType.getValue() + "'";
-			
-			ArrayList<Object> result2 = MysqlDriver.select(sqlQuery2);
-			
-			int typeID2 = Integer.parseInt(result2.get(0).toString());
-			
-			
-			
-				
-				
-	            String sqlQuery4 = "select distinct originID from origin where countryName = '"+ beerOrigin.getValue() + "'";
-				
-				ArrayList<Object> result4 = MysqlDriver.select(sqlQuery4);
-				
-				String typeID4 = (result4.get(0).toString());
-				
-				
-				
-			
-	String beerInfo = "";
 	
-	if(imageStream==null){
-		beerInfo = "UPDATE `beers` SET `name`='"+ beerName.getText()+"',`description`= '"+beerDescription.getText()+
-				"',`beerTypeID`= "+ typeID +",`originID`= '"+ typeID4+"',`percentage`= " + Float.parseFloat(beerPercentage.getText())
-				+",`producerName`= '"+beerProducer.getValue()+"',`volume`= " + Integer.parseInt(beerVolume.getText())
-				+",`isTap`="+(beerIsTap.isSelected() ? 1 : 0)+",`package`= "+typeID2
-				+" WHERE beerID = "+ BeerData.selectedBeer.getId(); 
-	}
-	else
-	{
-		beerInfo = "UPDATE `beers` SET `name`='"+ beerName.getText()+"',`image` = ?,`description`= '"+beerDescription.getText()+
-				"',`beerTypeID`= "+ typeID +",`originID`= '"+ typeID4+"',`percentage`= " + Float.parseFloat(beerPercentage.getText())
-				+",`producerName`= '"+beerProducer.getValue()+"',`volume`= " + Integer.parseInt(beerVolume.getText())
-				+",`isTap`="+(beerIsTap.isSelected() ? 1 : 0)+",`package`= "+typeID2
-				+" WHERE beerID = "+ BeerData.selectedBeer.getId(); 
-	}
-	
-	System.out.println(beerInfo);
-	 Connection con = null;
-     PreparedStatement st = null;
+/**
+ * Created by Felipe Benjamin
+ * Pressing the updatebeer button this code will run and update the beer back into the Database and notify the user if 
+ * it was done.
+ * -->
+ * @param event
+ * @throws IOException
+ */
+public void updateBeer(ActionEvent event) throws IOException {
 
-     String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
-     String user = "Gr8";
-     String password = "group8";
+		String sqlQuery = "select beerTypeID from beerType where beerTypeEN = '" + beerType.getValue() + "'";
+
+		ArrayList<Object> result = MysqlDriver.select(sqlQuery);
+
+		int typeID = Integer.parseInt(result.get(0).toString());
+
+
+		String sqlQuery2 = "select distinct packageID from package where packageTypeEN = '"+ beerPackageType.getValue() + "'";
+
+		ArrayList<Object> result2 = MysqlDriver.select(sqlQuery2);
+
+		int typeID2 = Integer.parseInt(result2.get(0).toString());
+
+		String sqlQuery4 = "select distinct originID from origin where countryName = '"+ beerOrigin.getValue() + "'";
+
+		ArrayList<Object> result4 = MysqlDriver.select(sqlQuery4);
+
+		String typeID4 = (result4.get(0).toString());
+
+		String beerInfo = "";
+
+		if(imageStream==null){
+			beerInfo = "UPDATE `beers` SET `name`='"+ beerName.getText()+"',`description`= '"+beerDescription.getText()+
+					"',`beerTypeID`= "+ typeID +",`originID`= '"+ typeID4+"',`percentage`= " + Float.parseFloat(beerPercentage.getText())
+					+",`producerName`= '"+beerProducer.getValue()+"',`volume`= " + Integer.parseInt(beerVolume.getText())
+					+",`isTap`="+(beerIsTap.isSelected() ? 1 : 0)+",`package`= "+typeID2
+					+" WHERE beerID = "+ BeerData.selectedBeer.getId();
+		}
+		else
+		{
+			beerInfo = "UPDATE `beers` SET `name`='"+ beerName.getText()+"',`image` = ?,`description`= '"+beerDescription.getText()+
+					"',`beerTypeID`= "+ typeID +",`originID`= '"+ typeID4+"',`percentage`= " + Float.parseFloat(beerPercentage.getText())
+					+",`producerName`= '"+beerProducer.getValue()+"',`volume`= " + Integer.parseInt(beerVolume.getText())
+					+",`isTap`="+(beerIsTap.isSelected() ? 1 : 0)+",`package`= "+typeID2
+					+" WHERE beerID = "+ BeerData.selectedBeer.getId();
+		}
+	
+		Connection con = null;
+		PreparedStatement st = null;
+
+		String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
+		String user = "Gr8";
+		String password = "group8";
 
 
         try {
-            con = DriverManager.getConnection(url, user, password);
-            st = con.prepareStatement(beerInfo);
-           // st.executeUpdate(query);
-         if(imageStream!=null)
-         {
-            st.setBinaryStream(1, imageStream, (int) file.length());
-         }
+			con = DriverManager.getConnection(url, user, password);
+			st = con.prepareStatement(beerInfo);
+			// st.executeUpdate(query);
+			if(imageStream!=null)
+			{
+				st.setBinaryStream(1, imageStream, (int) file.length());
+			}
          
-         st.executeUpdate();
-         
-         
+		st.executeUpdate();
+
         Alert alert = new Alert(AlertType.INFORMATION);
 	        alert.setTitle("Information Dialog");
 	        alert.setHeaderText(null);
@@ -223,42 +202,46 @@ public void addBeerImage(ActionEvent event)throws IOException {
 
         	
         }finally {
-        }
-            try {
-                if (st != null) {
-                    st.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
+			try {
+				if (st != null) {
+					st.close();
+				}
+				if (con != null) {
+					con.close();
+				}
 
-            } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
-                lgr.log(Level.WARNING, ex.getMessage(), ex);
-                
-                
-                
-            }
-            Parent result3 = FXMLLoader.load(getClass().getResource("/com/group8/resources/views/Backup/beerDetailsScreen.fxml"));
-	        Scene result_scene = new Scene(result3, 800, 600);
-	        Stage main_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        main_stage.setScene(result_scene);
-	        main_stage.show();
-	    
-	    
-	    }// end of method
-	
-	
-	
-	
+			} catch (SQLException ex) {
+				Logger lgr = Logger.getLogger(MysqlDriver.class.getName());
+				lgr.log(Level.WARNING, ex.getMessage(), ex);
+
+
+			}
+
+			String query2 = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag" +
+					" from beers, beerType, origin, package where " +
+					"beers.beerTypeID = beerType.beerTypeID " +
+					"and beers.originID = origin.originID " +
+					"and beers.package = package.packageID " +
+					"and beerID =" + BeerData.selectedBeer.getId() + "";
+
+			BeerData.selectedBeer = new Beer(MysqlDriver.select(query2));
+			mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
+		}
+	}// end of method
+
+
+/**
+ * Created by Felipe Benjamin
+ * Initialize the UpdateBeerController
+ * @param location
+ * @param resources
+ */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-		
-		
-		userName.setText(UserData.userInstance.get_name());
-    	beerName.setText(BeerData.selectedBeer.getName());
+
+		Navigation.current_CenterFXML = "/com/group8/resources/views/addBeer.fxml";
+
+		beerName.setText(BeerData.selectedBeer.getName());
     	beerDescription.setText(BeerData.selectedBeer.getDescription());
         beerPercentage.setText("" + BeerData.selectedBeer.getPercentage());
         beerVolume.setText("" + BeerData.selectedBeer.getVolume());
@@ -266,8 +249,7 @@ public void addBeerImage(ActionEvent event)throws IOException {
         if (BeerData.selectedBeer.getIsTap() == true){
         	beerIsTap.setSelected(true);
         }
-     
-    	
+
     	beerTypeList.clear();
     	String beerTypeInfo;
     	beerTypeInfo ="select distinct beerTypeEN from beerType";
@@ -292,9 +274,7 @@ public void addBeerImage(ActionEvent event)throws IOException {
     	beerPackageType.setItems(beerPackageTypeList);
     	beerPackageType.setValue(BeerData.selectedBeer.getBeerPackage());
     	
-    	
-    	
-    	
+
     	beerProducerList.clear();
     	String beerProducerInfo;
     	beerProducerInfo = "select distinct producerName from producers";
@@ -320,10 +300,56 @@ public void addBeerImage(ActionEvent event)throws IOException {
     	
 	}
 
+	
+	
+	/**
+	 * Created by Felipe Benjamin
+	 * Pressing the addProducer button this code will bring a pop up window where the user
+	 * can add a new producer of beers and save it to the database and finally update the information
+	 * in the producer choicebox.
+	 * @param event
+	 * @throws IOException
+	 */
+	public void addBeerProducer(ActionEvent event) throws IOException {
+		
+		final Stage dialog = new Stage();
+		dialog.initModality(Modality.APPLICATION_MODAL);
+		dialog.initOwner(Navigation.primaryStage);
+		VBox dialogVbox = new VBox(20);
+		dialogVbox.setAlignment(Pos.CENTER);
+		dialogVbox.getChildren().add(new Text("Add the producer to the list!"));
+		TextField producer = new TextField("Type in producer name:");
+		Button addProducerToDB = new Button("Add producer");
 
+		addProducerToDB.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
 
+				String query = "INSERT INTO `producers`(`producerName`) VALUES ('"+ producer.getText() + "')";
 
+				MysqlDriver.insert(query);
 
-	} // end of class
+				beerProducerList.clear();
+				String beerProducerInfo;
+				beerProducerInfo = "select distinct producerName from producers";
+
+				ArrayList<ArrayList<Object>> result3 = MysqlDriver.selectMany(beerProducerInfo);
+				for (int i = 0; i < result3.size(); i++) {
+					beerProducerList.add(result3.get(i).get(0).toString());
+				}
+				beerProducer.setItems(beerProducerList);
+
+				dialog.close();
+			}
+		});
+
+		dialogVbox.getChildren().add(producer);
+		dialogVbox.getChildren().add(addProducerToDB);
+
+		Scene dialogScene = new Scene(dialogVbox, 300, 200);
+		dialog.setScene(dialogScene);
+		dialog.show();
+	}
+} // end of class
 
 

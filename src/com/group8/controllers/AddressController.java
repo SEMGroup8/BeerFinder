@@ -1,38 +1,26 @@
 package com.group8.controllers;
 
-import com.group8.database.tables.Beer;
+import com.group8.singletons.BeerData;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-import com.sun.javafx.stage.WindowHelper;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.stage.*;
-import javafx.stage.Window;
 import netscape.javascript.JSObject;
 
-import javax.swing.plaf.ComponentInputMapUIResource;
-import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.IntStream;
 
 /**
- * Created by AnkanX on 15-11-18.
+ * Created by Andreas Fransson on 15-11-18.
  *
  * The address popup window that originates from the PubInfo window
  * When a Pub owner wants to add an address.
@@ -66,6 +54,9 @@ public class AddressController extends BaseController implements Initializable,M
 
 
     /**
+     *
+     * Created by Andreas Fransson
+     *
      * Sets a label to the center coordinates of the map when button pressed.
      */
     public void getCenter(){
@@ -76,7 +67,7 @@ public class AddressController extends BaseController implements Initializable,M
     }
 
     /**
-     *
+     *Created by Andreas Fransson
      */
     public void addAddress(){
         img.setFitWidth(60);
@@ -119,6 +110,7 @@ public class AddressController extends BaseController implements Initializable,M
     }
 
     /**
+     * Created by Andreas Fransson
      * Initialize the Address window
      * @param location
      * @param resources
@@ -126,10 +118,11 @@ public class AddressController extends BaseController implements Initializable,M
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mapView.addMapInializedListener(this);
-        System.out.println("loaded test!");
+
     }
 
     /**
+     * Created by Andreas Fransson
      * Initialize the map
      */
     @Override
@@ -173,7 +166,6 @@ public class AddressController extends BaseController implements Initializable,M
         // Gets the position of a click without drag
         map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
             LatLong ll = new LatLong((JSObject) obj.getMember("latLng"));
-            System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
             click.setText(ll.toString());
         });
 
@@ -181,7 +173,6 @@ public class AddressController extends BaseController implements Initializable,M
         // Gets the center of the screen after the mouse button is released after a drag action.
         map.addUIEventHandler(UIEventType.mouseup, (JSObject obj) -> {
             LatLong l2 = new LatLong(map.getCenter().getLatitude(), map.getCenter().getLongitude());
-            //System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
             centerScreen.setText(l2.toString());
         });
 

@@ -2,6 +2,8 @@ package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.User;
+import com.group8.singletons.UserData;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +13,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import com.group8.singletons.*;
+
 
 /**
  * Created by Shiratori on 03/11/15.
@@ -34,18 +38,19 @@ public class AccountSettings extends BaseController implements Initializable
     {
         if(!checkInput())
         {
-            System.out.println("in check input");
+
             return;
         }
 
         String selectQuery = "Select * from users where email = '" + email.getText() + "' and "
-                + UserData.userInstance.getId() + " not in (select userId from users);";
+                + UserData
+                .userInstance.getId() + " not in (select userId from users);";
 
-        System.out.println(selectQuery);
+
 
         if (!checkAvailability(selectQuery))
         {
-            System.out.println("In email check");
+
 
             emailError.setText("Email is in use.");
 

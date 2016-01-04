@@ -4,6 +4,11 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
 
+import com.group8.database.tables.User;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -15,6 +20,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -30,7 +38,6 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -43,7 +50,7 @@ import java.util.ResourceBundle;
 public class HomeCenter extends BaseController implements Initializable
 {
     @FXML
-    public Button search, showPubs;
+    public Button search, pubSearchButton, userSearchButton, showAllUsers, showAllPubs;
     @FXML
     public Label error;
     @FXML
@@ -59,13 +66,15 @@ public class HomeCenter extends BaseController implements Initializable
     @FXML
     public CheckBox all;
     @FXML
+    public CheckBox searchForUsersCheckbox;
+    @FXML
+    public CheckBox searchForPubsCheckbox;
+    @FXML
     public CheckBox advancedName;
     @FXML
     public CheckBox advancedCountry;
     @FXML
-    public Button beerScanButton;
-    @FXML
-    private Button beerScanSearchButton;
+    public Button beerScanButton, beerScanSearchButton;
 
     public TextField searchText;
     @FXML
@@ -177,12 +186,13 @@ public class HomeCenter extends BaseController implements Initializable
 
         if(advanced.isSelected()){
             randomButton.setVisible(false);
-            showPubs.setVisible(false);
+            searchForPubsCheckbox.setVisible(false);
+            searchForUsersCheckbox.setVisible(false);
         }else{
             randomButton.setVisible(true);
-            showPubs.setVisible(true);
+            searchForPubsCheckbox.setVisible(true);
+            searchForUsersCheckbox.setVisible(true);
         }
-
 
         // Handle diffrent casesof visability and selection
         if(!advancedDescription.isVisible() && !advancedType.isVisible() && !advancedProducer.isVisible())
@@ -212,6 +222,48 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Is called when the user presses the pub search checkbox.
+     *
+     * Changes visibility of different elements.
+     */
+    @FXML
+    public void pubsChecked()
+    {
+        advanced.setVisible(!searchForPubsCheckbox.isSelected());
+        searchForUsersCheckbox.setVisible(!searchForPubsCheckbox.isSelected());
+
+        search.setVisible(!searchForPubsCheckbox.isSelected());
+        userSearchButton.setVisible(false);
+        showAllUsers.setVisible(false);
+
+        pubSearchButton.setVisible(searchForPubsCheckbox.isSelected());
+        showAllPubs.setVisible(searchForPubsCheckbox.isSelected());
+    }
+
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Is called when the user presses the user search checkbox.
+     *
+     * Changes visibility of different elements.
+     */
+    @FXML
+    public void userChecked()
+    {
+        advanced.setVisible(!searchForUsersCheckbox.isSelected());
+        searchForPubsCheckbox.setVisible(!searchForUsersCheckbox.isSelected());
+
+        search.setVisible(!searchForUsersCheckbox.isSelected());
+        pubSearchButton.setVisible(false);
+        showAllPubs.setVisible(false);
+
+        userSearchButton.setVisible(searchForUsersCheckbox.isSelected());
+        showAllUsers.setVisible(searchForUsersCheckbox.isSelected());
+    }
+
+    /**
      * Created by Andreas Fransson.
      */
     public void checkAll()
@@ -229,8 +281,6 @@ public class HomeCenter extends BaseController implements Initializable
             advancedName.setSelected(false);
             advancedCountry.setSelected(false);
         }
-
-
     }
 
     /**
@@ -354,21 +404,15 @@ public class HomeCenter extends BaseController implements Initializable
                         // Execute user query
                         ArrayList<ArrayList<Object>> sqlData;
 
-                        System.out.println(BeerData.searchInput);
                         sqlData = MysqlDriver.selectMany(BeerData.searchInput);
-
-                        System.out.println(sqlData.size());
 
                         for (int i = 0; i < sqlData.size(); i++) {
                             // Add a new Beer to the beer arraylist
                             Beer beer = new Beer(sqlData.get(i));
                             // Testoutput
-                            System.out.print(beer.getName()+"\n");
                             BeerData.beer.add(beer);
                         }
-                        for(int i=0;i<BeerData.beer.size();i++){
-                            System.out.println(BeerData.beer.get(i).getName());
-                        }
+
 
                         return null;
                     }
@@ -433,23 +477,15 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
-     * Loads the random beer generator
-     * @param event
-     * @throws Exception
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the search for pubs button.
+     *
+     * Searches the pub database where the pub name is simillar to the search string.
      */
     @FXML
-    public void onRandom (ActionEvent event) throws Exception{
-
-        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
-    }
-
-    /**
-     * Show all existing Pubs (testing??)
-     * @param event
-     * @throws Exception
-     */
-    @FXML
-    public void onShowPubs (ActionEvent event) throws Exception{
+    public void pubSearch()
+    {
         // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
         backgroundThread = new Service<Void>() {
             @Override
@@ -463,7 +499,9 @@ public class HomeCenter extends BaseController implements Initializable
                         Load.setVisible(true);
 
                         // TODO use same as other to get all fields right...
-                        String listOfPub = "select pubs.pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from   pubs";
+                        String listOfPub = "select pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from pubs " +
+                                "where name like '%" + searchText.getText().toLowerCase() + "%';";
+
                         ArrayList<ArrayList<Object>> SQLData4;
 
                         SQLData4 = MysqlDriver.selectMany(listOfPub);
@@ -473,9 +511,177 @@ public class HomeCenter extends BaseController implements Initializable
                             // Add a new Beer to the beer arraylist
                             Pub pub = new Pub(SQLData4.get(i));
                             pubListDetails.add(pub);
-
                         }
 
+                        PubData.pubs = pubListDetails;
+
+                        return null;
+                    }
+                };
+            }
+        };
+
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                Load.setVisible(false);
+
+                if(PubData.pubs.size()==0)
+                {
+                    error.setText("No Pubs Found!");
+                    error.setVisible(true);
+                }
+                else if(PubData.pubs.size()==1)
+                {
+                    PubData.selectedPub = PubData.pubs.get(0);
+
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/pubDetailView.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+
+                    // load the result stage
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/pubList.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        // Start thread
+        backgroundThread.start();
+    }
+
+    /**
+     * Created by Linus Eiderström Swahn.
+     *
+     * Gets called when the user presses the search for users button.
+     *
+     * Searches the user database where the username or full name is simillar to the search string.
+     */
+    @FXML
+    public void userSearch()
+    {
+        // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+        backgroundThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+
+
+                        // load wheel until task is finished//
+                        Load.setVisible(true);
+
+                        // TODO use same as other to get all fields right...
+                        String listOfPub = "select * from users " +
+                                "where username like '%" + searchText.getText().toLowerCase() + "%' " +
+                                "or fullName like '%" + searchText.getText().toLowerCase() + "%';";
+
+                        ArrayList<ArrayList<Object>> SQLData4;
+
+                        SQLData4 = MysqlDriver.selectMany(listOfPub);
+                        ArrayList<User> userListDetails = new ArrayList<User>();
+
+                        for (int i = 0; i < SQLData4.size(); i++) {
+                            // Add a new Beer to the beer arraylist
+                            User user = new User(SQLData4.get(i));
+                            userListDetails.add(user);
+                        }
+
+                        UserData.users = userListDetails;
+
+                        return null;
+                    }
+                };
+            }
+        };
+
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                Load.setVisible(false);
+
+                if(UserData.users.size()==0)
+                {
+                    error.setText("No USers Found!");
+                    error.setVisible(true);
+                }
+                else if(UserData.users.size()==1)
+                {
+                    UserData.selected = UserData.users.get(0);
+
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/OtherUser.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+
+                    // load the result stage
+                    try {
+                        mainScene.changeCenter("/com/group8/resources/views/userList.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        // Start thread
+        backgroundThread.start();
+    }
+    /**
+     * Loads the random beer generator
+     * @param event
+     * @throws Exception
+     */
+    @FXML
+    public void onRandom (ActionEvent event) throws Exception{
+
+        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
+    }
+
+    /**
+     * Created by Collins
+     * Show all existing Pubs
+     * @param event
+     * @throws Exception
+     */
+    @FXML
+    public void showAllPubs (ActionEvent event) throws Exception{
+        // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+        backgroundThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+
+                        // load wheel until task is finished//
+                        Load.setVisible(true);
+
+                        /**
+                         * select all pubs from the database
+                         */
+                        String listOfPub = "select pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from pubs";
+                        ArrayList<ArrayList<Object>> SQLData4;
+
+                        SQLData4 = MysqlDriver.selectMany(listOfPub);
+                        ArrayList<Pub> pubListDetails = new ArrayList<Pub>();
+
+                        for (int i = 0; i < SQLData4.size(); i++) {
+                            // Add a new Beer to the pub arraylist
+                            Pub pub = new Pub(SQLData4.get(i));
+                            pubListDetails.add(pub);
+                        }
 
                         PubData.pubs = pubListDetails;
 
@@ -507,6 +713,35 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     *Created by Colllins
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void showAllUsers(ActionEvent event) throws IOException
+    {
+        String userList="select * from users where isPub="+0;
+
+        ArrayList<ArrayList<Object>> users;
+        users =	MysqlDriver.selectMany(userList);
+        ArrayList<User> allUsers = new ArrayList<User>();
+
+        for (int i = 0; i < users.size(); i++) {
+
+            User newUser = new User(users.get(i));
+
+            allUsers.add(newUser);
+        }
+
+        UserData.users = allUsers;
+
+        mainScene.changeCenter("/com/group8/resources/views/userList.fxml");
+    }
+
+
+
+    /**
+     * Created by Andreas Fransson.
      * Auto clear fields when selected
      * Clear the Search field
      */
@@ -519,20 +754,42 @@ public class HomeCenter extends BaseController implements Initializable
         }
     }
 
+    /**
+     * Created by Mantas Namgaudis
+     *
+     * Execute search on pressing "Enter" key.
+     */
     @FXML
-    // Execute search button on pressing "Enter"
     public void searchEnterPressed(KeyEvent event){
         if (event.getCode() == KeyCode.ENTER) {
-            search.setDefaultButton(true);
+
+            if(searchForUsersCheckbox.isSelected())
+            {
+                userSearchButton.setDefaultButton(true);
+            }
+            else if(searchForPubsCheckbox.isSelected())
+            {
+                pubSearchButton.setDefaultButton(true);
+            }
+            else
+            {
+                search.setDefaultButton(true);
+            }
         }
     }
 
+    /**
+     * Created by Mantas Namgaudis
+     *
+     * Opens and sets properties for the beer scanner window.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     public void onBeerScan (ActionEvent event) throws Exception {
 
         cameraOpen = true;
         webCam = new SwingNode();
-        SwingNode barcode = new SwingNode();
         pane = new BorderPane();
         workaroundButton = new Button();
         workaroundButton.setOnAction(e -> beerScanSearchButton.fire());
@@ -561,6 +818,10 @@ public class HomeCenter extends BaseController implements Initializable
         getWebcam(webCam);
     }
 
+    /**
+     * Runs swing component as javafx node.
+     * @param webcam
+     */
     private void getWebcam(final SwingNode webcam) {
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -600,11 +861,10 @@ public class HomeCenter extends BaseController implements Initializable
         webcamStage.close();
         Navigation.primaryStage.setOpacity(1);
         BeerScanner.disconnectWebcam();
-        //System.exit(0);
-
     }
 
     /**
+     * Created by Andreas Fransson.
      *  Initialize Main controller
      * @param location
      * @param resources

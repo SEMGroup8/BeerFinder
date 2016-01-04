@@ -1,8 +1,10 @@
 package com.group8.database.tables;
-import java.util.Scanner;
+
 import com.group8.database.MysqlDriver;
 
 /**
+ * Created by Joseph Roberto Delatolas.
+ *
  * Beer Rank class to keep track of the ranking of each beer.
  */
 public class BeerRank extends MysqlDriver{
@@ -37,7 +39,4 @@ public BeerRank (int userId, int beerID, int stars){
 		this.userId = userId;
 		this.beerID = beerID;
 	}
-
-
-
 }

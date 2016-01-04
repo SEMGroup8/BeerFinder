@@ -1,15 +1,14 @@
 package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,7 +26,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by AnkanX on 15-10-22.
+ * Created by Andreas Fransson on 15-10-22.
  *
  * TODO Visual upgrade + presentation of objects + additional options
  * Show results from a beer search.
@@ -67,6 +66,7 @@ public class ResultController extends BaseController implements Initializable {
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
 
     /**
+     * Created by Andreas Fransson
      * Select a beer row and proceed to the beerDetail scene
      *
      * --> OnMouseClick get content of clicked row and store in BeerData.selectedBeer
@@ -111,6 +111,7 @@ public class ResultController extends BaseController implements Initializable {
 
 
     /**
+     * Created by Andreas Franssson
      * initialize result controller
      *
      *  --> Populateing the TableView

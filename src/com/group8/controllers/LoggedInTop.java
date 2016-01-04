@@ -2,19 +2,20 @@ package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -78,7 +79,7 @@ public class LoggedInTop extends BaseController implements Initializable
      * @throws IOException
      */
     @FXML
-    public void onLogout(javafx.event.ActionEvent event) throws IOException
+    public void onLogout(ActionEvent event) throws IOException
     {
         UserData.userInstance = null;
 
@@ -99,7 +100,7 @@ public class LoggedInTop extends BaseController implements Initializable
      * @throws IOException
      */
     @FXML
-    public void onAccount(javafx.event.ActionEvent event) throws IOException
+    public void onAccount(ActionEvent event) throws IOException
     {
         //Make a new Service
         backgroundThread = new Service<Void>() {
@@ -110,6 +111,7 @@ public class LoggedInTop extends BaseController implements Initializable
                     protected Void call() throws Exception {
 
                         // load wheel until task is finished
+                        load.setStyle("-fx-accent: IVORY");
                         load.setVisible(true);
 
                         if(UserData.userInstance.getIsPub())
@@ -120,7 +122,7 @@ public class LoggedInTop extends BaseController implements Initializable
                         }
                         else {
 
-                            //Load the followers, beers and pubs the user has.
+                            //Load the followers, beers and searchForPubsCheckbox the user has.
                             UserData.userInstance.getFollowers();
                             UserData.userInstance.getFavouriteBeers();
                             UserData.userInstance.getPubFavourites();
@@ -162,17 +164,4 @@ public class LoggedInTop extends BaseController implements Initializable
 
     }
 
-    /**
-     *
-     * @param event
-     * @throws IOException
-     */
-    public void usersList(javafx.event.ActionEvent event) throws IOException
-    {
-    	UserData.userInstance.getUsers();
-    	UserData.userInstance.getFollowers();
-    	
-        mainScene.changeCenter("/com/group8/resources/views/userList.fxml");
-
-    }
 }

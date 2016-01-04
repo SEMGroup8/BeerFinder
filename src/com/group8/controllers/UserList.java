@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import com.group8.database.tables.User;
 
+import com.group8.singletons.Navigation;
+import com.group8.singletons.UserData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -26,6 +28,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
+/**
+ * Created by Collins
+ * @author chiefcorlyns
+ *Displays all users in the database
+ */
 public class UserList extends BaseController implements Initializable {
 	
     @FXML
@@ -40,7 +47,7 @@ public class UserList extends BaseController implements Initializable {
     public TableColumn<User, Image> userImage;
 
 
-    public ObservableList<User> masterData = FXCollections.observableArrayList(UserData.userInstance.allUsers);
+    public ObservableList<User> masterData = FXCollections.observableArrayList(UserData.users);
     private Service<Void> backgroundThread;
 
 
@@ -66,7 +73,7 @@ public class UserList extends BaseController implements Initializable {
 
                                     // Show that we can select items and print it
                                     int id = userTable.getSelectionModel().getSelectedItem().getId();
-                                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+                                    // Has to be in a tr / catch because of the event missmatch, ouseevent cant throw IOexceptions
 
                                     User selected = new User("select * from users where userId =" +id);
                                     UserData.selected = selected;
@@ -110,8 +117,9 @@ public class UserList extends BaseController implements Initializable {
 
 
           Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
-
-        // You have to have a get function that is named get +" type" for it to work sets values.
+          	/**
+          	 * automatically loads the information of the pubs
+          	 */
             userName.setCellValueFactory(new PropertyValueFactory<User, String>("fullName"));
 	        userEmail.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
 	        userAge.setCellValueFactory(new PropertyValueFactory<User, String>("age"));

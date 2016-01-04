@@ -10,7 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="433.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group8.controllers.BeerDetailController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -39,7 +39,7 @@
                                  <children>
                                     <ImageView fx:id="oneStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankOneStar" onMouseEntered="#hoverOne" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -47,7 +47,7 @@
                                     </ImageView>
                                     <ImageView fx:id="twoStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankTwoStar" onMouseEntered="#hoverTwo" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -55,7 +55,7 @@
                                     </ImageView>
                                     <ImageView fx:id="threeStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankThreeStar" onMouseEntered="#hoverThree" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -63,7 +63,7 @@
                                     </ImageView>
                                     <ImageView fx:id="fourStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankFourStar" onMouseEntered="#hoverFour" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -71,7 +71,7 @@
                                     </ImageView>
                                     <ImageView fx:id="fiveStar" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#onRankFiveStar" onMouseEntered="#hoverFive" onMouseExited="#backToRank" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../Images/staricon.png" />
+                                          <Image url="@../Images/starIcon.png" />
                                        </image>
                                        <effect>
                                           <Reflection />
@@ -94,12 +94,11 @@
                         <Label fx:id="showTap" layoutX="32.0" layoutY="180.0" text="isTap" textFill="WHITE" />
                         <Label fx:id="showPackage" layoutX="32.0" layoutY="163.0" text="Package" textFill="WHITE" />
                         <Label fx:id="showBeerType" layoutX="33.0" layoutY="58.0" text="beertype" textFill="WHITE" />
-                        <Button fx:id="addToPub" layoutX="315.0" layoutY="129.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
-                        <Label fx:id="added" layoutX="451.0" layoutY="160.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
+                        <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" layoutX="115.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="added" layoutX="152.0" layoutY="203.0" prefHeight="23.0" prefWidth="175.0" text="Added!" textFill="#00ff37" visible="false">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView fx:id="showCountryFlag" fitHeight="16.0" fitWidth="16.0" layoutX="115.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
                         </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -110,10 +109,6 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="added" layoutX="271.0" layoutY="4.0" prefHeight="23.0" prefWidth="97.0" text="Added!" textFill="#00ff37" visible="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Label>
                         <Label layoutX="380.0" layoutY="3.0" text="Price:" textFill="#ffffff">
                            <font>
                               <Font size="18.0" />
@@ -124,7 +119,11 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="favourite" layoutX="150.0" layoutY="4.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" textFill="#ffffff" />
+                        <Button fx:id="favourite" layoutX="150.0" layoutY="4.0" mnemonicParsing="false" onAction="#addToFavourite" text="Add to favourites" textFill="#ffffff" visible="false" />
+                        <Button fx:id="addToPub" layoutX="168.0" layoutY="4.0" mnemonicParsing="false" onAction="#addToPub" text="Add to pub" visible="false" />
+                        <Button fx:id="updateBeerButton" layoutX="292.0" layoutY="4.0" mnemonicParsing="false" onAction="#updateBeer" text="Update Beer" visible="false" />
+                        <Button fx:id="removeFromFavouritesButton" layoutX="129.0" layoutY="4.0" mnemonicParsing="false" onAction="#removeFromFavourites" text="Remove from Favourites" visible="false" />
+                        <Button fx:id="removeFromPubButton" layoutX="148.0" layoutY="4.0" mnemonicParsing="false" onAction="#removeFromPub" text="Remove from Pub" visible="false" />
                      </children>
                   </AnchorPane>
                </children>
@@ -132,4 +131,7 @@
          </children>
       </HBox>
    </center>
+   <padding>
+      <Insets top="33.0" />
+   </padding>
 </BorderPane>

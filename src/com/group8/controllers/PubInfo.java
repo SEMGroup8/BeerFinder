@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 
 import com.group8.database.tables.Beer;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 import com.lynden.gmapsfx.MainApp;
 
 import javafx.collections.FXCollections;
@@ -34,6 +38,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 /**
+ * Created by Collins
  * Pub information scene
  * --> Used to show the user information about his Pub
  * --> Gives the user the ability to change all information about his Pub
@@ -66,10 +71,6 @@ public class PubInfo extends BaseController implements Initializable{
 	@FXML
     public ImageView pubImage;
 	ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
-
-
-
-
 
 	//table for beers in Pub
     public TableView<Beer> beerTable;
@@ -104,9 +105,14 @@ public class PubInfo extends BaseController implements Initializable{
 	FileInputStream imageStream ;
 	File file;
 	boolean loadAnImage = false;
+	/**
+	 * converts array into observable ArrayList
+	 */
 	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.beersInPub);
-	
-	
+
+	/**
+	 *
+	 */
 	 public void getRow(){
 	        beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	            // Select item will only be displayed when dubbleclicked
@@ -138,7 +144,9 @@ public class PubInfo extends BaseController implements Initializable{
 
 	}
 
-
+/**
+ * it automatically sets the pub users information when he is logged in
+ */
 	public void initialize(URL location, ResourceBundle resources) {
 				
 		pubName.setText(PubData.loggedInPub.getName());
@@ -224,11 +232,15 @@ public class PubInfo extends BaseController implements Initializable{
         beerTable.setItems(masterData);
 
     }
-		
-	
-	
-		 
-		
+
+
+	/**
+	 * Created by
+	 * @param event
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void updatePub(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
 		
 		float entrance = Float.parseFloat(pubEntranceFee.getText());
@@ -262,8 +274,7 @@ public class PubInfo extends BaseController implements Initializable{
 
 		// Set the statement to the prepared statement
 		PreparedStatement statement = con.prepareStatement(statmnt);
-		// Debug output
-		System.out.println("loaded an image? ->"+loadAnImage);
+
 		// if you loaded a new image set tthe binary stream
 		if(loadAnImage) {
 			statement.setBinaryStream(1, imageStream, (int) file.length());
@@ -317,7 +328,7 @@ public class PubInfo extends BaseController implements Initializable{
 
 
 			String thumbURL = file.toURI().toURL().toString();
-			//	System.out.println(thumbURL);
+
 			Image imgLoad = new Image(thumbURL);
 			pubImage.setImage(imgLoad);
 
@@ -326,9 +337,9 @@ public class PubInfo extends BaseController implements Initializable{
 			// If the user cancels the imageload the loadAnImage is set to false
 			// curently allso prints debug msg to console in form of boolean and file ( will be null )
 			//ex.printStackTrace();
-			System.out.println(file);
+
 			loadAnImage = false;
-			System.out.println(loadAnImage);
+
 		}
 	} // end of method
 
@@ -343,40 +354,41 @@ public class PubInfo extends BaseController implements Initializable{
          
 	}
 
+	/**
+	 * Created by Andreas Fransson.
+	 * @param event
+	 * @throws IOException
+	 */
 	public void getMap(javafx.event.ActionEvent event) throws IOException{
 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/AddressMap.fxml"));
-			BorderPane page = loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Add Your Location");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(Navigation.primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			dialogStage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
-			// Show the dialog and wait until the user closes it
-			dialogStage.show();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/AddressMap.fxml"));
+		BorderPane page = loader.load();
+		// Create the dialog Stage.
+		Stage dialogStage = new Stage();
+		dialogStage.setTitle("Add Your Location");
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initOwner(Navigation.primaryStage);
+		Scene scene = new Scene(page);
+		dialogStage.setScene(scene);
+		dialogStage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+		// Show the dialog and wait until the user closes it
+		dialogStage.show();
 
+		// When exiting the window update the address and fetch the latlong
+		dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if(BeerData.Address != null) {
 
-			// Some real cool shit
-
-			// When exeting the window update the address and fetch the latlong
-			dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent event) {
-					if(BeerData.Address != null) {
-
-						// Store the address as lat and long doubles
-						latitude = BeerData.Address.getLatitude();
-						longitude = BeerData.Address.getLongitude();
-						System.out.println(latitude + " " + longitude);
-					}
+					// Store the address as lat and long doubles
+					latitude = BeerData.Address.getLatitude();
+					longitude = BeerData.Address.getLongitude();
 				}
-			});
+			}
+		});
 
-		}
+	}
 }
 
 	
