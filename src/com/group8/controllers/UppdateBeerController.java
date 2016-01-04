@@ -75,7 +75,7 @@ public class UppdateBeerController extends BaseController implements Initializab
 	public Button beerProducerButton;
 	FileInputStream imageStream;
 	File file;
-	
+
 	
 	/**
 	 * Created by Felipe Benjamin

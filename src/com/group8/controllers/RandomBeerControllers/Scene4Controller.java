@@ -7,6 +7,8 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.BeerRank;
 import com.group8.database.tables.RandomBeerQuery;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -117,8 +119,6 @@ public class Scene4Controller extends BaseController implements Initializable {
     void onRepeatClick(ActionEvent event) throws Exception {
 
         mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene1.fxml");
-
-
     }
 
 
@@ -134,11 +134,7 @@ public class Scene4Controller extends BaseController implements Initializable {
             int random = (int) Math.floor(Math.random() * array.length);
             result = array[random];
 
-            //System.out.println("Array length: " + array.length);
-            //System.out.println("Random number: " + random);
-
-        } else {
-            //System.out.println("Array is empty");
+            ObservableList<String> test = FXCollections.observableArrayList();
         }
         return result;
     }

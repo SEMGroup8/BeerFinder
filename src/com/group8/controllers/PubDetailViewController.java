@@ -20,7 +20,6 @@ import java.util.ResourceBundle;
  * Pub Detail View
  * --> Showing details about a specific chosen pub
  */
-
 public class PubDetailViewController extends BaseController implements Initializable{
 
 	/**
