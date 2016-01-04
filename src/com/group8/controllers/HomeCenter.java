@@ -498,23 +498,29 @@ public class HomeCenter extends BaseController implements Initializable
                         // load wheel until task is finished//
                         Load.setVisible(true);
 
-                        // TODO use same as other to get all fields right...
-                        String listOfPub = "select pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from pubs " +
-                                "where name like '%" + searchText.getText().toLowerCase() + "%';";
+                        if(!searchText.getText().equals("")) {
 
-                        ArrayList<ArrayList<Object>> SQLData4;
 
-                        SQLData4 = MysqlDriver.selectMany(listOfPub);
-                        ArrayList<Pub> pubListDetails = new ArrayList<Pub>();
+                            String listOfPub = "select pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from pubs " +
+                                    "where name like '%" + searchText.getText().toLowerCase() + "%';";
 
-                        for (int i = 0; i < SQLData4.size(); i++) {
-                            // Add a new Beer to the beer arraylist
-                            Pub pub = new Pub(SQLData4.get(i));
-                            pubListDetails.add(pub);
+                            ArrayList<ArrayList<Object>> SQLData4;
+
+                            SQLData4 = MysqlDriver.selectMany(listOfPub);
+                            ArrayList<Pub> pubListDetails = new ArrayList<Pub>();
+
+                            for (int i = 0; i < SQLData4.size(); i++) {
+                                // Add a new Beer to the beer arraylist
+                                Pub pub = new Pub(SQLData4.get(i));
+                                pubListDetails.add(pub);
+                            }
+
+                            PubData.pubs = pubListDetails;
                         }
-
-                        PubData.pubs = pubListDetails;
-
+                        else
+                        {
+                            PubData.pubs = new ArrayList<Pub>();
+                        }
                         return null;
                     }
                 };
@@ -579,24 +585,30 @@ public class HomeCenter extends BaseController implements Initializable
                         // load wheel until task is finished//
                         Load.setVisible(true);
 
-                        // TODO use same as other to get all fields right...
-                        String listOfPub = "select * from users " +
-                                "where username like '%" + searchText.getText().toLowerCase() + "%' " +
-                                "or fullName like '%" + searchText.getText().toLowerCase() + "%';";
+                        if(!searchText.getText().equals("")) {
 
-                        ArrayList<ArrayList<Object>> SQLData4;
 
-                        SQLData4 = MysqlDriver.selectMany(listOfPub);
-                        ArrayList<User> userListDetails = new ArrayList<User>();
+                            String listOfPub = "select * from users " +
+                                    "where username like '%" + searchText.getText().toLowerCase() + "%' " +
+                                    "or fullName like '%" + searchText.getText().toLowerCase() + "%';";
 
-                        for (int i = 0; i < SQLData4.size(); i++) {
-                            // Add a new Beer to the beer arraylist
-                            User user = new User(SQLData4.get(i));
-                            userListDetails.add(user);
+                            ArrayList<ArrayList<Object>> SQLData4;
+
+                            SQLData4 = MysqlDriver.selectMany(listOfPub);
+                            ArrayList<User> userListDetails = new ArrayList<User>();
+
+                            for (int i = 0; i < SQLData4.size(); i++) {
+                                // Add a new Beer to the beer arraylist
+                                User user = new User(SQLData4.get(i));
+                                userListDetails.add(user);
+                            }
+
+                            UserData.users = userListDetails;
                         }
-
-                        UserData.users = userListDetails;
-
+                        else
+                        {
+                            UserData.users = new ArrayList<User>();
+                        }
                         return null;
                     }
                 };
