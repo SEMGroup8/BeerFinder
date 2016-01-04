@@ -30,7 +30,7 @@
                   <Button fx:id="userSearchButton" layoutX="474.0" layoutY="195.0" mnemonicParsing="false" onAction="#userSearch" prefHeight="27.0" prefWidth="120.0" text="Search for Users" visible="false" />
                   <Button fx:id="showAllPubs" layoutX="602.0" layoutY="196.0" mnemonicParsing="false" onAction="#showAllPubs" text="Show All Pubs" visible="false" />
                   <Button fx:id="showAllUsers" layoutX="602.0" layoutY="195.0" mnemonicParsing="false" onAction="#showAllUsers" text="Show all users" visible="false" />
-                  <SplitPane fx:id="notWindow" dividerPositions="0.10101010101010101" layoutX="544.0" layoutY="28.0" orientation="VERTICAL" prefHeight="364.0" prefWidth="242.0">                  <items>
+                  <SplitPane fx:id="notWindow" dividerPositions="0.13" layoutX="544.0" layoutY="28.0" orientation="VERTICAL" prefHeight="364.0" prefWidth="242.0" styleClass="root" stylesheets="@../css/Main.css">                  <items>
                      <Label fx:id="notifications" text="Label" />
                         <ScrollPane hbarPolicy="NEVER" prefHeight="307.0" prefWidth="200.0">
                            <content>

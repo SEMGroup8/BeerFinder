@@ -128,7 +128,7 @@ public class HomeCenter extends BaseController implements Initializable
                             "and beers.package = package.packageID " +
                             "and (";
                     
-                    BeerData.searchInput += "name like '" + notification + "');";
+                    BeerData.searchInput += "name like '%" + notification + "%');";
                     
                     ArrayList<ArrayList<Object>> sqlData;
 
@@ -701,8 +701,6 @@ public class HomeCenter extends BaseController implements Initializable
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
         });
 
