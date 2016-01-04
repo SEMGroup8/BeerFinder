@@ -93,6 +93,7 @@ public class UserList extends BaseController implements Initializable {
 
                             try {
                                 mainScene.changeCenter("/com/group8/resources/views/otherUsersProfile.fxml");
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -108,6 +109,7 @@ public class UserList extends BaseController implements Initializable {
     }
 
     /**
+     * Created by Andreas Fransson
      * initialize result controller
      * @param location
      * @param resources
@@ -116,7 +118,7 @@ public class UserList extends BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-          Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
+          Navigation.current_CenterFXML = "/com/group8/resources/views/UserList.fxml";
           	/**
           	 * automatically loads the information of the pubs
           	 */
@@ -137,6 +139,7 @@ public class UserList extends BaseController implements Initializable {
                 TableCell<User, Image> cell = new TableCell<User, Image>() {
 
                     /**
+                     * created by Andreas Fransson
                      * Override the updateItem method to set a imageView
                      * @param item
                      * @param empty
@@ -159,8 +162,8 @@ public class UserList extends BaseController implements Initializable {
                                 VBox vb = new VBox();
                                 vb.setAlignment(Pos.CENTER);
                                 ImageView imgVw = new ImageView();
-                                imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
-                                imgVw.setFitWidth(20);
+                                imgVw.setImage(new Image(new File("src/com/group8/resources/Images/defaultIcon.png").toURI().toString()));
+                                imgVw.setFitWidth(40);
                                 imgVw.setFitHeight(40);
                                 vb.getChildren().addAll(imgVw);
                                 setGraphic(vb);

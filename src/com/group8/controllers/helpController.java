@@ -241,6 +241,7 @@ public class helpController extends BaseController implements Initializable{
         child_Programmer.getChildren().add(subChild_Barcode_scanner);
         child_Programmer.getChildren().add(subChild_Threading);
         child_Programmer.getChildren().add(subChild_User_Instance);
+        child_Programmer.getChildren().add(subChild_Google_Maps);
 
 
 

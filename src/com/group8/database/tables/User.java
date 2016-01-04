@@ -209,7 +209,7 @@ public class User extends MysqlDriver
     	/**
     	 * followers other users
     	 */
-    	String sqlQuery="select * from users, followUser where users.userId=followUser.id AND followUser.userId="+ UserData.userInstance.getId();
+    	String sqlQuery="select * from users, followUser where users.userId=followUser.id AND followUser.userId="+ id;
     	ArrayList<ArrayList<Object>>follower;
     	follower=MysqlDriver.selectMany(sqlQuery);
     	
@@ -312,7 +312,7 @@ public class User extends MysqlDriver
     public void insert()
     {
     	// Loads a default image for users pub when registering
-        File file = new File("src/com/group8/resources/Images/home.jpg");
+        File file = new File("src/com/group8/resources/Images/defaultIcon.png");
         FileInputStream imageStream = null;
         try {
 			imageStream = new FileInputStream(file);
