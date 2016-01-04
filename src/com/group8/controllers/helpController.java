@@ -30,7 +30,9 @@ public class helpController extends BaseController implements Initializable{
     @FXML
     public ImageView helpImage;
 
-
+    /**
+     * Created by Andreas Fransson
+     */
     public void getRow(){
         helpTree.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked
@@ -174,9 +176,11 @@ public class helpController extends BaseController implements Initializable{
     }
 
 
-
-
-
+    /**
+     * Created by Andreas Fransson
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
