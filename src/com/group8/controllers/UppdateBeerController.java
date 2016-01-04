@@ -239,7 +239,9 @@ public void updateBeer(ActionEvent event) throws IOException {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-    	beerName.setText(BeerData.selectedBeer.getName());
+		Navigation.current_CenterFXML = "/com/group8/resources/views/addBeer.fxml";
+
+		beerName.setText(BeerData.selectedBeer.getName());
     	beerDescription.setText(BeerData.selectedBeer.getDescription());
         beerPercentage.setText("" + BeerData.selectedBeer.getPercentage());
         beerVolume.setText("" + BeerData.selectedBeer.getVolume());
