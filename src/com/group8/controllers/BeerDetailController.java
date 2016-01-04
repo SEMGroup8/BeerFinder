@@ -378,6 +378,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     }
 
     /**
+     * Created by Andreas Fransson
      * Initialize beerDetail controller
      * @param location
      * @param resources

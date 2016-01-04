@@ -36,3 +36,7 @@
 .check-box{
     -fx-text-fill: white;
 }
+
+.choice-box .label {
+    -fx-text-fill: black;
+}

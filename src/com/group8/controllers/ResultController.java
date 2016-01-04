@@ -66,6 +66,7 @@ public class ResultController extends BaseController implements Initializable {
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
 
     /**
+     * Created by Andreas Fransson
      * Select a beer row and proceed to the beerDetail scene
      *
      * --> OnMouseClick get content of clicked row and store in BeerData.selectedBeer
@@ -110,6 +111,7 @@ public class ResultController extends BaseController implements Initializable {
 
 
     /**
+     * Created by Andreas Franssson
      * initialize result controller
      *
      *  --> Populateing the TableView
