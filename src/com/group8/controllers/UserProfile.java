@@ -338,7 +338,26 @@ public class UserProfile extends BaseController implements Initializable  {
 	 * @throws SQLException
 	 */
 	public void onUpdate(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
-	
+
+		final ListView<String> listView = new ListView<>();
+		ObservableList<String> list =FXCollections.observableArrayList (
+				"Sunday",
+				"Monday",
+				"Tuesday",
+				"Wednesday",
+				"Thursday",
+				"Friday",
+				"Saturday");
+		listView.setItems(list);
+
+		listView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				
+			}
+
+		});
 	// Setup the mysel connection
 	String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
 	String user = "Gr8";
@@ -369,6 +388,7 @@ public class UserProfile extends BaseController implements Initializable  {
 		if(imageStream!=null)
 		{
 			updateFoto();
+
 		}
 
 		String sqlQuery = "Select * from users where lower(username) = '" + UserData.userInstance.get_name().toLowerCase() + "';";
@@ -520,6 +540,8 @@ public class UserProfile extends BaseController implements Initializable  {
 
 	public void getRow(){
 
+		ObservableList<String> test = FXCollections.observableArrayList();
+
 		//Beer table
 		beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		// Select item will only be displayed when dubbleclicked
@@ -552,6 +574,7 @@ public class UserProfile extends BaseController implements Initializable  {
 	});
 
 		//Pub table
+
 		pubTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			// Select item will only be displayed when dubbleclicked
 

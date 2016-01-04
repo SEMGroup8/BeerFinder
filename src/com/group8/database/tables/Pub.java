@@ -43,6 +43,9 @@ public class Pub extends MysqlDriver{
     public Pub() {}
 
     /**
+     *
+     * Created by Andreas Fransson
+     *
      * Pub constructor.
      * @param query
      */
@@ -76,6 +79,9 @@ public class Pub extends MysqlDriver{
     }
 
     /**
+     *
+     * Created by Andreas Fransson
+     *
      * Pub constructor.
      * @param sqlReturn
      */
@@ -98,6 +104,9 @@ public class Pub extends MysqlDriver{
 
 
     /**
+     *
+     * Created by Andreas Fransson
+     *
      * Insert a pub into the pub table + add a address row in the address table that is
      * connected to that repective pub.
      * -->
@@ -126,9 +135,7 @@ public class Pub extends MysqlDriver{
         String url = "jdbc:mysql://sql.smallwhitebird.com:3306/beerfinder";
         String user = "Gr8";
         String password = "group8";
-        /**
-         * Created by Andreas Fransson
-         */
+
         try {
             con = DriverManager.getConnection(url, user, password);
         query = "Insert into pubAddress(addressID, address, latitude, longitude) values(NULL, 'no address', 57.7070392,11.932165);";
@@ -233,6 +240,9 @@ public class Pub extends MysqlDriver{
     }
 
     /**
+     *
+     * Created by Andreas Fransson
+     *
      * Return a JavaFX Image from the .pubImage by useing SwingFXUtils
      * @return
      */

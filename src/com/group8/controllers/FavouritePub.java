@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import com.group8.database.tables.Pub;
 import com.group8.singletons.*;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 
 import com.group8.singletons.Navigation;
 import com.group8.singletons.PubData;

@@ -54,6 +54,9 @@ public class AddressController extends BaseController implements Initializable,M
 
 
     /**
+     *
+     * Created by Andreas Fransson
+     *
      * Sets a label to the center coordinates of the map when button pressed.
      */
     public void getCenter(){
@@ -64,7 +67,7 @@ public class AddressController extends BaseController implements Initializable,M
     }
 
     /**
-     *
+     *Created by Andreas Fransson
      */
     public void addAddress(){
         img.setFitWidth(60);
@@ -107,6 +110,7 @@ public class AddressController extends BaseController implements Initializable,M
     }
 
     /**
+     * Created by Andreas Fransson
      * Initialize the Address window
      * @param location
      * @param resources
@@ -118,6 +122,7 @@ public class AddressController extends BaseController implements Initializable,M
     }
 
     /**
+     * Created by Andreas Fransson
      * Initialize the map
      */
     @Override
