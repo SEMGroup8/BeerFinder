@@ -30,17 +30,16 @@
                   <Button fx:id="userSearchButton" layoutX="474.0" layoutY="195.0" mnemonicParsing="false" onAction="#userSearch" prefHeight="27.0" prefWidth="120.0" text="Search for Users" visible="false" />
                   <Button fx:id="showAllPubs" layoutX="602.0" layoutY="196.0" mnemonicParsing="false" onAction="#showAllPubs" text="Show All Pubs" visible="false" />
                   <Button fx:id="showAllUsers" layoutX="602.0" layoutY="195.0" mnemonicParsing="false" onAction="#showAllUsers" text="Show all users" visible="false" />
-                  <SplitPane fx:id="notWindow" dividerPositions="0.10101010101010101" layoutX="14.0" layoutY="185.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                     <items>
-                        <Label fx:id="notifications" text="Label" />
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                  <SplitPane fx:id="notWindow" dividerPositions="0.10101010101010101" layoutX="544.0" layoutY="28.0" orientation="VERTICAL" prefHeight="364.0" prefWidth="242.0">                  <items>
+                     <Label fx:id="notifications" text="Label" />
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="307.0" prefWidth="200.0">
                            <content>
-                              <ListView fx:id="notList" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" />
+                              <ListView fx:id="notList" onMouseClicked="#getRow" prefHeight="339.0" prefWidth="240.0" />
                            </content>
                         </ScrollPane>
                      </items>
                   </SplitPane>
-                  <ToggleButton fx:id="notButton" layoutX="14.0" layoutY="149.0" mnemonicParsing="false" onAction="#onNot" prefHeight="28.0" prefWidth="28.0" selected="true" styleClass="not" stylesheets="@../css/Main.css" />
+                  <ToggleButton fx:id="notButton" layoutX="758.0" layoutY="14.0" mnemonicParsing="false" onAction="#onNot" prefHeight="28.0" prefWidth="28.0" selected="true" styleClass="not" stylesheets="@../css/Main.css" />
                </children>
             </AnchorPane>
          </children>

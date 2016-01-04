@@ -100,6 +100,9 @@ public class HomeCenter extends BaseController implements Initializable
 
     private Service<Void> backgroundThread;
 
+    /**
+     * Created by Joseph Roberto Delatolas
+     */
     public void getRow(){
         notList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked
@@ -111,9 +114,6 @@ public class HomeCenter extends BaseController implements Initializable
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
-                    // Show that we can select items and print it
-                    //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
-                    // Set the selectedBeer instance of beer we have to selected item
                     String notification = notList.getSelectionModel().getSelectedItem();
                     
                     String remove = "Delete from notifications where notification = '"+notification+"' and userId = "+UserData.userInstance.getId()+";";
@@ -121,8 +121,6 @@ public class HomeCenter extends BaseController implements Initializable
                     
                     notification = notification.substring(0, notification.indexOf(' ')); 
                     
-                    // load the details scene
-                    // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
                     BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
                             "from beers, beerType, origin, package " +
                             "where beers.beerTypeID = beerType.beerTypeID " +
@@ -877,7 +875,7 @@ public class HomeCenter extends BaseController implements Initializable
         beerScanSearchButton.setVisible(false);
        if(UserData.userInstance != null){
     	   notButton.setDisable(false);
-           String sqlSt = "Select notification from notifications where userId = "+ UserData.userInstance.getId() +";";
+           String sqlSt = "Select distinct notification from notifications where userId = "+ UserData.userInstance.getId() +";";
            ArrayList<ArrayList<Object>> notSql = MysqlDriver.selectMany(sqlSt);
            notNum = notSql.size();
            notButton.setText(notNum+"");

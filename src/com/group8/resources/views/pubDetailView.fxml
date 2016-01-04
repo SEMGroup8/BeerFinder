@@ -19,15 +19,6 @@
       <Label fx:id="pubEntranceFeeLabel" layoutX="476.0" layoutY="96.0" prefHeight="24.0" prefWidth="149.0" text="entrance fee" />
       <Label fx:id="phoneNumberLabel" layoutX="476.0" layoutY="119.0" prefHeight="16.0" prefWidth="149.0" text="phone number" />
       <ImageView fx:id="pubImage" fitHeight="220.0" fitWidth="309.0" layoutX="40.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox alignment="CENTER" layoutX="2.0" prefHeight="53.0" prefWidth="800.0">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="233.0" text="Pub Detail View">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
       <Label layoutX="430.0" layoutY="80.0" prefHeight="16.0" prefWidth="43.0" text="Offers:" />
       <Label layoutX="390.0" layoutY="100.0" text="Entrance fee:" />
       <Label layoutX="376.0" layoutY="119.0" text="Phone number:" />
@@ -36,6 +27,7 @@
       <Button fx:id="removeFromFavourites" layoutX="619.0" layoutY="191.0" mnemonicParsing="false" onAction="#removeFromFavourites" text="Remove From Favourites" visible="false" />
       <Label fx:id="added" layoutX="619.0" layoutY="168.0" prefHeight="16.0" prefWidth="167.0" text="Label" visible="false" />
       <Label fx:id="pubNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="101.0" prefHeight="53.0" prefWidth="233.0">
+      <CheckBox fx:id="follow" disable="false" layoutX="113.0" layoutY="352.0" mnemonicParsing="false" onAction="#toggleA" selected="true" visible="false" />
          <font>
             <Font size="33.0" />
          </font>

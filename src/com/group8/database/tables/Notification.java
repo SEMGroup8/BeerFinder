@@ -2,6 +2,8 @@ package com.group8.database.tables;
 import com.group8.database.MysqlDriver;
 
 /**
+ * Created by Iosif Roberto Delatolas
+ * 
  * Notification class to keep track of the notifications of each users favorite beers, pubs and users.
  */
 public class Notification extends MysqlDriver{
@@ -16,7 +18,6 @@ public class Notification extends MysqlDriver{
 	/**
 	 * Insert the subscribed value into the database
 	 * --> Using the MySqlDriver "insert" method.
-	 * 
 	 */
 	public void insertSubed(){
 		String sqlQuery = "update favoritePub set subed=" + subed + " where userId=" + userId + " and pubID=" + pubID + ";";

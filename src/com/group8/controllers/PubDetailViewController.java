@@ -13,7 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -71,13 +73,20 @@ public class PubDetailViewController extends BaseController implements Initializ
 				if(notAddedToFavourites())
 				{
 					addToFavouritesButton.setVisible(true);
+					follow.setVisible(true);
 				}
 				else
 				{
 					removeFromFavourites.setVisible(true);
+					follow.setVisible(false);
 				}
 			}
 		}
+	}
+ 	@FXML
+	public void toggleA(ActionEvent event) throws IOException{
+		String toggleA = "Update favouritePub set subed= "+(follow.isSelected()?1:0)+" where pubID = "+PubData.selectedPub.getPubId()+" and userId = "+UserData.userInstance.getId()+";";
+		MysqlDriver.update(toggleA);
 	}
 
 	public void onFavourites(ActionEvent event) throws Exception
@@ -90,6 +99,8 @@ public class PubDetailViewController extends BaseController implements Initializ
 
 			added.setText("Added to favourites!");
 			added.setVisible(true);
+
+			follow.setVisible(true);
 
 			addToFavouritesButton.setVisible(false);
 			removeFromFavourites.setVisible(true);
@@ -106,6 +117,8 @@ public class PubDetailViewController extends BaseController implements Initializ
 
 			added.setText("Removed from favourites!");
 			added.setVisible(true);
+
+			follow.setVisible(false);
 
 			removeFromFavourites.setVisible(false);
 

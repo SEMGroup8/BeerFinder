@@ -215,6 +215,11 @@ public class BeerDetailController extends BaseController implements Initializabl
     	 }
     }
 
+    @FXML
+    public void toggleA(ActionEvent event) throws IOException{
+    	String toggleA = "Update favourite set added= "+(follow.isSelected()?1:0)+" where beerID = "+BeerData.selectedBeer.getId()+" and userId = "+UserData.userInstance.getId()+";";            
+    	MysqlDriver.update(toggleA);
+    }
 
     /**
 	 * Created by Linus Eiderström Swahn.
@@ -365,6 +370,16 @@ public class BeerDetailController extends BaseController implements Initializabl
                             	String update = "Insert into notifications values (null, "+ready+", '"+notification+"');";
                             	MysqlDriver.insert(update);
                             }
+
+                            query = "Select userId from favouritePub where pubID = "+ UserData.userInstance.getPubId()+" and subed = 1;";
+                            ArrayList<ArrayList<Object>> getPubId = MysqlDriver.selectMany(query);
+                            for(int i=0; i<getPubId.size();i++){
+                            	int ready = Integer.parseInt(getPubId.get(i).get(0).toString());
+                            	String notification = BeerData.selectedBeer.getName()+
+                            			" has been added to "+ 
+                            			UserData.userInstance.getPub().getName();             
+                            	String update = "Insert into notifications values (null, "+ready+", '"+notification+"');";
+                            	MysqlDriver.insert(update);}
                             
 									dialog.close();
 
