@@ -43,12 +43,9 @@ public class helpController extends BaseController implements Initializable{
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
-                    //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
                     // Set the selectedBeer instance of beer we have to selected item
                     String active = helpTree.getSelectionModel().getSelectedItem().toString();
-                    System.out.println(active);
                      active = helpTree.getSelectionModel().getSelectedItem().getValue();
-                    System.out.println(active);
 
 
                     // load the details scene

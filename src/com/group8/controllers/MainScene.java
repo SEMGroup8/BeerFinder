@@ -155,9 +155,7 @@ public class MainScene implements Initializable {
 
         Navigation.breadcrubs.remove(Navigation.breadcrubs.size()-1);
 
-        for(int i =0; i <= Navigation.breadcrubs.size()-1;i++) {
-            System.out.println(" Nav  now ->" + i + " ->" + Navigation.breadcrubs.get(i));
-        }
+
 
 
         center.getChildren().clear();
@@ -254,14 +252,12 @@ public class MainScene implements Initializable {
                             // Update the beer list for changes
                             BeerData.beer = new ArrayList<Beer>();
                             ArrayList<ArrayList<Object>> sqlData;
-                            System.out.println(BeerData.searchInput);
                             sqlData = MysqlDriver.selectMany(BeerData.searchInput);
 
                             for (int i = 0; i < sqlData.size(); i++) {
                                 // Add a new Beer to the beer arraylist
                                 Beer beer = new Beer(sqlData.get(i));
                                 // Testoutput
-                                //System.out.print(beer.getName()+"\n");
                                 BeerData.beer.add(beer);
                             }
 

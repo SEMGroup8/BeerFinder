@@ -119,7 +119,7 @@ public class AddBeerController extends BaseController implements Initializable{
 				
 				
 				String thumbURL = file.toURI().toURL().toString();
-			//	System.out.println(thumbURL);
+
 				Image imgLoad = new Image(thumbURL);
 				beerImage.setImage(imgLoad);
 				}

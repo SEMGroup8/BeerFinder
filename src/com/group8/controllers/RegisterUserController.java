@@ -42,14 +42,14 @@ public class RegisterUserController extends BaseController {
     {
         if(!checkInput())
         {
-            System.out.println("in check input");
+
             return;
         }
 
         String selectQuery = "Select * from users where username = '" + username.getText().toLowerCase() + "';";
         if (!checkAvailability(selectQuery))
         {
-            System.out.println("In username check");
+
             usernameError.setText("Username is in use.");
             username.setStyle("-fx-border-color: red;");
 
@@ -60,7 +60,7 @@ public class RegisterUserController extends BaseController {
 
         if (!checkAvailability(selectQuery))
         {
-            System.out.println("In email check");
+
 
             emailError.setText("Email is in use.");
             email.setStyle("-fx-border-color: red;");

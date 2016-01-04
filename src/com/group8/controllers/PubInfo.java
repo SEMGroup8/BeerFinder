@@ -263,8 +263,7 @@ public class PubInfo extends BaseController implements Initializable{
 
 		// Set the statement to the prepared statement
 		PreparedStatement statement = con.prepareStatement(statmnt);
-		// Debug output
-		System.out.println("loaded an image? ->"+loadAnImage);
+
 		// if you loaded a new image set tthe binary stream
 		if(loadAnImage) {
 			statement.setBinaryStream(1, imageStream, (int) file.length());
@@ -318,7 +317,7 @@ public class PubInfo extends BaseController implements Initializable{
 
 
 			String thumbURL = file.toURI().toURL().toString();
-			//	System.out.println(thumbURL);
+
 			Image imgLoad = new Image(thumbURL);
 			pubImage.setImage(imgLoad);
 
@@ -327,9 +326,9 @@ public class PubInfo extends BaseController implements Initializable{
 			// If the user cancels the imageload the loadAnImage is set to false
 			// curently allso prints debug msg to console in form of boolean and file ( will be null )
 			//ex.printStackTrace();
-			System.out.println(file);
+
 			loadAnImage = false;
-			System.out.println(loadAnImage);
+
 		}
 	} // end of method
 
@@ -377,7 +376,7 @@ public class PubInfo extends BaseController implements Initializable{
 						// Store the address as lat and long doubles
 						latitude = BeerData.Address.getLatitude();
 						longitude = BeerData.Address.getLongitude();
-						System.out.println(latitude + " " + longitude);
+
 					}
 				}
 			});

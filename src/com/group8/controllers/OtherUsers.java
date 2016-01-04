@@ -131,7 +131,7 @@ public class OtherUsers extends BaseController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		userImage.setImage(UserData.selected.getImage());System.out.println(UserData.userInstance.getImage()+"   geniussss!!");
+		userImage.setImage(UserData.selected.getImage());
 		followLabel.setText(UserData.selected.get_name());
 		age.setText(""+UserData.selected.getAge());
 		fullname.setText(UserData.selected.getFullName());
@@ -188,7 +188,6 @@ public class OtherUsers extends BaseController implements Initializable {
 								imgVw.setFitWidth(20);
 								imgVw.setFitHeight(40);
 								// Test Output
-								//System.out.println(imgVw.getImage().toString());
 								vb.getChildren().addAll(imgVw);
 								setGraphic(vb);
 

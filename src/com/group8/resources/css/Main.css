@@ -20,14 +20,20 @@
 .button:hover {
     -fx-background-image:url("../Images/buttonH.png");
      -fx-text-fill: gold;
+
 }
 .button:onclick {
     -fx-background-image:url("../Images/buttonC.png");
 }
 /*.label {
     -fx-text-fill: white;
+
 }*/
 
 #helpButton:hover {
     -fx-background-image: url("../Images/helpButtonHover.png");
 } 
+
+.check-box{
+    -fx-text-fill: white;
+}

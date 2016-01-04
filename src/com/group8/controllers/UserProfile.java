@@ -172,7 +172,7 @@ public class UserProfile extends BaseController implements Initializable  {
                                 imgVw.setFitWidth(20);
                                 imgVw.setFitHeight(40);
                                 // Test Output
-                                //System.out.println(imgVw.getImage().toString());
+
                                 vb.getChildren().addAll(imgVw);
                                 setGraphic(vb);
 
@@ -466,7 +466,6 @@ public class UserProfile extends BaseController implements Initializable  {
 				||file.getName().contains(".jpeg")))
 		{
 			String thumbURL = file.toURI().toURL().toString();
-			//	System.out.println(thumbURL);
 			Image imgLoad = new Image(thumbURL);
 			userImage.setImage(imgLoad);
 			}
@@ -474,7 +473,7 @@ public class UserProfile extends BaseController implements Initializable  {
 			// If the user cancels the imageload the loadAnImage is set to false
 			// curently allso prints debug msg to console in form of boolean and file ( will be null )
 			//ex.printStackTrace();
-			System.out.println(file);
+
 			loadAnImage = false;
 		}
 }

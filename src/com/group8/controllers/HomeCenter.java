@@ -316,12 +316,9 @@ public class HomeCenter extends BaseController implements Initializable
                             // Add a new Beer to the beer arraylist
                             Beer beer = new Beer(sqlData.get(i));
                             // Testoutput
-                            System.out.print(beer.getName()+"\n");
                             BeerData.beer.add(beer);
                         }
-                        for(int i=0;i<BeerData.beer.size();i++){
-                            System.out.println(BeerData.beer.get(i).getName());
-                        }
+
 
                         return null;
                     }

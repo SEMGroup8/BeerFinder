@@ -34,18 +34,18 @@ public class AccountSettings extends BaseController implements Initializable
     {
         if(!checkInput())
         {
-            System.out.println("in check input");
+
             return;
         }
 
         String selectQuery = "Select * from users where email = '" + email.getText() + "' and "
                 + UserData.userInstance.getId() + " not in (select userId from users);";
 
-        System.out.println(selectQuery);
+
 
         if (!checkAvailability(selectQuery))
         {
-            System.out.println("In email check");
+
 
             emailError.setText("Email is in use.");
 

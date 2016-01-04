@@ -83,7 +83,7 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 				textarea.setText(result.getText());
 				HomeCenter.setBarcode(result.getText());
 				//HomeCenter.webcamLabel.setText(result.getText().toString());
-				System.out.println("This is from BeerScan: " + result.getText());
+
 
 				HomeCenter.checkIfbarcodeIsSet();
 
@@ -92,7 +92,7 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 
 				// Stop the thread
 				if(t != null){
-					System.out.println("Thread 31 before: " + t.isAlive());
+
 					try {
 						running = false;
 						t.join();
@@ -100,7 +100,7 @@ public class BeerScanner extends JFrame implements Runnable, ThreadFactory, Webc
 					catch (InterruptedException e){
 					}
 				}
-				System.out.println("Thread 31 after: " + t.isAlive());
+
 
 
 			}
