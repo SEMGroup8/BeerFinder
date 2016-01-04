@@ -115,6 +115,7 @@ public class UserProfile extends BaseController implements Initializable  {
 	public ObservableList<Pub> pubFavourites = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
 	public ObservableList<User> followedUsers = FXCollections.observableArrayList(UserData.userInstance.followedUsers);
 
+	ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
 
 
 	@FXML
@@ -376,6 +377,18 @@ public class UserProfile extends BaseController implements Initializable  {
 		User fetchedUser = new User(userData);
 
 		UserData.userInstance = fetchedUser;
+
+		// Show user password / username error
+		img.setFitWidth(60);
+		img.setFitHeight(60);
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Update");
+		alert.setHeaderText("Update");
+		alert.setContentText("Updated profile!");
+		alert.setGraphic(img);
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+		alert.showAndWait();
 	}
 
 	/**
