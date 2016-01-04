@@ -349,6 +349,7 @@ public class UserProfile extends BaseController implements Initializable  {
 		if(imageStream!=null)
 		{
 			updateFoto();
+
 		}
 
 		String sqlQuery = "Select * from users where lower(username) = '" + UserData.userInstance.get_name().toLowerCase() + "';";
