@@ -312,7 +312,7 @@ public class User extends MysqlDriver
     public void insert()
     {
     	// Loads a default image for users pub when registering
-        File file = new File("src/com/group8/resources/Images/home.jpg");
+        File file = new File("src/com/group8/resources/Images/defaultIcon.png");
         FileInputStream imageStream = null;
         try {
 			imageStream = new FileInputStream(file);

@@ -163,7 +163,7 @@ public class OtherUsers extends BaseController implements Initializable {
 		}else {
 			userImage.setImage(UserData.selected.getImage());
 		}
-		
+
 
 		age.setText(""+UserData.selected.getAge());
 		fullname.setText(UserData.selected.getFullName());
