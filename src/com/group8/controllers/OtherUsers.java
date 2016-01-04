@@ -239,7 +239,7 @@ public class OtherUsers extends BaseController implements Initializable {
 		//Populate the Tableview
 		beerTable.setItems(masterData);
 
-		
+
 
 		//You have to have a get function that is named get +" type" for it to work sets values.
 		pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("name"));
