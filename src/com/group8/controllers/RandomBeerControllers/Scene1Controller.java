@@ -43,8 +43,6 @@ public class Scene1Controller extends BaseController implements Initializable {
      *
      * First step of Random beer generator getting users preferences for price.
      */
-
-
     @FXML
         // Clicking button "Continue"
     void onContinueClick1(ActionEvent event) throws IOException {
@@ -59,8 +57,6 @@ public class Scene1Controller extends BaseController implements Initializable {
             pricePickedLow = (int) priceSlider.getLowValue();
             pricePickedHigh = (int) priceSlider.getHighValue();
         }
-        //System.out.println("Price picked:" + pricePickedLow + " and " + pricePickedHigh);
-
     }
 
     @FXML

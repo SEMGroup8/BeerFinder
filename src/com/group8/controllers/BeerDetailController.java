@@ -4,6 +4,7 @@ import com.group8.database.MysqlDriver;
 import com.group8.database.tables.BeerRank;
 
 import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
 import com.group8.singletons.UserData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

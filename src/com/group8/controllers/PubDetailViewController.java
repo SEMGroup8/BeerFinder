@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
+import com.group8.singletons.Navigation;
 import com.group8.singletons.PubData;
 import com.group8.singletons.UserData;
 import javafx.event.ActionEvent;

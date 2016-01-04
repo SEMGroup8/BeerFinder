@@ -2,6 +2,7 @@ package com.group8.controllers;
 
 import com.group8.database.tables.Beer;
 import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

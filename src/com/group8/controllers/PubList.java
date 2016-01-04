@@ -2,6 +2,7 @@ package com.group8.controllers;
 
 import com.group8.database.tables.Pub;
 
+import com.group8.singletons.Navigation;
 import com.group8.singletons.PubData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,7 +91,7 @@ public class PubList extends BaseController implements Initializable
     public void initialize(URL location, ResourceBundle resources) {
 
 
-          Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
+        Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
 
         // You have to have a get function that is named get +" type" for it to work sets values.
         pubName.setCellValueFactory(new PropertyValueFactory<Pub, String>("name"));

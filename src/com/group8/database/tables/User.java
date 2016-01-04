@@ -106,16 +106,12 @@ public class User extends MysqlDriver
            this.userImage = null;
        }
 
-        System.out.println(sqlReturn.get(5).toString());
-
         switch (sqlReturn.get(5).toString())
         {
 
         }
         this.isPub = Boolean.parseBoolean(sqlReturn.get(5).toString());
 
-        System.out.println(isPub);
-        
         if(isPub)
         {
         	this.pubId = Integer.parseInt(sqlReturn.get(6).toString());

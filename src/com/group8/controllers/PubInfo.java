@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import com.group8.database.tables.Beer;
 import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
 import com.group8.singletons.PubData;
 import com.group8.singletons.UserData;
 import com.lynden.gmapsfx.MainApp;
@@ -37,6 +38,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 /**
+ * Created by Collins
  * Pub information scene
  * --> Used to show the user information about his Pub
  * --> Gives the user the ability to change all information about his Pub
@@ -69,10 +71,6 @@ public class PubInfo extends BaseController implements Initializable{
 	@FXML
     public ImageView pubImage;
 	ImageView img= new ImageView((this.getClass().getResource("/com/group8/resources/Images/Icon_2.png").toString()));
-
-
-
-
 
 	//table for beers in Pub
     public TableView<Beer> beerTable;
@@ -353,38 +351,34 @@ public class PubInfo extends BaseController implements Initializable{
 	 */
 	public void getMap(javafx.event.ActionEvent event) throws IOException{
 
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/AddressMap.fxml"));
-			BorderPane page = loader.load();
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Add Your Location");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(Navigation.primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-			dialogStage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
-			// Show the dialog and wait until the user closes it
-			dialogStage.show();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(MainApp.class.getResource("/com/group8/resources/views/AddressMap.fxml"));
+		BorderPane page = loader.load();
+		// Create the dialog Stage.
+		Stage dialogStage = new Stage();
+		dialogStage.setTitle("Add Your Location");
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initOwner(Navigation.primaryStage);
+		Scene scene = new Scene(page);
+		dialogStage.setScene(scene);
+		dialogStage.getIcons().add(new Image("file:src/com/group8/resources/Images/Icon.png"));
+		// Show the dialog and wait until the user closes it
+		dialogStage.show();
 
+		// When exiting the window update the address and fetch the latlong
+		dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if(BeerData.Address != null) {
 
-			// Some real cool shit
-
-			// When exeting the window update the address and fetch the latlong
-			dialogStage.setOnHidden(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent event) {
-					if(BeerData.Address != null) {
-
-						// Store the address as lat and long doubles
-						latitude = BeerData.Address.getLatitude();
-						longitude = BeerData.Address.getLongitude();
-						System.out.println(latitude + " " + longitude);
-					}
+					// Store the address as lat and long doubles
+					latitude = BeerData.Address.getLatitude();
+					longitude = BeerData.Address.getLongitude();
 				}
-			});
+			}
+		});
 
-		}
+	}
 }
 
 	

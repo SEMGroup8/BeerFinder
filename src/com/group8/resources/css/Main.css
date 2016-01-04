@@ -24,9 +24,9 @@
 .button:onclick {
     -fx-background-image:url("../Images/buttonC.png");
 }
-/*.label {
+.label {
     -fx-text-fill: white;
-}*/
+}
 
 #helpButton:hover {
     -fx-background-image: url("../Images/helpButtonHover.png");

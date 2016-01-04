@@ -3,6 +3,7 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
+import com.group8.singletons.Navigation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -51,14 +52,12 @@ public class RegisterUserController extends BaseController {
     {
         if(!checkInput())
         {
-            System.out.println("in check input");
             return;
         }
 
         String selectQuery = "Select * from users where username = '" + username.getText().toLowerCase() + "';";
         if (!checkAvailability(selectQuery))
         {
-            System.out.println("In username check");
             usernameError.setText("Username is in use.");
             username.setStyle("-fx-border-color: red;");
 
@@ -69,8 +68,6 @@ public class RegisterUserController extends BaseController {
 
         if (!checkAvailability(selectQuery))
         {
-            System.out.println("In email check");
-
             emailError.setText("Email is in use.");
             email.setStyle("-fx-border-color: red;");
 
