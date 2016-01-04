@@ -148,13 +148,22 @@ public class OtherUsers extends BaseController implements Initializable {
 	File file;
 	boolean loadAnImage = false;
 	private Service<Void> backgroundThread;
-
+	/**
+	 * automatically loads the information of the logged in user
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+
 		/**
-		 * automatically loads the information of the logged in user 
+		 * Created by Andreas Fransson
 		 */
-		userImage.setImage(UserData.selected.getImage());
+		if(UserData.selected.getImage()==null){
+			userImage.setImage(new Image(new File("src/com/group8/resources/Images/defaultIcon.png").toURI().toString()));
+		}else {
+			userImage.setImage(UserData.selected.getImage());
+		}
+		
 
 		age.setText(""+UserData.selected.getAge());
 		fullname.setText(UserData.selected.getFullName());
@@ -207,7 +216,7 @@ public class OtherUsers extends BaseController implements Initializable {
 								VBox vb = new VBox();
 								vb.setAlignment(Pos.CENTER);
 								ImageView imgVw = new ImageView();
-								imgVw.setImage(new Image(new File("src/com/group8/resources/Images/defaultIcon.png").toURI().toString()));
+								imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
 								imgVw.setFitWidth(20);
 								imgVw.setFitHeight(40);
 								// Test Output
