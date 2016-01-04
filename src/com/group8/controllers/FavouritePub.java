@@ -31,13 +31,17 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 /**
- * Show users favourite searchForPubsCheckbox.
+ * Created by Collins
+ * Show users favorite searchForPubsCheckbox.
  * --> Follow function
  */
 public class FavouritePub extends BaseController implements Initializable {
 
 		@FXML
 		public Button Add;
+		/**
+		 * table for favorite pubs
+		 */
 		@FXML
 		public TableView<Pub> pubTable;
 	    @FXML
@@ -54,7 +58,10 @@ public class FavouritePub extends BaseController implements Initializable {
 	    public TableColumn<Pub, String> pubEntranceFee;
 	    @FXML
 	    public TableColumn<Pub, Image> image;
-	
+	    
+	    /**
+	     * convert array to arrayList
+	     */
 	    public ObservableList<Pub> masterData1 = FXCollections.observableArrayList(UserData.userInstance.pubFavouritesDetails);
 	    int userId=UserData.userInstance.getId();
 		int pubID = UserData.userInstance.getPubId();

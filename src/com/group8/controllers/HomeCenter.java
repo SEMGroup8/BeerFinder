@@ -560,6 +560,7 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     * Created by Collins
      * Show all existing Pubs
      * @param event
      * @throws Exception
@@ -577,7 +578,9 @@ public class HomeCenter extends BaseController implements Initializable
                         // load wheel until task is finished//
                         Load.setVisible(true);
 
-                        // TODO use same as other to get all fields right...
+                        /**
+                         * select all pubs from the database
+                         */
                         String listOfPub = "select pubID,`name`,image, `phoneNumber`, `description`, `offers`, `entrenceFee` from pubs";
                         ArrayList<ArrayList<Object>> SQLData4;
 
@@ -585,7 +588,7 @@ public class HomeCenter extends BaseController implements Initializable
                         ArrayList<Pub> pubListDetails = new ArrayList<Pub>();
 
                         for (int i = 0; i < SQLData4.size(); i++) {
-                            // Add a new Beer to the beer arraylist
+                            // Add a new Beer to the pub arraylist
                             Pub pub = new Pub(SQLData4.get(i));
                             pubListDetails.add(pub);
                         }
@@ -620,7 +623,7 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
-     *
+     *Created by Colllins
      * @param event
      * @throws IOException
      */

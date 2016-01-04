@@ -105,6 +105,9 @@ public class PubInfo extends BaseController implements Initializable{
 	FileInputStream imageStream ;
 	File file;
 	boolean loadAnImage = false;
+	/**
+	 * converts array into observable ArrayList
+	 */
 	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.beersInPub);
 
 	/**
@@ -141,7 +144,9 @@ public class PubInfo extends BaseController implements Initializable{
 
 	}
 
-
+/**
+ * it automatically sets the pub users information when he is logged in
+ */
 	public void initialize(URL location, ResourceBundle resources) {
 				
 		pubName.setText(PubData.loggedInPub.getName());
