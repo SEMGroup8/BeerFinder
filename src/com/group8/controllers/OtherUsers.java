@@ -162,7 +162,7 @@ public class OtherUsers extends BaseController implements Initializable {
 		email.setText(UserData.selected.getEmail());
 
 
-		Navigation.current_CenterFXML =  "/com/group8/resources/views/favourites.fxml";
+		Navigation.current_CenterFXML =  "/com/group8/resources/views/otherUsersProfile.fxml";
 
 		// You have to have a get function that is named get +" type" for it to work sets values.
 		beerName.setCellValueFactory(new PropertyValueFactory<Beer, String>("name"));

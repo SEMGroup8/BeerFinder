@@ -52,6 +52,7 @@ public class PubList extends BaseController implements Initializable
     public ObservableList<Pub> masterData = FXCollections.observableArrayList(PubData.pubs);
 
     /**
+     * Created by Andreas Fransson
      * Select a pub row and proceed to the beerDetail scene
      */
     public void getRow(){
@@ -85,6 +86,7 @@ public class PubList extends BaseController implements Initializable
     }
 
     /**
+     * Created by Andreas Fransson
      * initialize result controller
      * @param location
      * @param resources
@@ -115,6 +117,7 @@ public class PubList extends BaseController implements Initializable
                 TableCell<Pub, Image> cell = new TableCell<Pub, Image>() {
 
                     /**
+                     * Created by Andreas Fransson
                      * Override the updateItem method to set a imageView
                      * @param item
                      * @param empty

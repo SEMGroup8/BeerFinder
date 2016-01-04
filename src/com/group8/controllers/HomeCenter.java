@@ -720,22 +720,57 @@ public class HomeCenter extends BaseController implements Initializable
     @FXML
     public void showAllUsers(ActionEvent event) throws IOException
     {
-        String userList="select * from users where isPub="+0;
+        // Set background service diffrent from the UI fx thread to run stuff on( i know indentation is retarded)
+        backgroundThread = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
 
-        ArrayList<ArrayList<Object>> users;
-        users =	MysqlDriver.selectMany(userList);
-        ArrayList<User> allUsers = new ArrayList<User>();
+                        // load wheel until task is finished//
+                        Load.setVisible(true);
+                         String userList="select * from users where isPub="+0;
 
-        for (int i = 0; i < users.size(); i++) {
+                           ArrayList<ArrayList<Object>> users;
+                          users =	MysqlDriver.selectMany(userList);
+                          ArrayList<User> allUsers = new ArrayList<User>();
 
-            User newUser = new User(users.get(i));
+                            for (int i = 0; i < users.size(); i++) {
 
-            allUsers.add(newUser);
+                           User newUser = new User(users.get(i));
+
+                          allUsers.add(newUser);
         }
 
-        UserData.users = allUsers;
+                        UserData.users = allUsers;
+                        return null;
+                    }
+                };
+            }
+        };
 
-        mainScene.changeCenter("/com/group8/resources/views/userList.fxml");
+        backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                Load.setVisible(false);
+
+
+                // load the result stage
+                try {
+                    mainScene.changeCenter("/com/group8/resources/views/userList.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+
+        // Start thread
+        backgroundThread.start();
+
+
     }
 
 

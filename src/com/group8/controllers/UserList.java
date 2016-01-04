@@ -90,7 +90,7 @@ public class UserList extends BaseController implements Initializable {
                     backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                         @Override
                         public void handle(WorkerStateEvent event) {
-                            System.out.println("lol");
+
                             try {
                                 mainScene.changeCenter("/com/group8/resources/views/otherUsersProfile.fxml");
 
@@ -118,7 +118,7 @@ public class UserList extends BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-          Navigation.current_CenterFXML = "/com/group8/resources/views/pubList.fxml";
+          Navigation.current_CenterFXML = "/com/group8/resources/views/UserList.fxml";
           	/**
           	 * automatically loads the information of the pubs
           	 */
@@ -139,6 +139,7 @@ public class UserList extends BaseController implements Initializable {
                 TableCell<User, Image> cell = new TableCell<User, Image>() {
 
                     /**
+                     * created by Andreas Fransson
                      * Override the updateItem method to set a imageView
                      * @param item
                      * @param empty
