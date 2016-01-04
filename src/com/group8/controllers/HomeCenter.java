@@ -310,108 +310,109 @@ public class HomeCenter extends BaseController implements Initializable
                 return new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
-
-                        //Get source of pressed button
-                        Object source = event.getSource();
-
-                        // load wheel until task is finished//
-                        Load.setVisible(true);
-
-                        // Fetch the user input
-                        BeerData.searchInput="";
+                        
+                        if(!searchText.getText().equals("")){
 
 
-                        /**
-                         * SQL query
-                         *
-                         * Construct a query as a String dependent on user specifications
-                         */
+                            //Get source of pressed button
+                            Object source = event.getSource();
 
-                        //If request comes from the barcode scanner
-                        if(((Node)event.getSource()).getId() == beerScanSearchButton.getId()){
+                            // load wheel until task is finished//
+                            Load.setVisible(true);
 
-                            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag, barcode" +
-                                    " from beers, beerType, origin, package where " +
-                                    "beers.beerTypeID = beerType.beerTypeID " +
-                                    "and beers.originID = origin.originID " +
-                                    "and beers.package = package.packageID " +
-                                    "and (beers.barcode = " + barcode;
-                        }
-                        else
-                        {
-                            // name search is defualt
-                            BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
-                                    "from beers, beerType, origin, package " +
-                                    "where beers.beerTypeID = beerType.beerTypeID " +
-                                    "and beers.originID = origin.originID " +
-                                    "and beers.package = package.packageID " +
-                                    "and (";
+                            // Fetch the user input
+                            BeerData.searchInput = "";
 
-                            if (advancedName.isSelected()) {
-                                BeerData.searchInput += "name like '%" + searchText.getText() + "%'";
+
+                            /**
+                             * SQL query
+                             *
+                             * Construct a query as a String dependent on user specifications
+                             */
+
+                            //If request comes from the barcode scanner
+                            if (((Node) event.getSource()).getId() == beerScanSearchButton.getId()) {
+
+                                BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag, barcode" +
+                                        " from beers, beerType, origin, package where " +
+                                        "beers.beerTypeID = beerType.beerTypeID " +
+                                        "and beers.originID = origin.originID " +
+                                        "and beers.package = package.packageID " +
+                                        "and (beers.barcode = " + barcode;
+                            } else {
+                                // name search is defualt
+                                BeerData.searchInput = "SELECT distinct `beerID`,`name`,`image`,`description`,beerTypeEN,countryName, percentage, producerName, volume, isTap, packageTypeEN, price, avStars, countryFlag " +
+                                        "from beers, beerType, origin, package " +
+                                        "where beers.beerTypeID = beerType.beerTypeID " +
+                                        "and beers.originID = origin.originID " +
+                                        "and beers.package = package.packageID " +
+                                        "and (";
+
+                                if (advancedName.isSelected()) {
+                                    BeerData.searchInput += "name like '%" + searchText.getText() + "%'";
+                                }
+
+                                // Advanced
+                                if (advanced.isSelected()) {
+                                    // For reasons
+                                    int selectedIteams = 0;
+
+                                    if (advancedCountry.isSelected()) {
+                                        if (advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
+                                            BeerData.searchInput += " or countryName like '%" + searchText.getText() + "%'";
+                                            selectedIteams++;
+                                        } else {
+                                            BeerData.searchInput += "countryName like '%" + searchText.getText() + "%'";
+                                        }
+                                    }
+
+                                    if (advancedType.isSelected()) {
+                                        if (advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
+                                            BeerData.searchInput += " or beerTypeEN like '%" + searchText.getText() + "%'";
+                                            selectedIteams++;
+                                        } else {
+                                            BeerData.searchInput += "beerTypeEN like '%" + searchText.getText() + "%'";
+                                        }
+                                    }
+                                    if (advancedProducer.isSelected()) {
+                                        if (advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
+                                            BeerData.searchInput += " or producerName like '%" + searchText.getText() + "%'";
+                                            selectedIteams++;
+                                        } else {
+                                            BeerData.searchInput += "producerName like '%" + searchText.getText() + "%'";
+                                        }
+                                    }
+                                    if (advancedDescription.isSelected()) {
+                                        if (advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedCountry.isSelected()) {
+                                            BeerData.searchInput += " or description like '%" + searchText.getText() + "%'";
+                                            selectedIteams++;
+                                        } else {
+                                            BeerData.searchInput += "description like '%" + searchText.getText() + "%'";
+                                        }
+                                    }
+
+                                    if (!advancedName.isSelected() && selectedIteams > 1) {
+
+                                        BeerData.searchInput = BeerData.searchInput.substring(0, 260) + BeerData.searchInput.substring(262);
+                                    }
+                                }
                             }
 
-                            // Advanced
-                            if (advanced.isSelected()) {
-                                // For reasons
-                                int selectedIteams = 0;
+                            // Added a 100 beer limit as a safety for now / maybe have pages also?
+                            BeerData.searchInput += ") limit 100 ";
 
-                                if (advancedCountry.isSelected()) {
-                                    if (advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedDescription.isSelected()) {
-                                        BeerData.searchInput += " or countryName like '%" + searchText.getText() + "%'";
-                                        selectedIteams++;
-                                    } else {
-                                        BeerData.searchInput += "countryName like '%" + searchText.getText() + "%'";
-                                    }
-                                }
+                            // Execute user query
+                            ArrayList<ArrayList<Object>> sqlData;
 
-                                if (advancedType.isSelected()) {
-                                    if (advancedName.isSelected() || advancedProducer.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
-                                        BeerData.searchInput += " or beerTypeEN like '%" + searchText.getText() + "%'";
-                                        selectedIteams++;
-                                    } else {
-                                        BeerData.searchInput += "beerTypeEN like '%" + searchText.getText() + "%'";
-                                    }
-                                }
-                                if (advancedProducer.isSelected()) {
-                                    if (advancedName.isSelected() || advancedType.isSelected() || advancedDescription.isSelected() || advancedCountry.isSelected()) {
-                                        BeerData.searchInput += " or producerName like '%" + searchText.getText() + "%'";
-                                        selectedIteams++;
-                                    } else {
-                                        BeerData.searchInput += "producerName like '%" + searchText.getText() + "%'";
-                                    }
-                                }
-                                if (advancedDescription.isSelected()) {
-                                    if (advancedName.isSelected() || advancedProducer.isSelected() || advancedType.isSelected() || advancedCountry.isSelected()) {
-                                        BeerData.searchInput += " or description like '%" + searchText.getText() + "%'";
-                                        selectedIteams++;
-                                    } else {
-                                        BeerData.searchInput += "description like '%" + searchText.getText() + "%'";
-                                    }
-                                }
+                            sqlData = MysqlDriver.selectMany(BeerData.searchInput);
 
-                                if (!advancedName.isSelected() && selectedIteams > 1) {
-
-                                    BeerData.searchInput = BeerData.searchInput.substring(0, 260) + BeerData.searchInput.substring(262);
-                                }
+                            for (int i = 0; i < sqlData.size(); i++) {
+                                // Add a new Beer to the beer arraylist
+                                Beer beer = new Beer(sqlData.get(i));
+                                // Testoutput
+                                BeerData.beer.add(beer);
                             }
                         }
-
-                        // Added a 100 beer limit as a safety for now / maybe have pages also?
-                        BeerData.searchInput +=") limit 100 ";
-
-                        // Execute user query
-                        ArrayList<ArrayList<Object>> sqlData;
-
-                        sqlData = MysqlDriver.selectMany(BeerData.searchInput);
-
-                        for (int i = 0; i < sqlData.size(); i++) {
-                            // Add a new Beer to the beer arraylist
-                            Beer beer = new Beer(sqlData.get(i));
-                            // Testoutput
-                            BeerData.beer.add(beer);
-                        }
-
 
                         return null;
                     }
