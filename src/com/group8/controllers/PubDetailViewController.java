@@ -73,13 +73,19 @@ public class PubDetailViewController extends BaseController implements Initializ
 				if(notAddedToFavourites())
 				{
 					addToFavouritesButton.setVisible(true);
-					follow.setVisible(false);
 				}
 				else
 				{
 					removeFromFavourites.setVisible(true);
 					follow.setVisible(true);
+					if(MysqlDriver.select("select subed from favouritePub where pubID= "+PubData.selectedPub.getPubId()+" and userId= "+UserData.userInstance.getId()+";").toString()=="true"){
+						follow.setSelected(true);
+						System.out.println("Tadaaaa!");
+					}else{
+						follow.setSelected(false);
+						System.out.println("TadaNOT");
 					
+					}
 				}
 			}
 		}
@@ -102,7 +108,8 @@ public class PubDetailViewController extends BaseController implements Initializ
 			added.setVisible(true);
 
 			follow.setVisible(true);
-
+			follow.setSelected(true);
+			
 			addToFavouritesButton.setVisible(false);
 			removeFromFavourites.setVisible(true);
 		}
