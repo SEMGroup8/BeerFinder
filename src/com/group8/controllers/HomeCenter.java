@@ -109,7 +109,6 @@ public class HomeCenter extends BaseController implements Initializable
 
             /**
              * Dubleclick event
-             * @param event
              */
             @Override
             public void handle(MouseEvent event) {
@@ -165,7 +164,9 @@ public class HomeCenter extends BaseController implements Initializable
 
         });
     }
-    
+    /**
+     * Created by Joseph Roberto Delatolas
+     */
     public void onNot(){
     	if(notButton.isSelected()){
     		notWindow.setVisible(true);
@@ -637,6 +638,7 @@ public class HomeCenter extends BaseController implements Initializable
         backgroundThread.start();
     }
     /**
+     * Created by Mantas Namgaudis
      * Loads the random beer generator
      * @param event
      * @throws Exception
@@ -850,6 +852,7 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     * Created by Mantas Namgaudis
      * Runs swing component as javafx node.
      * @param webcam
      */
@@ -864,11 +867,16 @@ public class HomeCenter extends BaseController implements Initializable
             }
         });
     }
-
+    /**
+     * Created by Mantas Namgaudis
+     */
     public static void setBarcode(String string){
         barcode = string;
     }
 
+    /**
+     * Created by Mantas Namgaudis
+     */
     public static void checkIfbarcodeIsSet(){
 
         boolean running = true;
@@ -887,7 +895,9 @@ public class HomeCenter extends BaseController implements Initializable
         }
         while (running);
     }
-
+    /**
+     * Created by Mantas Namgaudis
+     */
     public void closeWebcam() {
         webcamStage.close();
         Navigation.primaryStage.setOpacity(1);
@@ -895,7 +905,7 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
-     * Created by Andreas Fransson.
+     * Created by Andreas Fransson and Joseph Roberto Delatolas separately.
      *  Initialize Main controller
      * @param location
      * @param resources
@@ -923,7 +933,5 @@ public class HomeCenter extends BaseController implements Initializable
            notWindow.setVisible(false);
        }
         Load.setStyle("-fx-accent: IVORY");
-        
     }
-
 }

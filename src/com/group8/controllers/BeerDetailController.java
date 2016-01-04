@@ -217,8 +217,12 @@ public class BeerDetailController extends BaseController implements Initializabl
 
     @FXML
     public void toggleA(ActionEvent event) throws IOException{
-    	String toggleA = "Update favourite set added= "+(follow.isSelected()?1:0)+" where beerID = "+BeerData.selectedBeer.getId()+" and userId = "+UserData.userInstance.getId()+";";            
+    	String toggleA = "Update favourites set added= "+(follow.isSelected()?1:0)+" where beerID = "+BeerData.selectedBeer.getId()+" and userId = "+UserData.userInstance.getId()+";";            
     	MysqlDriver.update(toggleA);
+    	follow.setText("Subscribed");
+    	if(!follow.isSelected()){
+    		follow.setText("Unsubscribed");
+    	}
     }
 
     /**
@@ -251,6 +255,8 @@ public class BeerDetailController extends BaseController implements Initializabl
                 favourite.setVisible(false);
 
                 removeFromFavouritesButton.setVisible(true);
+                
+                follow.setVisible(true);
 			}
         }
     }
@@ -282,6 +288,8 @@ public class BeerDetailController extends BaseController implements Initializabl
 
                 removeFromFavouritesButton.setVisible(false);
 
+                follow.setVisible(false);
+                
                 favourite.setVisible(true);
             }
         }
@@ -430,7 +438,6 @@ public class BeerDetailController extends BaseController implements Initializabl
                 if(notInPub())
                 {
                     addToPub.setVisible(true);
-                follow.setVisible(false);
                 }
                 else
                 {
@@ -442,10 +449,13 @@ public class BeerDetailController extends BaseController implements Initializabl
             {
                 if(notAddedToFavourites()) {
                     favourite.setVisible(true);
+                    follow.setVisible(false);
                 }
                 else
                 {
                     removeFromFavouritesButton.setVisible(true);
+                    
+                    follow.setVisible(true);
                 }
             }
         }

@@ -73,12 +73,13 @@ public class PubDetailViewController extends BaseController implements Initializ
 				if(notAddedToFavourites())
 				{
 					addToFavouritesButton.setVisible(true);
-					follow.setVisible(true);
+					follow.setVisible(false);
 				}
 				else
 				{
 					removeFromFavourites.setVisible(true);
-					follow.setVisible(false);
+					follow.setVisible(true);
+					
 				}
 			}
 		}
