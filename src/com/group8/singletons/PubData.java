@@ -1,4 +1,4 @@
-package com.group8.controllers;
+package com.group8.singletons;
 
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.MapMarker;

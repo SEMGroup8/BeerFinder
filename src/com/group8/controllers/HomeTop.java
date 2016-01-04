@@ -3,6 +3,9 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Pub;
 import com.group8.database.tables.User;
+import com.group8.singletons.Navigation;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -136,7 +139,8 @@ public class HomeTop extends BaseController{
                     // load the loggedinTOP
                     try {
                         mainScene.changeTop("/com/group8/resources/views/loggedInTop.fxml");
-
+                        // Reloads the current center element.
+                        mainScene.changeCenter(Navigation.current_CenterFXML);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

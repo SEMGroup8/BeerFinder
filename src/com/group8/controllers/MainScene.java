@@ -3,6 +3,8 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.MapMarker;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
 import com.lynden.gmapsfx.MainApp;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -155,9 +157,6 @@ public class MainScene implements Initializable {
 
         Navigation.breadcrubs.remove(Navigation.breadcrubs.size()-1);
 
-
-
-
         center.getChildren().clear();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
@@ -257,7 +256,6 @@ public class MainScene implements Initializable {
                             for (int i = 0; i < sqlData.size(); i++) {
                                 // Add a new Beer to the beer arraylist
                                 Beer beer = new Beer(sqlData.get(i));
-                                // Testoutput
                                 BeerData.beer.add(beer);
                             }
 
@@ -316,9 +314,9 @@ public class MainScene implements Initializable {
         BeerData.markers = new ArrayList<MapMarker>();
 
         String sqlQuery = "SELECT beerInPub.pubID, name, address, price, latitude, longitude, inStock " +
-                "from searchForPubsCheckbox, pubAddress, beerInPub " +
-                "where searchForPubsCheckbox.pubID = beerInPub.pubID " +
-                "and searchForPubsCheckbox.addressID = pubAddress.addressID " +
+                "from pubs, pubAddress, beerInPub " +
+                "where pubs.pubID = beerInPub.pubID " +
+                "and pubs.addressID = pubAddress.addressID " +
                 "and beerInPub.beerID = " + BeerData.selectedBeer.getId() + " " +
                 "order by price asc";
 

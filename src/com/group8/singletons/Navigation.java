@@ -1,4 +1,4 @@
-package com.group8.controllers;
+package com.group8.singletons;
 
 import javafx.stage.Stage;
 

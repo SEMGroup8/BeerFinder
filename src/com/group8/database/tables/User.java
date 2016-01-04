@@ -1,6 +1,6 @@
 package com.group8.database.tables;
 
-import com.group8.controllers.UserData;
+import com.group8.singletons.UserData;
 import com.group8.database.MysqlDriver;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -106,16 +106,12 @@ public class User extends MysqlDriver
            this.userImage = null;
        }
 
-        System.out.println(sqlReturn.get(5).toString());
-
         switch (sqlReturn.get(5).toString())
         {
 
         }
         this.isPub = Boolean.parseBoolean(sqlReturn.get(5).toString());
 
-        System.out.println(isPub);
-        
         if(isPub)
         {
         	this.pubId = Integer.parseInt(sqlReturn.get(6).toString());

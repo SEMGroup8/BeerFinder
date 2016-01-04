@@ -5,6 +5,10 @@ import com.group8.database.tables.Beer;
 import com.group8.database.tables.Pub;
 
 import com.group8.database.tables.User;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.Navigation;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -658,12 +662,26 @@ public class HomeCenter extends BaseController implements Initializable
     }
 
     /**
+     * Created by Mantas Namgaudis
+     *
      * Execute search on pressing "Enter" key.
      */
     @FXML
     public void searchEnterPressed(KeyEvent event){
         if (event.getCode() == KeyCode.ENTER) {
-            search.setDefaultButton(true);
+
+            if(searchForUsersCheckbox.isSelected())
+            {
+                userSearchButton.setDefaultButton(true);
+            }
+            else if(searchForPubsCheckbox.isSelected())
+            {
+                pubSearchButton.setDefaultButton(true);
+            }
+            else
+            {
+                search.setDefaultButton(true);
+            }
         }
     }
 
