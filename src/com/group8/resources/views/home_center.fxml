@@ -24,17 +24,17 @@
                   <ProgressIndicator fx:id="Load" layoutX="373.0" layoutY="97.0" visible="false" /><Button fx:id="showPubs" layoutX="450.0" layoutY="256.0" mnemonicParsing="false" onAction="#onShowPubs" prefHeight="27.0" prefWidth="105.0" text="Show all pubs" />
                   <Button fx:id="beerScanButton" layoutX="449.0" layoutY="163.0" mnemonicParsing="false" onAction="#onBeerScan" prefHeight="27.0" prefWidth="81.0" text="Beer scan" />
                   <Button fx:id="beerScanSearchButton" layoutX="163.0" layoutY="97.0" mnemonicParsing="false" onAction="#onSearch" text="Search barcode" />
-                  <SplitPane fx:id="notWindow" dividerPositions="0.10101010101010101" layoutX="14.0" layoutY="185.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                  <SplitPane fx:id="notWindow" dividerPositions="0.10101010101010101" layoutX="544.0" layoutY="28.0" orientation="VERTICAL" prefHeight="364.0" prefWidth="242.0">
                      <items>
                         <Label fx:id="notifications" text="Label" />
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="307.0" prefWidth="200.0">
                            <content>
-                              <ListView fx:id="notList" onMouseClicked="#getRow" prefHeight="200.0" prefWidth="200.0" />
+                              <ListView fx:id="notList" onMouseClicked="#getRow" prefHeight="339.0" prefWidth="240.0" />
                            </content>
                         </ScrollPane>
                      </items>
                   </SplitPane>
-                  <ToggleButton fx:id="notButton" layoutX="14.0" layoutY="149.0" mnemonicParsing="false" onAction="#onNot" prefHeight="28.0" prefWidth="28.0" selected="true" styleClass="not" stylesheets="@../css/Main.css" />
+                  <ToggleButton fx:id="notButton" layoutX="758.0" layoutY="14.0" mnemonicParsing="false" onAction="#onNot" prefHeight="28.0" prefWidth="28.0" selected="true" styleClass="not" stylesheets="@../css/Main.css" />
                </children>
             </AnchorPane>
          </children>

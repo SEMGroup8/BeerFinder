@@ -10,7 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -65,10 +67,15 @@ public class PubDetailViewController extends BaseController implements Initializ
 		if(UserData.userInstance!=null) {
 			if (!UserData.userInstance.getIsPub()) {
 				addToFavourites.setVisible(true);
+				follow.setVisible(true);
 			}
 		}
 	}
-
+	 @FXML
+	    public void toggleA(ActionEvent event) throws IOException{
+	    	String toggleA = "Update favouritePub set subed= "+(follow.isSelected()?1:0)+" where pubID = "+PubData.selectedPub.getPubId()+" and userId = "+UserData.userInstance.getId()+";";            
+	    	MysqlDriver.update(toggleA);
+	    }
 	public void onFavourites(ActionEvent event) throws Exception
 	{
 		if(UserData.userInstance!=null)
@@ -78,6 +85,8 @@ public class PubDetailViewController extends BaseController implements Initializ
 			MysqlDriver.insert(sqlQuery);
 
 			added.setVisible(true);
+			
+			follow.setDisable(false);
 		}
 	}
 }

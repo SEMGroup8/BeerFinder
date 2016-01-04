@@ -35,6 +35,7 @@
          </children>
       </HBox>
       <Button fx:id="addToFavourites" layoutX="134.0" layoutY="348.0" mnemonicParsing="false" onAction="#onFavourites" text="Add to Favourites" visible="false" />
+      <CheckBox fx:id="follow" disable="true" layoutX="113.0" layoutY="352.0" mnemonicParsing="false" onAction="#toggleA" selected="true" visible="false" />
       <Label fx:id="added" layoutX="136.0" layoutY="324.0" text="Added to Favourites" textAlignment="CENTER" visible="false" />
    </children>
 </AnchorPane>
