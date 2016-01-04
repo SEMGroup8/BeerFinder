@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 
 import com.group8.database.tables.Beer;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.PubData;
+import com.group8.singletons.UserData;
 import com.lynden.gmapsfx.MainApp;
 
 import javafx.collections.FXCollections;
@@ -27,7 +30,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;

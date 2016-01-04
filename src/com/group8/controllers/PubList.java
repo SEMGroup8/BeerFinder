@@ -2,6 +2,7 @@ package com.group8.controllers;
 
 import com.group8.database.tables.Pub;
 
+import com.group8.singletons.PubData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

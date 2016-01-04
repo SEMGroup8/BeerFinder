@@ -2,6 +2,8 @@ package com.group8.controllers;
 
 import com.group8.database.tables.MapMarker;
 import com.group8.database.tables.Pub;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.PubData;
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.*;

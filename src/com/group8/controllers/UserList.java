@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.group8.database.tables.User;
 
+import com.group8.singletons.UserData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;

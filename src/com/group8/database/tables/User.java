@@ -1,6 +1,6 @@
 package com.group8.database.tables;
 
-import com.group8.controllers.UserData;
+import com.group8.singletons.UserData;
 import com.group8.database.MysqlDriver;
 
 import javafx.embed.swing.SwingFXUtils;

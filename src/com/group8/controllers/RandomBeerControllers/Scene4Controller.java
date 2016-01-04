@@ -1,8 +1,8 @@
 package com.group8.controllers.RandomBeerControllers;
 
 import com.group8.controllers.BaseController;
-import com.group8.controllers.BeerData;
-import com.group8.controllers.UserData;
+import com.group8.singletons.BeerData;
+import com.group8.singletons.UserData;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.BeerRank;

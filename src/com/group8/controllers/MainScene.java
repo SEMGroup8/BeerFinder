@@ -3,6 +3,7 @@ package com.group8.controllers;
 import com.group8.database.MysqlDriver;
 import com.group8.database.tables.Beer;
 import com.group8.database.tables.MapMarker;
+import com.group8.singletons.BeerData;
 import com.lynden.gmapsfx.MainApp;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
