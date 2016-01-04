@@ -11,8 +11,7 @@
       <AnchorPane layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="800.0">
          <children>
             <ImageView fx:id="userImage" fitHeight="196.0" fitWidth="259.0" layoutX="48.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
-            <Button layoutX="202.0" layoutY="315.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="Profile Picture" />
-            <Text fill="#153386" layoutX="104.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Profile" wrappingWidth="314.6829261779785">
+            <Text fill="WHITE" layoutX="104.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Profile" wrappingWidth="314.6829261779785">
                <font>
                   <Font size="41.0" />
                </font>
@@ -29,17 +28,12 @@
                   <TableColumn fx:id="avrageRank" prefWidth="58.0" text="avRank" />
                </columns>
             </TableView>
-            <Text fill="#0f1fab" layoutX="313.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favourite Beer">
+            <Text fill="WHITE" layoutX="313.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favourite Beer">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
             <Button fx:id="followButton" layoutX="570.0" layoutY="491.0" mnemonicParsing="false" onAction="#followUser" text="follow" />
-            <Label fx:id="followLabel" layoutX="636.0" layoutY="492.0" prefHeight="26.0" prefWidth="150.0" textFill="#830202">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
             <TableView fx:id="pubTable" layoutX="311.0" layoutY="213.0" onMouseClicked="#getRow" prefHeight="136.0" prefWidth="485.0">
                <columns>
                   <TableColumn fx:id="image" prefWidth="69.0" resizable="false" text="Image" />
@@ -51,32 +45,32 @@
                   <TableColumn fx:id="pubEntranceFee" prefWidth="94.0" text="Entrance Fee" />
                </columns>
             </TableView>
-            <Text fill="#0f1fab" layoutX="313.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favourite Pub">
+            <Text fill="WHITE" layoutX="313.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Favourite Pub">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fill="#0f1fab" layoutX="313.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Followed">
+            <Text fill="WHITE" layoutX="313.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Followed">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fill="#0f1fab" layoutX="42.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age">
+            <Text fill="WHITE" layoutX="42.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fill="#0f1fab" layoutX="42.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+            <Text fill="WHITE" layoutX="42.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fill="#0f1fab" layoutX="42.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fullname">
+            <Text fill="WHITE" layoutX="42.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fullname">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text fill="#0f1fab" layoutX="42.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+            <Text fill="WHITE" layoutX="42.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
                <font>
                   <Font size="14.0" />
                </font>
