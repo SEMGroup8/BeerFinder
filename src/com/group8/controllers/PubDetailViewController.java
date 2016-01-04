@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import com.group8.database.MysqlDriver;
+import com.group8.singletons.BeerData;
 import com.group8.singletons.Navigation;
 import com.group8.singletons.PubData;
 import com.group8.singletons.UserData;
@@ -91,10 +92,14 @@ public class PubDetailViewController extends BaseController implements Initializ
 		}
 	}
  	@FXML
-	public void toggleA(ActionEvent event) throws IOException{
+    public void toggleA(ActionEvent event) throws IOException{
 		String toggleA = "Update favouritePub set subed= "+(follow.isSelected()?1:0)+" where pubID = "+PubData.selectedPub.getPubId()+" and userId = "+UserData.userInstance.getId()+";";
-		MysqlDriver.update(toggleA);
-	}
+    	MysqlDriver.update(toggleA);
+    	follow.setText("Subscribed");
+    	if(!follow.isSelected()){
+    		follow.setText("Unsubscribed");
+    	}
+    }
 
 	public void onFavourites(ActionEvent event) throws Exception
 	{
