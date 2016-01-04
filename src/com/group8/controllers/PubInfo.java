@@ -106,8 +106,10 @@ public class PubInfo extends BaseController implements Initializable{
 	File file;
 	boolean loadAnImage = false;
 	 public ObservableList<Beer> masterData = FXCollections.observableArrayList(UserData.userInstance.beersInPub);
-	
-	
+
+	/**
+	 *
+	 */
 	 public void getRow(){
 	        beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	            // Select item will only be displayed when dubbleclicked
@@ -225,11 +227,15 @@ public class PubInfo extends BaseController implements Initializable{
         beerTable.setItems(masterData);
 
     }
-		
-	
-	
-		 
-		
+
+
+	/**
+	 * Created by
+	 * @param event
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void updatePub(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
 		
 		float entrance = Float.parseFloat(pubEntranceFee.getText());

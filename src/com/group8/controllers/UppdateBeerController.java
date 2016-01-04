@@ -64,7 +64,14 @@ public class UppdateBeerController extends BaseController implements Initializab
 	public Button beerProducerButton;
 	FileInputStream imageStream;
 	File file;
-	
+
+	/**
+	 * Created by Felipe
+	 *
+	 *
+	 * @param event
+	 * @throws IOException
+	 */
 public void addBeerImage(ActionEvent event)throws IOException {
 
 	FileChooser fileChooser = new FileChooser();
