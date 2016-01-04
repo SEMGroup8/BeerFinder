@@ -28,7 +28,6 @@ import java.util.ResourceBundle;
 /**
  * Created by Andreas Fransson on 15-10-22.
  *
- * TODO Visual upgrade + presentation of objects + additional options
  * Show results from a beer search.
  * --> Used after the user has searched for a string of characters and gotten a result
  *     larger then "0", this then display them in a tableview wich is clickable.
@@ -57,11 +56,6 @@ public class ResultController extends BaseController implements Initializable {
     @FXML
     public TableColumn<Beer,String> beerPrice;
 
-
-
-
-
-
     // Setup an ObservableArraylist for the tableview
     public ObservableList<Beer> masterData = FXCollections.observableArrayList(BeerData.beer);
 
@@ -75,38 +69,31 @@ public class ResultController extends BaseController implements Initializable {
      */
     public void getRow(){
         beerTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            // Select item will only be displayed when dubbleclicked
+        // Select item will only be displayed when dubbleclicked
 
-            /**
-             * Dubleclick event
-             * @param event
-             */
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.getClickCount() == 2) {
-                        // Show that we can select items and print it
-                        //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
-                        // Set the selectedBeer instance of beer we have to selected item
-                        BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
-                        // load the details scene
-                        // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
-                        try {
-                            // TODO have to fix nameing
-                            mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
-                        } catch (IOException e) {
-                            // Print error msg
-                            e.printStackTrace();
-                        }
-
-
-
-
+        /**
+         * Dubleclick event
+         * @param event
+         */
+        @Override
+        public void handle(MouseEvent event) {
+            if (event.getClickCount() == 2) {
+                // Show that we can select items and print it
+                //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
+                // Set the selectedBeer instance of beer we have to selected item
+                BeerData.selectedBeer = beerTable.getSelectionModel().getSelectedItem();
+                // load the details scene
+                // Has to be in a tr / catch becouse of the event missmatch, ouseevent cant throw IOexceptions
+                try {
+                    // TODO have to fix nameing
+                    mainScene.changeCenter("/com/group8/resources/views/beerDetails_center.fxml");
+                } catch (IOException e) {
+                    // Print error msg
+                    e.printStackTrace();
                 }
             }
-
-        });
-
-
+        }
+    });
 }
 
 
