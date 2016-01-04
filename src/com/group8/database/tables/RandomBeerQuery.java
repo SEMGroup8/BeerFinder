@@ -25,7 +25,7 @@ public class RandomBeerQuery extends MysqlDriver {
     public String resultQuery() {
 
         if (scene3.getTypesPicked().equals("(") || scene3.getTypesPicked().equals(")")) {
-            query = "SELECT beerID,name,image,description,beerTypeEN,countryName,percentage,producerName,volume,isTap,packageTypeEN,price,avStars,countryFlag" +
+            query = "SELECT  distinct beerID,name,image,description,beerTypeEN,countryName,percentage,producerName,volume,isTap,packageTypeEN,price,avStars,countryFlag" +
                     " FROM beers, beerType, origin, package" +
                     " WHERE (price < " + scene1.getPricePickedHigh() +
                     " AND price > " + scene1.getPricePickedLow() +
@@ -33,10 +33,10 @@ public class RandomBeerQuery extends MysqlDriver {
                     " AND percentage > " + scene2.getPercentagePickedLow() +
                     " AND beers.beerTypeID = beerType.beerTypeID " +
                     " AND beers.originID = origin.originID " +
-                    " AND beers.package = package.packageID " + ")";
+                    " AND beers.package = package.packageID " + ") limit 100";
             //") order by rand() limit 0, 100";
         } else {
-            query = "SELECT beerID,name,image,description,beerTypeEN,countryName,percentage,producerName,volume,isTap,packageTypeEN,price,avStars,countryFlag" +
+            query = "SELECT  distinct beerID,name,image,description,beerTypeEN,countryName,percentage,producerName,volume,isTap,packageTypeEN,price,avStars,countryFlag" +
                     " FROM beers, beerType, origin, package" +
                     " WHERE (price < " + scene1.getPricePickedHigh() +
                     " AND price > " + scene1.getPricePickedLow() +
@@ -66,7 +66,7 @@ public class RandomBeerQuery extends MysqlDriver {
                 " WHERE beerID = " + integer +
                 " AND beers.beerTypeID = beerType.beerTypeID " +
                 " AND beers.originID = origin.originID " +
-                " AND beers.package = package.packageID ";
+                " AND beers.package = package.packageID limit 100";
 
         return query2;
     }

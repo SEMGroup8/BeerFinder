@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Scene3Controller extends BaseController {
 
-    static String typesPicked = "(";
+    static String typesPicked = "";
 
     @FXML
     private CheckBox OtherChecked;
@@ -49,7 +49,7 @@ public class Scene3Controller extends BaseController {
         // Clicking button "Continue"
     void onContinueClick3(ActionEvent event) throws IOException {
 
-        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene4.fxml");
+
 
         typesPicked = "(";
 
@@ -81,7 +81,8 @@ public class Scene3Controller extends BaseController {
         }
 
         typesPicked = typesPicked.substring(0, typesPicked.length() - 1) + ")";
-        //System.out.println("Types picked:" + typesPicked);
+        System.out.println("Types picked:" + typesPicked);
+        mainScene.changeCenter("/com/group8/resources/views/RandomBeerScenes/scene4.fxml");
 
     }
 

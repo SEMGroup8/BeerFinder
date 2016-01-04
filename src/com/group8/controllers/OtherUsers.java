@@ -207,7 +207,7 @@ public class OtherUsers extends BaseController implements Initializable {
 								VBox vb = new VBox();
 								vb.setAlignment(Pos.CENTER);
 								ImageView imgVw = new ImageView();
-								imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+								imgVw.setImage(new Image(new File("src/com/group8/resources/Images/defaultIcon.png").toURI().toString()));
 								imgVw.setFitWidth(20);
 								imgVw.setFitHeight(40);
 								// Test Output
@@ -271,7 +271,7 @@ public class OtherUsers extends BaseController implements Initializable {
 								VBox vb = new VBox();
 								vb.setAlignment(Pos.CENTER);
 								ImageView imgVw = new ImageView();
-								imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
+								imgVw.setImage(new Image(new File("src/com/group8/resources/Images/defaultIcon.png").toURI().toString()));
 								imgVw.setFitWidth(60);
 								imgVw.setFitHeight(40);
 								vb.getChildren().addAll(imgVw);

@@ -90,9 +90,10 @@ public class UserList extends BaseController implements Initializable {
                     backgroundThread.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                         @Override
                         public void handle(WorkerStateEvent event) {
-
+                            System.out.println("lol");
                             try {
                                 mainScene.changeCenter("/com/group8/resources/views/otherUsersProfile.fxml");
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -108,6 +109,7 @@ public class UserList extends BaseController implements Initializable {
     }
 
     /**
+     * Created by Andreas Fransson
      * initialize result controller
      * @param location
      * @param resources
@@ -159,8 +161,8 @@ public class UserList extends BaseController implements Initializable {
                                 VBox vb = new VBox();
                                 vb.setAlignment(Pos.CENTER);
                                 ImageView imgVw = new ImageView();
-                                imgVw.setImage(new Image(new File("src/com/group8/resources/Images/beerHasNoImage.png").toURI().toString()));
-                                imgVw.setFitWidth(20);
+                                imgVw.setImage(new Image(new File("src/com/group8/resources/Images/defaultIcon.png").toURI().toString()));
+                                imgVw.setFitWidth(40);
                                 imgVw.setFitHeight(40);
                                 vb.getChildren().addAll(imgVw);
                                 setGraphic(vb);
