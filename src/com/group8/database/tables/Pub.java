@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by
+ * Created by Andreas Fransson
  *
  * Class to represent Pubs.
  *
