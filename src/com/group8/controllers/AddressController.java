@@ -114,7 +114,7 @@ public class AddressController extends BaseController implements Initializable,M
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mapView.addMapInializedListener(this);
-        System.out.println("loaded test!");
+
     }
 
     /**
@@ -161,7 +161,6 @@ public class AddressController extends BaseController implements Initializable,M
         // Gets the position of a click without drag
         map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
             LatLong ll = new LatLong((JSObject) obj.getMember("latLng"));
-            System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
             click.setText(ll.toString());
         });
 
@@ -169,7 +168,6 @@ public class AddressController extends BaseController implements Initializable,M
         // Gets the center of the screen after the mouse button is released after a drag action.
         map.addUIEventHandler(UIEventType.mouseup, (JSObject obj) -> {
             LatLong l2 = new LatLong(map.getCenter().getLatitude(), map.getCenter().getLongitude());
-            //System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
             centerScreen.setText(l2.toString());
         });
 

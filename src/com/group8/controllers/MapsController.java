@@ -120,7 +120,7 @@ public class MapsController extends BaseController implements Initializable,MapC
                     // If we double click, we enter the pub details.
                 }else if(event.getClickCount() == 2){
                     int z = showPubs.getSelectionModel().getSelectedIndex();
-                    Pub selectedPub = new Pub("select * from searchForPubsCheckbox where pubID =" + BeerData.markers.get(z).getPubID());
+                    Pub selectedPub = new Pub("select * from pubs where pubID =" + BeerData.markers.get(z).getPubID());
                     PubData.selectedPub = selectedPub;
 
                     try {

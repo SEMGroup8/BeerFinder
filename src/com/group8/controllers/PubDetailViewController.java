@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * Created by Felipe Benjamin
  * Pub Detail View
  * --> Showing details about a specific chosen pub
  */
@@ -44,6 +45,7 @@ public class PubDetailViewController extends BaseController implements Initializ
 	public Label added;
 
 	/**
+	 * Created by Felipe Benjamin
 	 *	Place out all information about selectedPub in respective fields
 	 * @param location
 	 * @param resources

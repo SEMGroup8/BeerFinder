@@ -21,3 +21,6 @@
 .label {
 	-fx-text-fill: white;
 }
+choice-box{
+     -fx-text-fill: black;
+}

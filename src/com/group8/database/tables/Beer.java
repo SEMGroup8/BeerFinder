@@ -163,7 +163,7 @@ public class Beer extends MysqlDriver{
         if(this.image == null){
             image2 = null;
         }else{
-           // System.out.println("JA");
+
             image2 = SwingFXUtils.toFXImage(this.image, null);
         }
         return image2;
@@ -183,7 +183,6 @@ public class Beer extends MysqlDriver{
             flagImage = null;
         }else{
             flagImage = SwingFXUtils.toFXImage(this.countryFlag, null);
-            System.out.println("has image");
         }
         return flagImage;
     }

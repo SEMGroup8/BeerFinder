@@ -42,7 +42,7 @@ import javafx.stage.Stage;
 import com.group8.database.*;
 
 /**
- *
+ * Created by Felipe Benjamin
  * AddBeerController to let Pub Users add new beers to the Databse.
  * -->
  * TODO error handling, field highlightning etc
@@ -94,6 +94,7 @@ public class AddBeerController extends BaseController implements Initializable{
 	File file;
 
 	/**
+	 * Created by Felipe Benjamin
 	 * Pressing the add Image button will make a filechooser popup
 	 * --> requests a image of the JPG,PNG,JPEG types to load into
 	 *	   the imageview and upload to Database.
@@ -121,7 +122,7 @@ public class AddBeerController extends BaseController implements Initializable{
 				
 				
 				String thumbURL = file.toURI().toURL().toString();
-			//	System.out.println(thumbURL);
+
 				Image imgLoad = new Image(thumbURL);
 				beerImage.setImage(imgLoad);
 				}
@@ -129,7 +130,9 @@ public class AddBeerController extends BaseController implements Initializable{
 
 
 	/**
-	 * Pressing the Addbeer button this code will run and add the beer to the Database
+	 * Created by Felipe Benjamin
+	 * Pressing the Addbeer button this code will run and add the beer to the Database and notify the user if
+	 * it was done.
 	 * -->
 	 * @param event
 	 * @throws IOException
@@ -217,6 +220,7 @@ public class AddBeerController extends BaseController implements Initializable{
 
 
 	/**
+	 * Created by Felipe Benjamin
 	 * Initialize the AddBeerController
 	 * @param location
 	 * @param resources
@@ -287,6 +291,14 @@ public class AddBeerController extends BaseController implements Initializable{
 
 	}
 
+	/**
+	 * Created by Felipe Benjamin
+	 * Pressing the addProducer button this code will bring a pop up window where the user
+	 * can add a new producer of beers and save it to the database and finally update the information
+	 * in the producer choicebox.
+	 * @param event
+	 * @throws IOException
+	 */
 	public void addProducer(ActionEvent event) throws IOException {
 
 		final Stage dialog = new Stage();

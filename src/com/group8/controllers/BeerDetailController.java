@@ -378,6 +378,7 @@ public class BeerDetailController extends BaseController implements Initializabl
     }
 
     /**
+     * Created by Andreas Fransson
      * Initialize beerDetail controller
      * @param location
      * @param resources
@@ -435,7 +436,7 @@ public class BeerDetailController extends BaseController implements Initializabl
         }
         // Try loading the image, if there is none will use placeholder
         if (BeerData.selectedBeer.getImage() == null) {
-            System.out.println("No image! Will use Placeholder Image!");
+
         } else{
             showImage.setImage(BeerData.selectedBeer.getImage());
         }

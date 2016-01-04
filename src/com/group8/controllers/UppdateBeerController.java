@@ -1,6 +1,7 @@
 package com.group8.controllers;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -40,8 +41,18 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class UppdateBeerController extends BaseController implements Initializable {
 
+
+/**
+ * Created by Felipe Benjamin
+ * UpdateBeerController to let Pub Users to update beers stored in the databse.
+ * @author felipebenjamin
+ *
+ */
+
+public class UppdateBeerController extends BaseController implements Initializable {
+	
+	// Make Observeble Lists out of our ArrayLists
 	ObservableList<String> beerTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerPackageTypeList =FXCollections.observableArrayList();
 	ObservableList<String> beerProducerList=FXCollections.observableArrayList();
@@ -65,13 +76,16 @@ public class UppdateBeerController extends BaseController implements Initializab
 	FileInputStream imageStream;
 	File file;
 
+	
 	/**
-	 * Created by Felipe
-	 *
-	 *
+	 * Created by Felipe Benjamin
+	 * Pressing the add beer image button will make a filechooser popup
+	 * --> requests a image of the JPG,PNG,JPEG types to load into
+	 *	   the imageview and upload to Database.
 	 * @param event
 	 * @throws IOException
 	 */
+	
 public void addBeerImage(ActionEvent event)throws IOException {
 
 	FileChooser fileChooser = new FileChooser();
@@ -93,7 +107,16 @@ public void addBeerImage(ActionEvent event)throws IOException {
 		}
 	} // end of method
 
-	public void updateBeer(ActionEvent event) throws IOException {
+	
+/**
+ * Created by Felipe Benjamin
+ * Pressing the updatebeer button this code will run and update the beer back into the Database and notify the user if 
+ * it was done.
+ * -->
+ * @param event
+ * @throws IOException
+ */
+public void updateBeer(ActionEvent event) throws IOException {
 
 		String sqlQuery = "select beerTypeID from beerType where beerTypeEN = '" + beerType.getValue() + "'";
 
@@ -206,10 +229,19 @@ public void addBeerImage(ActionEvent event)throws IOException {
 		}
 	}// end of method
 
+
+/**
+ * Created by Felipe Benjamin
+ * Initialize the UpdateBeerController
+ * @param location
+ * @param resources
+ */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-    	beerName.setText(BeerData.selectedBeer.getName());
+		Navigation.current_CenterFXML = "/com/group8/resources/views/addBeer.fxml";
+
+		beerName.setText(BeerData.selectedBeer.getName());
     	beerDescription.setText(BeerData.selectedBeer.getDescription());
         beerPercentage.setText("" + BeerData.selectedBeer.getPercentage());
         beerVolume.setText("" + BeerData.selectedBeer.getVolume());
@@ -268,6 +300,16 @@ public void addBeerImage(ActionEvent event)throws IOException {
     	
 	}
 
+	
+	
+	/**
+	 * Created by Felipe Benjamin
+	 * Pressing the addProducer button this code will bring a pop up window where the user
+	 * can add a new producer of beers and save it to the database and finally update the information
+	 * in the producer choicebox.
+	 * @param event
+	 * @throws IOException
+	 */
 	public void addBeerProducer(ActionEvent event) throws IOException {
 		
 		final Stage dialog = new Stage();

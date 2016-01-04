@@ -30,7 +30,9 @@ public class helpController extends BaseController implements Initializable{
     @FXML
     public ImageView helpImage;
 
-
+    /**
+     * Created by Andreas Fransson
+     */
     public void getRow(){
         helpTree.setOnMouseClicked(new EventHandler<MouseEvent>() {
             // Select item will only be displayed when dubbleclicked
@@ -43,12 +45,9 @@ public class helpController extends BaseController implements Initializable{
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     // Show that we can select items and print it
-                    //System.out.println("clicked on " + beerTable.getSelectionModel().getSelectedItem());
                     // Set the selectedBeer instance of beer we have to selected item
                     String active = helpTree.getSelectionModel().getSelectedItem().toString();
-                    System.out.println(active);
                      active = helpTree.getSelectionModel().getSelectedItem().getValue();
-                    System.out.println(active);
 
 
                     // load the details scene
@@ -177,9 +176,11 @@ public class helpController extends BaseController implements Initializable{
     }
 
 
-
-
-
+    /**
+     * Created by Andreas Fransson
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
