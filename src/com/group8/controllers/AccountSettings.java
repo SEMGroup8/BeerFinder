@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import com.group8.singletons.*;
+
 
 /**
  * Created by Shiratori on 03/11/15.
